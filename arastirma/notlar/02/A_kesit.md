@@ -90,3 +90,96 @@ Source: Willett, Slingerland & Hovius 2001, American Journal of Science 301, 455
 - https://www.researchgate.net/...Byrne... (Arc-continent collision in Taiwan): blocked/short (214 chars).
 - https://www.geo.vu.nl/~andb/iberia/FlexureGeolsoc.pdf: 0 chars.
 - https://www.research-collection.ethz.ch/... (Alps lithospheric section, Ziegler 1996 tecto.earth.unibas.ch): 0 chars in initial attempt (not retried yet).
+
+## HIMALAYA, ADDITIONAL (Siwalik foreland fold-thrust belt, ten sections)
+Source: Hirschmiller et al. 2014, Geology (GSA), "What controls the growth of the Himalayan foreland fold-and-thrust belt?" (full PDF read, plain-text extraction) https://bodobookhagen.github.io/pdf/Hirschmiller14_Himalaya_FTB.pdf
+- Ten balanced sections along the arc, Siwalik Group (Middle Miocene to Pleistocene synorogenic). Total shortening 8.3-37.7 km and shortening velocity 3.20-9.66 mm/yr, no clear spatial pattern. Same URL.
+- Critical taper relation used by the authors: erosion rate x W x sec(alpha+beta) ~ e W = h V (e erosion rate, W wedge width, h incoming sediment thickness, V convergence velocity, alpha surface slope, beta basal dip). Same URL.
+- Belt width inversely correlated with rainfall; eastward convergence increase predicts wider belt but observed belt is narrower to the east, interpreted as surface processes controlling width. Same URL.
+- Tectonic steady state argued since convergence (~11 Ma) and monsoon (~12 Ma) constant. Same URL.
+
+## HIMALAYA-TIBET STRAIN AND Te (search snippets, partly verified)
+- Tectonophysics 797 (2020) 228642 (full text first page read): present-day geodetic shortening strain rate ~5-6e-16 /s; bounds on past rates via orogen shortening and plate convergence. Source: https://par.nsf.gov/servlets/purl/10200244 (note: this PDF is the Tectonophysics 2020 strain paper, NOT Hetenyi 2006; the Te numbers below are from a search snippet and are UNVERIFIED).
+- Search snippet (UNVERIFIED): Hetenyi et al. 2006 effective elastic thickness of India decreases northward from 60-80 km to 20-30 km under Himalaya/Tibet; central foreland ~70 km; Tibet interior <10 km (low Te). Recovered Te in Himalayan foreland 40 to >90 km across studies (controversial). Source found in search, not fetched: https://core.ac.uk/download/11857861.pdf (URL from search, UNVERIFIED).
+- Search snippet (UNVERIFIED): crust thickens from ~35 km under Indo-Gangetic Plain to ~70 km in southern Tibet (receiver functions); plateau crust ~70 km reached ~15 Ma.
+- DeCelles & Carrapa 2021 (earlier section) gives Himalayan foredeep flexure values (Dfl 3.0e23-1.0e24 N m).
+
+## ZAGROS, TAPER ANGLES (search and partial reads)
+- Mouthereau, Lacombe & Meyer 2006 GJI 165, 336 (abstract text via search snippet, UNVERIFIED for numbers): salt-based wedge alone cannot reproduce large-wavelength Zagros topography; basement-involved thickening needed since at least 10 Ma. Source: https://adsabs.harvard.edu/pdf/2006GeoJI.165..336M (not fetched).
+- EGU2010 abstract by Mouthereau (search snippet, UNVERIFIED): mean topographic slope ~0.5 deg for thin-skinned salt wedge. Source: https://meetingorganizer.copernicus.org/EGU2010/EGU2010-3711-1.pdf (not fetched).
+- Yamato et al. 2011 Geology (snippet only): crustal friction estimate ~5 deg from fold spacing. Not fetched.
+- Gomar et al. 2024 Solid Earth 15, 1479-1507 (PDF read): numerical models of Fars Arc with basement involvement and salt layer; thin-skinned models give flat surface taper; basement involvement increases thick-skinned share; taper angles depend on basal lower-boundary condition (model-specific, not field values). Source: https://se.copernicus.org/articles/15/1479/2024/se-15-1479-2024.pdf
+- Zagros field values for surface slope and basal dip NOT obtained from a primary source in this run.
+
+## ALPS, ELEVATION AND ROOT (search snippets, UNVERIFIED unless noted)
+- Kissling et al. 2017 Tectonics (snippet): central European Alps seismic root ~60 km thick while mean surface topography only ~2 km; mismatch with Airy isostasy. Source: https://boris.unibe.ch/113826/1/Kissling_et_al-2017-Tectonics.pdf (not fetched).
+- EGU25 abstract and 2021 SE receiver-function work (snippet): Moho up to 60-65 km in Eastern Alps European side; Adriatic Moho ~40 km; largest depression ~60 km beneath Tauern Window. Sources: https://se.copernicus.org/articles/12/2503/2021/se-12-2503-2021.html (not fetched).
+- Alpine swath-profile mean and peak elevations: NOT found. Monte Rosa width/height: NOT found.
+- Po/Adriatic flexure (search snippet, UNVERIFIED): Kruse & Royden 1994 Te ~5-10 km for Eocene-Oligocene loads, 10-15 km for later loads; Te ~10 km central Adriatic, ~15 km northern Adriatic and Po Plain. Source (search): https://www.researchgate.net (not retrieved) ; search returned https://repository.geologyscience.ru/bitstreams/bd071094-16e6-4bb4-889d-ac2ee1952a0a/download (not fetched). Schlunegger & Kissling 2015 cited Molasse basin 30 km Te claim NOT confirmed.
+- Mele et al. (central Po Plain electrostratigraphy) fetched but is a hydrogeology paper, no flexure data; discarded.
+
+## TAIWAN ELEVATION AND 10Be (search snippets, UNVERIFIED)
+- Central Range 10Be erosion rates ~0.1-10 mm/yr, terrain exhuming 3-5 mm/yr; northward increase in basin erosion rates correlated with channel steepness and mean cross-orogen elevation. Sources: https://agu.confex.com/agu/fm15/webprogram/Paper85967.html ; https://agu.confex.com/agu/fm15/webprogram/Paper74474.html (abstracts, not fetched).
+- Taiwan mean and peak elevation along a cross section: NOT found.
+
+## MOUNTAIN SCALING COMPILATIONS (search, UNVERIFIED)
+- EGU2009/2010 abstracts (Gobi Altai to Wind River, >50 belts, GTOPO30): weak to moderate correlations; no correlation between strain rate and belt width (r = -0.28); for convergent belts only, correlations ~0.5. Sources: https://meetingorganizer.copernicus.org/EGU2009/EGU2009-2311.pdf ; https://meetingorganizer.copernicus.org/EGU2010/EGU2010-10858.pdf (abstracts only).
+- Blomqvist & Whipp EGU2016: swath profiles of Himalaya, Andes, Taiwan, Olympics, Southern Alps, European Alps; no clean link of topographic metrics to erosion; profile shapes concave-up vs straight. Source: https://meetingorganizer.copernicus.org/EGU2016/EGU2016-6447.pdf?pdf (abstract only).
+- Wolf, Huismans, Braun & Yuan EGU22: Beaumont number Bm separates crust-controlled from erosion-controlled orogens; type 3 narrow width Wmin. Source: https://meetingorganizer.copernicus.org/EGU22/EGU22-8815.html (abstract only).
+- Appalachians (search snippets): Sak et al. 2012 Pennsylvania restored section 77 km (22%) shortening between Valley and Ridge south margin and foreland pin line, ~24 km on Plateau; Lammie et al. ~2020 West Virginia/Virginia 56 km (18%). Sources: https://sites.pitt.edu/~nmcq/Sak_etal_2012.pdf ; https://dickinson.hykucommons.org/concern/generic_works/a386075b-55da-4cdb-96d9-906f8239fb4d (not fetched).
+- Appalachian Blue Ridge/Piedmont widths and elevations: NOT found.
+
+## NEW FAILED OR UNUSED FETCHES
+- https://par.nsf.gov/servlets/purl/10486046 (Geology paper on flexural wave migration/orogen width, PDF read as zapatas.txt): it is the Li & Robinson 2023 EPSL India-Asia paper, not the flexure paper; discarded. The search had mislabeled it.
+- https://www.frontiersin.org (Caucasus) full text read via oku.py: OK.
+- https://meetingorganizer.copernicus.org ... not fetched (abstract-only).
+
+## Disagreements and ranges between sources
+- Pyrenees total shortening: 114-120 km (Teixell et al. 2016, west-central transect) vs 120-165 km along ECORS (virtualexplorer snippets, UNVERIFIED) vs ~160-180 km plate-kinematic Iberia-Europe convergence (CRGeos discussion). Source: https://comptes-rendus.academie-sciences.fr/geoscience/articles/10.1016/j.crte.2015.10.010/
+- Taiwan steady-state width: 96-98 km (Simoes et al. 2007) vs ~90 km (search abstract, UNVERIFIED). Propagation rate 31 (+10/-5) mm/yr (Simoes & Avouac 2006 as cited) vs 55-90 mm/yr (other sources cited there).
+- Alps shortening ~160 km (Schlunegger & Kissling 2015) vs 500-550 km convergence in Ziegler 1996 OCR (unreliable, different quantity).
+- Caucasus: Rioni 42.8 km (minimum, Frontiers 2022) vs >=170-200 km whole range (GSA 2018 snippet, UNVERIFIED) vs earlier estimates <100 to ~1000 km (same snippet).
+- Indian plate Te: 40 to >90 km in Himalayan foreland (search snippet, controversial); Hetenyi 2006 snippet 60-80 km -> 20-30 km northward; not verified in primary text.
+- Himalaya critical taper: Hirschmiller et al. 2014 find belt narrower east where convergence is faster, interpreted as rainfall/stream power control, against simple critical-taper prediction. Also DeCelles & Carrapa 2021 find Greater Himalaya taper (alpha >7, beta >9) incompatible with brittle critical wedge.
+- Zagros: salt-based critical wedge cannot reproduce topography (Mouthereau et al. 2006 abstract) vs thin-skinned flat-surface models (Gomar 2024); mean slope ~0.5 deg (EGU2010 abstract, UNVERIFIED).
+- Alps: flexure from topographic loads alone would need rising Alpine topography since 30 Ma (Schlunegger & Kissling 2015), inconsistent with paleoaltimetry; rollback proposed instead.
+
+## Key takeaways for the tool
+Numbers that are confirmed in primary text (fetched) and usable as defaults, each with a source URL in the sections above:
+1. Foreland: basement flexed ~5-6.5 km below sea level next to the Himalayan MFT, with foredeep fill 1-5 km thick (DeCelles & Carrapa 2021, https://par.nsf.gov/servlets/purl/10229963). Ebro basin fill is "several thousand m" (Teixell et al. 2016, https://comptes-rendus.academie-sciences.fr/geoscience/articles/10.1016/j.crte.2015.10.010/). Use ~1-5 km foredeep depth and ~100-200 km wide flexural wavelength as a first guess. Wavelength values are NOT confirmed as numbers in primary text, only inferred from the Himalaya load half-width of 150-200 km (DeCelles & Carrapa 2021).
+2. Effective elastic thickness: Himalaya Dfl 3e23 to 1e24 N m (DeCelles & Carrapa 2021). Arabian plate Te ~50 km (Snyder & Barazangi 1986, as cited in Mouthereau 2011). Adriatic/Po Te ~10-15 km (Kruse & Royden 1994 snippet, UNVERIFIED). Te is contested; the tool should expose it as a parameter with a 10-70 km range.
+3. Fold and thrust belt width: Himalayan Siwalik FTB total shortening 8.3-37.7 km with velocity 3.2-9.7 mm/yr (Hirschmiller et al. 2014). Taiwan wedge width 96-98 km, steady (Simoes et al. 2007). Zagros basement thrust spacing ~80 km (Mouthereau 2011).
+4. Taper: Himalaya central Nepal surface slope 0.1-0.55 deg in foredeep, ~1.6 deg Lesser Himalaya, 7.4-7.6 deg Greater Himalaya; basal dip 3 deg (foreland) to 6.6 deg (Lesser) to 9-10 deg (north of MCT) (DeCelles & Carrapa 2021). Taiwan: decollement dip ~17 deg steeper needed for steady width (Simoes & Avouac 2006, as cited). Critical taper relation tan(alpha+beta) ~ alpha+beta in radians for narrow wedges (Dahlen 1990, snippet, UNVERIFIED).
+5. Hinterland/plateau: Mouthereau 2011: Iranian plateau mean ~1.5 km, a ~2 km topographic step at the Zagros-plateau edge, crust 45 km under the Zagros folded belt, 70 km under Sanandaj-Sirjan, ~50 km north of it. Tibet crust ~70 km (search snippet, UNVERIFIED). Central European Alps root ~60 km with mean elevation ~2 km (Kissling et al. 2017 snippet, UNVERIFIED).
+6. Shortening totals (confirmed): Pyrenees ~114 km (west-central), Alps ~160 km (Schlunegger & Kissling 2015), Taiwan ~42 mm/yr across belt rate. Shortening rates: Pyrenees 2.5-3 mm/yr in the Eocene; Zagros 7-10 mm/yr now (Mouthereau 2011); Taiwan ~42 mm/yr.
+7. Time to steady state: 1 to 50 Myr for uplift 0.1-1 mm/yr and orogen 50-200 km wide (Willett, Slingerland & Hovius 2001, https://ajsonline.org/article/88260.pdf). Taiwan is near steady in width but not in peak metamorphic temperature (Simoes et al. 2007).
+8. Erosion/exhumation: Zagros High Zagros exhumation 0.2-0.4 km/Myr (Mouthereau 2011); Taiwan underplating uplift 4-6 mm/yr with erosion nearly equal (Simoes et al. 2007); Central Range 10Be 0.1-10 mm/yr (search snippets only).
+9. Old belt contrast: Urals crust >=40 km, root 3-5 km deeper under the central Urals (Tectonophysics 276, 1997, https://www.isterre.fr/IMG/pdf/Tectonophysics_1997_276_19-33.pdf); Caucasus Rioni 42.8 km minimum shortening, >7 km foreland fill (https://www.frontiersin.org/articles/10.3389/feart.2022.968386/full).
+10. Gaps the tool must fill with explicit assumptions: Alps and Taiwan mean and peak elevation profiles, Ebro basin width, Himalaya flexural wavelength in km, critical taper angles for Zagros and Pyrenees, and any global swath-profile compilation with fitted width-height scaling. None was found as a primary source in this run.
+
+## URLs read (full text or primary PDF)
+- https://par.nsf.gov/servlets/purl/10229963 (DeCelles & Carrapa 2021)
+- https://www.cambridge.org/core/services/aop-cambridge-core/content/view/19E9DEA9D3C59A77EFB14BFA4B36A1E2/S0016756811000306a.pdf/... (Mouthereau 2011, read earlier)
+- https://comptes-rendus.academie-sciences.fr/geoscience/articles/10.1016/j.crte.2015.10.010/ (Teixell et al. 2016)
+- https://basin.earth.ncu.edu.tw/download/lab%20reading/Taiwan%20geology/Simoes,%20S.etal._2007_Mountain%20building%20in%20Taiwan%20-%20A%20thermokinematic%20model.pdf (Simoes et al. 2007)
+- https://www.nature.com/articles/ncomms9605 (Schlunegger & Kissling 2015)
+- https://tecto.earth.unibas.ch/Members/Schmid/Publications/055_Ziegleretal1996.pdf (Ziegler et al. 1996, OCR, partial)
+- https://ajsonline.org/article/88260.pdf (Willett, Slingerland & Hovius 2001)
+- https://www.frontiersin.org/articles/10.3389/feart.2022.968386/full (Rioni, Caucasus 2022)
+- https://www.isterre.fr/IMG/pdf/Tectonophysics_1997_276_19-33.pdf (Urals seismic, 1997)
+- https://bodobookhagen.github.io/pdf/Hirschmiller14_Himalaya_FTB.pdf (Hirschmiller et al. 2014)
+- https://par.nsf.gov/servlets/purl/10200244 (Tectonophysics 797, 2020 Himalaya-Tibet strain)
+- https://se.copernicus.org/articles/15/1479/2024/se-15-1479-2024.pdf (Gomar et al. 2024, models)
+- https://par.nsf.gov/servlets/purl/10486046 (Li & Robinson 2023, EPSL; not relevant to flexure)
+- https://air.unimi.it/bitstream/2434/581395/2/MELE_ET_AL_IJES.pdf (Mele et al., hydrogeology; not used)
+- Mouthereau 2011 and DeCelles 2021 were read in the earlier run (see top of this file).
+
+## Failed fetches
+- https://www.researchgate.net/...Byrne... (Taiwan arc-continent): 214 chars, blocked.
+- https://www.geo.vu.nl/~andb/iberia/FlexureGeolsoc.pdf: 0 chars.
+- https://www.research-collection.ethz.ch/... (Alps flexure): 0 chars, not retried.
+- https://planetarygeoscience.uchicago.edu/doc/Dahlen_Annual_Reviews.pdf (Dahlen 1990): curl SSL certificate verification failed; not bypassed.
+- https://www.frontiersin.org search-result variants: fine.
+- https://adsabs.harvard.edu/pdf/2006GeoJI.165..336M, https://meetingorganizer.copernicus.org/... abstracts, core.ac.uk Hetenyi PDF: search snippets only, not fetched.
+- WebFetch tool not used (disabled in this environment).
+- trafilatura on PDFs returns 0 chars; PDFs were handled with curl and pdftotext.

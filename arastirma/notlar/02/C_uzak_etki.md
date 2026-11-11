@@ -109,3 +109,53 @@ Note on access: https://www.geologie.ens.fr/~ecalais/publications/grl_calais_200
 - Hercynian faults controlled Triassic basin location (search summary). UNVERIFIED.
 - Inversion may have begun in the Cretaceous (search summaries). Topography high despite modest shortening: lithospheric thinning alone insufficient, upwelling component needed (lithosphere-discontinuity paper, ANU portal). https://researchportalplus.anu.edu.au/en/publications/reactivated-lithospheric-scale-discontinuities-localize-dynamic-u/ UNVERIFIED
 - Urals / East European craton: see section 9 (EGU 2011 abstract, UNVERIFIED).
+
+## 18. Mongolian plateau elevation and basins (secondary sources; weak)
+- Mongolian Plateau average elevation "915 to 1,525 m" (Wikipedia entry, search summary); other sources give ~1000-1500 m. Highest point Tavan Bogd 4374 m (secondary). https://en.wikipedia.org/wiki/Mongolian_Plateau UNVERIFIED (encyclopedia, no primary).
+- Mongolia national mean elevation ~1580 m (different quantity; not the plateau mean). UNVERIFIED.
+- Gobi and Ordos mean elevations: NOT found in any read source. Still open. Chinese Ordos plateau value needs a search on Chinese geology sources.
+- Owner target 1000-2000 m is consistent with these secondary plateau means and with the Molin et al. statement that continental plateaus are typically >1000 m (section 13). Tibet-like 4500 m is far outside the Mongolian data except local Hangai dome (>4000 m interior, Lehigh page, section 6).
+
+## 19. How far deformation reaches from the indenter (search summaries; disagreement)
+- Tapponnier et al. 1982 (Geology): indenter "has penetrated at least 2,000 km into Asia", citing Molnar and Tapponnier 1975 (search summary, pdf at earthjay mirror, UNVERIFIED primary). https://earthjay.com/earthquakes/20210521_china/tapponnier_etal_1982_extrusion_tectonics_asia.pdf
+- A review describes a ~3000 km wide region of extensional deformation (search summary; not read). UNVERIFIED.
+- Replumaz et al. and van Hinsbergen 2011 (search summary): geology in Tibet inconsistent with 750-1250 km Indochina extrusion; Pamir-Hindu Kush absorbed ~1050 km N-S convergence; 2012 tomography: ~1300 km convergence absorbed by Asia during indentation. UNVERIFIED primaries. Sources: https://www.geologist.nl/wp-content/uploads/2016/11/2011_vanHinsbergen_Tectonics.pdf and https://www.isterre.fr/IMG/pdf/Replumaz_2012_tomoTibet.pdf
+- Jolivet et al. 2018 Tectonics (search hit, not read). https://arts.units.it/retrieve/e2913fdc-5455-f688-e053-3705fe0a67e0/Jolivet_et_al-2018-Tectonics-compressed.pdf UNVERIFIED.
+- Distances as sourced: Tian Shan ~1500 km from boundary (Huangfu 2021 summary, UNVERIFIED); Baikal >2000 km from active plate boundary (search summary, UNVERIFIED); Altai and Gobi Altai treated as "farther into the continental interior" (Ramel 2025, read). Indenter penetration >=2000 km (Tapponnier 1982, UNVERIFIED primary).
+- Pre-existing belts reactivated at 100s km (Jolivet 2013, read): Mesozoic Transbaikal grabens reactivated several 100 km from BRS.
+
+
+## URLs read (full text or full extracted text unless marked)
+- https://www.isterre.fr/IMG/pdf/jolivet_et_al_gondwana_research_2013.pdf (full)
+- https://www.isterre.fr/IMG/pdf/jolivet_et_al_jaes_2013.pdf (full)
+- https://par.nsf.gov/servlets/purl/10402322 (Richter et al., GSA Bulletin; full)
+- https://pmc.ncbi.nlm.nih.gov/articles/PMC4246285 (PNAS Tarim; HTML, partial)
+- https://egusphere.copernicus.org/preprints/2025/egusphere-2025-5016/egusphere-2025-5016.pdf (Ramel 2025 preprint; full)
+- https://web.uvic.ca/~enissen/papers/nissen-etal-2009-EPSL.pdf (Nissen 2009; full)
+- https://gfzpublic.gfz-potsdam.de/pubman/item/item_5008231_2/component/file_5008322/5008231.pdf (Jiao et al. 2021 Bogda; full)
+- https://iris.uniroma3.it/retrieve/cdea49ae-acb9-4ab7-aee9-5095c7b02867/Molin-et-al-Tectonics_2023.pdf (Molin 2023; abstract and parts)
+- https://iris.uniroma3.it/retrieve/ded8f2f2-4f96-4d41-bab7-23554425e241/27_Lanari-et-al-ESR_2023_compressed.pdf (Lanari 2023; abstract and intro)
+- https://eesarchive.lehigh.edu/groups/mongolia/indepth/hightopography.html (project page)
+- https://se.copernicus.org/articles/16/503/2025/ and https://www.frontiersin.org/journals/earth-science/articles/10.3389/feart.2021.793890/full (earlier run, already logged in section 1)
+- https://nora.nerc.ac.uk/id/eprint/531322/1/2021GL095413.pdf (earlier run)
+- https://meetingorganizer.copernicus.org/EGU2009/EGU2009-362.pdf (earlier run)
+- Search summaries only (NOT full text, UNVERIFIED): WebSearch results for Calais 2006, Zubovich 2010, Huangfu 2021, Tapponnier 1976/1982, Vilotte 1986, Fournier 2004, Atlas papers, Te papers, Mongolia elevation, Wikipedia Mongolian Plateau, Replumaz/van Hinsbergen, Sun 2013, Caves GSA Today, Palaeo 2013/2015, EGU 2011/2026 abstracts.
+
+## Failed fetches
+- https://www.geologie.ens.fr/~ecalais/publications/grl_calais_2006.pdf: TLS certificate chain not trusted, even with --cacert /root/.ccr/ca-bundle.crt (host-side problem; the proxy status reported bundle covers all hosts). Not read.
+- https://www.geologie.ens.fr/~madariag/Papers/Vilotte-etal-GJI-1986.pdf: same host, not attempted after first failure (assumed same cause).
+- https://hal.archives-ouvertes.fr/hal-00021626/file/Fournier_et_HAL_GJI_2004.pdf: returned an HTML "Making sure you're not a bot" page, not a PDF.
+- https://dspace.mit.edu/bitstream/1721.1/75344/1/Hager%20-%20%20GPS.pdf (Zubovich 2010 copy): returned HTML redirect/bot-check page. Not read.
+- Huangfu et al. 2021 GRL full text: no open copy reached (gdlab.ucas.edu.cn and vufind mirror are abstracts/metadata).
+- Tapponnier and Molnar 1976 (nature.com/articles/264319a0.pdf): not fetched (paywalled likely).
+- No fetch was made of Baikal onset papers (Arzhannikova 2011), Mouthereau Zagros paper, Zhao 2025 (read in earlier run).
+
+## Key takeaways for the tool
+1. Lag: far-field uplift lags collision onset by a long time, not a fixed speed. Evidence: Junggar-margin Tian Shan uplift/exhumation increase ~25 Ma (Jiao et al. 2021, full text); Altai onset 28-5 Ma with Har-Us-Nuur faulting only ~2 Ma (Nissen 2009, full text); Tarim Sea retreat ~34 Ma (Richter, full text); Qaidam basin fill ~25.5 Ma (search summary). Suggested rule (design choice, not a source number): onset_far = t_collision + lag, lag roughly 10-30 Myr at 1500-2500 km, with the lag shortened where old structures are present. Mark the lag range as UNVERIFIED in the tool.
+2. Reactivation localizes on inherited structure: Transbaikal Mesozoic grabens reactivated hundreds of km away (Jolivet 2013, full text); Altai Paleozoic structures reactivated, 20-5 Ma (Ramel 2025, full text); Atlas Triassic-Liassic faults inverted (search summary). Rule: a map of old belts with flags for "weak" (Paleozoic/Mesozoic rift or suture) and "strong" (craton); activate the weak ones at distance first.
+3. Rigid blocks take little internal shortening and push deformation to their margins: Tarim, Ordos, Siberia have high Te (Tarim 66 km heat-flow, up to 110 km flexure; Sichuan 10-40 km), Tarim interior elevations 780-1300 m (HK sheet, UNVERIFIED primary). Rule: stiff cells (Te high) get low relief and fault-bounded margins; weak cells (Te low, e.g. western Sichuan 10-20 km) absorb more strain.
+4. Mongolian bowl: plateau mean ~915-1525 m (Wikipedia, UNVERIFIED primary) and Hangai dome interior >4000 m only locally. Mechanism unresolved: mantle upwelling (Zhejiang MTZ study, abstract), delamination (LAB seismic, abstract), or isostasy from crustal thickening; Jolivet 2013 says no wide plume is imaged; Durham page says heat flow is moderate. The tool should not force one mechanism; expose "dynamic support" as a parameter (Molin 2023 estimates ~500 m dynamic support of ~2000 m uplift in Eastern Anatolia as a comparable number).
+5. Shortening budgets to scale far-field relief: Altai 10-20% of India-Asia shortening (Calais 2003/2006 via Ramel 2025, UNVERIFIED primary); Altai dextral 4-6 mm/yr (Ramel 2025 full text); Tian Shan foreland shortening 35.3 +/- 3.5 km, ~3 mm/yr since 12 Ma (Richter, full text); Bogda piedmont <1 mm/yr vs 3-5 mm/yr west of Urumqi (Jiao 2021, full text). Far-field rates are a few mm/yr, not tens; so the far-field relief budget is small per My, and accumulates over 10-30 Myr.
+6. Rain shadow: interior drying follows range growth with a lag of about 10 Myr in the Tarim record (barrier formed after ~12 Ma, Richter full text). Tarim lake disappearance ~4.9 Ma (PNAS, from search summary). Interpretation disputed: global cooling vs tectonic uplift (PNAS: "difficult to disentangle"). Rule: climate can be a flag or a lagged function of range height, not a hard causal link.
+7. Distance: the far-field reach is roughly 1500-2500 km from the front in these sources (Tian Shan ~1500 km; Altai, Baikal >2000 km; Tapponnier 1982 indenter penetration >=2000 km). The owner's "thousands of km" is at the upper bound and is not directly supported beyond ~2500 km by any read source. Use a decay with distance rather than a hard cutoff.
+8. Caveats: Calais 2006 (key GPS source for Mongolia) could not be read; Huangfu 2021 "30 Myr lag" conflicts with its own summary text; several Qilian/Kunlun dates disagree by up to ~20 Myr (early Paleocene to late Miocene). Prefer the Jiao 2021, Nissen 2009, Richter et al. (GSA Bulletin), Molin 2023 full-text values in the tool.
