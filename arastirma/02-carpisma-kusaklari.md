@@ -8,6 +8,7 @@ Etiketler:
 - **[T]** Tek makalenin ya da tek laboratuvar serisinin iddiası; başka kaynakla çapraz denetlenmedi.
 - **[Ö]** Arama özetinden alındı, birincil metin okunamadı, doğrulanamadı.
 - **[H]** Bizim hesabımız; girdileri belgede.
+- **[E]** Ansiklopedi düzeyi (Vikipedi ya da Britannica); yalnızca düz coğrafi bilgi için, birbirini tutmayabilir.
 - **[Y]** Bulunamadı; araç bu değeri açıkça varsayım olarak kullanmalı.
 
 ## Kısa sonuç
@@ -63,16 +64,18 @@ Roe, Stolar ve Willett (2006): Durağan kuşakta toplam rölyef R ile yarı geni
 ## 2. Ön ülke havzası
 
 - Ön çukur dolgusu: Himalaya 1 ile 5 km [B], Kafkaslar 7 km'den fazla [B], Pireneler "birkaç bin metre" [B].
-- Esneklik: Himalaya için 3 × 10^23 ile 1 × 10^24 N m [B]. Hint levhasının etkin elastik kalınlığı için yayınlanan değerler 40 ile 90 km'nin üstüne kadar dağılıyor ve tartışmalı; kuzeye doğru 60 ile 80 km'den 20 ile 30 km'ye düştüğü bir çalışmadan [Ö]. Arap levhası yaklaşık 50 km [B]. Adriyatik ve Po ovası için 10 ile 15 km [Ö].
-- Esneklik dalga boyunu km olarak veren bir birincil kaynak bulunamadı [Y]. Yalnızca Himalaya yükünün yarı genişliği (150 ile 200 km) var, bu da ilk tahmin olarak ön çukurun yaklaşık 100 ile 200 km genişliğinde olabileceğini gösteriyor. Bunu varsayım diye işaretlemek gerekir.
-- Po ve Molasse ovalarının, Ebro havzasının genişliği [Y].
+- Esneklik: Himalaya için 3 × 10^23 ile 1 × 10^24 N m [B]. Hint levhasının etkin elastik kalınlığı kuzeye doğru 60 ile 80 km'den 20 ile 30 km'ye düşüyor; ön ülke havzasının tabanı yaklaşık 5 km derinlikte, kabuk Gang ovası altında yaklaşık 35 km'den güney Tibet'te yaklaşık 70 km'ye kalınlaşıyor (Hetenyi ve diğerleri 2006, özet okundu [B]). Başka çalışmalarda aynı levha için değerler 40 ile 90 km'nin üstüne kadar dağılıyor ve tartışmalı [Ö].
+- Ön ülke havzasının boyutu: Nepal ön ülkesinde yaklaşık 5 km derinlik, kuzey güney yaklaşık 200 km boyunca (Duvall ve diğerleri 2021, [B]; DeCelles ve Carrapa'nın 190 km'siyle tutarlı).
+- Diğer ön ülkeler: Zagros ön ülke derinliği kuşak boyunca 1 ile 6 km, Arap levhasının etkin elastik kalınlığı yaklaşık 50 km (Pirouz ve diğerleri 2017, özet [B]). Adriyatik ve Po: Eosen ve Oligosen yükleri için 5 ile 10 km, daha genç yükler için 10 ile 15 km, Po ovasında 15 km (Kruse ve Royden 1994, özet [B]).
+- Esneklik dalga boyunu km olarak veren bir birincil kaynak bulunamadı [Y]. Ön ülke genişliği (yaklaşık 200 km) ve yük yarı genişliği (150 ile 200 km) var; dalga boyunu bunlardan türetmek bir varsayım olur ve öyle işaretlenmeli [H]. Ganj havzasının toplam genişliği ve Ebro, Po, Molasse havza genişlikleri de bulunamadı [Y].
 
 ## 3. Kama açısı ve kuşak genişliği
 
 - Kritik kama kuramı (Davis ve diğerleri 1983; Dahlen 1990): Sabit bir toplam açı (yüzey eğimi artı dekolman eğimi) korunur. Kuramın temel metnine (Dahlen 1990) erişilemedi; bu yüzden bağıntı arama özetinden [Ö].
 - Himalaya'da toplam kama açısı ön çukurda yaklaşık 2,6 ile 3,1 derece, Alçak Himalaya'da 6,5 ile 8,5 derece [B].
 - Kuşak genişliği tektonikle olduğu kadar yüzey süreçleriyle de ayarlanıyor. Hirschmiller ve diğerleri (2014) Himalaya'da doğuya doğru yakınsama arttığı halde kuşağın daraldığını buldu ve bunu yağış ve aşınma kontrolüyle açıkladı [B]. DeCelles ve Carrapa ise Yüksek Himalaya'nın kama açısının kırılgan kritik kama ile uyumsuz olduğunu söylüyor [B]. İki sonuç aynı yöne işaret ediyor: genişliği yalnızca kinematik belirlemiyor.
-- Zagros için sahadan alınmış yüzey eğimi ve dekolman eğimi bulunamadı [Y]. Tuzlu dekolmanlı kama tek başına büyük dalga boylu topografiyi üretemiyor, temel bindirmesi gerekiyor [Ö].
+- Zagros (Mouthereau, Lacombe ve Meyer 2006, tam metin okundu [B]): Fars kıvrımlı kuşağı yaklaşık 200 km genişlikte; kuşak boyunca ortalama yüzey eğimi 0,3 ile 0,5 derece; restore edilmiş kesitlerden temel eğimi 0,5 derece. Sürtünmeli kritik kamalar "esasen topografik olarak düz" ve gözlenen eğimi tutturamıyor. Modelin en iyi uyan kırılgan sünek kamaları 0,9 ve 1,36 derece. Tuz tabanlı kıvrım ve bindirme kuşaklarında kama açısı genelde 1 dereceden az (Davis ve Engelder 1985, atıf). Yani tuzlu bir dekolman, Himalaya'nın 7 derecelik yüzey eğiminden çok daha yassı bir kuşak üretiyor.
+- Pireneler'in kama ve dekolman açısı bulunamadı [Y]. Meigs ve Burbank (1997) özetine göre kama açısını alt levhanın esneklik sertliği, kuşağın ön ve arkasında rölyef oluşum hızı, kamadaki tortul birikimi ve kamanın tektonik öncesi eğimi belirliyor [Ö].
 - Birçok kuşağı birlikte karşılaştıran genişlik ve yükseklik ilişkisi için yalnızca özetler var: 50'den fazla kuşakta zayıf ile orta düzey korelasyonlar, yakınsak kuşaklarda yaklaşık 0,5 [Ö]. Aracın genişlik ve yükseklik varsayılanlarını tek bir "evrensel yasadan" türetemeyiz.
 
 ## 4. Plan geometrisi: çarpan bloğun biçimi kuşağı nasıl belirler
@@ -129,7 +132,7 @@ Brief'in kuralı: bir çarpışma yalnızca ana kuşağı değil, binlerce km uz
 - **Hızlar küçük.** Altay'da yılda 4 ile 6 mm doğrultu atımlı kayma (Ramel 2025, [B]); Tien Shan ön ülkesinde 12 milyon yıldır yaklaşık 3 mm/yıl, toplam 35,3 ± 3,5 km (Richter, [B]). Altay, Hindistan ve Asya kısalmasının yüzde 10 ile 20'sini üstleniyor (Calais, [Ö]). Yani uzak etki yılda birkaç mm ile 10 ile 30 milyon yıl boyunca birikir.
 - **Sert bloklar.** Tarım havzasının etkin elastik kalınlığı ısı akısından 66 ± 7 km, esnemeden 110 km'ye kadar; yöntemler karşılaştırılamaz [B ve Ö]. Sert bloklar (Tarım, Ordos, Sibirya) deformasyonu kenarlarına iter; Tien Shan'ın yükselmesi için çevredeki sert blokların varlığı gerekli (modeller, [Ö]).
 - **Yağış gölgesi gecikmeli.** Tarım'ın kuzeybatısında engel yaklaşık 12 milyon yıl önce yükseldikten sonra çöl oluştu; çanağın kuruması yükselmeyi yaklaşık 10 milyon yıl geriden izledi (Richter, [B]). İklimsel soğumanın payı ayrılamıyor.
-- **Moğolistan platosu.** Ortalama yüksekliği yaklaşık 915 ile 1525 m (Vikipedi, zayıf kaynak [Ö]); Hangay kubbesinin içi yer yer 4000 m'nin üstünde (Lehigh proje sayfası, [Ö]). Oluşum mekanizması çözülmemiş: manto yükselmesi, litosfer kopması ya da miras kabuk kalınlaşması. Jolivet ve diğerleri (2013) geniş bir plume görüntülenmediğini söylüyor [B]. Bu platonun çarpışmayla doğrudan bağı kaynaklarda net değil.
+- **Moğolistan platosu.** Ortalama yükseklik için birincil kaynak bulunamadı; ansiklopedi düzeyinde 915 ile 1525 m [E]. Jolivet ve diğerleri (2007, Geology, tam metin okundu [B]): Gobi Altay ve Altay'ın zirve düzlükleri yaklaşık 4000 m'de (Ih Bogd'da 3600 m), Göller Vadisi ise yaklaşık 1000 m'lik düz bir ova; yükselme yaklaşık 5 ± 3 milyon yıl önce başlamış. Hangay kubbesinde kabuk 50 ile 53 km, litosfer 65 ile 70 km ve yükseklik kabuk kalınlığıyla yakın izostatik dengede; miras kabuk kalınlaşması öncü, astenosfer yükselmesi ikincil (Wu ve diğerleri 2026, özet okundu [B]). Hangay'ın iç kısmının yer yer 4000 m'nin üstüne çıktığı bir proje sayfasından ve arama özetinden geliyor [Ö]; kaynak okunamadı. Oluşum mekanizması çözülmemiş: manto yükselmesi, litosfer kopması ya da miras kabuk kalınlaşması; Jolivet ve diğerleri (2013) geniş bir plume görüntülenmediğini söylüyor [B]. Bu platonun çarpışmayla doğrudan bağı kaynaklarda net değil.
 - **Doğu Anadolu platosu** bir karşılaştırma noktası: yaklaşık 2000 m, kısmen dinamik destekli, iki basamakta (10 ile 11 ve yaklaşık 5 milyon yıl önce) yükselmiş [B].
 
 ## 7. Hareketten yükselmeye: kurallar ve bütçeler
@@ -171,31 +174,87 @@ Burada gerçek dünyadan bir çelişki var ve onu açıkça belirtmek gerekiyor:
 - Seçenekler: (a) Kuşağın arkasında kalın bir plato bırak (Tibet benzeri, 4,5 km); bu senin bozkır isteğinle çelişir, çünkü 4500 m soğuk çöl verir. (b) Çarpışmayı daha az güçlü ve daha kısa tut (Zagros benzeri): kuşağın arkasında ortalama yaklaşık 1,5 km'lik bir plato, kabuk yaklaşık 43 ile 50 km, toplam kısalma 120 ile 180 km. Bu, brief'in 1000 ile 2000 m hedefiyle örtüşüyor ve tek bir çarpışmayla açıklanıyor. (c) Platoyu kuşaktan 1500 ile 2500 km kuzeye, sert bir blok (Tarım benzeri) çevresinde ve arada yeniden etkinleşmiş eski kuşaklarla (Tien Shan ve Altay benzeri) yerleştir. Bu, harita üzerinde bitişik duran 1 ve 2'yi ayırmayı gerektirir.
 - Önerim (b) ya da (b) ile (c)'nin bir karışımı. (a) isteğinle çatışıyor. (c) haritayı değiştirmeyi gerektiriyor. Karar senin; burada vermedim.
 - Kuzeydeki yaşlı, aşınmış çerçeve fikri gerçek bir örnekle destekleniyor: Altay ve Tien Shan gibi yeniden etkinleşmiş Paleozoyik yapılar, düz Mezozoyik yüzeyleri koruyarak yeniden yükseliyor.
+- Dağlarla çevrili bozkır yüksekliğinde bir çanağın gerçek örneği: Moğolistan'da Göller Vadisi yaklaşık 1000 m'lik düz bir ova, çevresindeki Gobi Altay ve Altay zirve düzlükleri 3600 ile 4000 m (Jolivet ve diğerleri 2007, [B]). Ama bu yükselme genç (yaklaşık 5 ± 3 milyon yıl), ve mekanizması çözülmemiş. Yani "yaşlı çerçeve" ile "genç yükselme" aynı anda doğru olabiliyor: eski düz yüzeyler yeni yükselmeyle taşınıyor.
 - Rüzgar altı kuraklığı: Tarım'da engel yükseldikten yaklaşık 10 milyon yıl sonra çöl başladı. Moğolistan platosunun mekanizması çözülmemiş olduğundan bozkır yüksekliğini bir tektonik sonuç yerine kısmen "kurgusal istisna" olarak işaretlemek gerekebilir.
 
 **3. İtalya benzeri yarımada (3 numara).**
 
 - Çarpan bloğun köşe etkileri: sınırlar yanal fay, bir köşede kısalma artıyor, kuşak yayılıyor (Reiter, Le Breton).
 - Alp ve Apenin farkı iki düğmeyle yönetilebilir: yakınsama hızı ve geri çekilme hızı (Carminati; Rosenbaum). Yükseklik farkını bir parametre olarak vermek (ayrılma düzlemi derinliği 3 ile 10 km) doğrudan kaynaklı değil, çıkarım.
-- Gerçek İtalya yarımadasının uzunluğu yaklaşık 1000 km civarı; haritadaki yarımada yaklaşık 2500 km (kendi ölçümümüz), bu yüzden yarımadayı bir mikro levha olarak ve Arabistan ölçeğinde (Zagros) düşünmek daha uygun. Yarımadanın hangi kenarından çarptığı haritadan kesin okunmadı; bu soru hâlâ açık.
+- Gerçek kuşak ölçüleri (hepsi ansiklopedi düzeyi [E]): Apenin yaklaşık 1200 km uzunlukta ve yaklaşık 250 km genişlikte, Alpler yaklaşık 1200 km ve 250 km, Zagros yaklaşık 1600 km ve 240 km. Haritadaki yarımada yaklaşık 2500 km (kendi ölçümümüz), yani Apenin'in iki katından fazla. Bu yüzden yarımadayı Arabistan ve Zagros ölçeğinde bir levha olarak düşünmek daha uygun. Yarımadanın hangi kenarından çarptığı haritadan kesin okunmadı; bu soru hâlâ açık.
 
 **4. Dağlık mikro kıta.**
 
 - Okunan kaynaklarda bir mikro kıtanın neden tamamen dağlık olduğunu açıklayan birincil çalışma bulunamadı [Y]. Sulawesi'de Banggai-Sula mikro kıtasının çarpışması ve yükselmiş Kuvaterner resif taraçaları var [Ö]; Tayvan'ın tepe çizgisi modellenenin 2000 ile 3000 m üstünde olabilir (Tan ve diğerleri 2022, [T]); Güney Alpler yılda 1 cm'ye kadar yükseliyor (McGrath ve diğerleri 2025, [B]) ve 40 mm/yıl plaka hareketinin yaklaşık 27 mm'si iç deformasyonla soğuruluyor [B].
+- Boşluk turunda da genel bir kural bulunamadı. Vaka düzeyinde mekanizmalar var (9. bölüm): Tayvan'da süren yay kıta çarpışması, Kıbrıs'ta bir deniz dağının altına itilmesi, Güney Ada'da Alp Fayı boyunca eğik çarpışma. Ortak nokta, parçanın bugün de aktif bir sınırın içinde olması.
+- Ölçek karşılaştırması: Sulawesi 186.064 km², Güney Ada 150.437 km² [E]. Haritadaki mikro kıtanın sınır kutusu yaklaşık 1400 × 1200 km (kendi ölçümümüz), yani yaklaşık 1,7 milyon km²; gerçek kara alanı bunun altında kalır ve maske geldiğinde ölçülecek. Her hâlükârda gerçek örneklerin birkaç katı büyük bir blok; bu ölçekte tamamen dağlık bir mikro kıta için doğrudan bir gerçek örnek bulunamadı.
 - Çıkarım: Mikro kıtanın bugün de aktif bir sınırda olması, kalınlaşmanın sürmesi ve aşınmayla dengelenmemesi gerekir. Bunu bir tasarım seçimi olarak ele almak gerekiyor.
 
 ## 9. Boşluk turu sonuçları
 
-Boşluk turu hâlâ çalışıyor; sonuçlar gelince bu bölüm doldurulacak.
+Dört ana kolun bıraktığı altı boşluk için ayrı bir tur yapıldı (notlar: `notlar/02/E_bosluklar.md`). Sonuçların çoğu ansiklopedi düzeyinde; her sayının düzeyi etiketli. Esneklik değerleri 2. bölüme, Zagros kama açıları 3. bölüme, Moğolistan'ın Jolivet ve Wu sonuçları 6. bölüme işlendi.
+
+**Küçük kıta parçaları neden yüksek?** Genel bir derleme bulunamadı [Y]. Yalnızca vaka düzeyinde mekanizmalar var:
+
+- **Tayvan:** Geç Miyosen'den beri süren yay kıta çarpışması. Merkezi Sıradağlar 3000 ile 4000 m, 1 milyon yıldan kısa süredir yükselme aşınmayı geçiyor [Ö].
+- **Kıbrıs:** Eratosthenes Deniz Dağı'nın Kıbrıs altına itilmesi, geç Pliyosen'den orta Kuvaterner'e kadar Troodos yükselmesiyle ilişkili [Ö, ikincil kaynak]. Çarpışmanın zamanı tartışmalı: 1,5 ile 2 milyon yıl önce ya da Miyosen [Ö].
+- **Girit:** Geri çekilen Afrika levhasının neden olduğu yay önü uzanması; yükselme alttan eklemeyle kama şişmesi ya da astenosfer sokulmasıyla açıklanıyor [Ö].
+- **Timor ve Sumba:** Avustralya levhası Sunda'ya göre yılda yaklaşık 70 mm kuzey kuzeydoğuya gidiyor [B, Duffy 2017]. Yükselmenin bir kısmı, dirençli litolojilerin ortaya çıkmasıyla yükselme ile aşınma arasındaki geçici dengesizliğe bağlanıyor [B]. Sumba 11.200 km², en yüksek nokta 1209 m [B].
+- **Güney Ada (Yeni Zelanda):** Alp Fayı'nda yılda yaklaşık 12 mm dalma atımı, merkezi Güney Alpler'de 6 ile 9 mm/yıl yükselme [Ö]; yılda 1 cm'ye varan InSAR yükselmesi için McGrath ve diğerleri (2025) [B].
+- **Korsika ve Sardunya:** 21 milyon yıl sonrası yaklaşık 60 derece saat yönünün tersine dönme, geri çekilen bir levhanın arkasında [Ö]. Bu dönmeyi ve ayrılmayı açıklıyor, yüksekliği açıklamıyor.
+
+Büyüklükler ve en yüksek noktalar (hepsi ansiklopedi düzeyi [E]):
+
+| Ada | En yüksek nokta | Alan |
+|---|---|---|
+| Tayvan | 3952 m (Yu Shan); ortalama 1149 m [Ö, GEO raporu özeti] | 35.808 km² |
+| Korsika | 2706 m | yaklaşık 8700 km² (sayfa kendi içinde 8680 ve 8722 diyor) |
+| Sardunya | 1834 m | 24.100 km² |
+| Güney Ada | 3724 m | 150.437 km² |
+| Sulawesi | 3478 m | 186.064 km² |
+| Timor | 2963 m | bulunamadı |
+| Girit | 2456 m | 8450 km² |
+| Kıbrıs | 1952 m | 9251 km² |
+
+Tayvan dışında hiçbir ada için ortalama yükseklik bulunamadı [Y].
+
+**Kuşak uzunlukları ve genişlikleri** (hepsi ansiklopedi düzeyi [E]; hiçbiri harita ya da jeoloji kurumu kaynağı değil):
+
+| Kuşak | Uzunluk | Genişlik | En yüksek nokta |
+|---|---|---|---|
+| Himalaya | 2400 km | bulunamadı | 8848 m |
+| Alpler | 1200 km | 250 km | 4809 m |
+| Apenin | 1200 km | 250 km | 2912 m |
+| Zagros | 1600 km | 240 km (Fars kıvrımlı kuşağı 200 km, [B]) | 4409 m |
+| And | 8900 km | 200 ile 700 km | 6961 m |
+| Pireneler | 491 km | bulunamadı | 3404 m |
+| Kafkaslar | 1200 km | 160 km | 5642 m |
+| Tien Shan | 2500 ile 2900 km (arama özeti, doğrulanamadı) | Tien Shan platosu 100 ile 120 km | 7439 m |
+
+**Alpler ve Tayvan yükseklik profilleri:** bulunamadı [Y]. İki EGU özeti kesitlerden söz ediyor ama sayı vermiyor. Alpler için "tepe noktalarının ortalama yüksekliği 2,5 km" ansiklopedi cümlesi doğrulanamadı. Tayvan için ortalama 1149 m ve alanın yarısının 444 ile 1748 m arasında olduğu bir rapordan geliyor; rapor indirilemedi, sayı bir arama özetinden [Ö].
+
+**Moğolistan, Tarım, Cungarya, Tibet.**
+
+- Gobi platosu yaklaşık 910 ile 1520 m [E].
+- Tarım çekirdek havzası yaklaşık 760 m (doğu) ile 1200 m (batı) [E, Britannica özeti]; başka bir kaynak 780 ile 1300 m [Ö].
+- Cungarya: Britannica özetine göre 300 ile 450 m, bir eğitim bakanlığı sayfasına göre 500 ile 1000 m. İki kaynak birbiriyle çelişiyor [Ö].
+- Tibet: alan yaklaşık 2,5 milyon km², ortalama yükseklik kaynağa göre 4500 m'nin üstü ile 5000 m [E ve Ö].
+- Hiçbiri için sayısal yükseklik modeline dayanan birincil bir ortalama bulunamadı [Y].
+
+**Bu turun metodoloji dersi.** Arama özetlerindeki bazı sayılar kaynakla desteklenmiyor: Hangay için "trendin 1,5 km üzerinde ve yer yer 4000 m" ve Lyon-Caen ile Molnar'a atfedilen 100 km'lik elastik kalınlık okunan kaynaklarda doğrulanamadı. Bu yüzden [Ö] etiketli sayılar araca sabit parametre olarak yazılmayacak. Ansiklopedi değerleri aynı sayfa içinde bile çelişebiliyor (Korsika alanı).
 
 ## 10. Aracın varsayılan değerleri
 
 | Parametre | Varsayılan ya da aralık | Dayanak | Etiket |
 |---|---|---|---|
-| Ön çukur dolgu kalınlığı | 1 ile 5 km | Himalaya, Kafkaslar, Pireneler | [B] |
-| Ön ülke esneklik sertliği | 3 × 10^23 ile 10^24 N m (etkin elastik kalınlık 10 ile 70 km aralığında ayarlanabilir) | DeCelles ve Carrapa; Mouthereau; diğerleri [Ö] | [B] ve [Ö] |
-| Yük yarı genişliği (ön çukur genişliği ilk tahmini) | 150 ile 200 km | Himalaya | [B], genişlik [H] |
+| Ön çukur dolgu kalınlığı | 1 ile 5 km (Zagros'ta 1 ile 6 km) | Himalaya, Kafkaslar, Pireneler, Zagros | [B] |
+| Ön çukur genişliği | yaklaşık 200 km (Himalaya) | DeCelles ve Carrapa; Duvall | [B] |
+| Ön ülke esneklik sertliği | 3 × 10^23 ile 10^24 N m; etkin elastik kalınlık 5 ile 80 km aralığında ayarlanabilir (Po 15, Arabistan 50, Hindistan 60 ile 80 sonra 20 ile 30) | DeCelles; Kruse ve Royden; Pirouz; Hetenyi | [B] |
+| Esneklik dalga boyu | bulunamadı; ön çukur ve yük genişliğinden türetilen bir varsayım | | [Y] ve [H] |
+| Yük yarı genişliği | 150 ile 200 km | Himalaya | [B] |
 | Yüzey eğimi: ön çukur, alçak kuşak, yüksek kuşak | 0,1 ile 0,55, yaklaşık 1,6, yaklaşık 7,5 derece | Himalaya orta Nepal | [B] |
+| Yüzey eğimi: tuzlu dekolmanlı kuşak | 0,3 ile 0,5 derece; temel eğimi 0,5 derece; kuşak genişliği 200 km | Zagros Fars | [B] |
+| Kuşak uzunluğu ve genişliği örnekleri | Himalaya 2400 km; Alpler 1200 km ve 250 km; Apenin 1200 km ve 250 km; Zagros 1600 km ve 240 km | ansiklopedi | [E] |
 | Kıvrım ve bindirme kuşağı kısalması | 8 ile 38 km, yılda 3 ile 10 mm | Siwalik | [B] |
 | Toplam kısalma örnekleri | Pireneler 114 ile 120 km, Alpler yaklaşık 160 km, Zagros Fars kesiti 135 km | Teixell; Schlunegger; Mouthereau | [B] |
 | Kama genişliği örneği | Tayvan 96 ile 98 km | Simoes | [B] |
@@ -228,13 +287,16 @@ Boşluk turu hâlâ çalışıyor; sonuçlar gelince bu bölüm doldurulacak.
 
 ## 12. Bulunamayanlar ve doğrulanamayanlar
 
-- Alpler ve Tayvan için ortalama ve zirve yükseklik kesitleri; Tayvan'ın tepe yüksekliği ve genişliği için hafızadan gelen 3,9 km ve yaklaşık 100 km değerleri doğrulanamadı ve araca yazılmamalı.
-- Ebro, Po ve Molasse havza genişlikleri; Himalaya esneklik dalga boyu.
-- Zagros ve Pireneler için kama ve dekolman açıları.
+- Alpler için ortalama ve zirve yükseklik kesitleri; Tayvan için yalnızca bir arama özetinden ortalama (1149 m). Tayvan'ın en yüksek noktası (3952 m) ansiklopedi düzeyinde, kuşak genişliği Simoes ve diğerlerinden (yaklaşık 96 ile 98 km, [B]).
+- Esneklik dalga boyu (Ganj, Po, Mezopotamya); Ganj, Po, Molasse ve Ebro havza genişlikleri.
+- Pireneler'in kama ve dekolman açıları. Zagros için bulundu (3. bölüm).
+- Ada ortalama yükseklikleri (Tayvan dışında hiçbiri), kuşak uzunluklarının harita ya da jeoloji kurumu kaynağı, Tien Shan uzunluğu.
+- Moğolistan, Tarım, Cungarya ortalama yüksekliği için yükseklik modeline dayanan birincil değer; Hangay'ın iç kısmının 4000 m'yi aştığı iddiası.
+- Mikro kıtaların neden tamamen dağlık olduğuna dair genel bir kural; yalnızca vaka düzeyinde mekanizmalar var.
 - Cortial ve diğerleri (2019) yükselme formülünün tam metni.
-- Tapponnier ve diğerleri (1982) birincil PDF'i taranmış görüntü; metni okunamadı. Calais (2006), Zubovich (2010), Huangfu (2021) tam metinleri açık erişimle bulunamadı.
-- Zagros ve Bitlis için plan görünümü modeli, Asya (Hindistan) dışında arama özetlerine dayanıyor.
-- Taiwan ve Sulawesi dışındaki mikro kıtalar için yükseklik değerleri (boşluk turu sonuçlarına bakın).
+- Tapponnier ve diğerleri (1982) birincil PDF'i taranmış görüntü; metni okunamadı. Calais (2006), Zubovich (2010), Huangfu (2021) tam metinleri açık erişimle bulunamadı. GEO Dağlar serisinin (Zenodo) PDF'leri 403 verdi.
+- Zagros ve Bitlis için plan görünümü modeli arama özetlerine dayanıyor.
+- Bir kaynak (Springer bölümünün kütüphane vekil kopyası) izin sınıflandırıcısı tarafından reddedildi ve atlatılmadı.
 - Haiku ile yürütülen koşularda her bilginin kaynağı not dosyalarında var, ama iki makalenin dışındaki sayılar bu belgeyi yazarken yeniden denetlenmedi.
 
 ## Başlıca kaynaklar
@@ -248,6 +310,14 @@ Tam liste ve her bilginin tek tek kaynağı `arastirma/notlar/02/` içindeki not
 - Schlunegger ve Kissling 2015, Alpler: https://www.nature.com/articles/ncomms9605
 - Simoes ve diğerleri 2007, Tayvan: https://basin.earth.ncu.edu.tw/download/lab%20reading/Taiwan%20geology/Simoes,%20S.etal._2007_Mountain%20building%20in%20Taiwan%20-%20A%20thermokinematic%20model.pdf
 - Willett, Slingerland ve Hovius 2001: https://ajsonline.org/article/88260.pdf
+- Mouthereau, Lacombe ve Meyer 2006, Zagros kama açıları: https://adsabs.harvard.edu/pdf/2006GeoJI.165..336M
+- Hetenyi ve diğerleri 2006, Hint levhası esnekliği: https://real.mtak.hu/5945/
+- Duvall ve diğerleri 2021, Nepal ön ülkesi: https://eprints.lancs.ac.uk/155586/1/Duvall_al2021BRE_006_2021.R2_Proof_hi.pdf
+- Pirouz ve diğerleri 2017, Zagros ön ülkesi: https://authors.library.caltech.edu/records/1bgnp-74m19
+- Kruse ve Royden 1994, Adriyatik ve Po: https://digitalcommons.usf.edu/geo_facpub/942
+- Jolivet ve diğerleri 2007, Gobi Altay: https://www.isterre.fr/IMG/pdf/jolivet_et_al_geology_2007.pdf
+- Wu ve diğerleri 2026, Hangay kubbesi (özet): https://www.citedrive.com/en/discovery/the-significance-of-inherited-crustal-thickening-in-surface-uplift-of-hangai-dome-in-central-mongolia/
+- Duffy 2017, Timor ve Sumba: https://www.geologist.nl/wp-content/uploads/2017/02/2017_Duffy_JAES.pdf
 - Roe, Stolar ve Willett 2006: https://earthweb.ess.washington.edu/roe/Web/GerardWeb/Publications_files/RoeEtal_WedgeTheory_GSA06.pdf
 - Davy ve Cobbold 1988: https://www.paleoarchive.com/literature/Davy&Cobbold1988-IndentationTectonicsNatureExperiment1.pdf
 - Bajolet ve diğerleri 2013: https://www.isterre.fr/IMG/pdf/bajolet_2013_curvaturehimalaya.pdf
