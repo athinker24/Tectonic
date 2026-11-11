@@ -1,6 +1,6 @@
 # Araştırma konuları
 
-Sahibiyle 11 Kasım 2026'da belirlendi; iki kez brief, kararlar ve atlas reposuyla karşılaştırılarak tamamlandı. Her konu bu klasörde numaralı ayrı bir belge olacak. Her belgede bulunanlar, kaynak bağlantıları (erişim tarihiyle) ve bu araca çıkan sonuç yer alır. Kaynaklar güncel olmalı; eğitim bilgisine dayanılmaz.
+Sahibiyle 11 Kasım 2026'da belirlendi; üç kez brief, kararlar ve atlas reposuyla karşılaştırılarak tamamlandı. Her konu bu klasörde numaralı ayrı bir belge olacak. Her belgede bulunanlar, kaynak bağlantıları (erişim tarihiyle) ve bu araca çıkan sonuç yer alır. Kaynaklar güncel olmalı; eğitim bilgisine dayanılmaz.
 
 Sıra bağımlılık sırasıdır: önce ne üretileceği, sonra geriye dönük kurgu, sonra arazi modeli, görsel ve altyapı.
 
@@ -10,7 +10,7 @@ Sıra bağımlılık sırasıdır: önce ne üretileceği, sonra geriye dönük 
 
 ## A. Jeoloji: ne üreteceğiz
 
-2. **Çarpışma kuşaklarının anatomisi.** Kesit (önülke ovası, kıvrım ve bindirme kuşağı, ana sıra, plato), genişlik ve yükseklikler, çentik (indenter) köşeleri ve düğümler (Pamir, Assam), uzak etkiler ve eski kuşakların yeniden canlanması (Tien Shan, Altay), plato yüksekliklerini belirleyen etkenler (Tibet, Moğolistan, Tarım, İran). Varsayılan değerlerin kaynağı.
+2. **Çarpışma kuşaklarının anatomisi.** Kesit (önülke ovası, kıvrım ve bindirme kuşağı, ana sıra, plato), genişlik ve yükseklikler, çentik (indenter) köşeleri ve düğümler (Pamir, Assam), uzak etkiler ve eski kuşakların yeniden canlanması (Tien Shan, Altay), plato yüksekliklerini belirleyen etkenler (Tibet, Moğolistan, Tarım, İran); litosfer dayanımı, sert kratonlar ve zayıf zonlar (deformasyonun nerede yoğunlaştığını ve uzak etkileri belirler; 2 numaralı çanak için temel). Varsayılan değerlerin kaynağı.
 3. **İzostazi ve bükülme.** Kabuk kalınlığından yüksekliğe, önülke havzasının bükülmeyle oluşumu, aşınmaya karşı izostatik yükselme.
 4. **Dağların yaşlanması.** Kuşakların aşınma hızları, genç keskin ve yaşlı yuvarlak kuşakların sayısal karşılığı (Appalachian, Ural).
 5. **Diğer sınır türlerinin yer şekilleri.** Volkanik yaylar, sıcak noktalar, yanal faylar (Kuzey Anadolu, San Andreas), gerilme alanları (Ege, Basin and Range), rift vadileri.
@@ -19,28 +19,30 @@ Sıra bağımlılık sırasıdır: önce ne üretileceği, sonra geriye dönük 
 
 ## B. Ters problem ve zaman
 
-8. **Blok ayrıştırma ve geriye sürme.** Euler kutupları, kıyı oturtma, sütur hatları, çakışma denetimi; pyGPlates ve GPlately; levha hızları ve zaman ölçekleri; isteklerin tektonik maliyetinin ölçülmesi.
-9. **Çoklu çözüm üretimi, seçim ve sade dil.** Birbirinden anlamlı biçimde farklı tutarlı tarihlerin üretilmesi; seçeneklerin harita olarak karşılaştırılması; jeolojinin hikaye ve harita diline çevrilmesi.
-10. **Paleocoğrafya ve animasyon kareleri.** Geçmiş kıyılar ve deniz seviyesi, levha hareketlerinden geçmiş yükseklik haritası (Utrecht paleogeography calculator), sürekli kapalı levhalar (Gurnis 2012), dönmelerin ara değerlemesi.
+8. **Küre geometrisi, ızgaralar ve projeksiyonlar.** Blokların, erozyonun ve gösterimin ortak koordinat yapısı: eşdikdörtgen, HEALPix, küp küre, ikosahedral ızgaralar; akış yönlendirmenin bu ızgaralarda çalışması; telefonda gösterim projeksiyonu; alan ağırlıklı ölçüm (atlas tuzağı 7.1).
+
+9. **Blok ayrıştırma ve geriye sürme.** Euler kutupları, kıyı oturtma, sütur hatları, çakışma denetimi; pyGPlates ve GPlately; levha hızları ve zaman ölçekleri; isteklerin tektonik maliyetinin ölçülmesi.
+10. **Çoklu çözüm üretimi, seçim ve sade dil.** Birbirinden anlamlı biçimde farklı tutarlı tarihlerin üretilmesi; seçeneklerin harita olarak karşılaştırılması; jeolojinin hikaye ve harita diline çevrilmesi.
+11. **Paleocoğrafya ve animasyon kareleri.** Geçmiş kıyılar ve deniz seviyesi, levha hareketlerinden geçmiş yükseklik haritası (Utrecht paleogeography calculator), sürekli kapalı levhalar (Gurnis 2012), dönmelerin ara değerlemesi.
 
 ## C. Arazi modeli
 
-11. **Tektonik olaylardan yükseltme haritasına.** Cordonnier 2016, Cortial 2019, Schott 2023, Tzathas 2024; goSPL'in levha zorlamalı yaklaşımı.
-12. **Erozyon motorunun seçimi.** Fastscapelib (HealpixGrid), goSPL, Landlab; kıyıyı sabit tutma; Actions'ta süre ve bellek; gerçek parametre aralıkları; lisanslar.
-13. **Erozyonun çözünürlük bağımlılığı.** Akarsu güç yasasının ızgara boyuna bağlılığı (Hergarten 2020, Earth Surface Dynamics 2025); 20 km önizleme, ana hesap ve detay geçişinin tutarlı kalması.
-14. **Çökelme, kapalı havzalar ve göller.** Önülke ovaları, deltalar, sahanlık dolgusu; denize akmayan havzalar (Tarım, Moğolistan); atlasın göl ve nehir katmanıyla uyum.
-15. **Kurgusal istisnaların doğal karıştırılması.** Yükseltme tabanlı düzenleme (Schott 2023) ve çevreye yumuşak geçiş.
-16. **Ayrıntı ekleme ve doğallık.** Çok ölçekli ayrıntı ekleme (Schott 2024), kayaç farklılıkları, gürültü.
-17. **Buzul aşındırması (düşük öncelik).** U vadiler, sirkler, fiyortlar; atlasın buzul katmanıyla ilişkisi.
-18. **Yağışla bağ.** Smith ve Barstad dağ yağışı modeli (orographic_precipitation paketi), LFPM; atlas rüzgarlarıyla bağlantı.
-19. **Gerçekçiliğin ölçülmesi.** Alan ağırlıklı hipsometri, eğim dağılımı, akarsu ağı yoğunluğu, boyuna profiller, sırt sürekliliği; GEBCO ve Copernicus ile karşılaştırma; atlasın yükseklik çapalarıyla (kıta bilerek Dünya'dan yüksek) gerçekçilik ölçütünün çatışması.
+12. **Tektonik olaylardan yükseltme haritasına.** Cordonnier 2016, Cortial 2019, Schott 2023, Tzathas 2024; goSPL'in levha zorlamalı yaklaşımı.
+13. **Erozyon motorunun seçimi.** Fastscapelib (HealpixGrid), goSPL, Landlab; kıyıyı sabit tutma ve kıyı kısıtının kıyıda yapay basamak üretmeden uygulanması; Actions'ta süre ve bellek; gerçek parametre aralıkları; lisanslar.
+14. **Erozyonun çözünürlük bağımlılığı.** Akarsu güç yasasının ızgara boyuna bağlılığı (Hergarten 2020, Earth Surface Dynamics 2025); 20 km önizleme, ana hesap ve detay geçişinin tutarlı kalması.
+15. **Çökelme, kapalı havzalar ve göller.** Önülke ovaları, deltalar, sahanlık dolgusu; denize akmayan havzalar (Tarım, Moğolistan); atlasın göl ve nehir katmanıyla uyum.
+16. **Kurgusal istisnaların doğal karıştırılması.** Yükseltme tabanlı düzenleme (Schott 2023) ve çevreye yumuşak geçiş.
+17. **Ayrıntı ekleme ve doğallık.** Çok ölçekli ayrıntı ekleme (Schott 2024), kayaç farklılıkları, gürültü.
+18. **Buzul aşındırması (düşük öncelik).** U vadiler, sirkler, fiyortlar; atlasın buzul katmanıyla ilişkisi.
+19. **Yağışla bağ.** Smith ve Barstad dağ yağışı modeli (orographic_precipitation paketi), LFPM; atlas rüzgarlarıyla bağlantı.
+20. **Gerçekçiliğin ölçülmesi.** Alan ağırlıklı hipsometri, eğim dağılımı, akarsu ağı yoğunluğu, boyuna profiller, sırt sürekliliği; GEBCO ve Copernicus ile karşılaştırma; atlasın yükseklik çapalarıyla (kıta bilerek Dünya'dan yüksek) gerçekçilik ölçütünün çatışması.
 
 ## D. Görsel
 
-20. **Gerçekçi rölyef gösterimi.** Çok yönlü gölgeleme, İsviçre kabartması, ortam gölgesi, yükseklik renklendirmesi; telefonda WebGL ile çizim.
+21. **Gerçekçi rölyef gösterimi.** Çok yönlü gölgeleme, İsviçre kabartması, ortam gölgesi, yükseklik renklendirmesi; telefonda WebGL ile çizim.
 
 ## E. Altyapı
 
-21. **Mobil arayüz.** PWA, WebGL ve WebGPU'nun telefonlardaki güncel durumu, parmakla çizimde yapışma, zaman çubuğunun akıcılığı, çevrimdışı depolama sınırları.
-22. **Cloudflare Worker, Access ve GitHub.** Kısıtlı anahtar ya da GitHub App, koşu başlatma ve durum okuma, Actions makine sınırları, animasyon karelerinin depolanması. Sahibine yazılacak kurulum rehberinin temeli.
-23. **Atlas ve Merak ile veri alışverişi.** Photoshop maskesinin küreye kaydı, projeksiyonlar, 16 bitlik yükseklik haritası biçimi (Merak'ın içe aktarım biçimi bilinmiyor), yeni arazinin atlas zincirine girişi (yükseklik eğrisi, iklim, su, buzul, toprak, bitki, yaşanabilirlik, tarım, hayvan) ve atlasın levha katmanının yeni blok modeliyle değişmesi.
+22. **Mobil arayüz.** PWA, WebGL ve WebGPU'nun telefonlardaki güncel durumu, parmakla çizimde yapışma, zaman çubuğunun akıcılığı, çevrimdışı depolama sınırları.
+23. **Cloudflare Worker, Access ve GitHub.** Kısıtlı anahtar ya da GitHub App, koşu başlatma ve durum okuma, Actions makine sınırları, animasyon karelerinin depolanması. Sahibine yazılacak kurulum rehberinin temeli.
+24. **Atlas ve Merak ile veri alışverişi.** Photoshop maskesinin küreye kaydı, projeksiyonlar, 16 bitlik yükseklik haritası biçimi (Merak'ın içe aktarım biçimi bilinmiyor), yeni arazinin atlas zincirine girişi (yükseklik eğrisi, iklim, su, buzul, toprak, bitki, yaşanabilirlik, tarım, hayvan) ve atlasın levha katmanının yeni blok modeliyle değişmesi.
