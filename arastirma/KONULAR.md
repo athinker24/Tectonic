@@ -2,6 +2,8 @@
 
 Sahibiyle 11 Kasım 2026'da belirlendi; üç kez brief, kararlar ve atlas reposuyla karşılaştırılarak tamamlandı. Her konu bu klasörde numaralı ayrı bir belge olacak. Her belgede bulunanlar, kaynak bağlantıları (erişim tarihiyle) ve bu araca çıkan sonuç yer alır. Kaynaklar güncel olmalı; eğitim bilgisine dayanılmaz.
 
+**Araştırma ölçütü (sahibi, 11 Kasım 2026):** Araştırmalar üstünkörü ve hızlı olmayacak. Tamamen ayrıntılı ve özenli olacak; olabildiğince çok ve geçerli kaynağa bakılacak. Birincil kaynaklar (resmi belgeler, makaleler, sürüm notları) ikincil özetlere tercih edilir. Doğrulanamayan bilgi doğrulanamadı diye yazılır.
+
 Sıra bağımlılık sırasıdır: önce ne üretileceği, sonra geriye dönük kurgu, sonra arazi modeli, görsel ve altyapı.
 
 ## 0. Önceki çalışmalar
