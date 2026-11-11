@@ -21,9 +21,14 @@ Sahibiyle adım adım verilen kararlar. Gerekçe ve kaynak brief: `tektonik-arac
 - 1 numaralı sıranın uzunluğu: güneydoğu bloğun çarpışma cephesi ne kadar uzun çıkarıyorsa o kadar. Kuşağı batıya doğru uzatmak için ek bir olay ya da dalma kuşağı uydurulmayacak.
 - Plato çanağı (2) için iklim notu: atlasın iklimi çanak içi 800 ile 1000 m alınarak ayarlandı; bu aralığa yakın kalmak atlası bozmaz.
 
+## 4. Ağır hesabın yeri (11 Kasım 2026)
+
+- Tektonik yükseltme ve hidrolik erozyon GitHub Actions'ta Python ile koşar (atlas düzeni). Erozyon için Fastscapelib 0.3.0 adayı.
+- Telefonda yalnızca anında kaba önizleme (erozyonsuz yükseltme alanı) hesaplanır.
+- Cloudflare Containers ve tarayıcıda WebGPU elendi: kalite farkı yok ya da düşük, ek maliyet ve iş var.
+
 ## Açık
 
-- Ağır hesabın yeri
 - Telefondan tetikleme
 - Çözünürlükler ve animasyon boyutu
 - Blok ayrıştırmanın otomatiklik düzeyi
