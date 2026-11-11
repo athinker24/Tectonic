@@ -27,8 +27,14 @@ Sahibiyle adım adım verilen kararlar. Gerekçe ve kaynak brief: `tektonik-arac
 - Telefonda yalnızca anında kaba önizleme (erozyonsuz yükseltme alanı) hesaplanır.
 - Cloudflare Containers ve tarayıcıda WebGPU elendi: kalite farkı yok ya da düşük, ek maliyet ve iş var.
 
+## 5. Telefondan tetikleme (11 Kasım 2026)
+
+- Uygulamadaki "Gönder" senaryoyu bir Cloudflare Worker'a yollar; Worker GitHub'a yazar ve Actions koşusunu başlatır. Koşu durumu da aynı Worker üzerinden okunur.
+- GitHub anahtarı yalnızca Cloudflare'da gizli değer olarak durur; telefonda ya da repoda durmaz. Yalnızca bu repoya yetkili, kısıtlı bir anahtar olur.
+- Site ve Worker Cloudflare Access arkasında, yalnızca sahibin e-postasıyla açılır.
+- Sahibi Cloudflare ve GitHub tarafındaki kurulumu kendisi yapacak: adım adım, ekran ekran bir kurulum rehberi (`KURULUM.md`) yazılacak ve kurulum sırasında birlikte gidilecek.
+
 ## Açık
 
-- Telefondan tetikleme
 - Çözünürlükler ve animasyon boyutu
 - Blok ayrıştırmanın otomatiklik düzeyi
