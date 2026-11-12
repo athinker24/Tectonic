@@ -1,6 +1,6 @@
 # Stream power law parameters (K, m, n, theta = m/n) and sediment transport: source notes
 
-Status: IN PROGRESS. Tags: [B] full text read, [B-öz] summary/abstract-level, [Ö] search summary only, BULUNAMADI = not found, ERİŞİLEMEDİ = not accessible.
+Status: COMPLETE (source-limited; see access statuses). Tags: [B] full text read, [B-öz] summary/abstract-level, [Ö] search summary only, BULUNAMADI = not found, ERİŞİLEMEDİ = not accessible.
 
 ## Findings
 
@@ -84,7 +84,78 @@ Status: IN PROGRESS. Tags: [B] full text read, [B-öz] summary/abstract-level, [
 
 ### F16. Ruetenik vs task brief: Ruetenik is on the global K/D topic; Anderson 2023 (ESurf 11, 995) is about lithology and Ksn, not used numerically.
 
-## Open items
+### F17. Egholm, Knudsen & Sandiford 2013 (CORRECTED citation for brief's "Egholm 2013")
+- Title: "Lifespan of mountain ranges scaled by feedbacks between landsliding and erosion by rivers", Nature 498 (doi 10.1038/nature12218). PDF: https://msandifo.github.io/pdfs/peer/2013_nature12218.pdf
+- Tag: [B] (text read via pdftotext). Landslide model uses a critical slope s_c, with a constant Ks (Supplementary Table 1); the numeric value of s_c was NOT in the main text and was not retrieved (ERİŞİLEMEDİ for the 30-40 deg claim). Critical-angle claim 30-40 deg: BULUNAMADI in accessed sources.
+- Text: landsliding delivers abrasive agents and can also bury the bed; the coupling gives fluvial erosion dependence on threshold hillslopes.
+
+### F18. Densmore, Ellis & Anderson 1998 (brief: "Densmore 1998")
+- Correct citation: Densmore, Ellis & Anderson (1998), "Landsliding and the evolution of normal-fault-bounded mountains", JGR 103(B7), 15203-15219, doi 10.1029/98JB00510. (Heimsath is not an author.) Tag [Ö]. Mohr-Coulomb hillslopes; power-law landslide size distributions. Stability threshold equation not retrieved.
+
+### F19. Roering, Kirchner & Dietrich 1999 (WRR 35, 853-870)
+- Tag [Ö]. Nonlinear hillslope transport: approximates linear diffusion at low gradient; flux increases rapidly near a critical gradient. Calibrated diffusivity and critical gradient values: BULUNAMADI in accessed sources. Secondary report of critical gradient ~0.487 (Oregon Coast Range) is a later reanalysis, not used as sourced value.
+- Roering et al. 2001 (JGR 106): dimensionless TL parameter; Oregon Coast Range adjustment timescale <= 50 kyr. [Ö]
+
+### F20. Adams, Ehlers... Science Advances 2020, "Rainfall rates set the scaling of relief and river incision in tectonically active landscapes" (Sci. Adv. 6, eaaz3166; DOI 10.1126/sciadv.aaz3166)
+- Brief's title "Adams 2020 Climate-adjusted K" is NOT the title; the paper is the above (correct the reference).
+- Tag: [B] (full text via PMC: https://pmc.ncbi.nlm.nih.gov/articles/PMC7567587).
+- Stream-power with explicit rainfall: E = K R^m A^m S^n, with K = Klp R^m (Klp independent of climate; encapsulates erodibility, geometry, roughness, incision process, sediment flux). Eq. 1c.
+- Bhutan Himalaya best fit: n = 2.2, m = 1 (rainfall exponent), Klp = 2.2e-9 m^-2 (as printed); regional K = 3.2e-9 m^-1 yr^-1 at n = 2.2 used in erosion map.
+- Paper notes K increases monotonically with mean annual rainfall (Fig. 2-3).
+- Note: the paper's n = 2.2 is "in line with theory and other studies" but not stated as universal.
+
+### F21. Harel et al. 2016 accepted manuscript
+- Edinburgh research portal page is accessible (https://www.research.ed.ac.uk/en/publications/global-analysis-of-the-stream-power-law-parameters-based-on-world/), but the linked accepted-manuscript PDF (https://www.research.ed.ac.uk/files/25670599/25669129._Harel_et_al_2016_author_accepted_manuscript_002_.pdf) returned HTML, not PDF. Full text ERİŞİLEMEDİ; numeric K/n/theta ranges BULUNAMADI in accessed text.
+- Publisher DOI (doi.org/10.1016/j.geomorph.2016.05.035) returned HTML 200 with no text extracted yet (not processed).
+
+### F22. Stock & Montgomery 1999 publisher DOI
+- https://doi.org/10.1029/98JB02139: HTTP 403 (bot/access protection). Not bypassed. ERİŞİLEMEDİ for full text. K range remains BULUNAMADI.
+
+### F23. Whipple 2009 Annual Review
+- Not found in search (BULUNAMADI). Related: Whipple & Tucker 1999 PDF hosted at planetarygeoscience.uchicago.edu: ERİŞİLEMEDİ (TLS certificate error).
+
+### F24. Davy & Lague 2009 and the G (Gilbert-type) number
+- Full text ERİŞİLEMEDİ (HAL returned HTML). The "G" sampling number from the brief: not verified (BULUNAMADI in accessed sources).
+
+### F25. Sediment / marine diffusion K_d (topic 3)
+- No single standard marine K_d value found. Ogooue Delta (Gabon, EGU2017 abstract): 0.1-1 km^2/ka, narrower than published stratigraphic models; higher on shelf and basin floor. Tag [Ö].
+- Yuan et al. 2019 (EPSL): marine silt transport coefficients ~300-500 m^2/yr. Tag [Ö].
+- Pasternack et al. 2001 (Chesapeake tidal freshwater delta, not fully marine): ~3,763-6,199 m^2/yr. Tag [Ö].
+- Caveat: diffusion coefficient is the single calibrated parameter; visual fit is not a physical test. Nonlocal transport alternatives discussed (EGU2020 presentation). Tag [Ö].
+- SEQUENCE SubmarineDiffuser formula for K_d: parameters alpha (1/m), shelf slope, wave base; full formula not extracted. Tag [Ö].
+
+### F26. Fernandes & Dietrich 1997 diffusivity range (topic 4)
+- Paper: Fernandes & Dietrich 1997, WRR, doi 10.1029/97WR00534, "Hillslope evolution by diffusive processes: the timescale for equilibrium adjustments". Tag [Ö] (abstract only).
+- Numeric D range 4.4e-4 to 3.6e-2 m^2/yr is quoted by Ruetenik et al. 2023 as Fernandes & Dietrich's range (F1). Tag [B-öz] via Ruetenik. Direct paper values: not retrieved.
+- Secondary: topographic diffusivity spans ~1e-4 to 1e-1 m^2/yr across studies (a review, [Ö]); soil creep coefficients ~1e-3 to 1e-2 m^2/yr (lecture notes, unverified, not used as sourced).
+
+## Summary table (topics 1-7)
+
+| Topic | Status | Key sourced values | Main sources |
+|---|---|---|---|
+| 1. K, m, n, theta ranges | Partly [B] | n ~1.3 (advection-only), ~2.3 (adv-diff); m/n 0.4-0.7 (typical); theta 0.5 normalisation; K 1e-8 to 1e-5 m^(n-1) yr^-1 (Ruetenik's comparison) | Ruetenik 2023 [B]; Lague 2014 [B]; Harel 2016 [Ö] |
+| 2. Detachment/transport-limited; Davy & Lague; SPACE | Partly [Ö] | Concept only; G number not verified | Davy & Lague 2009 [Ö]; Shobe 2017 [Ö] |
+| 3. Sediment, delta, submarine K_d | [Ö] | Yuan 2019 300-500 m^2/yr; Gabon 0.1-1 km^2/ka | see F25 |
+| 4. Hillslope D | [B-öz] | 4.4e-4 to 3.6e-2 m^2/yr (Fernandes & Dietrich 1997, quoted) | Ruetenik 2023 [B]; F26 |
+| 5. Critical slope / landslide | Partly [Ö] | Egholm s_c (value not retrieved); 30-40 deg BULUNAMADI | Egholm 2013 [B, value missing]; Densmore 1998 [Ö] |
+| 6. Lithology K distribution, Stock-Montgomery 1e-7 to 1e-2 | NOT VERIFIED | 1e-7 to 1e-2 BULUNAMADI in accessed sources; Lague 2014 Roan Plateau comparison 3.33e-8 to 2.87e-7 | Stock & Montgomery 1999 ERİŞİLEMEDİ (403) |
+| 7. Climate and K | [B] | K = Klp R^m, m = 1 (Bhutan); K increases with MAP (Ruetenik) ; Harel 2016 finds no global K-precip correlation [Ö] | Adams 2020 [B]; Ruetenik 2023 [B]; Harel 2016 [Ö] |
+
+## Brief corrections
+- "Egholm 2013 'A mechanical model of landslide'" -> Egholm, Knudsen & Sandiford 2013, "Lifespan of mountain ranges scaled by feedbacks between landsliding and erosion by rivers", Nature 498.
+- "Densmore 1998" -> Densmore, Ellis & Anderson 1998, JGR 103(B7).
+- "Adams 2020 Climate-adjusted K" -> Adams et al. 2020, Sci. Adv. 6, eaaz3166, "Rainfall rates set the scaling of relief and river incision in tectonically active landscapes".
+- "Campforts 2017 TTLEC landslide" -> not found; Campforts et al. 2017 ESurf is TTLEM 1.0 (numerical diffusion), not landslides.
+- "par.nsf.gov/servlets/purl/10471890" as a Stock & Montgomery source -> it is Anderson, Gasparini & Johnson 2023 (ESurf 11, 995).
+- Ruetenik et al. 2023 is ESurf 11, 865-880 (the search index sometimes labelled it a 2022 preprint).
+- Gailleton 2019 paper and a Gailleton-Hergarten exchange: BULUNAMADI.
+- Whipple 2009 Annual Review: BULUNAMADI.
+
+## Open items (access)
+- ERİŞİLEMEDİ: Stock & Montgomery 1999 (AGU DOI 403); Whipple & Tucker 1999 (TLS certificate error); Harel 2016 PDF (HTML instead of PDF); Davy & Lague 2009 PDF (HAL HTML); Egholm 2013 supplementary s_c table; Roering 1999 and Fernandes & Dietrich 1997 full text.
+- Nothing bypassed (no TLS disabling, no bot-protection bypass).
+
+## Earlier open-item list (superseded)
 - Davy & Lague 2009 full text (HAL URL returned HTML landing page).
 - Stock & Montgomery 1999 full text (K range).
 - Harel 2016 full text (K, n values).
