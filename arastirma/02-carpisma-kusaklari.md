@@ -98,21 +98,23 @@ Roe, Stolar ve Willett (2006): Durağan kuşakta toplam rölyef R ile yarı geni
 
 ### İzostazi
 
-Airy dengesi: kök kalınlığı r = h × ρc / (ρm − ρc) [B, MIT ders notu ve Pinter alıştırması]. ρc = 2800 ve ρm = 3300 kg/m³ için r = 5,6 h. Yüksekliğin birim kök kalınlaşmasına karşılığı (ρm − ρc) / ρc = 0,18 [H]. Dayanım yoğunluk seçimine duyarlı: ρm = 3100 alınırsa katsayı 9,3 olur; kök yaklaşık 1,7 kat değişir [H].
+Airy dengesi: kök kalınlığı r = h × ρc / (ρm − ρc) [B, MIT ders notu ve Pinter alıştırması]. ρc = 2800 ve ρm = 3300 kg/m³ için r = 5,6 h. Yüksekliğin birim kök kalınlaşmasına karşılığı (ρm − ρc) / ρc = 0,18, birim toplam kabuk kalınlaşmasına karşılığı ise (ρm − ρc) / ρm = 0,15 [H]. Toplam kalınlaşma kök artı yüksekliktir (h + r = 6,6 h). Dayanım yoğunluk seçimine duyarlı: ρm = 3100 alınırsa katsayı 9,3 olur; kök yaklaşık 1,7 kat değişir [H].
 
-| Hedef yükseklik | Kök | Toplam kabuk (35 km tabanlı) |
+**Düzeltme (12 Kasım 2026).** Bu belgenin ilk sürümündeki tablo ve alfa değeri toplam kalınlaşmaya yüksekliği eklemiyordu. MIT ders notu da aynı sadeleştirmeyi yapıyor (5 km'lik plato için 33 km normal kabuk üstüne yalnızca 28 km kök, toplam 61 km). Doğru muhasebe T = T0 + h + r. Aşağıdaki tablo düzeltildi; yükselme/kalınlaşma oranı 0,18 yerine 0,15 oldu.
+
+| Hedef yükseklik | Kök | Toplam kabuk (35 km tabanlı, h dahil) |
 |---|---|---|
-| 1,5 km (İran ya da Moğolistan benzeri) | 8,4 km | yaklaşık 43 km |
-| 4,5 km (Tibet benzeri) | 25 km | yaklaşık 60 km |
-| 5 km | 28 km | yaklaşık 63 km |
+| 1,5 km (İran ya da Moğolistan benzeri) | 8,4 km | yaklaşık 45 km |
+| 4,5 km (Tibet benzeri) | 25 km | yaklaşık 65 km |
+| 5 km | 28 km | yaklaşık 68 km |
 
-Bu tablo [H], girdiler [B]. Gözlenen kabuk: Tibet yaklaşık 70 km (Royden ve diğerleri 1997, [B]), Altiplano ortalama yüksekliği 4 km ve kabuğu 59 ile 64 km (Molnar ve Garzione 2007, [B]), İran platosu kabuğu yaklaşık 42 ile 50 km ve ortalama yükseklik yaklaşık 1,5 km (Mouthereau 2011, [B]). İran için Airy tahmini (43 km) gözlemle uyuşuyor.
+Bu tablo [H], girdiler [B]. Gözlenen kabuk: Tibet yaklaşık 70 km (Royden ve diğerleri 1997, [B]), Altiplano ortalama yüksekliği 4 km ve kabuğu 59 ile 64 km (Molnar ve Garzione 2007, [B]), İran platosu kabuğu yaklaşık 42 ile 50 km ve ortalama yükseklik yaklaşık 1,5 km (Mouthereau 2011, [B]). Düzeltilmiş Airy tahminleri (İran 45 km, Tibet 65 ile 68 km) gözlemle uyuşuyor.
 
-**Airy her yerde tutmuyor.** Alpler'in sismik kökü yaklaşık 60 km, ortalama yüksekliği yaklaşık 2 km; Airy 46 km'lik toplam kabuk verirdi. Bu uyumsuzluk bir arama özetinden [Ö] ve dalan levhanın yükü ya da elastik dayanımla açıklanıyor. Aracın izostazi katmanı bu yüzden bir ayar düğmesi olmalı, sabit bir yasa değil.
+**Airy her yerde tutmuyor.** Alpler'in sismik kökü yaklaşık 60 km, ortalama yüksekliği yaklaşık 2 km; Airy yaklaşık 48 km'lik toplam kabuk verirdi (35 + 2 + 11). Bu uyumsuzluk bir arama özetinden [Ö] ve dalan levhanın yükü ya da elastik dayanımla açıklanıyor. Daha genel olarak Zoback ve Mooney (2003), 1700'den fazla kabuk modelinde yalnızca kabuk kalınlığına dayanan modelin yükseklikleri yerlerin yüzde 97'sinde ortalama 1,7 km fazla tahmin ettiğini buldu; litosfer mantosu terimi gerekiyor (ayrıntı 03. belgede). Aracın izostazi katmanı bu yüzden bir ayar düğmesi olmalı, sabit bir yasa değil.
 
 ### Plato nasıl oluşuyor
 
-- **Dağıtık kısalma ve kalınlaşma.** Kabuğun kalınlığının iki katına çıkması için yaklaşık yüzde 50 kısalma gerekiyor [H]. 35 km'lik kabuk, 500 km genişlikte bir kuşakta ve yılda 20 mm yakınsamada yaklaşık 1,4 mm/yıl kalınlaşır, Airy yükselmesi yaklaşık 0,25 mm/yıl [H].
+- **Dağıtık kısalma ve kalınlaşma.** Kabuğun kalınlığının iki katına çıkması için yaklaşık yüzde 50 kısalma gerekiyor [H]. 35 km'lik kabuk, 500 km genişlikte bir kuşakta ve yılda 20 mm yakınsamada yaklaşık 1,4 mm/yıl kalınlaşır, Airy yükselmesi yaklaşık 0,15 × 1,4 = 0,21 mm/yıl [H].
 - **Alt kabuk akışı.** Clark ve Royden (2000, [B]): 15 km kalınlıkta bir kanal için viskozite düşük eğimli kenarlarda yaklaşık 10^18 Pa s, dik kenarlarda yaklaşık 10^21 Pa s, plato içinde en çok 10^16 Pa s. Alt kabuğun akışı kalınlığı ve yüksekliği sınırlıyor; plato oluşumu Argand sayısına bağlı (Willett 1999, [B]).
 - **Litosfer kökünün kopması.** Altiplano'nun 10 ile 6 milyon yıl önceki yükselmesi (Hoke ve Garzione 2008, [B]) ve Anadolu'da 1 ile 2 km'lik pay [Ö]. Katkı payı tartışmalı.
 - **Dinamik destek.** Doğu Anadolu platosunda yaklaşık 2000 m yükselmenin yaklaşık 500 m'si dinamik destekli (Molin ve diğerleri 2023, [B]). Kıta platoları ortalama 1000 m'nin üstünde, kıta ortalamasının (600 m) yaklaşık 400 m üzerinde [B, alıntı].
@@ -139,7 +141,7 @@ Brief'in kuralı: bir çarpışma yalnızca ana kuşağı değil, binlerce km uz
 
 **Grafik literatürü.** Cordonnier ve diğerleri (2018): yükselme u = α × dq/dt, dq/dt kabuk kalınlaşma hızı; α ortalama yükselme 0,5 mm/yıl olacak biçimde ayarlanmış, izostazi göz ardı ediliyor [B]. Cordonnier ve diğerleri (2016): en büyük yükselme 0,5 mm/yıl, aşınma sabiti k = 5,61 × 10^−7 /yıl, dağlar yaklaşık 2000 m'de tepe yapıyor [B]. Cortial ve diğerleri (2019) formülünün tam metnine erişilemedi [Y].
 
-**Fiziksel alfa.** Tam Airy dengesinde α = 0,18 [H]. Cordonnier'nin 0,5 mm/yıl değeri fizik değil bir stil seçimi.
+**Fiziksel alfa.** Tam Airy dengesinde toplam kabuk kalınlaşma hızına göre α = (ρm − ρc) / ρm = 0,15 (kök kalınlaşmasına göre 0,18) [H]. İlk sürümde 0,18 yazıyordu; düzeltildi. Litosfer mantosu da kalınlaşırsa net yükselme bundan küçük olur (03. belge). Cordonnier'nin 0,5 mm/yıl değeri fizik değil bir stil seçimi.
 
 **Zaman bütçeleri** [H, girdiler yukarıda]:
 
@@ -157,7 +159,7 @@ Brief'in kuralı: bir çarpışma yalnızca ana kuşağı değil, binlerce km uz
 - Etkin kuşaklar: Tayvan yılda 3 ile 6 mm [B, özet]; Orta Alpler yaklaşık 0,9 mm/yıl [Ö]; Ganj ve Brahmaputra için E = 0,2 Rz mm/yıl (Rz kilometre cinsinden ortalama rölyef, Montgomery ve Brandon 2002, [B]): 3 km'lik rölyef yaklaşık 0,6 mm/yıl.
 - Bir km malzeme aşınınca ortalama yükseklik yalnızca yaklaşık 0,17 km düşer, geri kalanı izostatik geri yükselmeyle telafi edilir (Molnar ve England 1990, [B]).
 
-**Hedef yükseklikten tersine hesap** (benim önerim [H]): Hedef yükseklik H'yi koy, gereken kökü r = H × ρc / (ρm − ρc) ile hesapla, toplam kalınlaşmayı r'ye eşitle, kalınlaşma hızı × süre = r olacak biçimde yakınsama süresini seç. Aşınma H'yi sınırlar. Kök oranı yoğunlukla sabit olduğu için serbest girdiler yakınsama hızı, genişlik, süre ve bir aşınma sayısı.
+**Hedef yükseklikten tersine hesap** (benim önerim [H]): Hedef yükseklik H'yi koy, gereken kökü r = H × ρc / (ρm − ρc) ile hesapla, toplam kalınlaşmayı H + r = H × ρm / (ρm − ρc) olarak al, kalınlaşma hızı × süre = H + r olacak biçimde yakınsama süresini seç. Aşınma H'yi sınırlar. Kök oranı yoğunlukla sabit olduğu için serbest girdiler yakınsama hızı, genişlik, süre ve bir aşınma sayısı.
 
 ## 8. Senin dört isteğin için ne çıktı
 
@@ -266,7 +268,7 @@ Tayvan dışında hiçbir ada için ortalama yükseklik bulunamadı [Y].
 | Yağış gölgesi gecikmesi | yaklaşık 10 milyon yıl | Tarım | [B] |
 | Aşınma: etkin kuşak | yılda 0,2 ile 6 mm | Montgomery ve Brandon; Tayvan; Zagros | [B] ve [Ö] |
 | Aşınma: arka plan | yılda 0,005 ile 0,05 mm | Portenga ve Bierman | [B] |
-| Fiziksel alfa (yükselme / kalınlaşma hızı) | 0,18 | Airy | [H] |
+| Fiziksel alfa (yükselme / toplam kalınlaşma hızı) | 0,15 (kök kalınlaşmasına göre 0,18); litosfer mantosu kalınlaşırsa daha küçük | Airy | [H] |
 | Cordonnier alfa | ortalama 0,5 mm/yıl (stil seçimi) | Cordonnier 2016, 2018 | [B] |
 | Durağan duruma süre | 1 ile 50 milyon yıl | Willett ve diğerleri | [B] |
 

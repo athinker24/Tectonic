@@ -80,3 +80,22 @@ Source read (text extraction of the Oxford ORA PDF): https://ora.ox.ac.uk/object
 - Densities in Lin and Watts 2002 (Taiwan, Luzon-type orogen, Table): mantle 3200, crust 2800, infill 2500, topographic load 2600, water 1030 kg/m3. Stewart and Watts 1997 uses substrate (mantle) density 3330 kg/m3 in its Table.
 - Lin and Watts 2002 finding (text): "Models with a low Te (e.g., 5 km) predict the ... basin is too narrow ... Models with a high Te (e.g., 20 km) predict the width, but the depth of the basin is too low. Therefore surface loading of a continuous elastic plate ... is unable to fully explain the shape of the foreland basin." Broken-plate models successfully explain Appalachian, central Andes, Himalaya basins (same URL). This is the depth-width tradeoff for the tool; cite as a published observation.
 - Kinds of foreland infill: sediment density used in models 2500 kg/m3 (Lin and Watts).
+
+## Te versus age and isotherm (Bellas, Zhong, Watts 2022, GJI 228:857-875)
+Source read: https://par.nsf.gov/servlets/purl/10391238 (NOTE: the URL labelled as Watts and Burov 2003 actually resolved to this 2022 paper; the Watts and Burov 2003 EPSL paper was NOT read. FAILED for that paper.)
+- Lab-derived (viscoelastic/yield) rheology: Te falls along the ~450 C isotherm depth, giving ~10-40 km for seafloor age 20-130 Ma (Suite 6; "lower bound for Te"). Same URL, p.864.
+- Larger loads (A0 = 6 km, seamount scale): Te between 600 and 900 C isotherms, ~25-80 km depth. Same URL.
+- Stress dependence / friction / creep temperature change Te by only 1-15 percent. Same URL.
+- Observational catalogue used by them: 101 Te estimates from flexural systems across the oceans (31 from French Polynesia, Watts and Zhong 2000). Same URL.
+- Load density 3330 kg/m3 and shear modulus 3.33e10 Pa in their model table. Same URL.
+- Oceanic Te vs age: the thermal age relation (Te roughly the depth of a ~450 C isotherm) is a model result here, not an observed universal law. Good for the tool as a continental-agnostic oceanic rule only.
+
+## Continental Te: jelly sandwich, bimodal range, Te versus age (Tesauro, Kaban, Cloetingh 2009 GRL "How rigid is Europe's lithosphere?")
+Source read (PDF via VU Research Portal): https://research.vu.nl/ws/files/2522156/227389.pdf
+- Continental Te "have a wide range of values (5-110 km), typically with a bimodal distribution around two peaks at 10-30 km and 70-90 km" (citing Burov and Diament 1995). Same URL.
+- Two Te definitions (bottom of competent layer at 750 C for olivine vs 350 C for quartzite, Cloetingh and Burov 1996) give lower and upper bounds. Same URL.
+- "No straightforward relationship between Te and thermal age is found in the continental part of the study." For provinces older than 85 Ma, Te is significantly smaller than the age-predicted value; younger provinces are the opposite. Same URL.
+- Alpine domain, Northern Atlantic margin, Western Black Sea (younger than ~85 Ma): Te(strength) 20-34 km vs Te(age/h) 13-18 km. Same URL.
+- Apennines and Pannonian basin: low Te (20-35 km range) with gradual strength transition; Te 80-100 km in some high-strength areas (Bohemian Massif/Adriatic); Te of 70 km in Fennoscandia. Same URL.
+- Relevance to the jelly sandwich: the paper argues the mechanically strong layers (MSL) vs total strength determine Te; supports a multi-layer ("jelly sandwich" style coupling) reading for Europe, but the paper's own abstract is not fully read. Burov and Watts 2006 GSA Today is cited as the source of the debate.
+- Burov and Watts 2006 (GSA Today 16(1):4-10) full text: NOT read (topex and earth.ox fetch failed or had no text). Status: abstract and summary via search only.

@@ -1,6 +1,6 @@
 # B: Isostatic response to erosion and sedimentation (working notes)
 
-Status: IN PROGRESS. Early search-level findings; primary text checks pending.
+Status: COMPLETE for the scope reachable in this run. Gaps are listed in "Items NOT completed". Search-level items are marked UNVERIFIED.
 
 ## Corrections to the brief (found while searching)
 - Champagnac et al. 2007 is in GEOLOGY (vol 35, DOI 10.1130/G23053A.1), title "Quaternary erosion-induced isostatic rebound in the western Alps". Not Nature Geoscience. Source: https://data.zhenzhi.com/details/1/908083990 (search metadata, to be verified against the PDF)
