@@ -287,7 +287,10 @@ class LabCok(Lab):
             diger = kita & (lev != b)
             dis = ndimage.distance_transform_edt(~diger) * a.h_km if diger.any() else np.full(S.shape, 1e9)
             cek_km = a.cek_sabit_km if ad == self.sabit_ad else a.cek_gelen_km
-            cek = kb & (dis > cek_km)
+            # komşularla çevrili bloklarda bu uzaklıkta iç kısım kalmayabilir: o zaman bloğun
+            # komşulardan en uzak %40'ı sürülür (yoksa blok sürülmeden pasif kalıyordu)
+            esik = min(cek_km, float(np.percentile(dis[kb], 60)))
+            cek = kb & (dis >= esik)
             sabit |= cek
             if ad in self.tarihler:
                 m = lev == b
