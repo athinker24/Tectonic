@@ -39,10 +39,12 @@ def kos(iz: Izgara, olaylar: list, baslangic_ma: float, ayar: ModelAyar | None =
     g_lit = fbm(iz.xyz, 2000.0, 60.0, tohum=ayar.tohum)
     g_tek = fbm(iz.xyz, 1500.0, 80.0, tohum=ayar.tohum + 7)
     k_alan = ayar.k * np.exp(ayar.k_degiskenlik * g_lit)
-    asin = Asindirici(iz, AsinmaAyar(k=k_alan, m=ayar.m, n=ayar.n, dt_yil=ayar.dt_yil))
-    duz = Duzlestirici(iz, ayar.bukulme_km)
     for o in olaylar:
         o.hazirla(iz, g_tek)
+        if hasattr(o, "k_carpani"):
+            k_alan = k_alan * o.k_carpani(iz)
+    asin = Asindirici(iz, AsinmaAyar(k=k_alan, m=ayar.m, n=ayar.n, dt_yil=ayar.dt_yil))
+    duz = Duzlestirici(iz, ayar.bukulme_km)
 
     # başlangıç: alçak, hafif engebeli kıta; kıyıya doğru sıfıra iner
     s = np.clip(iz.kiyiya_km / 150.0, 0, 1)

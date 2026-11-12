@@ -71,6 +71,7 @@ class Carpisma:
     uzak_orani: float = 0.0
     uzak_gecikme_myr: float = 15.0
     plato_maske: np.ndarray | None = None  # [N] bool; verilirse plato bölgesi uzaklık bandı yerine bu
+    kusak_k_carpani: float = 1.0  # kuşak çekirdeğinde aşınabilirlik çarpanı (metamorfik çekirdek daha sert)
     _geo: dict = field(default_factory=dict, repr=False)
 
     def hazirla(self, iz: Izgara, gurultu: np.ndarray | None = None) -> None:
@@ -118,6 +119,16 @@ class Carpisma:
             idx=np.flatnonzero(sec), d=d, boy=boy, kusak=kusak / integral_m,
             plato=plato, uzak=uzak, alan=alan,
         )
+
+    def k_carpani(self, iz: Izgara) -> np.ndarray:
+        """Aşınabilirlik çarpanı alanı: kuşak çekirdeğinde kusak_k_carpani, dışında 1."""
+        c = np.ones(iz.n)
+        if self.kusak_k_carpani == 1.0 or not self._geo:
+            return c
+        g = self._geo
+        w = g["kusak"] / max(g["kusak"].max(), 1e-30) * g["boy"]
+        c[g["idx"]] = 1.0 - (1.0 - self.kusak_k_carpani) * np.clip(w, 0, 1)
+        return c
 
     def etkin(self, ma: float) -> float:
         """0..1: olayın bu andaki şiddeti (başta 2 milyon yılda açılır, sonda 2 milyon yılda söner)."""
