@@ -233,3 +233,9 @@ Sonuç: sıradağ (kırmızı) p95 5417 m, en yüksek 5889 m; sarı alanın orta
 Hatalar ve düzeltmeler: Himalaya d'si 150 km'de kesilince ötesi aynı çizginin tekrarıyla doldu (düz çizgiler); aynalamaya çevrildi. Çanağı dikey germek (× 1,75) dağları sertleştirdi; sabit yükseltmeye çevrildi.
 
 Kalan kusurlar: sıradağın arkasında Tibet'in güney kenarı 5 km'lik beyaz bir şerit olarak taşınıyor; aynalama yer yer tekrar gösteriyor; çanağın batı kenarı arka plana sert geçiyor; nehir ağı parçalar arasında kopuk (aşınma koşusu yok).
+
+### Taban + gerçek doku (tekrarsız)
+
+`deneyler/nakil3.py`, koşu yaklaşık 3 saniye. Sahibin geri bildirimi: birleşik örnekte tekrar eden kalıp ve "sonradan konmuş" görünüm. Nedenleri: aynalama ve gerçek parçanın tüm yüksekliğiyle (kendi bölgesel eğimi ve ova düzeyiyle) yapıştırılması. Yeni yöntem: yumuşak taban (sıradağ profili, çanak 1250 m, ova 250 ± 180 m) + ortalaması sıfır doku (gerçek verinin 120 km Gauss'la yüksek geçiren kısmı). Kütüphane: dağ 294 parça (8 kuşak), plato 174 (7 plato), ova 786 (7 bölge); 400 km'lik parçalar sırt yönüne göre döndürülmüş, hedefte dikiş boyuna çevrilir; son 30 seçim tekrar edilmez; varyansı koruyan harmanlama. Aynalama yok. Çanak kenarı çokgene uzaklığın gürültüyle bozulmasıyla düzensiz.
+
+Sonuç: çanak iç ortanca 1369 m (p10 957, p90 1887), sıradağ p95 4291 m, en yüksek 6088 m, kara ortancası 221 m. Görünüm: kenar basamağı ve tekrar yok; doku gerçek kuşaklara göre daha yuvarlak ve benekli (keskin uzun sırtlar az); nehir ağı yok.
