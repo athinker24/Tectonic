@@ -63,13 +63,15 @@ def main():
     rapor = json.load(open("cikti/gercek/adaylar.json", encoding="utf-8"))
     p = dict(next(a["parametre"] for a in rapor["secilen"] if a["no"] == no))
     p["kusak_sertlik"] = sert
+    if len(sys.argv) > 5:
+        p["plato_orani"] = float(sys.argv[5])
     maske, sinir = maske_yukle("veri/maske.json")
     iz = izgara_kur(maske, sinir, nside=nside)
     bl = bloklara_ayir(iz, sen)
     a = aday_kur(no, np.random.default_rng(0), iz, bl, sen, p)
     bas = float(np.ceil(max(o.baslangic_ma for o in a.olaylar) + 2))
     son = kos(iz, a.olaylar, bas, ModelAyar(k=k, kare_myr=2.0, tohum=no))
-    on = f"cikti/gercek/tam_{no}_{nside}" + (f"_s{sert:g}" if sert != 1.0 else "")
+    on = f"cikti/gercek/tam_{no}_{nside}" + (f"_s{sert:g}" if sert != 1.0 else "") + (f"_p{p['plato_orani']:g}" if len(sys.argv) > 5 else "")
     tv = tuval_kur(iz, derece=0.08 if nside >= 512 else 0.16)
     kabartma(iz, son.z, tv).save(f"{on}_son.png")
     yukseklik_png(son.z, tv).save(f"{on}_yukseklik16.png")
@@ -85,7 +87,7 @@ def main():
     kareler[0].save(f"{on}.gif", save_all=True, append_images=kareler[1:] + [kareler[-1]] * 8,
                     duration=220, loop=0, optimize=True)
     np.save(f"{on}_z.npy", son.z.astype(np.float32))
-    r = dict(no=no, nside=nside, kusak_sertlik=sert, hucre_km=round(iz.hucre_km, 1), k=k, baslangic_ma=bas, tur=p.get("ya_tur"),
+    r = dict(no=no, nside=nside, kusak_sertlik=sert, plato_orani=p.get("plato_orani", 0.0), hucre_km=round(iz.hucre_km, 1), k=k, baslangic_ma=bas, tur=p.get("ya_tur"),
              sure_s=round(time.time() - t0), **olc(iz, bl, sen, p, son.z), anlati=a.anlati, gunluk=son.gunluk)
     json.dump(r, open(f"{on}.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     print(json.dumps({x: v for x, v in r.items() if x not in ("gunluk", "anlati")}, ensure_ascii=False))

@@ -71,6 +71,7 @@ class Carpisma:
     uzak_orani: float = 0.0
     uzak_gecikme_myr: float = 15.0
     plato_maske: np.ndarray | None = None  # [N] bool; verilirse plato bölgesi uzaklık bandı yerine bu
+    plato_orani: float = 0.0  # yaklaşmanın doğrudan platoda dağılan payı (yaygın kısalma)
     kusak_k_carpani: float = 1.0  # kuşak çekirdeğinde aşınabilirlik çarpanı (metamorfik çekirdek daha sert)
     _geo: dict = field(default_factory=dict, repr=False)
 
@@ -147,11 +148,13 @@ class Carpisma:
             return r
         akı = self.hiz_cm_yil / 100.0 * H0_M * e  # m²/yıl, birim boy başına
         hh = h[g["idx"]]
-        istek = akı * g["kusak"] * g["boy"]
+        tum = akı * g["kusak"] * g["boy"]
+        istek = (1.0 - self.plato_orani) * tum
         # kuşakta doygunluk: kalınlık üst sınıra yaklaştıkça kabul azalır
         kabul = np.clip((self.kusak_hmax_m - hh) / 5000.0, 0, 1)
         r = istek * kabul
         fazla_hacim = float(np.sum(istek * (1 - kabul)) * g["alan"])  # m³/yıl
+        fazla_hacim += self.plato_orani * float(np.sum(tum) * g["alan"])
         if fazla_hacim > 0 and (self.plato_km > 0 or self.plato_maske is not None):
             pk = g["plato"] * np.clip((self.plato_hmax_m - hh) / 3000.0, 0, 1)
             if self.plato_maske is None:

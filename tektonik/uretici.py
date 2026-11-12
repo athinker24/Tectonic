@@ -134,7 +134,8 @@ def aday_kur(no: int, rng: np.random.Generator, iz: Izgara, bloklar: Bloklar, se
     olaylar.append(Carpisma("Büyük çarpışma", cephe, ust_sol=True, baslangic_ma=p["carpisma_ma"],
                             hiz_cm_yil=yakinsama, kusak_km=280.0, plato_km=p["plato_km"],
                             kusak_hmax_m=70_000.0, plato_hmax_m=p["plato_hmax_km"] * 1e3,
-                            plato_maske=plato_m, kusak_k_carpani=p.get("kusak_sertlik", 1.0)))
+                            plato_maske=plato_m, kusak_k_carpani=p.get("kusak_sertlik", 1.0),
+                            plato_orani=p.get("plato_orani", 0.0)))
     anlati.append(
         f"Güneydoğu bloğu neden kuzeye dayandı? Yaklaşık {p['baslangic_ma']:.0f} milyon yıl önce aradaki "
         f"{p['okyanus_km']:.0f} km'lik okyanusu yılda {p['hiz_once']:.1f} cm ile kapatmaya başladı; "

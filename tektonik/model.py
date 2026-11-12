@@ -23,6 +23,10 @@ class ModelAyar:
     kiyi_sonum_km: float = 60.0  # yükselmenin kıyıya doğru sönüm uzunluğu
     kare_myr: float = 2.0
     tohum: int = 1
+    # Kabuk kalınlığını her adımda bölgesel (bükülmeyle düzleştirilmiş) yüzeyden yeniden kur:
+    # h = H0 + düz(z) / AIRY. Yerel kalınlaşma ile bölgesel geri sıçrama arasındaki
+    # tutarsızlık kuşakta kabuğu doygun gösterip yüzeyi alçak bırakıyordu.
+    kabuk_yuzeyden: bool = True
 
 
 @dataclass
@@ -78,6 +82,8 @@ def kos(iz: Izgara, olaylar: list, baslangic_ma: float, ayar: ModelAyar | None =
         h -= e
         z[kara] += geri_sicrama(duz, e)[kara]
         z[~kara] = 0.0
+        if ayar.kabuk_yuzeyden:
+            h[kara] = H0_M + duz.uygula(z)[kara] / AIRY
         if i % 50 == 0:
             sonuc.gunluk.append(dict(ma=round(ma, 2), zmax=float(z.max()), zort=float(z[kara].mean()),
                                      hmax=float(h[kara].max()), asinma_ort_mm_yil=float(e[kara].mean() / ayar.dt_yil * 1e3)))
