@@ -70,7 +70,7 @@ class Carpisma:
     uzak_km: tuple[float, float] = (1500.0, 2500.0)
     uzak_orani: float = 0.0
     uzak_gecikme_myr: float = 15.0
-    plato_maske: np.ndarray | None = None  # [N] bool; verilirse plato bölgesi uzaklık bandı yerine bu
+    plato_maske: np.ndarray | None = None  # [N] bool ya da 0..1 ağırlık; verilirse plato bölgesi uzaklık bandı yerine bu
     plato_orani: float = 0.0  # yaklaşmanın doğrudan platoda dağılan payı (yaygın kısalma)
     kusak_k_carpani: float = 1.0  # kuşak çekirdeğinde aşınabilirlik çarpanı (metamorfik çekirdek daha sert)
     _geo: dict = field(default_factory=dict, repr=False)
@@ -107,7 +107,7 @@ class Carpisma:
             plato *= np.clip((W + self.plato_km - x) / (0.25 * self.plato_km), 0, 1)
         if self.plato_maske is not None:
             # sahibin çizdiği plato: çokgen içi, kuşağın kendisi hariç
-            plato = (self.plato_maske[sec] & (np.abs(x) > 0.6 * W)).astype(float)
+            plato = self.plato_maske[sec].astype(float) * (np.abs(x) > 0.6 * W)
         uzak = ((x > self.uzak_km[0]) & (x < self.uzak_km[1])).astype(float)
         if gurultu is not None:
             uzak *= np.clip(gurultu[sec], 0, None)

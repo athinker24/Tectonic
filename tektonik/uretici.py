@@ -68,6 +68,18 @@ def bolge_maske(iz: Izgara, bolge) -> np.ndarray:
     return iz.kara & kure.cokgen_ici(iz.xyz, np.asarray(bolge, float))
 
 
+def yumusak_bolge(iz: Izgara, bolge, kenar_km: float = 200.0) -> np.ndarray:
+    """Elle çizilmiş bölgenin 0..1 ağırlığı: sınırdan içeri kenar_km boyunca yumuşak artar,
+    böylece çizginin kendisi bir basamak olarak araziye geçmez."""
+    m = bolge_maske(iz, bolge)
+    w = np.zeros(iz.n)
+    if m.any() and (iz.kara & ~m).any():
+        d, _ = cKDTree(iz.xyz[iz.kara & ~m]).query(iz.xyz[m])
+        t = np.clip(d * 6371.0 / kenar_km, 0, 1)
+        w[m] = t * t * (3 - 2 * t)
+    return w
+
+
 def omurga_maske(iz: Izgara, blok: np.ndarray, yari_km: float = 130.0) -> tuple[np.ndarray, np.ndarray]:
     """Bloğun uzun ekseni (teğet düzlemde temel bileşen) ve çevresindeki şerit."""
     from .olaylar import isaretli_uzaklik_km
@@ -128,7 +140,7 @@ def aday_kur(no: int, rng: np.random.Generator, iz: Izgara, bloklar: Bloklar, se
     dikis = next(d for d in senaryo["dikisler"] if d["ad"] == "Duvar dikişi")
     cephe = np.array(dikis["cizgi"], float)
     plato_istek = next((i for i in senaryo.get("istekler", []) if i["tur"] == "plato" and len(i["bolge"]) > 2), None)
-    plato_m = bolge_maske(iz, plato_istek["bolge"]) if plato_istek else None
+    plato_m = yumusak_bolge(iz, plato_istek["bolge"]) if plato_istek else None
     # dikişe dik yakınsama: hızın kuzey bileşeni
     yakinsama = p["hiz_sonra"] * np.cos(np.radians(p["yon"]))
     olaylar.append(Carpisma("Büyük çarpışma", cephe, ust_sol=True, baslangic_ma=p["carpisma_ma"],
