@@ -174,3 +174,18 @@ Sert bölgeler (Tarim, Junggar, Sichuan, Ordos, Kuzey Çin, Sibirya ve Doğu Avr
 | sert 5, yağış, K 1e-9 | 2591 | 3638 | 715 | 1167 | 335 | 979 | 1115 |
 
 Görünüm: katı havzalar (Tarim, Junggar, Sichuan) alçak kaldı, plato kenarı keskinleşti. Sayılar karışık: Tien Şan Tarim katılaşınca düştü (sert çokgen ve 150 km yumuşatma Tien Şan kutusuna taşıyor olabilir), Tibet hâlâ yarı. Yağış kıyıda yoğun, içeride kurak; Himalaya önü belirgin ıslanmıyor (güney rüzgârı Hindistan'ı geçerken nemini kaybediyor; muson yok). En büyük kalan eksik: kabuğun yatay taşınması.
+
+### Kabuk taşıma
+
+Yarı Lagrange taşıma (`LevhaAyar.tasima`): her adımda kabuk kalınlığı ve aşınma kabartısı hız alanıyla taşınır (doğrusal ara değer), kalkış noktası denizdeyse gelen kabuk 35 km; kıyı sabit. Sonra −S ∇·u kalınlaşması. Sert bölge kenar yumuşatması 150 km'den 50 km'ye indirilince Tien Şan geri geldi (Tarim sertliği Tien Şan'a taşıyordu).
+
+| ayar | Tibet | Himalaya | Zagros | İran | Alpler | Tien Şan | Moğolistan |
+|---|---|---|---|---|---|---|---|
+| gerçek | 4986 | 3228 | 1287 | 1084 | 1064 | 1776 | 1521 |
+| taşıma, η0 1e22, sert 10, yağış, K 5e-10 | 3028 | 3332 | 946 | 1255 | 420 | 566 | 1129 |
+| taşıma, η0 3e22, sert 10, yağış, K 5e-10 | 4175 | 4093 | 847 | 1220 | 418 | 475 | 1043 |
+| aynı, kenar 50 km | 4671 | 4075 | 762 | 1112 | 418 | 1543 | 1540 |
+| η0 2e22, kenar 50 km | 3480 | 3298 | 835 | 1158 | 421 | 2591 | 1451 |
+| η0 3e22, sert 5, kenar 50 km | 4089 | 3594 | 772 | 1126 | 422 | 1004 | 1161 |
+
+Seçilen ayar (η0 3e22, sert 10, kenar 50 km, yağış, K 5e-10, taşıma): Tibet %94, Himalaya %126, İran %103, Tien Şan %87, Moğolistan %101, Zagros %59, Alpler %39 (Adriya yok). Bilinen görsel kusurlar: 50 km'de akarsular düz ışınsal çizgiler; Kazakistan ve Turan alçak düzlükleri modelde fazla yüksek; Tibet'in düz tepesi yok.

@@ -102,9 +102,11 @@ def main():
     avr_km = float(sys.argv[5]) if len(sys.argv) > 5 else 700.0
     sert = float(sys.argv[6]) if len(sys.argv) > 6 else 1.0  # sert bölge viskozite çarpanı (1 = yok)
     yagis = (sys.argv[7] == "1") if len(sys.argv) > 7 else False
+    tasima = (sys.argv[8] == "1") if len(sys.argv) > 8 else False
+    kenar_km = float(sys.argv[9]) if len(sys.argv) > 9 else 150.0  # sert bölge kenar yumuşatması
     t0 = time.time()
     os.makedirs("cikti/dunya", exist_ok=True)
-    on = f"cikti/dunya/dunya_{h_km:g}km_eta{eta0:.0e}_k{k:.0e}_o{oky:g}_avr{avr_km:g}_s{sert:g}_y{int(yagis)}"
+    on = f"cikti/dunya/dunya_{h_km:g}km_eta{eta0:.0e}_k{k:.0e}_o{oky:g}_avr{avr_km:g}_s{sert:g}_y{int(yagis)}_t{int(tasima)}_kn{kenar_km:g}"
 
     zr, lon_r, lat_r = gercek_yukseklik()
     maske = zr > 0
@@ -148,13 +150,13 @@ def main():
         "Arabistan": tarih("Arabistan", ara, [(25, 0, -15, 2.0)]),
         "Afrika": tarih("Afrika", afr, [(50, 0, -30, 0.6)]),
     }
-    ayar = LevhaAyar(eta0=eta0, k=k, okyanus=oky, cekirdek_ozel={"Avrasya": avr_km}, yagis=yagis)
+    ayar = LevhaAyar(eta0=eta0, k=k, okyanus=oky, cekirdek_ozel={"Avrasya": avr_km}, yagis=yagis, tasima=tasima)
     carpan = np.ones(dz.sekil)
     if sert != 1.0:
         m = np.zeros(dz.sekil, bool)
         for c in SERT.values():
             m |= cokgen_ici(dz.lon, dz.lat, c)
-        w = ndimage.gaussian_filter(m.astype(float), 150 / h_km)  # 150 km yumuşak kenar
+        w = ndimage.gaussian_filter(m.astype(float), kenar_km / h_km)
         carpan = np.exp(np.log(sert) * np.clip(w * 2, 0, 1))
     son = kos_levha(dz, blok, adlar, tarihler, 50.0, ayar,
                     gunluk_yaz=lambda gun: print(gun, f"{time.time() - t0:.0f} s", flush=True), eta_carpan=carpan)
@@ -184,7 +186,7 @@ def main():
         rgb = np.where(dz.kara[..., None], rgb, 235).astype(np.uint8)
         Image.fromarray(rgb).resize((dz.sekil[1] * 2, dz.sekil[0] * 2), Image.NEAREST).save(f"{on}_yagis.png")
     np.save(f"{on}_z.npy", z.astype(np.float32))
-    r = dict(eta0=eta0, k=k, h_km=h_km, okyanus=oky, avrasya_cekirdek_km=avr_km, sert=sert, yagis=yagis, sure_s=round(time.time() - t0), bolgeler=olc, hipsometri=hip,
+    r = dict(eta0=eta0, k=k, h_km=h_km, okyanus=oky, avrasya_cekirdek_km=avr_km, sert=sert, yagis=yagis, tasima=tasima, sure_s=round(time.time() - t0), bolgeler=olc, hipsometri=hip,
              gunluk=son.gunluk)
     json.dump(r, open(f"{on}.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     for ad, v in olc.items():

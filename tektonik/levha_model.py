@@ -29,6 +29,7 @@ class LevhaAyar:
     alt_adim: int = 5
     kare_myr: float = 2.0
     tohum: int = 3
+    tasima: bool = False  # kabuk kalınlığını (ve aşınma kabartısını) hız alanıyla yatayda taşı
     yagis: bool = False  # orografik yağış: aşınma yağışla toplanan suya bağlı
     yagis_L_km: float = 3000.0  # düz karada nemin yağarak tükenme uzunluğu
     yagis_Hc_m: float = 1500.0  # bu kadar yükselen hava neminin çoğunu bırakır
@@ -157,10 +158,21 @@ def kos_levha(dz: Duzlem, blok: np.ndarray, adlar: list[str], tarihler: dict, ba
             u, v = coz.coz(eta, Sg, sabit, u0, v0)
             ekk, eE = coz.gerinim(u, v)
             eta = np.clip(eta_taban * (np.maximum(eE, 1e-18) / 1e-15) ** (1 / a.n - 1), 1e20, 1e25)
+        rel = z - gk(z)  # aşınma kabartısı (kısa dalga boyu)
+        if a.tasima:
+            # yarı Lagrange taşıma: her hücre, dt önce bulunduğu yerdeki kabuğu alır.
+            # Kalkış noktası denizdeyse gelen kabuk normal kalınlıkta (35 km) sayılır; kıyı sabit kalır.
+            sn = dt * 1e6 * SANIYE_YIL / dz.h
+            rr, cc = np.mgrid[0:ny, 0:nx].astype(float)
+            r0, c0 = rr + v * sn, cc - u * sn
+            Sk = np.where(kara, S, 35e3)
+            S_t = ndimage.map_coordinates(Sk, [r0, c0], order=1, mode="nearest")
+            rel = ndimage.map_coordinates(np.where(kara, rel, 0.0), [r0, c0], order=1, mode="nearest")
+            S = np.where(kara, S_t, 35e3)
         dS = np.where(kara, -S * ekk * dt * 1e6 * SANIYE_YIL, 0.0)
         dS = np.clip(dS, -0.2 * S, 30e3)
         S = np.where(kara, np.clip(S + dS, 20e3, 90e3), 35e3)
-        z = np.where(kara, (z - gk(z)) + AIRY * (gk(S) - a.s_ref_km * 1e3) * np.clip(kiyi / 60, 0, 1), 0.0)
+        z = np.where(kara, rel + AIRY * (gk(S) - a.s_ref_km * 1e3) * np.clip(kiyi / 60, 0, 1), 0.0)
         z = np.where(kara, np.maximum(z, 0.0), 0.0)
         top_e = 0.0
         P = yagis_alani(kara, z, dz.h, a.yagis_L_km, a.yagis_Hc_m, a.yagis_taban) if a.yagis else None
