@@ -65,6 +65,15 @@ class LabDurum:
     gunluk: list = field(default_factory=list)
 
 
+def acik_okyanus(z):
+    """Alan kenarına bağlı deniz altı bölge (açık okyanus); iç göller hariç."""
+    deniz = z < 0
+    et, n = ndimage.label(deniz)
+    kenar = np.unique(np.r_[et[0, :], et[-1, :], et[:, 0], et[:, -1]])
+    kenar = kenar[kenar > 0]
+    return np.isin(et, kenar)
+
+
 def bukulme_suzgeci(ny, nx, h, Te_km):
     E, nu = 1e11, 0.25
     D = E * (Te_km * 1e3) ** 3 / (12 * (1 - nu ** 2))
@@ -130,7 +139,11 @@ class Lab:
         sabit = cek_g | cek_s
         sabit[[0, -1], :] = True; sabit[:, [0, -1]] = True
         # kıtalar temas edince (aradaki en kısa uzaklık iki hücreden az) gelen yavaşlar
-        if self.temas_ma is None and (kita & gelen).any() and dis_sabit_kita[kita & gelen].min() < 2.5 * a.h_km:
+        gk = kita & gelen
+        et_g, n_g = ndimage.label(gk)
+        if n_g > 1:  # temas yalnız gelen kıtanın ana gövdesi için
+            gk = et_g == (1 + np.argmax(ndimage.sum(gk, et_g, range(1, n_g + 1))))
+        if self.temas_ma is None and gk.any() and dis_sabit_kita[gk].min() < 2.5 * a.h_km:
             self.temas_ma = d.ma
         carp = a.carpisma_sonrasi_hiz if self.temas_ma is not None else 1.0
         u0 = np.where(gelen, self.v_gelen[0] * carp, 0.0)
@@ -174,7 +187,7 @@ class Lab:
         kita = S > 20e3
         # --- yüzey ve aşınma ---
         z = yuzey(S, kita, self.suzgec, a)
-        kara = kita & (z > 0)
+        kara = ~acik_okyanus(z)  # iç göller de karanın parçası: nehirler onlara akar, dolarlar
         zr = np.ascontiguousarray(np.where(kara, z, 0.0), dtype=np.float64).copy()  # deniz taban düzeyi 0
         self.router.update_routes(zr)
         A = np.asarray(self.router.accumulate(1.0))
@@ -182,15 +195,13 @@ class Lab:
         e = np.where(kara, np.clip(e, 0, None), 0.0)
         S = S - e
         hacim = float(e.sum())
-        # --- çökelme: karadaki kapalı çukurlar (deniz sınırdan dolan) ---
+        # --- çökelme: açık okyanusa bağlı olmayan bütün çukurlar (iç göller dahil) dolar ---
         z = yuzey(S, S > 20e3, self.suzgec, a)
-        kara = (S > 20e3) & (z > 0)
-        tohum = np.where(kara, z.max() + 1.0, np.maximum(z, 0.0))
-        tohum[[0, -1], :] = np.maximum(z[[0, -1], :], 0); tohum[:, [0, -1]] = np.maximum(z[:, [0, -1]], 0)
-        maske = np.where(kara, z, np.maximum(z, 0.0))
-        dolu = reconstruction(np.minimum(tohum, tohum), maske, method="erosion") if False else \
-            reconstruction(tohum, maske, method="erosion")
-        cukur = np.where(kara, np.clip(dolu - z, 0, None), 0.0)
+        acik = acik_okyanus(z)
+        tohum = np.where(acik, np.maximum(z, 0.0), z.max() + 1.0)
+        maske = np.where(acik, np.maximum(z, 0.0), z)
+        dolu = reconstruction(tohum, maske, method="erosion")
+        cukur = np.where(~acik & (S > 15e3), np.clip(dolu - z, 0, None), 0.0)  # okyanus kabuğunda çökelme yok
         if cukur.sum() > 0 and hacim > 0:
             # çukurun izostatik derinleşmesi için yaklaşık 1/(1−ρc/ρm) kat malzeme gerekir; payı sınırlı
             gerek = cukur.sum() / (1 - RHO_C / RHO_M)
@@ -199,7 +210,7 @@ class Lab:
         d.S, d.etiket, d.u, d.v = S, L, u, v
         d.z = yuzey(S, S > 20e3, self.suzgec, a)
         d.ma = round(d.ma - a.dt_myr, 6)
-        kara = (S > 20e3) & (d.z > 0)
+        kara = ~acik_okyanus(d.z)
         d.gunluk.append(dict(ma=d.ma, zmax=float(d.z.max()), Smax_km=float(S.max() / 1e3),
                              kara_orani=float(kara.mean()), asinma_km3=float(hacim * h * h / 1e9),
                              vmax_cm=float(np.hypot(u, v).max() * SANIYE_YIL * 100), temas_ma=self.temas_ma))

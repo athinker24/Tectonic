@@ -27,7 +27,11 @@ def kita_bicimi(ny, nx, h_km, merkez, yaricap_km, tohum, uzama=(1.0, 1.0)):
     r = np.hypot(dx, dy)
     g = ndimage.gaussian_filter(rng.standard_normal((ny, nx)), 6); g /= g.std()
     g2 = ndimage.gaussian_filter(rng.standard_normal((ny, nx)), 2); g2 /= g2.std()
-    return r < yaricap_km * (1 + 0.18 * g + 0.05 * g2)
+    m = r < yaricap_km * (1 + 0.18 * g + 0.05 * g2)
+    et, n = ndimage.label(m)
+    if n > 1:  # yalnız en büyük parça (gürültünün doğurduğu uzak adacıklar karışmasın)
+        m = et == (1 + np.argmax(ndimage.sum(m, et, range(1, n + 1))))
+    return ndimage.binary_fill_holes(m)
 
 
 def resim(z, h_km, olcek=3):
@@ -77,7 +81,8 @@ def main():
     guney = kita_bicimi(ny, nx, h_km, (int(4150 / h_km), nx // 2), 560, 7, uzama=(1.0, 1.15))
     S0 = np.where(kuzey | guney, 35e3, 7e3)
     et = np.zeros((ny, nx))
-    et[int(3000 / h_km):, :] = 1.0  # güneydeki levha (kıta + önündeki okyanus) gelen
+    et[int(3000 / h_km):, :] = 1.0
+    et[kuzey] = 0.0  # kuzey kıtasının her parçası sabit levhada  # güneydeki levha (kıta + önündeki okyanus) gelen
     a = LabAyar(h_km=h_km, Te_km=float(sys.argv[4]) if len(sys.argv) > 4 else 30.0)
     lab = Lab(S0, et, (0.0, hiz), sure, a)
     t0 = time.time()
