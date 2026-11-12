@@ -51,7 +51,7 @@ def gorsel(z, kara, LA, nehir=None, baslik=""):
 
 def main():
     yol = sys.argv[1] if len(sys.argv) > 1 else "cikti/nakil3_4_z.npy"
-    sure = float(sys.argv[2]) if len(sys.argv) > 2 else 2.0
+    sure = float(sys.argv[2]) if len(sys.argv) > 2 else 1.0
     K = float(sys.argv[3]) if len(sys.argv) > 3 else 5e-7
     t0 = time.time()
     maske, sinir, lon, lat, LO, LA, kara_ll = latlon_izgara()

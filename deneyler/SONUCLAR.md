@@ -243,3 +243,5 @@ Sonuç: çanak iç ortanca 1369 m (p10 957, p90 1887), sıradağ p95 4291 m, en 
 ### Aşınma koşusu (örnek tabanlı kabartmanın üstünde)
 
 `deneyler/asindir_son.py`. Lat-lon kabartma 10 km Lambert eşit alanlı ızgaraya taşındı (yaklaşık 920 × 720), fastscapelib akarsu aşınması m 0,5, n 1, K 1e-6, 2 milyon yıl (100 adım × 20 000 yıl), 80 km bükülmeyle geri sıçrama 0,85; sonra lat-lon'a geri. Süre 20 s (adım başına 0,2 s). Ortalama aşınma 211 m, en çok 4354 m; en yüksek nokta 6148 m, kara ortancası 191 m. Görünüm: ağaç dallanmalı vadiler, sıradağda yan sırtlar, nehir ağı kıyılara bağlı; çanaktan çıkan nehirler sıradağı yararak denize iniyor (çanak dışa akışlı oldu; İran platosu gerçekte büyük ölçüde iç akışlı). 0,4 milyon yıl ile K 5e-7: ortalama aşınma 18 m, etkisi az.
+
+Sahip: "aşınma aşırı oldu" (2 milyon yıl, K 1e-6, ortalama 211 m). Seçenekler: 0,5 milyon yıl K 1e-6 ve 1 milyon yıl K 5e-7 aynı sonucu verir (ortalama 47 m, en çok 2378 m; örtük çözücüde K × süre belirleyici); 1 milyon yıl K 2,5e-7 ortalama 23 m. Varsayılan 1 milyon yıl, K 5e-7 yapıldı.
