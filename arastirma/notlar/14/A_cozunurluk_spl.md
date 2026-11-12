@@ -42,10 +42,36 @@ Etiketler: [B] tam metin okundu, [B-öz] özet/arama sonucu üzerinden, [Ö] yal
 - Bulgu (eğim eğrisi): Piksel genişliğinden büyük kanal genişliği varsayımında kanal eğimi konkavitesi, Pelletier (2010) yaklaşımından farklı çıkar; yazarlar kanal genişliğinin piksel genişliğini aştığını varsayar, piksel genişliği kanal başı genişliğine eşit alınır (Litwin et al. 2022b'ye atıf) [B, satır 67].
 - Not: Bu makale K ve m için açık "δ'ya göre K ölçekleme kuralı" vermiyor (taramada bulunamadı) — yalnızca A ve eşik ölçeğinin δ ile ilişkisini veriyor. K için: "K difficult to estimate from topography" [B, satır 64].
 
-### F3 — Hergarten & Pietrek (2023), ESurf 11, 741 [B-öz]
-- Kaynak: https://esurf.copernicus.org/articles/11/741/2023/ [B-öz, yalnızca arama özeti]
-- Kargère et al. 2025 bunu, "Hergarten and Pietrek (2023)" olarak paralel akış/yakınsak akış tartışmasında anıyor [B, satır 29]. Tam metni henüz okumadım — TAMAMLANACAK.
+### F3 — Hergarten & Pietrek (2023), "Self-organization of channels and hillslopes...", ESurf 11, 741–755 [B]
+- Kaynak: https://esurf.copernicus.org/articles/11/741/2023/ , DOI 10.5194/esurf-11-741-2023 [B]
+- Etiket: [B]
+- Bulgu (K'nın δx'e yeniden ölçeklenmesi): Boyutsuz K (ve U) birim ızgara aralığı δx (m), dikey ölçek L, zaman ölçeği T ile tanımlanıyor; K için boyut analizinden bir yeniden ölçekleme faktörü veriliyor (formül PDF metninde bozuk geldi, faktör [Ö]); U da ayrıca ölçekleniyor [B, satır 68-69]. Sonuç: birim δx'te yapılan boyutsuz simülasyonu başka δx'e aktarmak için, sabit K ve U'da α ve β sabit olmalı [B, satır 69]. Ayrıca bu ölçekleme "L ve T'nin δx'ten bağımsız" olmasını sağlar (yalnızca SPIM / shared stream-power, hillslope eklenmeden) [B, satır 70].
+- Bulgu (difüzyon ile kırılma): Hillslope süreçleri (difüzyon) eklenince bu ölçekleme kayboluyor; K_d ve K_t, Eq. 16 (m=0) ile farklı ölçeklenir ve yatay bir karakteristik uzunluk oluşturur; gerçek dünyadaki A_h değeri δx² ile ölçeklenir [B, satır 71]. Sabit erodibilite (ve sabit gerçek A_h) için boyutsuz A_h'nin de δx'e göre ayarlanması gerekir [B, satır 71].
+- Bulgu (kalıntı bağımlılık): Hergarten (2020a, Fig. 10) "rescaling parametrelerden sonra bile" ızgara aralığına kalıntı bağımlılık gözlemlemiş; bu, hillslope–fluvial geçiş bölgesinde paralel akış desenlerinden kaynaklanıyor [B, satır 29]. Yazarlar, eşik-tabanlı modellerde Ac'nin "süreçlere bağlı" olduğunu ve evrensel bir değeri olmadığını, Ac'nin difüzivite ile artması gerektiğini belirtiyor [B, satır 32].
+- Bulgu (difüzivite duyarlılığı): Aynı topografyada D 10 kat artınca kanal oluşturan alan yaklaşık 6.5 kat artıyor, yani ~D^0.8 [B, satır 42].
+- Bulgu (m=0 seçimi): Hillslope modeli için m=0 seçilmesi, "A'nın unchannelized akış için ızgara aralığına bağlı olması" nedeniyle tercih ediliyor [B, satır 51]. Bu, m'nin ızgara ile ilişkisine doğrudan bir ipucu.
 
-### F4 — Hergarten (2020a), "Rivers as linear elements", ESurf 8, 367–377 [B-öz]
-- URL: https://esurf.copernicus.org/articles/8/367/2020/ [B-öz, arama özeti]
-- Arama özeti: çözünürlüğe bağlı ölçek sorununa dair güç-yasası ölçeklemesi (eşik kataleti boyutu ve ağ genişliği içeren) tartışılır [Ö]. Tam metin için TAMAMLANACAK.
+### F4 — Hergarten (2020a), "Rivers as linear elements in landform evolution models", ESurf 8, 367–377 [B]
+- Kaynak: https://esurf.copernicus.org/articles/8/367/2020/ , DOI 10.5194/esurf-8-367-2020 [B]
+- Etiket: [B]
+- Bulgu (ölçek sorunu): Ölçek sorunu ızgara genişliği δ ile: "canyon-like topography" ve yalnızca yerel taşıma yoksa vadi genişliğinin δ ile azalması; yerel taşıma (difüzyon) eklenince kanal eğimi δ'ya bağlı artıyor [B, satır 20-23]. Örnek: δ=0.01 ve δ=0.002 (100×100 ve 500×500), m=0.5, θ=0.5 [B, satır 20].
+- Bulgu (Howard 1994 / Perron 2008 / Pelletier 2010): Ölçek sorununa iki yaklaşım önerilmiş — Howard (1994) alt-piksel temsili, Perron et al. (2008) bunu detachment-limited'a aktarmış (δ-faktörü; kanal genişliği w sabit varsayılır), Pelletier (2010) ise taşıma terimini ters faktörle yeniden ölçeklemiş [B, satır 27-30]. Hergarten bu yaklaşımların ikisinin de kanal genişliğine bağlı kaldığını ve w'nın tutarsız olduğunu belirtiyor [B, satır 29-32].
+- Bulgu (çözüm, ana sonuç): Eşik kataleti A_c tanımlanır (A ≥ A_c kanal, aksi halde hillslope) [B, satır 36]. Ölçekleme ilişkisi: A_e ≈ α A_c^β (Eq. 14); θ=0.5 kafes (lattice) için α=1.360, β=0.465 [B, satır 48]; OCN (optimal channel networks, θ=0.5, L=4096) referansı α=1.508, β=0.478 [B, satır 53]. A_e: kanal bölgesine akan hillslope alanının ortalaması (piksel sayısı) [B, satır 38-39].
+- Bulgu (fiziksel alan ile δ bağı): A_c fiziksel alan olarak yazılınca bölgesel erozyon terimi δ^(−2β) ile ölçeklenir [B, satır 53-54]. β=0.5 alınırsa terim yaklaşık δ^(−1) olur; bu, Perron et al. (2008)'in varsayımıyla "temelde aynı" [B, satır 54]. Fark: Perron'daki w sabit ve fiziksel anlamını yitiriyor [B, satır 54].
+- Bulgu (kalıntı bağımlılık, sayısal): Yeniden ölçeklenmiş ortalama k_s, N=10^5'ten 10^7'ye 1.6–2.0 arasında değişiyor (kalıntı bağımlılık, yakınsama belirsiz) [B, satır 59, 62]. Ölçeklenmemiş (dashed) durumda k_s, N arttıkça (δ küçüldükçe) belirgin artıyor [B, satır 59].
+- Bulgu (kanal + difüzyon): Kalıntı bağımlılığın nedeni ağ yeniden düzenlenmesi (network reorganization); difüzyon dendritik topolojiyi paralel akışa doğru bozuyor [B, satır 62].
+- Formüller (Eq. 11-16) PDF metin çıkarımında bozuk; bu notta yalnızca metindeki sayısal ve sözel ifadeler kullanıldı.
+
+### F5 — Hergarten (2020), transport-limited: ölçek faktörü ile F1 bağlantısı
+- F1'deki "piksel boyutuna bağlı yeniden ölçekleme faktörü" ifadesi [B], F4'teki A_c tabanlı yeniden ölçekleme ile birlikte okunmalı; F1 bu faktörün tam formunu vermiyor, F4 bunu veriyor (A_c, β). [B-öz, çapraz okuma]
+
+### F6 — Kargère et al. (2025): "BULUNAMADI" olan K/m ölçekleme kuralı
+- Tam metinde K ve m için açık, δ'ya göre bir K ölçekleme kuralı bulunamadı [B, tarama]; yalnızca A_inflection ∝ δ ve A_channel_head ∝ δ⁰ hipotezleri (F2).
+
+### Arama özetleri (henüz tam metin yok)
+- Braun & Willett (2013), Geomorphology 180–181, 170–179, DOI 10.1016/j.geomorph.2012.10.008 [Ö]: O(n) implicit yöntem; Landlab notu, transient çözümün zaman adımından bağımsız olmadığını ve Appendix B'de doğruluk tartışıldığını söylüyor [Ö]. Izgara aralığı etkisi arama özetinde BULUNAMADI.
+- Schwanghart & Scherler (2017), ESurf 5, 821–839, https://esurf.copernicus.org/articles/5/821/2017/ [Ö]: DEM kaynaklı profil hatası ve kantil regresyonla düzeltme; K/m çözünürlük ölçekleme ile DOĞRUDAN ilgisi yok (ölçüm/DEM hatası tarafı). Bu nedenle ızgara ölçeklemesi için BULUNAMADI, tangential.
+- Cordonnier 2016: arama BULUNAMADI (makale bulunamadı). Kaynak "Cordonnier, Davy..." için tekrar aranacak.
+- Gailleton et al. 2019 ESurf 7, 549: Gailleton, Malatesta, Cordonnier, Braun'un makalesi arama sonucunda görüldü (90 m topografya, drenaj havzaları); "multiresolution/adaptive mesh" konusu DOĞRULANAMADI [Ö]. Adaptif-ağ konusu için BULUNAMADI (henüz).
+- Armitage (2019), ESurf kısa iletişim: akış yönlendirmesi ve kenar tabanlı dağıtımın LEM çözünürlük bağımlılığını önemli ölçüde azalttığı [Ö].
+- Perron, Dietrich & Kirchner (2008), JGR 113, F04016, DOI 10.1029/2007JF000977: Hergarten (2020a) ve Hergarten (2020) tarafından anılıyor; kendi metni henüz okunmadı [B-öz, atıf].

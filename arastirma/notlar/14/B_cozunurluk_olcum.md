@@ -1,83 +1,87 @@
 # B: DEM resolution, scale dependence and river network (findings)
 
-Status: research pass 1 done. Network access is heavily restricted in this session. Most primary-source hosts returned DNS errors (ENOTFOUND): www.gmba.unibe.ch, efi.eng.uci.edu, www.geomorphometry.org, hydrology.usu.edu, www.doi.org, esurf.copernicus.org. Everything below from search snippets is tagged [Ö] and must be verified against the original text before citing numbers.
+Status: pass 2 done. In pass 1 most hosts gave DNS errors. In pass 2, curl (no TLS bypass) reached www.gmba.unibe.ch, esurf.copernicus.org (articles and preprints), hydrology.usu.edu and orca.cardiff.ac.uk. Blocked: www.doi.org (HTTP 403, ERİŞİLEMEDİ), efi.eng.uci.edu (self-signed certificate chain, ERİŞİLEMEDİ; not bypassed), www.geomorphometry.org (DNS, ERİŞİLEMEDİ). Tags as below.
 
-Tags: [B] full text read; [B-öz] summary read; [Ö] search-snippet summary only; ERİŞİLEMEDİ = host not reachable; BULUNAMADI = not found.
+Tags: [B] full text read from the PDF or page; [B-öz] summary read; [Ö] search-snippet summary only; ERİŞİLEMEDİ = host not reachable or blocked; BULUNAMADI = not found.
 
-Overall: no [B] or [B-öz] sources were obtained. No quantitative relief ratios for Δx = 5, 10, 20, 90 m or 1 km were found. Several exact citations need checking (see Section 6).
+## Corrections from pass 2
+- The 2025 ESurf paper (ESurf 13, 403, 2025) is by B. Kargère et al., "A fractal framework for channel–hillslope coupling". Pass 1 wrongly attributed it to Hergarten and Pietrek. [B]
+- Pass 1 said the GMBA window is about 1.8 km and the threshold is 200 or 300 m. The GMBA page (pass 2) gives the definition directly; see Section 2.
 
 ## 1. DEM resolution, relief, slope, valley density
 
-- Zhang & Montgomery 1994, Water Resources Research 30:1019-1028, "Digital elevation model grid size, landscape representation, and hydrologic simulations". [Ö]
-  - Grid sizes tested: 2, 4, 10, 30, 90 m, built from simulated landscapes on two small catchments (0.3 and 1.2 km²). [Ö]
-  - Finding: a 10 m grid is a large improvement over 30 m and 90 m; 2 m and 4 m add only marginal gain on moderate-to-steep terrain. The authors suggest 10 m is often adequate. [Ö]
-  - Caveat from a later comment: the 10 m conclusion depends on the input data, since the spot elevations came from stereo digitizing at about 10 m spacing. [Ö]
-  - Exact equations and quantitative tables: ERİŞİLEMEDİ (AGU paywall, and the search result gave no full text).
-- Grohmann 2013 (geomorphometry.org proceedings), on resolution and slope distribution. [Ö]
-  - Coarser grids flatten slope values and distort the slope distribution. Resampling a fine DEM to coarser grids is the method. [Ö]
-  - Full text: ERİŞİLEMEDİ (host blocked). The 2007 Grohmann paper itself: BULUNAMADI.
-- Slope vs. grid size, fractal correction. [Ö] (esurf.copernicus.org preprint 2016-28 and a fractal-based coarse-slope paper)
-  - Slope varies inversely with grid size; coarse-grid slopes underestimate true slope. A variogram/fractal correction is proposed. [Ö]
-  - Slope length increases roughly linearly as resolution decreases (Guo et al. 2013). [Ö]
-  - Exact coefficients for Δx = 5, 10, 20, 90 m: BULUNAMADI.
-- Lin & Oguchi 2004, Geomorphology. [Ö]
-  - Data: 1 m DEMs from digital photogrammetry, 88 subwatersheds; relations among drainage density, slope angle and relative height. Two drainage-density–slope types were found and linked to channelization stages.
-  - No DEM-resolution or threshold-area statement found in the snippets. Full text: CSIS Discussion Paper #56 (University of Tokyo), not accessed.
-- Relief ratios (local relief at 5, 10, 20, 90 m and 1 km cells): BULUNAMADI.
+- Grieve, Mudd, Milodowski, Clubb & Furbish 2016, "How does grid-resolution modulate the topographic expression of geomorphic processes?", ESurf Discussions, doi 10.5194/esurf-2016-28 (the file read is the discussion preprint; final publication status not checked). [B]
+  - Sites: three US study sites, including Santa Cruz Island and Gabilan Mesa (California). 20 DEM resolutions per landscape, from 1 m upward.
+  - Hillslope length and relief, using 1 m channel heads mapped to coarse grids (upper bound) and geometric channel heads at each resolution (lower bound). [B]
+  - Santa Cruz Island: relief shows little resolution dependence up to about 10 m cells, then rises steadily beyond that. [B]
+  - Gabilan Mesa: mean relief rises by about 20 m between the highest and lowest resolution datasets. [B]
+  - Hillslope length: little change up to about 10 m; beyond that the geometric-channel method is affected by the loss of channel network accuracy. [B]
+  - Curvature is largely insensitive to resolution on broad hilltops and valleys, but not on sharp ridges. [B]
+  - Nyquist limit: the feature resolvable at grid spacing Res has a wavelength limit of 2·Res (quoted as "(2Res)^-1" in the text, i.e. the frequency). [B]
+- Zhang & Montgomery 1994, Water Resources Research 30:1019-1028, DOI 10.1029/93WR03553. [Ö]
+  - Grid sizes 2, 4, 10, 30, 90 m on two small western-US catchments. Finding: 10 m is a substantial gain over 30 and 90 m; 2 and 4 m add little for moderately to steep terrain. [Ö]
+  - Increasing grid size raises the mean topographic index (larger contributing area, lower slopes). [Ö]
+  - Numerical table: BULUNAMADI in pass 2. The DOI host is blocked (ERİŞİLEMEDİ) and the search returned no non-publisher full text.
+- Grohmann 2013 (geomorphometry.org proceedings): coarser grids flatten slope values and distort the slope distribution. Full text ERİŞİLEMEDİ (host unreachable). Grohmann 2007: BULUNAMADI.
+- Slope vs. grid size: slope varies inversely with grid size; a fractal/variogram correction is proposed for coarse-grid slopes. [Ö] Slope length increases roughly linearly as resolution decreases (Guo et al. 2013). [Ö]
+- Lin & Oguchi 2004, Geomorphology. [Ö] 1 m DEMs from photogrammetry, 88 subwatersheds, two drainage-density–slope types tied to channelization stages. No threshold-area statement in the snippets. Full text: CSIS Discussion Paper #56 (not accessed).
+- Local relief at Δx = 5, 10, 20, 90 m and 1 km cells: BULUNAMADI as a table. Qualitative values are in the Grieve et al. item above.
 
 ## 2. GMBA / Körner multi-window relief and ruggedness
 
-- Körner, Paulsen & Spehn 2011, GMBA mountain definition: a ruggedness-based definition that does not use elevation. [Ö]
-  - Method: 30 arc-second DEM; a 3×3 cell elevation range over a window of about 1.8 km × 1.8 km (one description), or a 3×3 grid in a 6 km-radius circle (another). [Ö]
-  - Threshold conflict: sources give 300 m (Alpine Botany 2021), 200 m (GMBA 2021 raster notes), and 200 m with 1 km DEM for the older K2 characterization. [Ö]
-  - Unresolved: which threshold applies to the 2011 definition. Check the original paper.
-  - Coverage: 12.3% of Earth's land outside Antarctica, 511 million mountain people (GMBA); Kapos et al. alternative gives about 22% and 1.27 billion. [Ö]
-- GMBA Definition v2.0 (2021): uses DEM-derived parameters rather than expert judgement; rasters at 30 arc-second. [Ö]
-- Source page https://www.gmba.unibe.ch/tools/definitions/mountain_definition/index_eng.html: ERİŞİLEMEDİ (DNS failure).
-- Hence the exact window, threshold and "multi-window" formula: not verified; [Ö] only.
+- GMBA mountain definition page, https://www.gmba.unibe.ch/tools/definitions/mountain_definition/index_eng.html (reached with curl in pass 2). [B-öz]
+  - Ruggedness = maximum elevation difference among 3 × 3 = 9 grid points of 30" data within 2.5' pixels, from the DEM used by WorldClim.
+  - A 2.5' pixel is "rugged" (mountainous) if max minus min of the 9 points exceeds 200 m. [B-öz]
+  - The 300 m value in the Alpine Botany 2021 snippet does not match this page. The 200 m threshold in the GMBA page is the one to use for the 2011 definition. Körner et al. (2011) was not reached (linked PDF on the same site, not fetched).
+  - Coverage: mountains are 12.3% of Earth's surface outside Antarctica (GMBA) and home to 511 million people; Kapos et al. (combined elevation and ruggedness) give about 22% and 1.27 billion. [B-öz]
+- Körner, Paulsen & Spehn 2011 (the source PDF, linked from the GMBA page): not fetched. Multi-window or 1.8 km window formula: BULUNAMADI in verified text. Pass-1 snippets (1.8 km window, 6 km radius) are unverified.
+- GMBA Definition v2.0 (2021): DEM-derived parameters instead of expert judgement; 30 arc-second rasters. [Ö]
 
-## 3. Coarse-graining (5 to 20 km), mean elevation, slope, local relief; fractal and spectral approaches
+## 3. Coarse-graining (5 to 20 km), fractal and spectral approaches
 
-- Perron, Kirchner & Dietrich 2008, "Spectral signatures of characteristic spatial scales and nonfractal structure in landscapes", JGR 113, doi 10.1029/2007JF000866. [Ö]
-  - Later work cites it as evidence that real terrain is not monofractal, so one Hurst exponent does not describe it. [Ö]
-  - Abstract and main spectral results: not retrieved. The PDF at efi.eng.uci.edu was ERİŞİLEMEDİ.
-- Clarke's scale-dependent / scale-independent split, calibrated by Fourier analysis and fractal dimension. [Ö]
-- Pelletier spectral analysis: BULUNAMADI in this pass (no Pelletier paper found).
-- Nyquist limit for grid resolution: f_N = 1/(2·Res) (a 2016 ESurf study). [Ö]
-- Effect of coarse-graining from 5 to 20 km on mean elevation, slope and local relief: BULUNAMADI.
+- Perron, Kirchner & Dietrich 2008, JGR 113, doi 10.1029/2007JF000866. [Ö] Terrain is not monofractal, so one Hurst exponent does not describe it. Abstract and results: ERİŞİLEMEDİ (efi.eng.uci.edu blocked by certificate; doi.org 403).
+- Pelletier spectral analysis: BULUNAMADI.
+- Fractal correction of coarse-grid slope: [Ö] (underestimate with coarse grids; variogram-based correction).
+- Mean elevation, slope and local relief for 5 km to 20 km coarse-graining: BULUNAMADI as numbers. The qualitative trend (coarser grids flatten slope and lengthen hillslopes) comes from the items above. [Ö]
 
-## 4. Keeping results consistent across resolutions: resampling, super-resolution, mesh refinement
+## 4. Keeping results consistent across resolutions
 
-- Guérin et al. 2017, "Interactive Example-Based Terrain Authoring with Conditional Generative Adversarial Networks", ACM TOG 36(4), article 228. [Ö]
-  - Trained on paired real terrains and ridge/valley line maps. Learned synthesis, not a physical model. [Ö]
-- Schott 2024: BULUNAMADI. The closest match is Huftier, Schott, Galin, Argudo, Peytavie & Guérin, "Terrain Synthesis and Authoring based on Iso-Contours", Computer Graphics Forum 45 (2026). [Ö]. This does not match the 2024 date in the request; confirm the intended paper with the requester.
-- Multigrid, downscaling and mesh refinement references: not searched in this pass.
-- Note: this topic overlaps with item 17. Kept short here.
+- Hergarten 2020, "Rivers as linear elements in landform evolution models", ESurf 8, 367-377, doi 10.5194/esurf-8-367-2020. [B]
+  - Problem: detachment-limited stream-power erosion (E = K A^m S^n) coupled to hillslopes has a grid-spacing dependence; rivers on a grid are linear objects one pixel wide, so the pixel area covering the network decreases with mesh width.
+  - Proposed fix: rescale the fluvial incision term by a power law in the threshold catchment size A_c and mesh width δ. The scaling factor is δ^d (Eq. 7), and rescaling replaces δ by channel width w, so a factor w^d remains (Eq. 8). Exact value of d: not quoted in the text read.
+  - Example runs: δ = 0.01 (100 × 100 nodes) vs δ = 0.002 (500 × 500 nodes); canyon-like topography at fine resolution without local transport. [B]
+  - Eroded area A_e vs catchment size A for different A_c. [B] (figure)
+- Kargère et al. 2025, "A fractal framework for channel–hillslope coupling", ESurf 13, 403 (published 19 May 2025). [B-öz]
+  - Characteristic landscape length from a 1D inflection point. In 2D, channel heads form at a characteristic area equal to the square of the characteristic length, independent of grid resolution. [B]
+  - Box-counting fractal definition using grid resolution. Channels have drainage area with dimension 2; channel width scales as the square root of drainage area. [B]
+- Guérin et al. 2017, "Interactive Example-Based Terrain Authoring with Conditional GANs", ACM TOG 36(4), article 228. [Ö] Learned synthesis from ridge/valley maps, not a physical model.
+- Schott 2024: BULUNAMADI. Nearest match: Huftier, Schott, Galin, Argudo, Peytavie & Guérin, "Terrain Synthesis and Authoring based on Iso-Contours", Computer Graphics Forum 45 (2026). [Ö] Date mismatch; confirm the intended paper.
+- Multigrid, downscaling, super-resolution, mesh refinement: not searched in this pass. Item 17 overlaps; kept short.
 
-## 5. River network: resolution-dependent length, drainage density, threshold area A_c
+## 5. River network: resolution-dependent length, drainage density, A_c
 
-- Tarboton, Bras & Rodriguez-Iturbe 1991, "On the Extraction of Channel Networks from Digital Elevation Data", Hydrological Processes 5:81-100. [Ö]
-  - Criterion: extract the highest-resolution (highest drainage density) network that still satisfies channel-network scaling laws. Tested on 21 US DEMs. [Ö]
-- Tarboton, Bras & Rodriguez-Iturbe 1992, "A physical basis for drainage density", Geomorphology 5. [Ö]
-  - Drainage density marks the transition between channel-forming (unstable) and diffusive (stable) processes.
-- Helmlinger, Kumar & Foufoula-Georgiou 1993, WRR 29, "On the use of DEM data for Hortonian and fractal analyses of channel networks". [Ö]
-  - Morphometry depends strongly on the support-area threshold A_th and on DEM resolution.
-- Montgomery & Dietrich 1992, Science, "Channel initiation and the problem of landscape scale". [Ö]
-  - Channel-head thresholds on A·|∇z|² (drainage area times slope squared). Inverse area–slope relation at channel heads, Tennessee valley data. Thresholds depend on grid resolution. [Ö]
-  - Montgomery & Dietrich 1988 (Nature 336:232) is a separate paper: source area above channel head decreases with local gradient, 5-45°. [Ö]
-  - Exact A_c values in km² or cells: BULUNAMADI.
-- Coastline-paradox-type length dependence of river networks: BULUNAMADI as a formula in this pass. Qualitative support from Tarboton 1991 (scaling-based resolution choice). [Ö]
-- Tarboton 1997, WRR 33(2):309-319 is the D∞ flow-direction paper, not a drainage-density paper. [Ö] The user's citation should be checked.
+- Tarboton, Bras & Rodriguez-Iturbe 1991, "On the Extraction of Channel Networks from Digital Elevation Data", Hydrological Processes 5:81-100. [B]
+  - Criterion: the smallest support area S for which elevation scaling laws still hold (constant drop property; power-law slope–area scaling). Tested on 21 US DEM datasets. [B]
+  - Example from the W15 basin: support area 50 pixels (30 m × 30 m) for the stream-drop analysis; the t-statistic analysis places the break in scaling near support areas of 20 to 50 pixels (sentence truncated in extraction; verify). [B]
+  - The threshold where the constant drop property holds gives the basic horizontal length scale, expressed as support area or drainage density. Drainage density per basin is in Table III of the paper. [B]
+- Tarboton 1992, "A physical basis for drainage density", Geomorphology 5: drainage density separates channel-forming (unstable) and diffusive (stable) process scales. [Ö]
+- Helmlinger, Kumar & Foufoula-Georgiou 1993, WRR 29: morphometry strongly depends on A_th and DEM resolution. [Ö]
+- Montgomery & Dietrich 1992, Science, "Channel initiation and the problem of landscape scale": channel-head threshold on A·|∇z|²; inverse area–slope relation at channel heads; thresholds depend on grid resolution. [Ö] Numerical A_c values: BULUNAMADI (1992 paper not reached; Nature 1988 DOI blocked).
+- Coastline-type length dependence of drainage networks as a formula: BULUNAMADI. Qualitative support: Tarboton 1991 (scaling-based resolution choice) and Kargère et al. 2025 (resolution-independent channel-head area). [B]
+- "Tarboton 1997", WRR 33(2):309-319: a D∞ flow-direction paper, not a drainage-density paper. [Ö] Check the user's citation.
 
-## 6. Items to verify before use
+## 6. Items to verify or still open
+1. Körner et al. 2011 PDF: window size formula and whether 200 m is the same threshold (GMBA page says 200 m).
+2. Zhang & Montgomery 1994 numerical table: not found outside the publisher.
+3. Montgomery & Dietrich 1992 A_c numbers: not found.
+4. Hergarten 2020 exponent d and fitted A_c scaling constants: check Eq. 7-11 in full text (text read only in part).
+5. Schott 2024 citation: not found.
+6. Tarboton 1997 citation: D∞ paper.
+7. Grohmann 2013 slope-resolution numbers: full text blocked.
+8. Perron 2008 abstract and spectral results: efi.eng.uci.edu blocked by certificate; not bypassed.
 
-1. Körner et al. 2011 window size and threshold (300 m vs 200 m).
-2. Zhang & Montgomery 1994 full numerical results.
-3. Schott 2024 citation (no match found; 2026 CGF paper is the nearest).
-4. Tarboton 1997 citation (D∞ paper; drainage-density claim not confirmed).
-5. Montgomery & Dietrich 1992 A_c values.
-6. Pelletier spectral paper: not found.
-
-## 7. Hosts to allow for a second pass
-
-www.gmba.unibe.ch, www.geomorphometry.org, hydrology.usu.edu, www.doi.org, efi.eng.uci.edu, esurf.copernicus.org. Access to these would allow [B] reading of most items above.
+## 7. Hosts still blocked (ERİŞİLEMEDİ)
+- www.doi.org (HTTP 403).
+- efi.eng.uci.edu (TLS certificate chain not trusted; not bypassed).
+- www.geomorphometry.org (DNS).
+- Allowing these in session network settings would unlock items 2, 7, 8 above.
