@@ -223,3 +223,13 @@ Sonuç: ne dayanım dokusu ne kısa bükülme orta ölçeği sistemli biçimde g
 - Himalaya ve Tibet: sıradağ p95 5435 m, en yüksek 6188 m; çanak ortancası 1185 m, p90 4980 m (Tibet istenen 1000 ile 1500 m'den çok yüksek).
 
 Görünüm: taşınan bölgenin içi gerçek dağ dokusunda; kenarlar düzensiz. Kusurlar: aynalama yer yer simetrik tekrar olarak görünüyor; çevredeki düz arka plan taşınan bölgeyi yapıştırılmış gösteriyor; tek bir kaynak isteklere tam uymuyor (Zagros sıradağı küçük, Tibet çok yüksek).
+
+### Birleşik örnek (Himalaya sıradağı + İran çanağı + gerçek arka plan)
+
+`deneyler/nakil2.py`, koşu yaklaşık 2 saniye. Sıradağ şeridi Himalaya'dan (dikişin 400 km önünden 350 km gerisine, aynalı), çanak İran platosunun iç şeridinden (Ana Zagros bindirmesinin 300 ile 620 km kuzeydoğusu, aynalı) sabit yükseltmeyle (+536 m); geçiş dikişin 120 ile 300 km gerisinde, düzensiz. Kıtanın geri kalanı yedi dağsız gerçek bölgeden 1200 km'lik rastgele döndürülmüş parçalar (ortalama düzey ağırlıklı ortalama, ayrıntı varyansı koruyan).
+
+Sonuç: sıradağ (kırmızı) p95 5417 m, en yüksek 5889 m; sarı alanın ortancası 648 m (p10 353, p90 1831), çünkü sarı çokgenin bir kısmı geçiş ve arka planda kalıyor; çanak iç bölgesinin ortancası tanım gereği 1250 m; kara ortancası 434 m.
+
+Hatalar ve düzeltmeler: Himalaya d'si 150 km'de kesilince ötesi aynı çizginin tekrarıyla doldu (düz çizgiler); aynalamaya çevrildi. Çanağı dikey germek (× 1,75) dağları sertleştirdi; sabit yükseltmeye çevrildi.
+
+Kalan kusurlar: sıradağın arkasında Tibet'in güney kenarı 5 km'lik beyaz bir şerit olarak taşınıyor; aynalama yer yer tekrar gösteriyor; çanağın batı kenarı arka plana sert geçiyor; nehir ağı parçalar arasında kopuk (aşınma koşusu yok).
