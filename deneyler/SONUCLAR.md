@@ -204,3 +204,13 @@ Seçilen ayar (η0 3e22, sert 10, kenar 50 km, yağış, K 5e-10, taşıma): Tib
 | bükülme 25 km | 0,65 | 0,42 | 0,24 | 114 |
 
 Sonuç: ne dayanım dokusu ne kısa bükülme orta ölçeği sistemli biçimde getirdi; doku sonucu tohuma göre savuruyor. 25 km çözünürlük koşusu yarıda durduruldu (50 milyon yılın yarısı 24 dakika). Karar: fizik 50 km'de yalnızca 300 km üstü düzen için; orta ve küçük ölçek gerçek yükseklik verisinden bağlama uygun ayrıntı katmanıyla.
+
+## Ayrıntı katmanı denemeleri (12 Kasım 2026)
+
+`deneyler/ayrinti.py`. Kütüphane: Güney ve Kuzey Amerika, Afrika, Avrupa (GMT earth_relief 06', 10 km LAEA); 480 km'lik 1769 parça, kaba yükseklik, kaba eğim ve kaba engebeyle etiketli, eğime göre döndürülmüş. Hedef: levha modelinin Asya'sı (50 km'den 10 km'ye). Asya kütüphanede yok.
+
+- Ağırlıklı ortalama harmanlama: bağımsız parçalar birbirini söndürdü (60 km'de güç oranı 0,06).
+- Varyansı koruyan harmanlama: 100 km'de 0,63, 60 km'de 0,73; 30 km engebe 89 m (gerçek 137), 90 km engebe 185 m (gerçek 278). Görünüm: her yere serpilmiş pürüz, kesintisiz sıra yok.
+- Eş yükselti yönüne hizalı yönlü sırtlar + parçalar: 100 km 0,46, 60 km 0,51, 25 km 0,92; engebe 85 / 137 ve 193 / 278 m. Sırtlar oluştu ama Tibet'in yerine ve biçimine göre değil, modelin kubbesine göre.
+
+Önemli düzeltme: önceki "400 km üstünde model doğru" yargısı güç spektrumuna dayanıyordu; güç spektrumu biçimi (faz) ölçmez. Görsel karşılaştırmada büyük biçimler de farklı: model Tarim çevresinde sarmal bir halka, Orta Asya'da kubbe üretiyor; gerçek Tibet doğu batı uzanan, keskin kenarlı bir plato ve Tarim düz bir havza. Spektrum ölçütü biçim için yetersiz.
