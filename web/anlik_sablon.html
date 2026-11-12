@@ -1,0 +1,368 @@
+<title>Dünyam Anlık Deneme</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Düzen: tek sütun; üstte harita tuvali, altında ölçüm şeridi ve dokunmatik denetimler */
+:root {
+  --zemin: #eef0ea; --yuzey: #ffffff; --metin: #1f2a24; --soluk: #5d6b62;
+  --vurgu: #2f6f5e; --cizgi: #cfd6cc; --uyari: #a3532b;
+  --govde: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --veri: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --zemin: #141a17; --yuzey: #1c2420; --metin: #e3e9e4; --soluk: #9aa89f;
+  --vurgu: #6fc0a6; --cizgi: #2e3a34; --uyari: #e08a5c; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --zemin: #141a17; --yuzey: #1c2420; --metin: #e3e9e4; --soluk: #9aa89f;
+  --vurgu: #6fc0a6; --cizgi: #2e3a34; --uyari: #e08a5c; color-scheme: dark }
+html, body { background: var(--zemin); color: var(--metin); }
+body { font-family: var(--govde); padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 14px 24px; }
+.sar { max-width: 980px; margin: 0 auto; display: grid; gap: 12px; }
+h1 { font-size: 1.15rem; margin: 0; font-weight: 600; text-wrap: balance; }
+.alt { color: var(--soluk); font-size: .85rem; margin: 2px 0 0; }
+.tuval { position: relative; background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 8px; overflow: hidden; }
+canvas { display: block; width: 100%; height: auto; image-rendering: auto; touch-action: manipulation; }
+.zaman { position: absolute; left: 10px; top: 8px; font-family: var(--veri); font-size: .85rem;
+  background: color-mix(in srgb, var(--yuzey) 80%, transparent); padding: 2px 8px; border-radius: 4px; }
+.olcum { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.olcum div { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 8px; min-width: 0; }
+.olcum b { display: block; font-family: var(--veri); font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.olcum span { font-size: .72rem; color: var(--soluk); letter-spacing: .02em; }
+.kontrol { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px 16px; }
+label { display: grid; gap: 4px; font-size: .85rem; }
+label output { font-family: var(--veri); color: var(--vurgu); }
+input[type=range] { width: 100%; accent-color: var(--vurgu); height: 28px; }
+.dugmeler { display: flex; flex-wrap: wrap; gap: 8px; }
+button, select { font: inherit; font-size: .95rem; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--cizgi);
+  background: var(--yuzey); color: var(--metin); min-height: 44px; }
+button.ana { background: var(--vurgu); color: var(--yuzey); border-color: var(--vurgu); font-weight: 600; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--vurgu); outline-offset: 2px; }
+.not { font-size: .8rem; color: var(--soluk); max-width: 65ch; line-height: 1.45; }
+.yavas { color: var(--uyari); }
+@media (max-width: 520px) { .olcum { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+
+<div class="sar">
+  <header>
+    <h1>Dünyam anlık aşınma denemesi</h1>
+    <p class="alt">Sunucu yok: dağlar telefonun kendi işlemcisinde yükselip aşınıyor.</p>
+  </header>
+  <div class="tuval">
+    <canvas id="harita" width="389" height="298" aria-label="Kabartma haritası"></canvas>
+    <div class="zaman" id="zaman">50,0 milyon yıl önce</div>
+  </div>
+  <div class="olcum" aria-live="polite">
+    <div><b id="o-adim">–</b><span>bir adım (ms)</span></div>
+    <div><b id="o-kare">–</b><span>ekran karesi / sn</span></div>
+    <div><b id="o-hiz">–</b><span>milyon yıl / sn</span></div>
+    <div><b id="o-yuk">–</b><span>en yüksek nokta (m)</span></div>
+  </div>
+  <div class="dugmeler">
+    <button class="ana" id="b-calis">Başlat</button>
+    <button id="b-sifir">Baştan</button>
+    <select id="s-coz" aria-label="Çözünürlük">
+      <option value="4">50 km hücre (hızlı)</option>
+      <option value="2" selected>25 km hücre</option>
+      <option value="1">12,5 km hücre (ağır)</option>
+    </select>
+  </div>
+  <div class="kontrol">
+    <label for="r-hiz">Yaklaşma hızı <output id="v-hiz">2,5 cm/yıl</output>
+      <input type="range" id="r-hiz" min="0.5" max="6" step="0.1" value="2.5"></label>
+    <label for="r-k">Aşınabilirlik <output id="v-k">1,0×</output>
+      <input type="range" id="r-k" min="-1" max="1" step="0.05" value="0"></label>
+    <label for="r-plato">Platoya giden pay <output id="v-plato">%50</output>
+      <input type="range" id="r-plato" min="0" max="0.9" step="0.05" value="0.5"></label>
+  </div>
+  <p class="not">Kaydırıcılar koşu sürerken de etki eder. Fizik masaüstü modelin sadeleştirilmiş hâli: akarsu aşındırması (n = 2), 80 km bükülmeyle izostatik geri sıçrama, sıradağ, çanak, mikro kıta ve Alp türü yarımada kaynakları. Kıyı sabit. Ölçüm kutuları telefonun bu işi ne hızla yaptığını gösterir; 50 milyon yıl 500 adımdır.</p>
+</div>
+
+<script>
+const VERI = /*VERI*/null;
+const AIRY = 1 - 2800 / 3300, H0 = 35000, KM = 111.195;
+const $ = (id) => document.getElementById(id);
+const fmt = (x, d = 1) => x.toLocaleString("tr-TR", { minimumFractionDigits: d, maximumFractionDigits: d });
+
+// ---- maske ----
+function maskeAc() {
+  const bin = atob(VERI.maske), W = VERI.W, H = VERI.H, m = new Uint8Array(W * H);
+  for (let i = 0; i < W * H; i++) m[i] = (bin.charCodeAt(i >> 3) >> (7 - (i & 7))) & 1;
+  return m;
+}
+const MASKE = maskeAc();
+
+// ---- geometri yardımcıları ----
+function noktaCizgi(px, py, c) { // düzlemde (km) kırık çizgiye işaretli uzaklık ve uç durumu
+  let en = Infinity, isaret = 1, uc = false;
+  for (let s = 0; s < c.length - 1; s++) {
+    const ax = c[s][0], ay = c[s][1], bx = c[s + 1][0], by = c[s + 1][1];
+    const dx = bx - ax, dy = by - ay, L2 = dx * dx + dy * dy;
+    let t = ((px - ax) * dx + (py - ay) * dy) / L2;
+    const disari = (s === 0 && t < 0) || (s === c.length - 2 && t > 1);
+    t = Math.max(0, Math.min(1, t));
+    const qx = ax + t * dx - px, qy = ay + t * dy - py, d = Math.hypot(qx, qy);
+    if (d < en) { en = d; isaret = (dx * (py - ay) - dy * (px - ax)) >= 0 ? 1 : -1; uc = disari; }
+  }
+  return [en * isaret, uc];
+}
+function cokgenIci(x, y, p) {
+  let ic = false;
+  for (let i = 0, j = p.length - 1; i < p.length; j = i++) {
+    const xi = p[i][0], yi = p[i][1], xj = p[j][0], yj = p[j][1];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) ic = !ic;
+  }
+  return ic;
+}
+function gurultu(W, H, tohum) { // birkaç oktavlık değer gürültüsü, ortalama ~0, sapma ~1
+  const out = new Float32Array(W * H);
+  let r = tohum >>> 0; const rnd = () => ((r = (r * 1664525 + 1013904223) >>> 0) / 4294967296);
+  for (const [olcek, agirlik] of [[24, 1], [12, .5], [6, .25], [3, .125]]) {
+    const gw = Math.ceil(W / olcek) + 2, gh = Math.ceil(H / olcek) + 2, g = new Float32Array(gw * gh);
+    for (let i = 0; i < g.length; i++) g[i] = rnd() * 2 - 1;
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const fx = x / olcek, fy = y / olcek, ix = fx | 0, iy = fy | 0, tx = fx - ix, ty = fy - iy;
+      const sx = tx * tx * (3 - 2 * tx), sy = ty * ty * (3 - 2 * ty);
+      const a = g[iy * gw + ix], b = g[iy * gw + ix + 1], c = g[(iy + 1) * gw + ix], d = g[(iy + 1) * gw + ix + 1];
+      out[y * W + x] += agirlik * (a + (b - a) * sx + (c - a) * sy + (a - b - c + d) * sx * sy);
+    }
+  }
+  return out;
+}
+
+// ---- model ----
+let M = null;
+function kur(adim) {
+  const W = Math.floor(VERI.W / adim), H = Math.floor(VERI.H / adim), N = W * H;
+  const [B, G, D, K] = VERI.sinir, dlon = (D - B) / W, dlat = (K - G) / H;
+  const kara = new Uint8Array(N);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    let s = 0;
+    for (let v = 0; v < adim; v++) for (let u = 0; u < adim; u++) s += MASKE[(y * adim + v) * VERI.W + x * adim + u];
+    kara[y * W + x] = s * 2 >= adim * adim ? 1 : 0;
+  }
+  const lat = new Float64Array(H), dx = new Float64Array(H), dy = dlat * KM * 1e3;
+  for (let y = 0; y < H; y++) { lat[y] = K - (y + .5) * dlat; dx[y] = dlon * KM * 1e3 * Math.cos(lat[y] * Math.PI / 180); }
+  const alan = new Float64Array(H); for (let y = 0; y < H; y++) alan[y] = dx[y] * dy;
+  const hucreKm = dy / 1e3;
+  // kıyıya uzaklık (km), çok kaynaklı yayılım
+  const kiyi = new Float32Array(N).fill(1e9), kuyruk = [];
+  for (let i = 0; i < N; i++) if (!kara[i]) { kiyi[i] = 0; kuyruk.push(i); }
+  for (let q = 0; q < kuyruk.length; q++) {
+    const i = kuyruk[q], x = i % W, y = (i / W) | 0;
+    for (const [ox, oy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = x + ox, ny = y + oy; if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      const j = ny * W + nx, d = kiyi[i] + (oy ? dy : dx[ny]) / 1e3;
+      if (d < kiyi[j]) { kiyi[j] = d; kuyruk.push(j); }
+    }
+  }
+  // kaynak alanları: düzlem km koordinatı (kıta ortası enlemiyle)
+  const lat0 = 30 * Math.PI / 180, km = (lo, la) => [lo * KM * Math.cos(lat0), la * KM];
+  const duvar = VERI.duvar.map(p => km(p[0], p[1])), yar = VERI.yarimada.map(p => km(p[0], p[1]));
+  const plato = VERI.plato.map(p => km(p[0], p[1]));
+  const kusak = new Float32Array(N), platoW = new Float32Array(N), yarK = new Float32Array(N), mikro = new Uint8Array(N);
+  const Wk = 280, Wy = 200;
+  let kusakInt = 0, platoTop = 0;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = y * W + x; if (!kara[i]) continue;
+    const lo = B + (x + .5) * dlon, [px, py] = km(lo, lat[y]);
+    let [d, uc] = noktaCizgi(px, py, duvar); // sol taraf (kuzey) pozitif
+    let p = Math.exp(-0.5 * ((d - 0.35 * Wk) / (0.3 * Wk)) ** 2);
+    if (d < 0) p *= Math.exp(-((-d / 60) ** 2));
+    if (uc) p *= Math.exp(-((Math.abs(d) / 300) ** 2));
+    kusak[i] = p;
+    if (cokgenIci(px, py, plato)) {
+      let ek = Infinity;
+      for (let s = 0, j = plato.length - 1; s < plato.length; j = s++) {
+        const [r] = noktaCizgi(px, py, [plato[j], plato[s]]); ek = Math.min(ek, Math.abs(r));
+      }
+      const t = Math.min(1, ek / 200); platoW[i] = t * t * (3 - 2 * t) * (Math.abs(d) > 0.6 * Wk ? 1 : 0);
+      platoTop += platoW[i] * alan[y];
+    }
+    let [dy2, uc2] = noktaCizgi(px, py, yar);
+    let q = Math.exp(-0.5 * ((dy2 - 0.35 * Wy) / (0.3 * Wy)) ** 2);
+    if (dy2 < 0) q *= Math.exp(-((-dy2 / 60) ** 2));
+    if (uc2) q *= Math.exp(-((Math.abs(dy2) / 300) ** 2));
+    yarK[i] = q;
+  }
+  // mikro kıta: tohum noktasını içeren kara parçası
+  {
+    const [tlo, tla] = VERI.takimada;
+    let bas = Math.round((K - tla) / dlat) * W + Math.round((tlo - B) / dlon);
+    if (!kara[bas]) { let en = 1e9; for (let i = 0; i < N; i++) if (kara[i]) { const d = Math.hypot(i % W - (bas % W), ((i / W) | 0) - ((bas / W) | 0)); if (d < en) { en = d; bas = i; } } }
+    const st = [bas]; mikro[bas] = 1;
+    while (st.length) {
+      const i = st.pop(), x = i % W, y = (i / W) | 0;
+      for (let oy = -1; oy <= 1; oy++) for (let ox = -1; ox <= 1; ox++) {
+        const nx = x + ox, ny = y + oy; if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+        const j = ny * W + nx; if (kara[j] && !mikro[j]) { mikro[j] = 1; st.push(j); }
+      }
+    }
+  }
+  const ints = 0.3 * Wk * 1e3 * Math.sqrt(2 * Math.PI), intsY = 0.3 * Wy * 1e3 * Math.sqrt(2 * Math.PI);
+  let duvarBoy = 0; for (let s = 0; s < duvar.length - 1; s++) duvarBoy += Math.hypot(duvar[s + 1][0] - duvar[s][0], duvar[s + 1][1] - duvar[s][1]);
+  const g = gurultu(W, H, 7), kAlan = new Float32Array(N), sonum = new Float32Array(N);
+  for (let i = 0; i < N; i++) {
+    const t = Math.min(1, kiyi[i] / 60); sonum[i] = t * t * (3 - 2 * t);
+    kAlan[i] = Math.exp(0.5 * g[i]) * (1 - 0.7 * Math.min(1, kusak[i]));
+  }
+  const z = new Float64Array(N), g2 = gurultu(W, H, 3);
+  for (let i = 0; i < N; i++) if (kara[i]) { const t = Math.min(1, kiyi[i] / 150); z[i] = Math.max(0, (120 + 60 * g2[i]) * t * t * (3 - 2 * t)); }
+  // komşu ofsetleri ve uzunlukları (8 yön)
+  M = { W, H, N, kara, dx, dy, alan, lat, hucreKm, kusak: kusak.map(v => v / ints), platoW, platoTop, yarK: yarK.map(v => v / intsY),
+    mikro, duvarBoy: duvarBoy * 1e3, kAlan, sonum, z, ma: 50, adim: 0,
+    rcv: new Int32Array(N), rL: new Float64Array(N), sira: new Int32Array(N), nSira: 0, A: new Float64Array(N),
+    yigin: new Int32Array(N), anahtar: new Float64Array(N), kapali: new Uint8Array(N),
+    e: new Float64Array(N), tmp: new Float64Array(N), tmp2: new Float64Array(N),
+    goruntu: null, golge: new Float32Array(N) };
+  const cv = $("harita"); cv.width = W; cv.height = H;
+  M.goruntu = cv.getContext("2d").createImageData(W, H);
+}
+
+// ikili yığın (öncelik kuyruğu) — anahtar: yükseklik
+function yiginEkle(M, n, i, k) {
+  let c = n; M.yigin[c] = i; M.anahtar[c] = k;
+  while (c > 0) { const p = (c - 1) >> 1; if (M.anahtar[p] <= M.anahtar[c]) break;
+    [M.yigin[p], M.yigin[c]] = [M.yigin[c], M.yigin[p]]; [M.anahtar[p], M.anahtar[c]] = [M.anahtar[c], M.anahtar[p]]; c = p; }
+  return n + 1;
+}
+function yiginAl(M, n) {
+  const top = M.yigin[0]; n--; M.yigin[0] = M.yigin[n]; M.anahtar[0] = M.anahtar[n];
+  let c = 0;
+  for (;;) { const l = 2 * c + 1, r = l + 1; let m = c;
+    if (l < n && M.anahtar[l] < M.anahtar[m]) m = l; if (r < n && M.anahtar[r] < M.anahtar[m]) m = r;
+    if (m === c) break; [M.yigin[m], M.yigin[c]] = [M.yigin[c], M.yigin[m]]; [M.anahtar[m], M.anahtar[c]] = [M.anahtar[c], M.anahtar[m]]; c = m; }
+  return [top, n];
+}
+
+// çukur doldurarak akış yönü (öncelikli taşma): kıyıdan başlayıp yukarı doğru
+function akis(M) {
+  const { W, H, kara, z, rcv, rL, sira, kapali, dx, dy } = M;
+  kapali.fill(0); let n = 0, ns = 0;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = y * W + x; if (!kara[i]) continue;
+    let denize = 0;
+    for (let oy = -1; oy <= 1 && !denize; oy++) for (let ox = -1; ox <= 1; ox++) {
+      const nx = x + ox, ny = y + oy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H || !kara[ny * W + nx]) { denize = Math.hypot(ox * dx[y], oy * dy) || dy; break; }
+    }
+    if (denize) { kapali[i] = 1; rcv[i] = -1; rL[i] = denize; n = yiginEkle(M, n, i, z[i]); }
+  }
+  while (n > 0) {
+    let i; [i, n] = yiginAl(M, n); sira[ns++] = i;
+    const x = i % W, y = (i / W) | 0;
+    for (let oy = -1; oy <= 1; oy++) for (let ox = -1; ox <= 1; ox++) {
+      if (!ox && !oy) continue; const nx = x + ox, ny = y + oy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      const j = ny * W + nx; if (!kara[j] || kapali[j]) continue;
+      kapali[j] = 1; rcv[j] = i; rL[j] = Math.hypot(ox * dx[ny], oy * dy);
+      if (z[j] <= z[i]) z[j] = z[i] + 1e-3;
+      n = yiginEkle(M, n, j, z[j]);
+    }
+  }
+  M.nSira = ns;
+}
+
+function bulanik(M, a, r) { // ayrılabilir kutu bulanıklığı, 3 geçiş ~ Gauss
+  const { W, H, tmp } = M;
+  for (let gec = 0; gec < 3; gec++) {
+    for (let y = 0; y < H; y++) { let s = 0; const o = y * W;
+      for (let x = -r; x <= r; x++) s += x >= 0 && x < W ? a[o + x] : 0;
+      for (let x = 0; x < W; x++) { tmp[o + x] = s / (2 * r + 1);
+        const ek = x + r + 1, cik = x - r; if (ek < W) s += a[o + ek]; if (cik >= 0) s -= a[o + cik]; } }
+    for (let x = 0; x < W; x++) { let s = 0;
+      for (let y = -r; y <= r; y++) s += y >= 0 && y < H ? tmp[y * W + x] : 0;
+      for (let y = 0; y < H; y++) { a[y * W + x] = s / (2 * r + 1);
+        const ek = y + r + 1, cik = y - r; if (ek < H) s += tmp[ek * W + x]; if (cik >= 0) s -= tmp[cik * W + x]; } }
+  }
+}
+
+function adimAt(M, ay) {
+  const dt = 1e5, { N, kara, z, kusak, platoW, yarK, mikro, sonum, alan, W } = M;
+  const v = ay.hiz / 100, f = ay.plato, aki = v * H0;
+  const platoHiz = M.platoTop > 0 ? f * aki * M.duvarBoy / M.platoTop : 0;
+  const mikroHiz = 0.025 * H0 / 650e3, yarHiz = 0.015 * H0;
+  for (let i = 0; i < N; i++) {
+    if (!kara[i]) continue;
+    let r = aki * (1 - f) * kusak[i] * Math.max(0, Math.min(1, (5200 - z[i]) / 400));
+    r += platoHiz * platoW[i] * Math.max(0, Math.min(1, (1650 - z[i]) / 250));
+    r += yarHiz * yarK[i] * Math.max(0, Math.min(1, (3800 - z[i]) / 400));
+    if (mikro[i]) r += mikroHiz * Math.max(0, Math.min(1, (2600 - z[i]) / 400));
+    z[i] += AIRY * r * dt * sonum[i];
+  }
+  akis(M);
+  const { sira, nSira, rcv, rL, A, e, kAlan } = M;
+  for (let s = 0; s < nSira; s++) { const i = sira[s]; A[i] = alan[(i / W) | 0]; }
+  for (let s = nSira - 1; s >= 0; s--) { const i = sira[s], r = rcv[i]; if (r >= 0) A[r] += A[i]; }
+  const Kt = 4e-9 * Math.pow(10, ay.k) * dt;
+  for (let s = 0; s < nSira; s++) {
+    const i = sira[s], zr = rcv[i] >= 0 ? z[rcv[i]] : 0, sx = z[i] - zr;
+    if (sx <= 0) { e[i] = 0; continue; }
+    const a = Kt * kAlan[i] * A[i] / (rL[i] * rL[i]);
+    const xx = (-1 + Math.sqrt(1 + 4 * a * sx)) / (2 * a);
+    e[i] = sx - xx; z[i] = zr + xx;
+  }
+  for (let i = 0; i < N; i++) if (!kara[i]) e[i] = 0;
+  bulanik(M, e, Math.max(1, Math.round(40 / M.hucreKm)));
+  for (let i = 0; i < N; i++) if (kara[i]) z[i] += 0.85 * e[i]; else z[i] = 0;
+  M.ma = Math.max(0, M.ma - 0.1); M.adim++;
+}
+
+// ---- çizim ----
+const RENK = [[0, 112, 150, 104], [300, 150, 172, 116], [800, 196, 190, 132], [1500, 186, 152, 104], [2500, 150, 112, 84], [3800, 175, 165, 160], [5200, 245, 245, 245]];
+function ciz(M) {
+  const { W, H, z, kara, dx, dy, goruntu } = M, d = goruntu.data;
+  const koyu = matchMedia("(prefers-color-scheme: dark)").matches && document.documentElement.dataset.theme !== "light"
+    || document.documentElement.dataset.theme === "dark";
+  const deniz = koyu ? [38, 62, 78] : [168, 198, 214];
+  let zmax = 0;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = y * W + x, o = 4 * i;
+    if (!kara[i]) { d[o] = deniz[0]; d[o + 1] = deniz[1]; d[o + 2] = deniz[2]; d[o + 3] = 255; continue; }
+    const h = z[i]; if (h > zmax) zmax = h;
+    let k = 0; while (k < RENK.length - 2 && h > RENK[k + 1][0]) k++;
+    const t = Math.max(0, Math.min(1, (h - RENK[k][0]) / (RENK[k + 1][0] - RENK[k][0])));
+    const zl = x > 0 ? z[i - 1] : h, zr = x < W - 1 ? z[i + 1] : h, zu = y > 0 ? z[i - W] : h, zd = y < H - 1 ? z[i + W] : h;
+    const gx = (zr - zl) / (2 * dx[y]) * 6, gy = (zd - zu) / (2 * dy) * 6;
+    const isik = Math.max(0.25, Math.min(1.25, 0.85 + (-gx * 0.7 + gy * 0.7) * 0.9));
+    for (let c = 0; c < 3; c++) d[o + c] = Math.min(255, (RENK[k][c + 1] + (RENK[k + 1][c + 1] - RENK[k][c + 1]) * t) * isik);
+    d[o + 3] = 255;
+  }
+  $("harita").getContext("2d").putImageData(goruntu, 0, 0);
+  return zmax;
+}
+
+// ---- döngü ----
+let calisiyor = false, sonKare = performance.now(), kareSay = 0, kareHiz = 0, adimMs = 0, myrSn = 0;
+const ayar = () => ({ hiz: +$("r-hiz").value, k: +$("r-k").value, plato: +$("r-plato").value });
+function dongu(t) {
+  if (calisiyor && M.ma > 0) {
+    const a = ayar(), bas = performance.now(); let n = 0;
+    do { adimAt(M, a); n++; } while (performance.now() - bas < 12 && M.ma > 0);
+    const gecen = performance.now() - bas; adimMs = gecen / n;
+    myrSn = 0.9 * myrSn + 0.1 * (n * 0.1 / Math.max(gecen + 4, 1) * 1000);
+  }
+  const zmax = ciz(M);
+  kareSay++;
+  if (t - sonKare > 500) { kareHiz = kareSay * 1000 / (t - sonKare); kareSay = 0; sonKare = t; }
+  $("o-adim").textContent = adimMs ? fmt(adimMs, 1) : "–";
+  $("o-adim").classList.toggle("yavas", adimMs > 40);
+  $("o-kare").textContent = fmt(kareHiz, 0);
+  $("o-kare").classList.toggle("yavas", kareHiz < 24);
+  $("o-hiz").textContent = calisiyor ? fmt(myrSn, 1) : "–";
+  $("o-yuk").textContent = fmt(zmax, 0);
+  $("zaman").textContent = M.ma > 0 ? `${fmt(M.ma, 1)} milyon yıl önce` : "Bugün";
+  if (M.ma <= 0 && calisiyor) { calisiyor = false; $("b-calis").textContent = "Başlat"; }
+  requestAnimationFrame(dongu);
+}
+function baslat() { kur(+$("s-coz").value); }
+$("b-calis").onclick = () => { if (M.ma <= 0) baslat(); calisiyor = !calisiyor; $("b-calis").textContent = calisiyor ? "Durdur" : "Sürdür"; };
+$("b-sifir").onclick = () => { baslat(); calisiyor = false; $("b-calis").textContent = "Başlat"; myrSn = 0; adimMs = 0; };
+$("s-coz").onchange = () => $("b-sifir").onclick();
+for (const [id, out, f] of [["r-hiz", "v-hiz", v => `${fmt(+v, 1)} cm/yıl`], ["r-k", "v-k", v => `${fmt(Math.pow(10, +v), 1)}×`], ["r-plato", "v-plato", v => `%${Math.round(v * 100)}`]]) {
+  $(id).oninput = () => { $(out).textContent = f($(id).value); };
+}
+baslat();
+requestAnimationFrame(dongu);
+</script>
