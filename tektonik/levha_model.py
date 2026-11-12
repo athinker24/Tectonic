@@ -29,6 +29,10 @@ class LevhaAyar:
     alt_adim: int = 5
     kare_myr: float = 2.0
     tohum: int = 3
+    yagis: bool = False  # orografik yağış: aşınma yağışla toplanan suya bağlı
+    yagis_L_km: float = 3000.0  # düz karada nemin yağarak tükenme uzunluğu
+    yagis_Hc_m: float = 1500.0  # bu kadar yükselen hava neminin çoğunu bırakır
+    yagis_taban: float = 0.15  # buharlaşmayla yeniden dolaşan nem (iç kesimler hiç kurumasın)
 
 
 @dataclass
@@ -37,6 +41,7 @@ class LevhaSonuc:
     S: np.ndarray
     kareler: list = field(default_factory=list)
     gunluk: list = field(default_factory=list)
+    yagis: np.ndarray | None = None
 
 
 def yerel_eksenler(dz: Duzlem, lon, lat):
@@ -49,8 +54,40 @@ def yerel_eksenler(dz: Duzlem, lon, lat):
     return de, dn
 
 
+def yagis_alani(kara: np.ndarray, z: np.ndarray, h_m: float, L_km: float, Hc_m: float, taban: float) -> np.ndarray:
+    """Dört yönden (batı, doğu, güney, kuzey) esen nemli havanın bıraktığı yağış, eşit ağırlıklı.
+    Nem q denizde 1; karada her hücrede p = q (h/L + max(0, Δz)/Hc) yağar ve q'dan düşer.
+    Dönüş: ortalaması kara üzerinde 1 olacak biçimde ölçeklenmiş yağış (iç kesimde en az `taban`)."""
+    ny, nx = kara.shape
+    top = np.zeros(kara.shape)
+    a = h_m / (L_km * 1e3)
+    for eksen, ters in ((1, False), (1, True), (0, False), (0, True)):
+        K, Z = (kara, z) if eksen == 1 else (kara.T, z.T)
+        if ters:
+            K, Z = K[:, ::-1], Z[:, ::-1]
+        q = np.ones(K.shape[0])
+        P = np.zeros(K.shape)
+        zonce = np.zeros(K.shape[0])
+        for j in range(K.shape[1]):
+            k = K[:, j]
+            zz = np.where(k, Z[:, j], 0.0)
+            # denizden karaya ilk hücre: kıyıdaki yükseklik sıçraması yamaç sayılmaz
+            zonce = np.where(k & (j > 0) & ~K[:, max(j - 1, 0)], zz, zonce)
+            oran = np.clip(a + np.maximum(zz - zonce, 0) / Hc_m, 0, 1)
+            p = np.where(k, q * oran, 0.0)
+            P[:, j] = p
+            q = np.where(k, q - p, 1.0)
+            zonce = zz
+        if ters:
+            P = P[:, ::-1]
+        top += P if eksen == 1 else P.T
+    top = np.where(kara, top, 0.0)
+    ort = top[kara].mean() if kara.any() else 1.0
+    return np.where(kara, np.maximum(top / ort, taban), 0.0)
+
+
 def kos_levha(dz: Duzlem, blok: np.ndarray, adlar: list[str], tarihler: dict, bas_ma: float,
-              ayar: LevhaAyar | None = None, gunluk_yaz=print) -> LevhaSonuc:
+              ayar: LevhaAyar | None = None, gunluk_yaz=print, eta_carpan: np.ndarray | None = None) -> LevhaSonuc:
     """blok: [ny,nx] blok sırası (deniz −1). tarihler: ad -> BlokTarihi (sabit blokta yok)."""
     a = ayar or LevhaAyar()
     h_km = dz.h / 1e3
@@ -67,6 +104,8 @@ def kos_levha(dz: Duzlem, blok: np.ndarray, adlar: list[str], tarihler: dict, ba
         ck_km = a.cekirdek_ozel.get(ad, a.cekirdek_km)
         cekirdek[ad] = (levha == b) & (d > ck_km) & (dl > 0.5 * min(ck_km, a.cekirdek_km))
     eta_taban = np.where(kara, a.eta0, a.eta0 * a.okyanus)
+    if eta_carpan is not None:
+        eta_taban = eta_taban * eta_carpan  # dayanım farkları (sert çekirdekler)
 
     rng = np.random.default_rng(a.tohum)
     kiyi = ndimage.distance_transform_edt(kara) * h_km
@@ -124,10 +163,11 @@ def kos_levha(dz: Duzlem, blok: np.ndarray, adlar: list[str], tarihler: dict, ba
         z = np.where(kara, (z - gk(z)) + AIRY * (gk(S) - a.s_ref_km * 1e3) * np.clip(kiyi / 60, 0, 1), 0.0)
         z = np.where(kara, np.maximum(z, 0.0), 0.0)
         top_e = 0.0
+        P = yagis_alani(kara, z, dz.h, a.yagis_L_km, a.yagis_Hc_m, a.yagis_taban) if a.yagis else None
         for _ in range(a.alt_adim):
             zf = z.copy()
             router.update_routes(zf)
-            A = np.asarray(router.accumulate(1.0))
+            A = np.asarray(router.accumulate(P if P is not None else 1.0))
             e = np.asarray(eroder.erode(zf, A, dt / a.alt_adim * 1e6)).reshape(dz.sekil)
             z = np.where(kara, np.maximum(z - e, 0.0), 0.0)
             S = S - np.where(kara, e, 0)
@@ -135,6 +175,7 @@ def kos_levha(dz: Duzlem, blok: np.ndarray, adlar: list[str], tarihler: dict, ba
         ma = round(ma - dt, 6)
         if abs(ma / a.kare_myr - round(ma / a.kare_myr)) < 1e-6:
             sonuc.kareler.append((ma, z.astype(np.float32).copy()))
+            sonuc.yagis = P
             alan = dz.h ** 2
             gun = dict(ma=ma, zmax=float(z.max()), zort=float(z[kara].mean()), Smax_km=float(S[kara].max() / 1e3),
                        kalinlasma_km3_yil=float(np.sum(-ekk[kara] * Sg[kara]) * alan * SANIYE_YIL / 1e9),
@@ -143,4 +184,5 @@ def kos_levha(dz: Duzlem, blok: np.ndarray, adlar: list[str], tarihler: dict, ba
             if gunluk_yaz:
                 gunluk_yaz(gun)
     sonuc.z, sonuc.S = z, S
+    sonuc.yagis = yagis_alani(kara, z, dz.h, a.yagis_L_km, a.yagis_Hc_m, a.yagis_taban)
     return sonuc

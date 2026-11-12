@@ -159,3 +159,18 @@ Hücre ortalaması ortancaları (m), model / gerçek:
 | η0 1e22, K 2e-10, 3500 km | 2310 | 2942 | 956 | 995 | 692 | 1732 | 1334 | 1059 |
 
 Bulgular: (1) K = 4e-9 ile aşınma (yaklaşık 6 km³/yıl) tektonik girdiyi (yaklaşık 4,6 km³/yıl) aşıyor, dağ oluşmuyor; gerçekçi bölge ortalamaları K ≈ 1e-10 ile 2e-10'da. (2) Avrasya'nın katı çekirdeği Hindistan'a 700 km'de başlayınca Tien Şan ve Moğolistan oluşmuyor; 2500 km'de oluşuyor. (3) En iyi ayarda Himalaya, Zagros, İran, Tien Şan, Moğolistan yüzde 25 içinde; Tibet yaklaşık yarısı (2674 / 4986), Alpler düşük (Adriya mikro levhası yok). (4) Görünüm gerçekçi değil: yükseklik Orta Asya'ya yayılmış düzgün bir kubbe; Tarim, Junggar, Sichuan gibi katı havzalar ve keskin plato kenarı yok. Eksik fizik: dayanım farkları (kratonlar), orografik yağış (dar ıslak cephe, kurak iç), kabuğun yatay taşınması (Hindistan'ın kuzeye ilerleyişi Euler çerçevesinde yok).
+
+### Sert çekirdekler ve yağış
+
+Sert bölgeler (Tarim, Junggar, Sichuan, Ordos, Kuzey Çin, Sibirya ve Doğu Avrupa kalkanları; elle kabaca çizildi) viskozite çarpanı 10 (ya da 5), 150 km yumuşak kenar. Yağış: dört yönden eşit esen nemli hava; karada her hücrede q (h/L + yükselme/Hc) yağar (L 3000 km, Hc 1500 m, taban 0,15); kıyıdaki ilk sıçrama yamaç sayılmaz. Aşınma yağışla toplanan suya bağlı (fastscapelib accumulate ağırlıklı).
+
+| ayar | Tibet | Himalaya | Zagros | İran | Alpler | Tien Şan | Moğolistan |
+|---|---|---|---|---|---|---|---|
+| gerçek | 4986 | 3228 | 1287 | 1084 | 1064 | 1776 | 1521 |
+| sert yok, yağış yok, K 2e-10 | 2674 | 3271 | 1207 | 1249 | 772 | 2155 | 1608 |
+| sert 10, yağış yok, K 2e-10 | 2776 | 3920 | 1462 | 1581 | 675 | 755 | 1353 |
+| sert 10, yağış, K 5e-10 | 2875 | 4044 | 979 | 1433 | 461 | 770 | 1259 |
+| sert 10, yağış, K 1e-9 | 2570 | 3746 | 722 | 1214 | 325 | 707 | 1038 |
+| sert 5, yağış, K 1e-9 | 2591 | 3638 | 715 | 1167 | 335 | 979 | 1115 |
+
+Görünüm: katı havzalar (Tarim, Junggar, Sichuan) alçak kaldı, plato kenarı keskinleşti. Sayılar karışık: Tien Şan Tarim katılaşınca düştü (sert çokgen ve 150 km yumuşatma Tien Şan kutusuna taşıyor olabilir), Tibet hâlâ yarı. Yağış kıyıda yoğun, içeride kurak; Himalaya önü belirgin ıslanmıyor (güney rüzgârı Hindistan'ı geçerken nemini kaybediyor; muson yok). En büyük kalan eksik: kabuğun yatay taşınması.

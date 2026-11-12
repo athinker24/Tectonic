@@ -32,6 +32,18 @@ ARABISTAN = [(33.8, 28.5), (35.2, 32.5), (36.4, 36.3), (39, 37), (42, 37.6), (45
              (50, 30), (53, 27.6), (56.4, 26.8), (60, 22), (54, 15), (44, 12.3), (42.5, 15), (37, 21)]
 
 
+# Sert bölgeler (kratonlar ve katı havzalar), genel bilgiyle kabaca çizildi; kesin harita değil.
+SERT = {
+    "Tarim": [(76, 39.5), (78, 37.3), (83, 36.8), (88, 37.5), (90, 39), (89, 40.5), (84, 41.8), (79, 41), (76, 40.5)],
+    "Junggar": [(83, 45), (86, 44.2), (90, 44.5), (91, 46), (88, 47), (84, 46.5)],
+    "Sichuan": [(103, 29), (106, 28.5), (108.5, 30), (108, 32), (106, 32.5), (104, 31.5)],
+    "Ordos": [(106, 35), (110, 35), (111, 38), (110, 40), (107, 39.5), (106, 37.5)],
+    "Kuzey Çin": [(111, 35), (118, 34), (122, 38), (120, 41), (114, 42), (111, 40)],
+    "Sibirya kalkanı": [(90, 60), (100, 55), (110, 55), (120, 56), (130, 60), (130, 68), (115, 73), (95, 72), (88, 68)],
+    "Doğu Avrupa kalkanı": [(24, 50), (30, 46.5), (40, 46), (50, 48), (56, 52), (58, 60), (50, 66), (35, 69), (28, 60), (22, 55)],
+}
+
+
 def cokgen_ici(lon, lat, p):
     p = np.asarray(p, float)
     ic = np.zeros(lon.shape, bool)
@@ -88,9 +100,11 @@ def main():
     h_km = float(sys.argv[3]) if len(sys.argv) > 3 else 50.0
     oky = float(sys.argv[4]) if len(sys.argv) > 4 else 1.0
     avr_km = float(sys.argv[5]) if len(sys.argv) > 5 else 700.0
+    sert = float(sys.argv[6]) if len(sys.argv) > 6 else 1.0  # sert bölge viskozite çarpanı (1 = yok)
+    yagis = (sys.argv[7] == "1") if len(sys.argv) > 7 else False
     t0 = time.time()
     os.makedirs("cikti/dunya", exist_ok=True)
-    on = f"cikti/dunya/dunya_{h_km:g}km_eta{eta0:.0e}_k{k:.0e}_o{oky:g}_avr{avr_km:g}"
+    on = f"cikti/dunya/dunya_{h_km:g}km_eta{eta0:.0e}_k{k:.0e}_o{oky:g}_avr{avr_km:g}_s{sert:g}_y{int(yagis)}"
 
     zr, lon_r, lat_r = gercek_yukseklik()
     maske = zr > 0
@@ -134,9 +148,16 @@ def main():
         "Arabistan": tarih("Arabistan", ara, [(25, 0, -15, 2.0)]),
         "Afrika": tarih("Afrika", afr, [(50, 0, -30, 0.6)]),
     }
-    ayar = LevhaAyar(eta0=eta0, k=k, okyanus=oky, cekirdek_ozel={"Avrasya": avr_km})
+    ayar = LevhaAyar(eta0=eta0, k=k, okyanus=oky, cekirdek_ozel={"Avrasya": avr_km}, yagis=yagis)
+    carpan = np.ones(dz.sekil)
+    if sert != 1.0:
+        m = np.zeros(dz.sekil, bool)
+        for c in SERT.values():
+            m |= cokgen_ici(dz.lon, dz.lat, c)
+        w = ndimage.gaussian_filter(m.astype(float), 150 / h_km)  # 150 km yumuşak kenar
+        carpan = np.exp(np.log(sert) * np.clip(w * 2, 0, 1))
     son = kos_levha(dz, blok, adlar, tarihler, 50.0, ayar,
-                    gunluk_yaz=lambda gun: print(gun, f"{time.time() - t0:.0f} s", flush=True))
+                    gunluk_yaz=lambda gun: print(gun, f"{time.time() - t0:.0f} s", flush=True), eta_carpan=carpan)
     z = son.z
 
     olc = {}
@@ -157,8 +178,13 @@ def main():
     dr.text((6, 5), f"Model (kalıpsız, η0 {eta0:.0e}, K {k:.0e})", fill=(0, 0, 0), font=yazi_tipi(18))
     dr.text((W2 + 18, 5), "Gerçek (GMT earth_relief, aynı ızgara)", fill=(0, 0, 0), font=yazi_tipi(18))
     tuv.save(f"{on}_karsilastirma.png")
+    if son.yagis is not None:
+        yg = np.clip(son.yagis / 2.5, 0, 1)
+        rgb = np.stack([200 - 170 * yg, 190 - 60 * yg, 140 + 80 * yg], -1)
+        rgb = np.where(dz.kara[..., None], rgb, 235).astype(np.uint8)
+        Image.fromarray(rgb).resize((dz.sekil[1] * 2, dz.sekil[0] * 2), Image.NEAREST).save(f"{on}_yagis.png")
     np.save(f"{on}_z.npy", z.astype(np.float32))
-    r = dict(eta0=eta0, k=k, h_km=h_km, okyanus=oky, avrasya_cekirdek_km=avr_km, sure_s=round(time.time() - t0), bolgeler=olc, hipsometri=hip,
+    r = dict(eta0=eta0, k=k, h_km=h_km, okyanus=oky, avrasya_cekirdek_km=avr_km, sert=sert, yagis=yagis, sure_s=round(time.time() - t0), bolgeler=olc, hipsometri=hip,
              gunluk=son.gunluk)
     json.dump(r, open(f"{on}.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     for ad, v in olc.items():
