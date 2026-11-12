@@ -35,3 +35,7 @@ arkasında plato büyür, önünde çökme havzası (ova) oluşur; nehirler ve a
 - Düzeltmeler: en büyük parça, delik doldurma; açık okyanusa bağlı olmayan her çukur dolar; temas yalnız ana gövdeyle.
 - Koşu 4: temas 31 Ma; 20 Ma 3,5 km asimetrik dağ; 10 Ma düz tepeli plato; 0 Ma yaklaşık 4,5 km, 300 km genişlikte plato; iki yanda bükülme havzası (denizle dolu).
 - Düzeltme: kalan tortu kıta üstündeki sığ denize (kıyıya yakın önce) dolar; çöküntü havzaları ovaya dönmeli.
+- Koşu 5: tortu sığ denize gitti ama havzalar hâlâ deniz: asıl neden iki kıta arasında kapanmayan 1 ile 2 hücrelik okyanus şeridi.
+- Düzeltme: dikiş kapanması (iki yanı kıta, yakınsayan dar okyanus hücresi komşu kıta kabuğunu alır).
+- Koşu 6: temas 35 Ma, zincir tam: yaklaşma, çarpışma, dağ, plato, yay biçimli kuşak; havzalar sığ deniz. Görsel kareler cikti/ornek_lab_kareler.png, kesitler cikti/ornek_lab_kesit.png.
+- Koşu 7 (15 km) başlatıldı.
