@@ -214,3 +214,12 @@ Sonuç: ne dayanım dokusu ne kısa bükülme orta ölçeği sistemli biçimde g
 - Eş yükselti yönüne hizalı yönlü sırtlar + parçalar: 100 km 0,46, 60 km 0,51, 25 km 0,92; engebe 85 / 137 ve 193 / 278 m. Sırtlar oluştu ama Tibet'in yerine ve biçimine göre değil, modelin kubbesine göre.
 
 Önemli düzeltme: önceki "400 km üstünde model doğru" yargısı güç spektrumuna dayanıyordu; güç spektrumu biçimi (faz) ölçmez. Görsel karşılaştırmada büyük biçimler de farklı: model Tarim çevresinde sarmal bir halka, Orta Asya'da kubbe üretiyor; gerçek Tibet doğu batı uzanan, keskin kenarlı bir plato ve Tarim düz bir havza. Spektrum ölçütü biçim için yetersiz.
+
+## Örnek tabanlı sıradağ: gerçek dağ sistemini dikişe bükme (12 Kasım 2026)
+
+`deneyler/nakil.py`. Kaynak dağ sistemi kendi dikişine göre (boyuna s, işaretli uzaklık d) koordinatlanır, sahibin duvar dikişine taşınır. Boyuna en çok 1,2 kat esneme, kalan uzunluk kaynağı aynalayarak; plato tarafı (d > 300 km) kaynağın plato şeridini aynalayarak tekrarlar (ölçek değişmez). Kenarlar 400 km geçiş, uzaklıklar 160 + 50 m genlikli gürültüyle bozulur (yalnız uzaklık; doğrudan ağırlığa eklenen gürültü uzakta rastgele dağ lekeleri doğurmuştu). Arka plan şimdilik gürültülü düz ova. Aşınma ve izostazi yok. 0,1° ızgara, koşu birkaç saniye.
+
+- Zagros ve İran platosu: sıradağ p95 2324 m, en yüksek 3345 m; çanak ortancası 197 m (çizilen sarı alanın bir kısmı geçiş bölgesinde ve arka planda kalıyor).
+- Himalaya ve Tibet: sıradağ p95 5435 m, en yüksek 6188 m; çanak ortancası 1185 m, p90 4980 m (Tibet istenen 1000 ile 1500 m'den çok yüksek).
+
+Görünüm: taşınan bölgenin içi gerçek dağ dokusunda; kenarlar düzensiz. Kusurlar: aynalama yer yer simetrik tekrar olarak görünüyor; çevredeki düz arka plan taşınan bölgeyi yapıştırılmış gösteriyor; tek bir kaynak isteklere tam uymuyor (Zagros sıradağı küçük, Tibet çok yüksek).
