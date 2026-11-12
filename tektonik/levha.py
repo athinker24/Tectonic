@@ -180,3 +180,30 @@ class LevhaCozucu:
         # ikinci değişmez (düşey dahil): ε̇E² = ε̇xx² + ε̇yy² + ε̇zz² ... /2 + ε̇xy²
         eE = np.sqrt(0.5 * (ux ** 2 + vy ** 2 + ekk ** 2) + exy ** 2)
         return ekk, eE
+
+
+def dayanim_dokusu(dz: Duzlem, sapma: float, hat: float, tohum: int = 0) -> np.ndarray:
+    """Kıtanın her ölçekte düzensiz dayanımı için viskozite çarpanı.
+
+    sapma: çok ölçekli (yaklaşık 150 ile 1000 km) gürültünün ln η standart sapması.
+    hat: eski zayıf hatlar (fay ve sütur ağı); ikinci bir gürültünün sıfır geçişleri
+    boyunca yaklaşık 60 km genişliğinde şeritlerde ln η bu kadar düşer.
+    Gerçek Dünya'da bu dokunun yeri bilinmez; istatistiksel bir temsil."""
+    from scipy import ndimage
+    rng = np.random.default_rng(tohum)
+    h_km = dz.h / 1e3
+    n = np.zeros(dz.sekil)
+    for olcek_km, agirlik in ((1000, 1.0), (500, 0.7), (250, 0.5), (150, 0.35)):
+        a = ndimage.gaussian_filter(rng.standard_normal(dz.sekil), olcek_km / h_km / 2.5)
+        n += agirlik * a / (a.std() + 1e-12)
+    n /= n.std()
+    b = np.zeros(dz.sekil)
+    for olcek_km, agirlik in ((600, 1.0), (300, 0.6)):
+        a = ndimage.gaussian_filter(rng.standard_normal(dz.sekil), olcek_km / h_km / 2.5)
+        b += agirlik * a / (a.std() + 1e-12)
+    b /= b.std()
+    # sıfır geçişine uzaklığın kabaca karşılığı: |b| / |∇b|
+    gy, gx = np.gradient(b)
+    d_km = np.abs(b) / (np.hypot(gx, gy) + 1e-9) * h_km
+    serit = np.exp(-(d_km / 30.0) ** 2)
+    return np.exp(sapma * n - hat * serit)

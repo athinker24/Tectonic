@@ -94,6 +94,33 @@ BOLGELER = {
 }
 
 
+def olcek_olc(dz, m, g):
+    """Orta Asya kutusunda dalga boyuna göre güç oranı ve 150 km yerel engebe (model / gerçek)."""
+    k = dz.kara & (dz.lon > 60) & (dz.lon < 110) & (dz.lat > 25) & (dz.lat < 50)
+    r, c = np.nonzero(k)
+    r0, r1, c0, c1 = r.min(), r.max(), c.min(), c.max()
+
+    def spek(a):
+        a = a[r0:r1, c0:c1]; a = a - a.mean()
+        w = np.outer(np.hanning(a.shape[0]), np.hanning(a.shape[1]))
+        F = np.abs(np.fft.fftshift(np.fft.fft2(a * w))) ** 2
+        yy, xx = np.indices(F.shape)
+        rr = np.hypot(yy - F.shape[0] / 2, xx - F.shape[1] / 2).astype(int)
+        return np.bincount(rr.ravel(), F.ravel()) / np.bincount(rr.ravel())
+
+    pm, pg = spek(m), spek(g)
+    L = (r1 - r0) * dz.h / 1e3
+    out = {f"guc_{L / i:.0f}km": round(float(pm[i] / pg[i]), 2) for i in (4, 8, 12, 16, 20)}
+
+    def pur(a):
+        mu = ndimage.uniform_filter(a, 3); sq = ndimage.uniform_filter(a * a, 3)
+        return np.sqrt(np.maximum(sq - mu * mu, 0))
+    for ad, mm in {"engebe_asya_yuksek": k & (g > 1500),
+                   "engebe_afrika": dz.kara & (dz.lon > -20) & (dz.lon < 50) & (dz.lat > -35) & (dz.lat < 30)}.items():
+        out[ad] = [round(float(np.median(pur(m)[mm]))), round(float(np.median(pur(g)[mm])))]
+    return out
+
+
 def main():
     eta0 = float(sys.argv[1]) if len(sys.argv) > 1 else 1e22
     k = float(sys.argv[2]) if len(sys.argv) > 2 else 4e-9
@@ -104,9 +131,13 @@ def main():
     yagis = (sys.argv[7] == "1") if len(sys.argv) > 7 else False
     tasima = (sys.argv[8] == "1") if len(sys.argv) > 8 else False
     kenar_km = float(sys.argv[9]) if len(sys.argv) > 9 else 150.0  # sert bölge kenar yumuşatması
+    doku = float(sys.argv[10]) if len(sys.argv) > 10 else 0.0  # dayanım dokusu: ln η sapması
+    hat = float(sys.argv[11]) if len(sys.argv) > 11 else 0.0
+    dtohum = int(sys.argv[12]) if len(sys.argv) > 12 else 11
+    buk = float(sys.argv[13]) if len(sys.argv) > 13 else 80.0  # eski zayıf hatlar: hat üstünde ln η düşüşü
     t0 = time.time()
     os.makedirs("cikti/dunya", exist_ok=True)
-    on = f"cikti/dunya/dunya_{h_km:g}km_eta{eta0:.0e}_k{k:.0e}_o{oky:g}_avr{avr_km:g}_s{sert:g}_y{int(yagis)}_t{int(tasima)}_kn{kenar_km:g}"
+    on = f"cikti/dunya/dunya_{h_km:g}km_eta{eta0:.0e}_k{k:.0e}_o{oky:g}_avr{avr_km:g}_s{sert:g}_y{int(yagis)}_t{int(tasima)}_kn{kenar_km:g}_d{doku:g}_h{hat:g}_s{dtohum}_b{buk:g}"
 
     zr, lon_r, lat_r = gercek_yukseklik()
     maske = zr > 0
@@ -150,7 +181,7 @@ def main():
         "Arabistan": tarih("Arabistan", ara, [(25, 0, -15, 2.0)]),
         "Afrika": tarih("Afrika", afr, [(50, 0, -30, 0.6)]),
     }
-    ayar = LevhaAyar(eta0=eta0, k=k, okyanus=oky, cekirdek_ozel={"Avrasya": avr_km}, yagis=yagis, tasima=tasima)
+    ayar = LevhaAyar(eta0=eta0, k=k, okyanus=oky, cekirdek_ozel={"Avrasya": avr_km}, yagis=yagis, tasima=tasima, bukulme_km=buk)
     carpan = np.ones(dz.sekil)
     if sert != 1.0:
         m = np.zeros(dz.sekil, bool)
@@ -158,6 +189,9 @@ def main():
             m |= cokgen_ici(dz.lon, dz.lat, c)
         w = ndimage.gaussian_filter(m.astype(float), kenar_km / h_km)
         carpan = np.exp(np.log(sert) * np.clip(w * 2, 0, 1))
+    if doku > 0 or hat > 0:
+        from tektonik.levha import dayanim_dokusu
+        carpan = carpan * dayanim_dokusu(dz, doku, hat, tohum=dtohum)
     son = kos_levha(dz, blok, adlar, tarihler, 50.0, ayar,
                     gunluk_yaz=lambda gun: print(gun, f"{time.time() - t0:.0f} s", flush=True), eta_carpan=carpan)
     z = son.z
@@ -192,6 +226,7 @@ def main():
     for ad, v in olc.items():
         print(f"{ad}: model {v['model_ortanca']} m (p95 {v['model_p95']}), gerçek {v['gercek_ortanca']} m (p95 {v['gercek_p95']})")
     print(hip)
+    print("ölçek:", json.dumps(olcek_olc(dz, z, gercek), ensure_ascii=False))
 
 
 if __name__ == "__main__":
