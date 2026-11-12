@@ -39,7 +39,7 @@ Araştırma tarihi: 12 Kasım 2026. Belge üç şeyin sentezidir: iki Haiku kolu
 **İnce ölçekli eğim ve yükseklik (yaklaşık 120 m, ortanca / yüzde 90, derece):** Alpler 11,3 / 35,7; Himalaya 17,2 / 35,7; Appalachian 10,5 / 24,2; İskandinav 10,7 / 31,1; Zagros 5,6 / 25,8; Orta And 4,4 / 25,8. Bölge ortalama yüksekliği: Alpler 1026 m, Himalaya 3630, Appalachian 569, İskandinav 884, Zagros 1915, Orta And 3810 m [Ö-ölç].
 
 **Okuma [H].**
-- Yerel rölyef hücre boyuyla yaklaşık doğrusal büyüyor: 5 km'den 20 km'ye 1,8 ile 2,1 kat (Himalaya 2,07, Alpler 1,86, Appalachian 1,81). Hücre ortalamalarından hesaplanan eğim ise 20 km'de 5 km'ye göre 2 ile 3 kat düşüyor (kaba taneleme eğimi düzleştirir). Bu, 14. belgedeki "çözünürlük rölyefi ve eğimi değiştirir" bulgusunun gerçek veride karşılığı.
+- Yerel rölyef hücre boyuyla yaklaşık doğrusal büyüyor: 5 km'den 20 km'ye 1,8 ile 2,3 kat (Appalachian 1,81, Alpler 1,86, İskandinav 1,91, Himalaya 2,07, Zagros 2,22, Orta And 2,27). Hücre ortalamalarından hesaplanan eğimin ortancası ise 20 km'de 5 km'ye göre 2,2 ile 3,7 kat düşüyor (Alpler 2,2, Appalachian 2,3, Orta And 2,3, Zagros 2,5, Himalaya 2,9, İskandinav 3,7) (kaba taneleme eğimi düzleştirir). Bu, 14. belgedeki "çözünürlük rölyefi ve eğimi değiştirir" bulgusunun gerçek veride karşılığı.
 - Genç yüksek dağlarda (Himalaya, Alpler) 10 km hücre ortalama rölyefi 1100 ile 1450 m; eski dağlarda (Appalachian) 460 m. Oran yaklaşık 2,4 ile 3,2 kat; bu, 4. belgedeki eski ve genç dağ ayrımı için ölçülebilir bir gerçekçilik işareti.
 - Zagros, 10 km'de 838 m ortalama rölyef ve yaklaşık 1900 m ortalama yükseklikle, 2. konudaki "Zagros benzeri plato" seçeneğinin ölçülebilir bir referansı.
 
@@ -94,7 +94,7 @@ Atlas deposunun (`dunyam-atlas-mobil`) yükseklik eğrisi sahibin çapalarından
 | 10 km hücre yerel rölyef, genç yüksek dağ | yaklaşık 1100 ile 1450 m ortalama | [Ö-ölç] |
 | 10 km hücre yerel rölyef, eski dağ | yaklaşık 460 m ortalama | [Ö-ölç] |
 | 10 km hücre yerel rölyef, plato / kıvrım kuşağı (Zagros benzeri) | yaklaşık 840 m ortalama | [Ö-ölç] |
-| Rölyefin hücre boyuna bağımlılığı | 5 km'den 20 km'ye yaklaşık 1,8 ile 2,1 kat | [Ö-ölç] |
+| Rölyefin hücre boyuna bağımlılığı | 5 km'den 20 km'ye yaklaşık 1,8 ile 2,3 kat | [Ö-ölç] |
 | Hücre eğiminin ortancası, 10 km | 1,2 ile 1,6° (genç dağ), 0,4° (eski dağ) | [Ö-ölç] |
 | Hack üssü | h ≈ 0,6 (L = 1,4 A^0,6) | [B] |
 | Horton bifurkasyon / uzunluk oranı | R_B 3 ile 4 (dağlık), R_L 2 ile 3 | [B] |

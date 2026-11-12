@@ -38,7 +38,7 @@ Hellinger (1981, JGR 86:9312 ile 9318): ağırlıklı en küçük kareler ile Eu
 | Hindistan | 18 cm/yıl'ın üstü, çarpışmada (yaklaşık 50 milyon yıl önce) yaklaşık üçte bire düştü; 1978 paleomanyetik ortalama 14,9 cm/yıl (70 ile 40 milyon yıl) sonra 5,2 cm/yıl; kısa hızlanmalar yaklaşık 130, 80, 65 milyon yıl önce | [Ö] |
 | Arabistan | yaklaşık 5 milyon yıldan beri yaklaşık yüzde 30 yavaşlama (Austermann ve Iaffaldano 2013, Zagros nedeni); ArRajehi (2010) buna karşı; bugün yaklaşık 18 mm/yıl | [Ö] |
 | Slab çekişi | levha itkisinin yaklaşık yarısı (Conrad ve Lithgow-Bertelloni 2002, Science 298:207) | [Ö] |
-| Hendek geri çekilmesi | Tonga yaklaşık 16 cm/yıl, Lau açılması yaklaşık 15 cm/yıl; İzu-Bonin kuzeyi 2 ile 6; Mariana birkaç cm/yıl (Schellart 2008, GSA Bull. 120:1441, hendek hızı korelasyonu 0,33 ile 0,68) | [Ö] |
+| Hendek geri çekilmesi | Tonga yaklaşık 16 cm/yıl, Lau açılması yaklaşık 15 cm/yıl; İzu-Bonin kuzeyi 2 ile 6; Mariana birkaç cm/yıl (bu hız sayıları arama özetlerinden; kaynağı doğrulanamadı, Schellart 2008'e ait değil). Schellart 2008, GSA Bull. 120:1441 yalnızca korelasyon veriyor: hendek hızı korelasyonu 0,33 ile 0,68; geri çekilme genellikle genişlemeyle, sabit ya da ilerleyen hendek kısalmayla ilişkili (üst levha kısalması ve genişlemesi, And parametrik çalışması; hız sayısı yok) | [Ö] |
 | Atlantik açılma örnekleri | Orta Atlantik yaklaşık 134 ile 126 milyon yıl, Güney Atlantik yaklaşık 112 milyon yıl; Pangea kırılması Jura başı (200 ile 175 milyon yıl) | [Ö] |
 | Hindistan kat ettiği yol | 70 milyon yılda yaklaşık 8,6 cm/yıl, 130 milyon yılda yaklaşık 4,6 cm/yıl (varsayımsal çıkarım, kendi hesabım) | [H] |
 
