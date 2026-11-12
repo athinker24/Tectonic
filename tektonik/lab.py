@@ -51,6 +51,8 @@ class LabAyar:
     nsp: float = 1.0
     cokelme: float = 0.7  # aşınan hacmin karadaki çukurlara giden payı
     tohum: int = 1
+    yagis: bool = True  # orografik yağış (levha_model.yagis_alani): ıslak cephe, kurak iç
+    k_degiskenlik: float = 0.6  # ln K sapması (kayaç sertliği farkı)
     carpisma_sonrasi_hiz: float = 0.5  # temas sonrası hız çarpanı (Hindistan çarpışmadan sonra yavaşladı)
 
 
@@ -116,7 +118,11 @@ class Lab:
         # ızgara nesnesi saklanmalı: yalnız akış grafiği tutarsa çöp toplanıp çöküyor
         self.grid = fs.RasterGrid([ny, nx], [h, h], fs.NodeStatus.FIXED_VALUE)
         self.router = fs.FlowGraph(self.grid, [fs.SingleFlowRouter(), fs.MSTSinkResolver()])
-        self.eroder = fs.SPLEroder(self.router, a.K, a.m, a.nsp, 1e-4)
+        rng = np.random.default_rng(a.tohum)
+        g = ndimage.gaussian_filter(rng.standard_normal((ny, nx)), 60.0 / a.h_km); g /= g.std()
+        g2 = ndimage.gaussian_filter(rng.standard_normal((ny, nx)), 15.0 / a.h_km); g2 /= g2.std()
+        self.k_alan = a.K * np.exp(a.k_degiskenlik * (0.8 * g + 0.6 * g2))
+        self.eroder = fs.SPLEroder(self.router, self.k_alan, a.m, a.nsp, 1e-4)
         kita = S0 > 20e3
         self.temas_ma = None
         self.kenar_S = (S0[0, :].astype(float).copy(), S0[-1, :].astype(float).copy(), S0[:, 0].astype(float).copy(), S0[:, -1].astype(float).copy())
@@ -201,7 +207,12 @@ class Lab:
         kara = ~acik_okyanus(z)  # iç göller de karanın parçası: nehirler onlara akar, dolarlar
         zr = np.ascontiguousarray(np.where(kara, z, 0.0), dtype=np.float64).copy()  # deniz taban düzeyi 0
         self.router.update_routes(zr)
-        A = np.asarray(self.router.accumulate(1.0))
+        if a.yagis:
+            from .levha_model import yagis_alani
+            self.P = yagis_alani(kara, np.where(kara, z, 0.0), h, 3000.0, 1500.0, 0.15)
+            A = np.asarray(self.router.accumulate(np.ascontiguousarray(self.P)))
+        else:
+            A = np.asarray(self.router.accumulate(1.0))
         e = np.asarray(self.eroder.erode(zr, A, dt_yil)).reshape(S.shape)
         e = np.where(kara, np.clip(e, 0, None), 0.0)
         S = S - e

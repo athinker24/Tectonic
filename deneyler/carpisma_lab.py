@@ -25,6 +25,7 @@ def kita_bicimi(ny, nx, h_km, merkez, yaricap_km, tohum, uzama=(1.0, 1.0)):
     dx = (xx - merkez[1]) * h_km / uzama[1]
     dy = (yy - merkez[0]) * h_km / uzama[0]
     r = np.hypot(dx, dy)
+    # gürültü ölçeği km cinsinden: kıyı biçimi çözünürlükten bağımsız olsun
     g = ndimage.gaussian_filter(rng.standard_normal((ny, nx)), 6); g /= g.std()
     g2 = ndimage.gaussian_filter(rng.standard_normal((ny, nx)), 2); g2 /= g2.std()
     m = r < yaricap_km * (1 + 0.18 * g + 0.05 * g2)
@@ -77,8 +78,14 @@ def main():
     os.makedirs("cikti/lab", exist_ok=True)
     ny, nx = int(5000 / h_km), int(3600 / h_km)
     # kuzey kıtası: geniş, güney kıyısı düzensiz
-    kuzey = kita_bicimi(ny, nx, h_km, (-int(800 / h_km), nx // 2), 3500, 3, uzama=(1.0, 1.3))
-    guney = kita_bicimi(ny, nx, h_km, (int(4150 / h_km), nx // 2), 560, 7, uzama=(1.0, 1.15))
+    # kıta biçimleri 20 km'lik başvuru ızgarasında üretilip hedef çözünürlüğe taşınır (aynı coğrafya)
+    by, bx = int(5000 / 20), int(3600 / 20)
+    k20 = kita_bicimi(by, bx, 20.0, (-40, bx // 2), 3500, 3, uzama=(1.0, 1.3))
+    g20 = kita_bicimi(by, bx, 20.0, (207, bx // 2), 560, 7, uzama=(1.0, 1.15))
+    yy = np.clip((np.arange(ny) + 0.5) * h_km / 20.0, 0, by - 1).astype(int)
+    xx = np.clip((np.arange(nx) + 0.5) * h_km / 20.0, 0, bx - 1).astype(int)
+    kuzey = k20[np.ix_(yy, xx)]
+    guney = g20[np.ix_(yy, xx)]
     S0 = np.where(kuzey | guney, 35e3, 7e3)
     et = np.zeros((ny, nx))
     et[int(3000 / h_km):, :] = 1.0
