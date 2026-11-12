@@ -110,3 +110,87 @@ Status: in progress (started 2026-11-11). Sections are filled as sources are rea
 - Levandowski 2014 global paper and Afonso 2022 global LitMod paper: not found by search.
 - Coblentz et al. (Durham copy) : cannot be read (see TLS failure above).
 
+
+### Steinberger, Conrad, Osei Tutu, Hoggard 2019 (Tectonophysics 760:221-228, PDF read)
+- Source: https://gfzpublic.gfz-potsdam.de/pubman/item/item_4381899_3/component/file_4384888/4381899.pdf
+- Combines Hoggard et al. 2016 oceanic residual topography with CRUST1.0 continental constraints; compares to mantle-flow predictions. Abstract: "relatively good overall agreement and amplitude spectra with similar slopes, except for degree two (> 10,000 km wavelengths) where predicted amplitude is more than two times as large."
+- Intro: "most geodynamic models of global mantle flow produce patterns of dynamic topography with long-wavelength amplitudes of about 1-km or more (see Flament et al. (2013)...)"; "As far as we know, the present answer is no" regarding independent evidence for ~1 km degree-2 topography.
+- Use for the tool: long-wavelength dynamic topography of about 0.5 to 1 km is the observationally supported range; models with 1 to 2 km are high.
+
+### Szwillus et al. 2019 (JGR Solid Earth 124(2):1626-1652, doi 10.1029/2018JB016593) - search summaries only
+- Geostatistical global Moho depth and average crustal Vp maps, about 0.72 degree resolution, with interpolation error (conference abstract; Africa Knowledge Platform, https://africa-knowledge-platform.ec.europa.eu/node/45857 ; EOS highlight https://eos.org/editor-highlights/new-global-crustal-model-built-as-foundation-for-future-studies).
+- Agrees with CRUST1.0. Moho uncertainty below 4 km in North America and Europe, 10 km or more in most of Africa (UNVERIFIED wording, not read verbatim).
+- Verbatim JGR abstract and average crustal velocity values NOT read.
+
+### Afonso et al. 2019 (LithoRef18, GJI 217(3):1602-1628, doi 10.1093/gji/ggz094) - search summary only
+- Joint inversion of gravity, geoid, seismic data with priors. Outputs: crustal thickness and density, lithospheric thickness, lithospheric mantle density vs depth, geotherms, sublithospheric density to 410 km. Data at https://www.earthbyte.org/webdav/ftp/earthbyte/gplates_portal/Afonso_etal_lithospheric_thickness_GJI2019/ (folder, not read).
+- The 2022 LitMod global paper requested in the brief was NOT found; this 2019 paper is the closest match I could identify.
+
+### Sediment density (search summaries, primary not read)
+- Brief's range 2000-2500 kg/m3 NOT confirmed. A marine sediment density source (search summary) gives average estimates of 1.7 to 1.95 g/cm3 (1700-1950 kg/m3). Bulk density in backstripping models is computed from grain density and porosity, with porosity phi(z) = phi0 exp(-z/z0) (Sclater and Christie 1980, JGR 85:3711-3739; North Sea parameters; excerpt https://assets.cambridge.org/97811084/46969/excerpt/9781108446969_excerpt.pdf ). CONFLICT with the brief: treat 2000-2500 as a range that needs checking, and compute from porosity if the tool models sediments.
+
+### Eclogite density (search summaries)
+- Eclogite density at standard conditions about 3.45-3.75 g/cm3 vs peridotite 3.3-3.47 (secondary summary; source https://core.ac.uk/download/19158705.pdf or similar, UNVERIFIED which). Densification of up to about 10% (about 300-600 kg/m3) cited as an upper bound in a secondary summary. Gabbro-to-eclogite conversion incomplete in exposed lower crust and controlled by fluid abundance. Arc lower crust foundering when density exceeds mantle (about 3.33 g/cm3) (Scientific Reports, s41598-017-13221-6, search snippet).
+- Jull and Kelemen 2001 (JGR; search snippet only): lower crustal lithologies can be denser than mantle by roughly 50-250 kg/m3, depending on composition, temperature, pressure. Not read.
+- Ducea, Saleeby, Hacker 2015 review: NOT found.
+
+### Dynamic topography extra (search snippets)
+- Conrad and Husson 2009 type models: long-wavelength DT about 1-2 km, overpredicting degree 2 (search summary, not read). Conrad 2013 and "2019 Conrad" not found.
+
+### Kirby 2019 "On the pitfalls of Airy isostasy" (search summary, record not readable)
+- Argues Airy inability to represent actual compensation is well documented. https://espace.curtin.edu.au/handle/20.500.11937/74829 (no text extracted).
+
+## Consolidated assessment for the tool (Topic D)
+
+1. Global test. Crustal thickness alone does not predict elevation. Zoback and Mooney (2003) on 1700+ USGS crustal models: no relation for crust 25 to 55 km near sea level; Airy-type correlation only at extremes (<20 or >55 km). Crustal-only buoyancy overpredicts elevation in 97% of sites by 1.73 +/- 0.95 km. A pure Airy tool therefore misses most continental elevation variance and must include a mantle-lid term.
+2. Lithospheric mantle term. Lachenbruch and Morgan (1990) model with H0 = 2.78 +/- 0.35 km, rho_a = 3300 kg/m3: Hm = (rho_a - rho_m)/rho_a x Lm (negative contribution). Lamb et al. 2020 (data release; abstract not read) report lithosphere thickness as first-order control and cite density contrasts of 300-550 kg/m3 (crust) and 20-40 kg/m3 (asthenosphere), UNVERIFIED.
+3. Densities to adopt (defaults, with ranges). Mantle lid and asthenosphere 3300 kg/m3 (Zoback and Mooney Table 1 uses 3300; asthenosphere 3300). Crust 2800 kg/m3 (Christensen and Mooney 1995 mean 2830; ZM03 reports 2764 at 25 km and 2947 at 50 km, so make crust density increase with thickness). Water 1030 kg/m3 (Table 1 entries 1000-1030). Sediments: use porosity law, range 1700-2500 kg/m3, default 2200 is my suggestion, UNVERIFIED.
+4. Reference thickness. Crust-only sea-level thickness depends on densities: 18.3 km (my derivation from ZM03 Eq. 4 with rho_c 2800). Continental mean thickness 39 to 41 km (Christensen and Mooney 1995 41.1 km; Chulick and Mooney 2002 39.2 km; search only). The "35 km reference" in the brief is a course-sheet value, not from a primary source here.
+5. Orogenic roots. Airy root for 5 km elevation with 2800/3300: 28 km (5.6 ratio). Observed roots: Tibet ~70 km crust at ~5 km elevation (Murodov 2022 review: 50 km Himalaya, up to 90 km Qiangtang); Alps ~55-60 km at ~2 km (search). Both imply root-to-elevation ratios above Airy, consistent with mantle-lid or dynamic support and with eclogite densification (up to ~300-600 kg/m3 densification, UNVERIFIED primary). Tool should allow a crustal density increase in roots or a mantle-lid term, and must not fix the root from elevation alone.
+6. Cratons. Excess elevation 500-700 m in southern African cratons not explained by depletion alone (search snippet); Zoback and Mooney reproduce 200-350 km cratonic lids with 1% lower density.
+7. Dynamic topography. Long-wavelength (>5000 km) agreement with models; amplitude +/-2 km predicted vs +/-0.5 to 1 km observed (Hoggard 2016 abstract; Steinberger 2019). Tool default: optional term of +/-0.5 km at >1000 km wavelength, off by default.
+8. Oceanic seafloor. Depth d(t) about 2500-2600 m at ridge (GDH1 family, search) but Richards et al. 2018 quote a global average of 2.85 +/- 0.5 km. Korenaga reference model: d0 = 2600 m, d1 = 409 m/Ma^0.5, d2 = 930 m, e2 = 0.018/Ma, sign of d2 ambiguous in extracted text (use only after checking). Old-seafloor plateau about 5.5 to 6.4 km (search, Wikipedia says ~6400 m under cooling plate; UNVERIFIED). Ocean basins 5.5 to 6 km deep plausible. Tool should use a verified formula, check Parsons and Sclater 1977 and Stein and Stein 1992 full text (not accessible here).
+
+## Key takeaways for the tool (summary)
+- Do not use a single Airy rule. Use Airy plus a lithospheric mantle lid term (Lachenbruch and Morgan 1990 form) with rho_a = 3300.
+- Default densities: asthenosphere 3300; crust 2800 with optional increase with thickness (2764 at 25 km to 2947 at 50 km, ZM03); water 1030; sediments need porosity-based treatment, range 1700-2500 (conflict with brief's 2000-2500).
+- Reference: crustal thickness at sea level depends on densities (18.3 km crust-only in the ZM03 form); mean continental crust 39-41 km.
+- Expect residuals of about 1.7 +/- 1.0 km from crust-only Airy (ZM03). Plan for it.
+- Orogenic roots: allow crust thicker than Airy for given elevation (Tibet, Alps). Use eclogite densification as an option (up to ~300-600 kg/m3, unverified primary), not a default.
+- Dynamic topography: optional, +/-0.5 to 1 km at long wavelength.
+- Oceans: ridge depth 2500-2600 m (GDH1 family; global average quoted 2.85 km), deep basins 5.5-6.4 km; formula must be verified from primary (Stein and Stein 1992 Eq. not readable).
+
+## URLs read (full text or usable content)
+- https://escweb.wr.usgs.gov/share/mooney/2003_IGR_LithoBuoyancy.pdf (Zoback and Mooney 2003, PDF)
+- https://pubs.usgs.gov/publication/70016328 (Lachenbruch and Morgan 1990 abstract)
+- https://www.usgs.gov/publications/continental-extension-magmatism-and-elevation-formal-relations-and-rules-thumb (same record)
+- https://par.nsf.gov/servlets/purl/10317139 (Korenaga et al. reference model manuscript, PDF)
+- https://freddrichards.github.io/documents/papers/richards_etal_2018_jgr.pdf (Richards et al. 2018, PDF)
+- https://www.frontiersin.org/articles/10.3389/feart.2022.821497/pdf (Murodov et al. 2022, PDF)
+- https://igppweb.ucsd.edu/~gabi/crust1/laske-egu13-crust1.pdf (CRUST1.0 poster, PDF)
+- https://gfzpublic.gfz-potsdam.de/pubman/item/item_4381899_3/component/file_4384888/4381899.pdf (Steinberger et al. 2019, PDF)
+- https://www.nature.com/articles/359123a0.pdf (Stein and Stein 1992, abstract only)
+- https://earthbyte.org/?p=710 (Flament et al. 2013 abstract)
+- https://researchportalplus.anu.edu.au/en/publications/global-dynamic-topography-observations-reveal-limited-influence-o/ (Hoggard et al. 2016 abstract)
+- https://en.wikipedia.org/wiki/Seafloor_depth_versus_age (secondary)
+- https://zenodo.org/record/4031646 (Lamb et al. 2020 data description)
+- https://doaj.org/... and openpolar.no record for Lamb et al. 2020 (abstract snippet only)
+- https://eos.org/editor-highlights/... and https://africa-knowledge-platform.ec.europa.eu/node/45857 (Szwillus summaries)
+- https://www.earthbyte.org/... (Afonso 2019 folder listing, not read)
+
+## Failed or blocked fetches
+- https://topex.ucsd.edu/geodynamics/parsons_sclater77.pdf: TLS "unable to get local issuer certificate", also with /root/.ccr/ca-bundle.crt. Not bypassed.
+- https://mantleplumes.awh.durham.ac.uk/DLABook/Stein_Accepted.pdf: TLS error, then connection reset.
+- https://people.earth.yale.edu/sites/default/files/korenaga08b.pdf and korenaga21b.pdf and korenaga15a_0.pdf: proxy CONNECT 502.
+- https://boris.unibe.ch/113826/1/Kissling_et_al-2017-Tectonics.pdf: bot-check page.
+- https://se.copernicus.org/articles/8/899/2017/se-8-899-2017.pdf: no text extracted.
+- https://espace.curtin.edu.au/handle/20.500.11937/74829 (Kirby 2019): no text.
+- https://ds.iris.edu/ds/products/emc-crust1-0/ and emc-litho1-0: no model text (106 chars).
+- https://pmc.ncbi.nlm.nih.gov/articles/PMC6941964: no text.
+- https://core.ac.uk/download/228204057.pdf (Lamb 2020 full text): HTML, not PDF.
+- https://core.ac.uk/download/288380902.pdf: no text.
+- https://www.earthbyte.org/Resources/Pdf/Muller_Seton_...pdf: 404.
+- https://uchicago.cottagelabs.com/... (Oceanic axial depth): no text.
+- Not found by search: Crosby and McKenzie 2009 full text, Levandowski 2014 global paper, Afonso 2022 global LitMod paper, Conrad 2013, Ducea et al. 2015, Hasterok and Chapman 2007 full text (abstract only via Adelaide repository), Lachenbruch-Morgan full text, Jull and Kelemen 2001 full text, Christensen and Mooney 1995 full text, Mooney et al. 1998 full text (ifremer returned HTML).
+
+## Dash check

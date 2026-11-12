@@ -45,3 +45,38 @@ Source read: https://se.copernicus.org/articles/12/2425/2021/ (text)
 - Subhercynian Basin (broken plate, intraplate): wavelength ~25-40 km (short), amplitude ~2500 m; the Swiss Molasse Basin "original" wavelength ~120 km and 5-7 km amplitude (cites Burkhard and Sommaruga 1998; Homewood et al. 1986). Source: same URL, line 24.
 - Broken plate segments of 15-20 km behave as rigid blocks (McQueen and Beaumont 1989 concept). Source: same URL.
 - Te at fault positions near zero when broken; general Te definition cites Burov and Diament 1995. Source: same URL.
+
+### Prefactor rule (my derivation, checked against MIT; NOT a quoted source formula)
+- Decaying solutions: continuous w = C e^{-u}(cos u + sin u) with third derivative at 0 equal to 4C/alpha^3; broken w = C e^{-u} cos u with third derivative 2C/alpha^3 (u = x/alpha). Shear balance V_b = D |w'''(0)|.
+- Continuous (symmetric, shear per side V_b): w0 = V_b alpha^3 / (4D). With V_b = V0/2 gives w0 = V0 alpha^3/(8D) (MIT).
+- Broken (M=0 at break, shear V_b): w0 = V_b alpha^3 / (2D). With V_b = V0/2 (MIT Fig 20.3 splits the load) gives w0 = V0 alpha^3/(4D) (MIT).
+- Tool rule: define the load as V0 total, split as above. Use sign convention: deflection negative under load (downward) in MIT.
+
+### DISCREPANCY: NCU lecture (Lin, courtesy Watts) prefactors
+Source: https://basin.earth.ncu.edu.tw/download/courses/basin_analysis/4_flexure.pdf (text extraction garbled)
+- Continuous plate written as y = (P b lambda / [2 (rho_m - rho_inf) g]) e^{-lambda x}(cos + sin), with lambda = [(rho_m - rho_inf) g / (4D)]^{1/4} = 1/alpha. Consistent with MIT (P b lambda/(2 Delta rho g) = alpha^3/(8D) per unit load).
+- Broken plate written as y = (2 P b lambda / [(rho_m - rho_inf) g]) e^{-lambda x} cos(lambda x). This implies a broken/continuous prefactor ratio of 4, whereas MIT and my derivation give 2 for the same total load. UNRESOLVED: may be an extraction error or a different load definition (P b vs V0). Tool should use the MIT/derived form and state the load convention.
+- NCU lecture also states the Te = 67 km, tau = 27.5 Myr viscoelastic example and the Watts et al. 1995 idea that high Te gives thin-skinned and low Te gives thick-skinned deformation (same URL, text).
+
+### DeCelles 2012 fetch FAILED
+- https://rmgsc.cr.usgs.gov/outgoing/temp/sjohnstone/OllieLiterature/Stratigraphy/Decelles_2012_ForelandBasinSystemsRevisited.pdf returned an HTML page (1.2 KB), not the PDF. Failed fetch.
+
+## Te numbers for forelands, from Stewart and Watts 1997 (JGR 102:5327)
+Source read (text extraction of the Oxford ORA PDF): https://ora.ox.ac.uk/objects/uuid:9f803b42-522e-442b-9849-bb8e6c2a5494/files/m88d0e5b84c28370abf6d7b84438cc52d (abstract; also the body text)
+- Oman (ophiolite load, profiles orthogonal to strike): Te = 30 km best fit.
+- Himalayan foreland: recovered Te from 40 to over 90 km; profile- and grid-based both give Te > 70 km in the foreland region; beneath the Tibetan plateau Te generally < 10 km.
+- Arabia-Eurasia (Zagros): Te over 60 km in the foreland region to close to zero beneath the high Zagros.
+- Andes: correlation between orogen width and foreland Te; Andes Te range 5-85 km (cited in search; body text confirms width correlation).
+- Appalachians (Karner and Watts 1983): rigidity high for ~300 Myr, supports elastic model; search summary gives Te 40-70 km (UNVERIFIED in body, the 40-70 km statement is from the search snippet).
+- Global: grid-based Te from ~0 to over 90 km; low Te in active belts; high in cratons (abstract).
+- Tectonic link: high-Te foreland correlates with overthrusting in Himalaya and Andes (abstract).
+
+## Caveat
+- Lin and Watts 2002 (Taiwan) and Stewart and Watts 1997 use the 2D elastic beam with buried loads; Te recovered is sensitive to the infill, so Te depends on the density model.
+
+## Parameter values (confirmed in two sources)
+- E = 1e11 Pa, nu = 0.25: Stewart and Watts 1997 Table (text, ORA copy) https://ora.ox.ac.uk/objects/uuid:9f803b42-522e-442b-9849-bb8e6c2a5494/files/m88d0e5b84c28370abf6d7b84438cc52d ; and Lin and Watts 2002 Table (text): https://basin.earth.ncu.edu.tw/publications/papers/Lin&Watts_2002.pdf
+- Stewart and Watts eq (2.2): D = E Te^3 / (12 (1 - nu^2)) (same ORA source). They note E and nu "may vary" but are fixed for comparability.
+- Densities in Lin and Watts 2002 (Taiwan, Luzon-type orogen, Table): mantle 3200, crust 2800, infill 2500, topographic load 2600, water 1030 kg/m3. Stewart and Watts 1997 uses substrate (mantle) density 3330 kg/m3 in its Table.
+- Lin and Watts 2002 finding (text): "Models with a low Te (e.g., 5 km) predict the ... basin is too narrow ... Models with a high Te (e.g., 20 km) predict the width, but the depth of the basin is too low. Therefore surface loading of a continuous elastic plate ... is unable to fully explain the shape of the foreland basin." Broken-plate models successfully explain Appalachian, central Andes, Himalaya basins (same URL). This is the depth-width tradeoff for the tool; cite as a published observation.
+- Kinds of foreland infill: sediment density used in models 2500 kg/m3 (Lin and Watts).
