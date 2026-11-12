@@ -131,3 +131,15 @@ Bilinen sınırlar: aşınma bugünkü kıyı çizgisiyle bugünkü ızgarada he
 `python -m deneyler.rastgele TOHUM [NSIDE] [BLOK_SAYISI]`. Senaryo ve sahip işaretleri kullanılmaz. Kıta 4 ile 8 tohumdan gürültülü jeodezik uzaklıkla bloklara ayrılır; 0,5 milyon km²'den büyük tohumsuz kara parçası kendi bloğu olur. Tarih bir birleşme tarihidir: çekirdekten genişleyen bir ağaçta her blok ana bloğuna göre hareket eder ve onun hareketini devralır. Ortak sınırda göreli dik yakınsama 0,3 cm/yıl'ı geçerse sınır çarpışması kurulur (gelen blok altta, %25 ters). Birleşmiş komşular arasındaki üst üste binme serbest bırakıldı (sınırdaki kısalmanın katı çizimdeki karşılığı); birleşmeden önceki binme ve 6 cm/yıl hız sınırı sert.
 
 İlk sürüm (bağımsız bloklar): 400 adayda geçerli yok. Ağaçla ve birleşme sonrası binme serbest: tohum 1 için 284, tohum 2 için 14, tohum 3 için 36 aday denendi. Nside 256 sonuçları: en yüksek nokta 6167, 4877, 4785 m; kara ortancası 110, 90, 93 m. Bilinen eksik: başka bloğa sınırı olmayan ada blokları (iç denizdeki mikro kıta) hareketsiz ve olaysız kalıyor.
+
+## İnce viskoz levha, kalıpsız (12 Kasım 2026)
+
+`tektonik/levha.py`, `deneyler/levha_deneme.py`. Kıta Lambert eşit alanlı izdüşümde 50 km'lik düzenli ızgarada (173 × 190) ince viskoz levha; blok çekirdeklerine aday 443'ün hızları dayatılır, aradaki kıta üstel yasayla (n = 3) akar; kalınlaşma −S ∇·u; Γ = ½ g ρc (1 − ρc/ρm) S² yayılmaya iter. Aşınma fastscapelib RasterGrid (K = 4e-9, m = 1, n = 2). Uzun dalga boyu yükseklik kabuktan (80 km bükülme, S_ref 33 km), kısa dalga boyu aşınma kabartısı. Koşu 50 milyon yıl, 75 ile 230 s.
+
+Denemeler (en yüksek nokta, en kalın kabuk):
+- okyanus zayıf (0,1 η0): okyanusta 10 m/yıl'a varan yapay akış, karada eksi yükseklik; atıldı.
+- okyanus dayanıklı (10 η0), çekirdek 700 km: deformasyon geniş, yer yer kıyıda 85 km sivri kabuk (kıyı itme yapaylığı).
+- Voronoi levhalar (deniz bloğuyla gider), kıyıda Γ için en yakın karanın kalınlığı, η0 1e22: kuzeydoğuda geniş sıkışma bölgesi, batı köprüsünde ve yarımada çevresinde kuşak; en yüksek 1614 m, kabuk 55 km.
+- gerinim zayıflaması (0,1 ve 0,3): deformasyon fay ağına yerelleşti ama kalınlaşma azaldı (kabuk 40 ile 46 km).
+
+Hacim dengesi (Voronoi, zayıflamasız): karada kalınlaşma yaklaşık 4 km³/yıl, deniz hücrelerinde (dalma ile tüketilen) yaklaşık 3 km³/yıl, aşınma yaklaşık 3,6 km³/yıl. Dağlar alçak çünkü aşınma gelen kabuğun neredeyse tamamını götürüyor ve kısalma 1500 km genişliğe yayılıyor. Sırada: bilinen bir örnekle ayar (Hindistan büyüklüğünde katı itici, England ve Houseman deneyleri) ve aşınmanın çözünürlükten bağımsız hâle getirilmesi.
