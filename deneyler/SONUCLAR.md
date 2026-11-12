@@ -189,3 +189,18 @@ Yarı Lagrange taşıma (`LevhaAyar.tasima`): her adımda kabuk kalınlığı ve
 | η0 3e22, sert 5, kenar 50 km | 4089 | 3594 | 772 | 1126 | 422 | 1004 | 1161 |
 
 Seçilen ayar (η0 3e22, sert 10, kenar 50 km, yağış, K 5e-10, taşıma): Tibet %94, Himalaya %126, İran %103, Tien Şan %87, Moğolistan %101, Zagros %59, Alpler %39 (Adriya yok). Bilinen görsel kusurlar: 50 km'de akarsular düz ışınsal çizgiler; Kazakistan ve Turan alçak düzlükleri modelde fazla yüksek; Tibet'in düz tepesi yok.
+
+### Orta ölçek (160 ile 270 km) denemeleri
+
+Ölçüt: Orta Asya kutusunda (60 ile 110°D, 25 ile 50°K) dalga boyuna göre güç oranı model / gerçek ve 150 km yerel engebe ortancası (gerçek 272 m). Taban ayar: η0 3e22, sert 10, kenar 50 km, yağış, K 5e-10, taşıma.
+
+| deneme | 271 km | 203 km | 162 km | engebe |
+|---|---|---|---|---|
+| taban (bükülme 80 km) | 0,63 | 0,39 | 0,36 | 132 |
+| dayanım dokusu σ 0,5 ve 0,7 (iki tohum) | 0,15 ile 0,35 | 0,13 ile 0,26 | 0,16 ile 0,38 | 152 ile 194 |
+| doku σ 1 | 1,61 | 0,72 | 1,23 | 260 (Himalaya 722 m'ye düştü) |
+| doku σ 1 + zayıf hatlar | 0,12 | 0,22 | 0,31 | 183 |
+| bükülme 40 km | 0,70 | 0,47 | 0,27 | 117 |
+| bükülme 25 km | 0,65 | 0,42 | 0,24 | 114 |
+
+Sonuç: ne dayanım dokusu ne kısa bükülme orta ölçeği sistemli biçimde getirdi; doku sonucu tohuma göre savuruyor. 25 km çözünürlük koşusu yarıda durduruldu (50 milyon yılın yarısı 24 dakika). Karar: fizik 50 km'de yalnızca 300 km üstü düzen için; orta ve küçük ölçek gerçek yükseklik verisinden bağlama uygun ayrıntı katmanıyla.
