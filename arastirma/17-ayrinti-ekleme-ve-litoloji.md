@@ -58,13 +58,13 @@ Promptumdaki "218 mm/bin yıl" değeri tezde yok (1 m/milyon yıl = 1 mm/bin yı
 | Parametre | Değer | Etiket |
 |---|---|---|
 | Detay ekleme yöntemi | kaba sonucu Laplace ayrışımıyla düşük frekans olarak sabitle, üstüne fBm ya da ridged ekle | [B-öz ve H] |
-| Güç spektrumu eğimi | β ≈ 2 (H ≈ 0,5) | [Ö] |
+| Güç spektrumu eğimi | β ≈ 2 yalnızca 1B profil için (β = 2H + 1, H ≈ 0,5); 2B yüzeyin radyal spektrumunda β = 2H + 2 olduğundan aynı H için β ≈ 3 (doğrulama ajanı, yöntem denetimi); araç hangi boyutu kullandığını belirtmeli | [Ö ve H] |
 | Kaba ortalamayı koruma | L̂ yeniden çıkar, L̂ + H | [B-öz] |
 | Nehir ağı | kaba çözünürlükte bulunan ağ ince çözünürlükte sabit tutulsun (koşul), kaynak bulunamadı | [H] |
 | K ve litoloji | sertliğe göre değişken K haritası; aralık 10 ile 100 kat (kullanıcıya belirtilen) | [Ö ve H] |
-| Hogback / cuesta | eğim 30° ile 40°'nin üstü hogback, altı cuesta | [B-öz] |
+| Hogback / cuesta | eğim 30° ile 40°'nin üstü hogback, altı cuesta; kaynak ayrım açısını keyfi sayıyor ve arada homoklinal sırtlar olduğunu belirtiyor, ikili ayrım kaynakta yok | [B-öz] |
 | Kayaç türü ve çıkıntı aşınma hızı | tortul 19, metamorfik 13, magmatik 8,6 m/milyon yıl | [B] |
-| GPU gereksinimi | StyleDEM, Terrain Diffusion, Guérin 2017 GPU'ya bağlı; Actions'ta kullanılamaz | [B-öz ve Ö] |
+| GPU gereksinimi | StyleDEM, Terrain Diffusion ve Guérin 2017'nin GPU'ya bağlı olduğu kaynakta doğrulanamadı (yayımlanan hız sayıları GPU'da); GitHub'ın standart çalıştırıcılarında GPU yok, ücretli "GPU-powered" büyük çalıştırıcılar var | [B-öz, Ö ve D] |
 
 ## 4. Kaynaklar arası çelişkiler
 

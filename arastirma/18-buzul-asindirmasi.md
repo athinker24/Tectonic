@@ -19,9 +19,9 @@ Araştırma tarihi: 12 Kasım 2026. Belge tek bir Haiku kolunun notlarının sen
 
 | Parametre | Değer | Etiket |
 |---|---|---|
-| Buzul aşınma üssü l | 1 ile 2 (Herman 2015: 2); derleme 0,69 | [B ve Ö] |
+| Buzul aşınma üssü l | 1 ile 2 (Herman 2015: 2); 38 buzulluk derleme (Cook ve diğerleri 2020, tam metin): l = 0,69 yalnızca Meserve buzulu dahilken, hariçken l = 0,65 | [B] |
 | Aşınma hızı belirsizliği | aynı kayma hızında 100 kata kadar | [Ö] |
-| Maksimum yükseklik | denge hattı irtifasının hemen altı, ama zirveler denge hattının 1 km üstüne çıkabilir | [B ve Ö] |
+| Maksimum yükseklik | denge hattı irtifasının hemen altı, ama zirveler denge hattının 1 km üstüne çıkabilir (Brozović 1997 ikincil alıntı; Egholm 2009 basın yazısı yaklaşık 1500 m diyor, tam metin okunamadı) | [B ve Ö] |
 | Fiyort derinliği | Sognefjord örneği 1308 m, uzunluk 205 km | [B] |
 | Model | bu sürümde yok; sonradan işlenir | [H] |
 

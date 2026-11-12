@@ -17,7 +17,7 @@ Araştırma tarihi: 12 Kasım 2026. Belge üç Haiku kolunun (A Fastscapelib, B 
 | Motor | Dil | Izgara | Sediment | Lisans | Güncel sürüm | Etiket |
 |---|---|---|---|---|---|---|
 | Fastscapelib | C++ ve Python | profil, raster, HEALPix (üçgen ağ başlığı çekilemedi) | C++ kitaplığında yok; `fastscape` paketinde Fortran üzerinden var | GPL-3.0 | 0.3.0, 2025-06-25 | [D] |
-| Landlab | Python | raster, hex, Voronoi-Delaunay, ikosahedral küresel (`IcosphereGlobalGrid`) | SPACE (çökelme var) | MIT | 2.11.0, 2026-04-06 | [D] |
+| Landlab | Python | raster, hex, Voronoi-Delaunay, ikosahedral küresel (`IcosphereGlobalGrid`) | SPACE (çökelme var) | MIT (LICENSE.md ve PyPI license_expression, doğrulama turunda kontrol edildi) | 2.11.0, 2026-04-06 (PyPI) | [D] |
 | goSPL | Python, PETSc, MPI | düzensiz üçgen / küresel ağ | var (deniz tabanı difüzyonu ve çökelme) | GPL-3.0 | 2026.7.14 | [D] |
 | Badlands | Python ve Fortran | TIN, bölgesel | var | lisans kaynaklarda çelişkili (LGPL v3 bir kaynakta) | 2.3.1, 2026-05-01 | [D] |
 | Pecube | Fortran | sonlu eleman | termokronoloji odaklı | GPL-3.0 | tarih yok | [D] |

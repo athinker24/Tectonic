@@ -39,7 +39,7 @@ Dürüst durum: Smith ve Barstad (2004) JAS makalesi erişilemedi, denklemler ya
 | Orografik yağış modeli | doğrusal kuram (Smith ve Barstad) | [B] |
 | N_m | 0,005 1/s (örnek) | [B] |
 | Rüzgâr hızı | 15 m/s (örnek) | [B] |
-| τ_c, τ_f | 1000 s (saha aralığı 100 ile 5000 s) | [B ve Ö] |
+| τ_c, τ_f | 1000 s örnek değer (kaynaklarda saha aralığı 200 ile 5000 s; 100 s alt sınırı kaynakta yok) | [B ve Ö] |
 | Yağışın yükseklik sınırı H_m | yaklaşık 4 km tropik, yaklaşık 2 km yüksek enlem | [B] |
 | Taban yağış | enlem bandına göre (ITCZ yüksek, 30° çevresi düşük) | [H] |
 | Rüzgâr yönü | tropikte doğudan, orta enlemde batıdan | [Ö ve H] |

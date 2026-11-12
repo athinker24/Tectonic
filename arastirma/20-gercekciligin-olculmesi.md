@@ -98,7 +98,7 @@ Atlas deposunun (`dunyam-atlas-mobil`) yükseklik eğrisi sahibin çapalarından
 | Hücre eğiminin ortancası, 10 km | 1,2 ile 1,6° (genç dağ), 0,4° (eski dağ) | [Ö-ölç] |
 | Hack üssü | h ≈ 0,6 (L = 1,4 A^0,6) | [B] |
 | Horton bifurkasyon / uzunluk oranı | R_B 3 ile 4 (dağlık), R_L 2 ile 3 | [B] |
-| Akarsu içbükeyliği θ | 0,4 ile 0,6 (ikincil) | [Ö] |
+| Akarsu içbükeyliği θ | 0,4 ile 0,6 (ikincil); Whipple ve Tucker 1999 ikincil alıntısında 0,35 ile 0,6; birincil makale okunamadı | [Ö] |
 | Algısal gerçekçilik | 2AFC deneyi, hedef gerçek araziyle karıştırılabilirlik | [B] |
 | Mutlak yükseklik | atlas çapalarıyla (ova 250 ile 300 m, çanak 800 ile 1000 m, zirve 6000 ile 7000 m); Dünya DEM'iyle karşılaştırma | atlas |
 | Karşılaştırma yöntemi | gerçek DEM'i aracın hücre boyuna kaba tanele, alan ağırlıklı ölçüm (8. belge) | [H] |
