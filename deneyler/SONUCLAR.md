@@ -253,3 +253,10 @@ Sahibin isteği: "parça gelecek, çarpacak, dağ yükselecek, arkasından plato
 Koşu 6 sonucu (kesitler orta boylamda): 40 Ma iki kıta arasında okyanus; temas 35 Ma; 30 Ma dikişte 2 km'lik dağ; 20 Ma 4 km asimetrik kuşak; 10 Ma düz tepeli plato (yaklaşık 4,5 km, 250 km); 0 Ma plato yaklaşık 4,4 km, 300 km genişlik, gelen kıtanın çevresini saran yay biçiminde (Himalaya yayı benzeri, kendiliğinden). En kalın kabuk 62 km. Platonun iki yanında bükülme havzaları; tortu bunları dolduramıyor, sığ deniz olarak kalıyor (Zagros önündeki Basra Körfezi gibi "az beslenmiş" havza).
 
 Bilinen kusurlar: gelen kıta çarpışmadan sonra küçülüyor (kabuğu kuşağa akıyor; gerçekte Hindistan'ın kuzeyi kısmen altına dalar); plato yüzeyi pürüzsüz (alt kabuk akışı her şeyi düzlüyor, aşınma zayıf); 20 km hücre ve bulanık görüntü; ova havzaları denizde kalıyor.
+
+### Laboratuvar: yağış, kayaç farkı, zayıf alt kabuk akışı
+
+Eklenenler: orografik yağış (levha_model.yagis_alani, aşınma yağışla toplanan suya bağlı), ln K sapması 0,6 (60 ve 15 km ölçekli). κ_max 8000'den 3000'e. 20 km, 50 milyon yıl, 7,5 dakika.
+- κ 3000, K 5e-7: temas 33,75 Ma; en yüksek 5407 m; en kalın kabuk 66,6 km. Kesit (orta boylam, bugün): okyanus, gelen kıtanın üstünde dolmuş çöküntü havzası (0 ile 300 m ova), 5,5 km'lik kuşak ve dar plato, kuzeyde ova. Çöküntü havzası artık tortuyla doluyor (önceki koşularda deniz kalıyordu); havzadan kıyıya akan nehirler var.
+- κ 3000, K 1e-6: en yüksek 5509 m, kabuk 62,8 km; daha sık nehir ağı, plato daha dar ve daha çok aşınmış.
+- 15 km, κ 8000, K 2e-7 (önceki): aynı zincir; plato geniş ve pürüzsüz, havzalar sığ deniz.

@@ -39,3 +39,6 @@ arkasında plato büyür, önünde çökme havzası (ova) oluşur; nehirler ve a
 - Düzeltme: dikiş kapanması (iki yanı kıta, yakınsayan dar okyanus hücresi komşu kıta kabuğunu alır).
 - Koşu 6: temas 35 Ma, zincir tam: yaklaşma, çarpışma, dağ, plato, yay biçimli kuşak; havzalar sığ deniz. Görsel kareler cikti/ornek_lab_kareler.png, kesitler cikti/ornek_lab_kesit.png.
 - Koşu 7 (15 km) başlatıldı.
+- Koşu 7 (15 km, yağış ve kayaç farkı ile, κ 8000): aynı zincir, plato pürüzsüz.
+- Koşu 8 ve 9 (20 km, κ 3000; K 5e-7 ve 1e-6): çöküntü havzası tortuyla dolup ova oldu; nehir ağı; kuşak 5,5 km. Görseller: cikti/ornek_lab_kareler_k3000_K5e-07.png, cikti/ornek_lab_son2.png, cikti/ornek_lab_kesit2.png, cikti/ornek_lab.gif.
+- Sırada: sahibin kıtasına uygulama (güneydoğu bloğu kuzeye; başlangıç konumları tarih üreticisinin geri sürmesinden), maske ile son durum farkının ölçülmesi.
