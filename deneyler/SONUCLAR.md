@@ -143,3 +143,19 @@ Denemeler (en yüksek nokta, en kalın kabuk):
 - gerinim zayıflaması (0,1 ve 0,3): deformasyon fay ağına yerelleşti ama kalınlaşma azaldı (kabuk 40 ile 46 km).
 
 Hacim dengesi (Voronoi, zayıflamasız): karada kalınlaşma yaklaşık 4 km³/yıl, deniz hücrelerinde (dalma ile tüketilen) yaklaşık 3 km³/yıl, aşınma yaklaşık 3,6 km³/yıl. Dağlar alçak çünkü aşınma gelen kabuğun neredeyse tamamını götürüyor ve kısalma 1500 km genişliğe yayılıyor. Sırada: bilinen bir örnekle ayar (Hindistan büyüklüğünde katı itici, England ve Houseman deneyleri) ve aşınmanın çözünürlükten bağımsız hâle getirilmesi.
+
+## Gerçek dünya deneyi (12 Kasım 2026)
+
+`deneyler/dunya.py`, `tektonik/levha_model.py`. Bugünkü kıyılar GMT earth_relief 10' (SRTM15+ türevi) verisinden; Avrasya sabit, Hindistan 50 ile 20 milyon yıl 5 cm/yıl K20°D sonra 4 cm/yıl K15°D, Arabistan 25 milyon yıldır 2 cm/yıl K15°B, Afrika 0,6 cm/yıl K30°B (GPS ve levha modellerinden yuvarlandı: Hindistan 33 ile 52 mm/yıl, Arabistan 17 ile 30 mm/yıl, Afrika yaklaşık 5 mm/yıl). Başlangıçta kabuk her yerde 35 km. 50 km, 270 × 350 ızgara, koşu yaklaşık 2 dakika. Gerçek yükseklik aynı ızgaraya hücre ortalamasıyla örneklendi (ilk koşuda veri ölçek katsayısı 0,5 atlanmıştı, düzeltildi).
+
+Hücre ortalaması ortancaları (m), model / gerçek:
+
+| ayar | Tibet | Himalaya | Zagros | İran | Alpler | Tien Şan | Moğolistan | Sibirya |
+|---|---|---|---|---|---|---|---|---|
+| η0 1e22, K 4e-9, Avrasya çekirdeği 700 km | 442 / 4986 | 1328 / 3228 | 515 / 1287 | 454 / 1084 | 73 / 1064 | 149 / 1776 | 158 / 1521 | 135 / 222 |
+| η0 1e22, K 1e-10, 700 km | 4417 | 6359 | 1911 | 1975 | 298 | 303 | 303 | 303 |
+| η0 1e22, K 2e-10, 2500 km | 2674 | 3271 | 1207 | 1249 | 772 | 2155 | 1608 | 303 |
+| η0 3e22, K 2e-10, 2500 km | 3135 | 4327 | 1080 | 1159 | 743 | 2227 | 1447 | 303 |
+| η0 1e22, K 2e-10, 3500 km | 2310 | 2942 | 956 | 995 | 692 | 1732 | 1334 | 1059 |
+
+Bulgular: (1) K = 4e-9 ile aşınma (yaklaşık 6 km³/yıl) tektonik girdiyi (yaklaşık 4,6 km³/yıl) aşıyor, dağ oluşmuyor; gerçekçi bölge ortalamaları K ≈ 1e-10 ile 2e-10'da. (2) Avrasya'nın katı çekirdeği Hindistan'a 700 km'de başlayınca Tien Şan ve Moğolistan oluşmuyor; 2500 km'de oluşuyor. (3) En iyi ayarda Himalaya, Zagros, İran, Tien Şan, Moğolistan yüzde 25 içinde; Tibet yaklaşık yarısı (2674 / 4986), Alpler düşük (Adriya mikro levhası yok). (4) Görünüm gerçekçi değil: yükseklik Orta Asya'ya yayılmış düzgün bir kubbe; Tarim, Junggar, Sichuan gibi katı havzalar ve keskin plato kenarı yok. Eksik fizik: dayanım farkları (kratonlar), orografik yağış (dar ıslak cephe, kurak iç), kabuğun yatay taşınması (Hindistan'ın kuzeye ilerleyişi Euler çerçevesinde yok).
