@@ -55,8 +55,37 @@ ARALIK = {
     "yon": (-25, 25), "plato_km": (400, 900), "plato_hmax_km": (42.0, 46.0),
     "gb_hiz": (0.5, 2.0), "gb_yon": (-10, 70), "gb_baslangic_ma": (30, 80),
     "ta_ma": (6, 25), "ta_hiz": (1.5, 4.5), "ta_sapma": (-20, 20),
+    "ya_ma": (5, 40), "ya_hiz": (1.0, 4.0), "ya_yon": (-130, -50), "ya_mesafe_km": (100, 800),
 }
-TURLER = {"gb_tur": ["sabit", "yaklasan"], "ta_tur": ["kuzeye", "doguya", "batiya"]}
+TURLER = {"gb_tur": ["sabit", "yaklasan"], "ta_tur": ["kuzeye", "doguya", "batiya"], "ya_tur": ["alp", "apenin"]}
+
+
+def bolge_maske(iz: Izgara, bolge) -> np.ndarray:
+    """İstek bölgesi: iki köşeli kutu [[b, g], [d, k]] ya da çokgen [[lon, lat], ...]."""
+    if len(bolge) == 2:
+        (b, g), (d, k) = bolge
+        return iz.kara & (iz.lon >= b) & (iz.lon <= d) & (iz.lat >= g) & (iz.lat <= k)
+    return iz.kara & kure.cokgen_ici(iz.xyz, np.asarray(bolge, float))
+
+
+def omurga_maske(iz: Izgara, blok: np.ndarray, yari_km: float = 130.0) -> tuple[np.ndarray, np.ndarray]:
+    """Bloğun uzun ekseni (teğet düzlemde temel bileşen) ve çevresindeki şerit."""
+    from .olaylar import isaretli_uzaklik_km
+    v = iz.xyz[blok]
+    m = v.mean(axis=0); m /= np.linalg.norm(m)
+    e1 = np.cross([0.0, 0.0, 1.0], m); e1 /= np.linalg.norm(e1); e2 = np.cross(m, e1)
+    q = np.c_[v @ e1, v @ e2]
+    _, _, vt = np.linalg.svd(q - q.mean(0), full_matrices=False)
+    t = (q - q.mean(0)) @ vt[0]
+    uc = [q.mean(0) + a * vt[0] for a in (np.percentile(t, 3), np.percentile(t, 97))]
+    cizgi = []
+    for u in uc:
+        w = m + u[0] * e1 + u[1] * e2; w /= np.linalg.norm(w)
+        cizgi.append(kure.xyz_lonlat(w))
+    cizgi = np.array([[float(a), float(b)] for a, b in cizgi])
+    d = np.full(iz.n, np.inf)
+    d[iz.kara] = np.abs(isaretli_uzaklik_km(iz, cizgi, iz.kara))
+    return blok & (d < yari_km), cizgi
 
 
 def parametre_ornekle(rng: np.random.Generator) -> dict:
@@ -98,11 +127,14 @@ def aday_kur(no: int, rng: np.random.Generator, iz: Izgara, bloklar: Bloklar, se
     ])
     dikis = next(d for d in senaryo["dikisler"] if d["ad"] == "Duvar dikişi")
     cephe = np.array(dikis["cizgi"], float)
+    plato_istek = next((i for i in senaryo.get("istekler", []) if i["tur"] == "plato" and len(i["bolge"]) > 2), None)
+    plato_m = bolge_maske(iz, plato_istek["bolge"]) if plato_istek else None
     # dikişe dik yakınsama: hızın kuzey bileşeni
     yakinsama = p["hiz_sonra"] * np.cos(np.radians(p["yon"]))
     olaylar.append(Carpisma("Büyük çarpışma", cephe, ust_sol=True, baslangic_ma=p["carpisma_ma"],
                             hiz_cm_yil=yakinsama, kusak_km=280.0, plato_km=p["plato_km"],
-                            kusak_hmax_m=70_000.0, plato_hmax_m=p["plato_hmax_km"] * 1e3))
+                            kusak_hmax_m=70_000.0, plato_hmax_m=p["plato_hmax_km"] * 1e3,
+                            plato_maske=plato_m))
     anlati.append(
         f"Güneydoğu bloğu neden kuzeye dayandı? Yaklaşık {p['baslangic_ma']:.0f} milyon yıl önce aradaki "
         f"{p['okyanus_km']:.0f} km'lik okyanusu yılda {p['hiz_once']:.1f} cm ile kapatmaya başladı; "
@@ -110,8 +142,9 @@ def aday_kur(no: int, rng: np.random.Generator, iz: Izgara, bloklar: Bloklar, se
     )
     anlati.append(
         f"Büyük doğu batı sıradağı nereden geldi? Çarpışmadan beri blok yılda {p['hiz_sonra']:.1f} cm ile "
-        f"itmeyi sürdürüyor; dikiş hattında kabuk kalınlaştı, sıradağ ve arkasında {p['plato_km']:.0f} km "
-        f"genişliğe kadar yayılan bir plato yükseldi."
+        f"itmeyi sürdürüyor; dikiş hattında kabuk kalınlaştı, sıradağ ve arkasında "
+        + ("sahibin çizdiği çanak bölgesine yayılan bir plato yükseldi." if plato_m is not None
+           else f"{p['plato_km']:.0f} km genişliğe kadar yayılan bir plato yükseldi.")
     )
 
     # Güneybatı: ya yerinde kalır ya da yavaşça yaklaşır.
@@ -125,6 +158,37 @@ def aday_kur(no: int, rng: np.random.Generator, iz: Izgara, bloklar: Bloklar, se
         )
     else:
         anlati.append("Güneybatı kıtası? Bu tarihte kuzeye göre yerinde; batıdaki kara köprüsü eski bir bağlantı.")
+
+    # Yarımada: Güneybatı ile birlikte gider; Alp türünde önce doğudan yaklaşıp kökünden çarpar,
+    # Apenin türünde omurgası boyunca dar ve orta yükseklikte bir kuşak gelişir.
+    if "Yarımada" in bloklar.adlar:
+        ya = bloklar.maske("Yarımada")
+        ortak = list(tarihler["Güneybatı"].asamalar) if "Güneybatı" in tarihler else []
+        if p["ya_tur"] == "alp":
+            yd = next(d for d in senaryo["dikisler"] if d["ad"] == "Yarımada dikişi")
+            once = p["ya_mesafe_km"] / (p["ya_hiz"] * 10.0)
+            lo, la, w1 = hareket_kutbu(_merkez(iz, ya), p["ya_yon"], p["ya_hiz"])
+            tarihler["Yarımada"] = BlokTarihi("Yarımada", ortak + [
+                Asama(p["ya_ma"] + once, p["ya_ma"], lo, la, w1),
+                Asama(p["ya_ma"], 0.0, lo, la, 0.4 * w1),
+            ])
+            olaylar.append(Carpisma("Yarımada çarpışması (Alp türü)", np.array(yd["cizgi"], float), ust_sol=True,
+                                    baslangic_ma=p["ya_ma"], hiz_cm_yil=0.4 * p["ya_hiz"] + 0.6, kusak_km=200.0,
+                                    plato_km=0.0, kusak_hmax_m=62_000.0))
+            anlati.append(
+                f"Yarımada nasıl oluştu (Alp türü)? {p['ya_ma'] + once:.0f} milyon yıl önce ayrı bir kıta parçasıydı; "
+                f"aradaki {p['ya_mesafe_km']:.0f} km'lik denizi yılda {p['ya_hiz']:.1f} cm ile kapatıp "
+                f"{p['ya_ma']:.0f} milyon yıl önce güneybatı kıtasına kökünden çarptı; kökte yüksek ve geniş bir sıradağ yükseldi.")
+        else:
+            om, _ = omurga_maske(iz, ya)
+            if ortak:
+                tarihler["Yarımada"] = BlokTarihi("Yarımada", ortak)
+            olaylar.append(BlokSikismasi("Yarımada omurgası (Apenin türü)", om, baslangic_ma=p["ya_ma"],
+                                         hiz_cm_yil=p["ya_hiz"], genislik_km=400.0, hmax_m=50_000.0))
+            anlati.append(
+                f"Yarımada nasıl oluştu (Apenin türü)? Güneybatı kıtasının bir uzantısı; {p['ya_ma']:.0f} milyon yıldır "
+                f"kenarındaki dalan levha geri çekiliyor ve omurgası boyunca yılda {p['ya_hiz']:.1f} cm'lik kısalmayla "
+                f"dar, orta yükseklikte bir sıradağ büyüyor.")
 
     # Takımada: iki levha arasında sıkışan mikro kıta.
     ta = bloklar.maske("Takımada")
@@ -212,8 +276,7 @@ def istekleri_olc(aday: Aday, iz: Izgara, bloklar: Bloklar, senaryo: dict) -> No
     sonuc = {}
     for ist in senaryo.get("istekler", []):
         if ist["tur"] in ("kusak", "plato"):
-            (b, g), (d, k) = ist["bolge"]
-            m = iz.kara & (iz.lon >= b) & (iz.lon <= d) & (iz.lat >= g) & (iz.lat <= k)
+            m = bolge_maske(iz, ist["bolge"])
         if ist["tur"] == "kusak":
             olc = float(np.percentile(h[m], 95) / 1e3)
             sonuc[ist["no"]] = (olc >= ist["kabuk_km_en_az"], round(olc, 1), f"kabuk %95 ≥ {ist['kabuk_km_en_az']} km")
@@ -221,6 +284,19 @@ def istekleri_olc(aday: Aday, iz: Izgara, bloklar: Bloklar, senaryo: dict) -> No
             z = float(np.median((h[m] - H0_M) * AIRY))
             lo, hi = ist["yukseklik_m"]
             sonuc[ist["no"]] = (lo <= z <= hi, round(z), f"izostatik yükseklik ortancası {lo} ile {hi} m")
+        elif ist["tur"] == "yarimada":
+            ya = bloklar.maske(ist["blok"])
+            if aday.parametre.get("ya_tur") == "alp":
+                from .olaylar import isaretli_uzaklik_km
+                yd = next(d for d in senaryo["dikisler"] if d["ad"] == "Yarımada dikişi")
+                u = np.full(iz.n, np.inf)
+                u[iz.kara] = np.abs(isaretli_uzaklik_km(iz, np.array(yd["cizgi"], float), iz.kara))
+                olc = float(np.percentile(h[ya & (u < 300)], 95) / 1e3)
+                sonuc[ist["no"]] = (olc >= 55, round(olc, 1), "Alp türü: kökte kabuk %95 ≥ 55 km")
+            else:
+                om, _ = omurga_maske(iz, ya)
+                olc = float(np.percentile(h[om], 90) / 1e3)
+                sonuc[ist["no"]] = (42 <= olc <= 52, round(olc, 1), "Apenin türü: omurgada kabuk %90 42 ile 52 km")
         elif ist["tur"] == "dagli_blok":
             m = bloklar.maske(ist["blok"])
             pay = float(np.mean(h[m] >= ist["kabuk_km_en_az"] * 1e3))
@@ -234,6 +310,7 @@ def _ozellik(a: Aday) -> np.ndarray:
         p["carpisma_ma"] / 40.0, p["hiz_sonra"] / 3.0, p["yon"] / 25.0, p["plato_km"] / 500.0,
         p["ta_ma"] / 20.0, {"kuzeye": 0, "doguya": 1, "batiya": 2}[p["ta_tur"]] * 1.0,
         1.0 if p["gb_tur"] == "yaklasan" else 0.0,
+        2.0 if p.get("ya_tur") == "alp" else 0.0, p.get("ya_ma", 0.0) / 20.0,
     ])
 
 
@@ -244,7 +321,7 @@ def cesitli_sec(adaylar: list[Aday], k: int = 5) -> list[Aday]:
     arsiv: dict = {}
     for a in adaylar:
         p = a.parametre
-        hucre = (int((p["carpisma_ma"] - 25) // 10), p["ta_tur"], p["gb_tur"])
+        hucre = (int((p["carpisma_ma"] - 25) // 10), p["ta_tur"], p["gb_tur"], p.get("ya_tur"))
         puan = len(a.saglanan())
         if hucre not in arsiv or puan > len(arsiv[hucre].saglanan()):
             arsiv[hucre] = a
@@ -313,7 +390,7 @@ def evrimlestir(iz: Izgara, bloklar: Bloklar, senaryo: dict, tohum_sayisi: int =
         hucreler: dict = {}
         for a in gecerli:
             p = a.parametre
-            hucreler.setdefault((int((p["carpisma_ma"] - 25) // 10), p["ta_tur"], p["gb_tur"]), []).append(a)
+            hucreler.setdefault((int((p["carpisma_ma"] - 25) // 10), p["ta_tur"], p["gb_tur"], p.get("ya_tur")), []).append(a)
         anahtarlar = list(hucreler)
         for _ in range(nesil_boyu):
             h = hucreler[anahtarlar[rng.integers(len(anahtarlar))]]

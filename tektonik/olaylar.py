@@ -70,6 +70,7 @@ class Carpisma:
     uzak_km: tuple[float, float] = (1500.0, 2500.0)
     uzak_orani: float = 0.0
     uzak_gecikme_myr: float = 15.0
+    plato_maske: np.ndarray | None = None  # [N] bool; verilirse plato bölgesi uzaklık bandı yerine bu
     _geo: dict = field(default_factory=dict, repr=False)
 
     def hazirla(self, iz: Izgara, gurultu: np.ndarray | None = None) -> None:
@@ -102,6 +103,9 @@ class Carpisma:
         plato = ((x > 0.6 * W) & (x < W + self.plato_km)).astype(float)
         if self.plato_km > 0:
             plato *= np.clip((W + self.plato_km - x) / (0.25 * self.plato_km), 0, 1)
+        if self.plato_maske is not None:
+            # sahibin çizdiği plato: çokgen içi, kuşağın kendisi hariç
+            plato = (self.plato_maske[sec] & (np.abs(x) > 0.6 * W)).astype(float)
         uzak = ((x > self.uzak_km[0]) & (x < self.uzak_km[1])).astype(float)
         if gurultu is not None:
             uzak *= np.clip(gurultu[sec], 0, None)
@@ -137,8 +141,10 @@ class Carpisma:
         kabul = np.clip((self.kusak_hmax_m - hh) / 5000.0, 0, 1)
         r = istek * kabul
         fazla_hacim = float(np.sum(istek * (1 - kabul)) * g["alan"])  # m³/yıl
-        if fazla_hacim > 0 and self.plato_km > 0:
-            pk = g["plato"] * np.clip((self.plato_hmax_m - hh) / 3000.0, 0, 1) * g["boy"]
+        if fazla_hacim > 0 and (self.plato_km > 0 or self.plato_maske is not None):
+            pk = g["plato"] * np.clip((self.plato_hmax_m - hh) / 3000.0, 0, 1)
+            if self.plato_maske is None:
+                pk = pk * g["boy"]
             top = float(pk.sum() * g["alan"])
             if top > 0:
                 # düğüm başına üst sınır: plato dolunca fazla malzeme birkaç boş

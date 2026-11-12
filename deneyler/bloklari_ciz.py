@@ -32,7 +32,12 @@ def main():
     for y in range(-0, 61, 10):
         d.text(px(s[0] + 0.3, y - 0.3), f"{y}°", fill=(0, 0, 0), font=f)
     for dk in sen.get("dikisler", []):
-        d.line([px(*p) for p in dk["cizgi"]], fill=(200, 0, 0), width=2)
+        d.line([px(*p) for p in dk["cizgi"]], fill=(0, 0, 0), width=3)
+    renk = {1: (220, 30, 20), 2: (230, 180, 0), 3: (30, 110, 240), 4: (60, 190, 60)}
+    for ist in sen.get("istekler", []):
+        c = ist.get("bolge") if isinstance(ist.get("bolge"), list) and len(ist.get("bolge")) > 2 else ist.get("isaret")
+        if c:
+            d.line([px(*q) for q in c + c[:1]], fill=renk.get(ist["no"], (0, 0, 0)), width=2)
     for ad, b in sen["bloklar"].items():
         x, y = px(*b["tohum"])
         d.ellipse((x - 4, y - 4, x + 4, y + 4), fill=(0, 0, 0))
