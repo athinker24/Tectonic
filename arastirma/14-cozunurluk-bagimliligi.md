@@ -49,7 +49,7 @@ Yorum [H]: ince ızgarada kaynak hücresinin alanı (δx²) küçük olduğundan
 - **Nyquist.** f_N = 1/(2 Res) [Ö].
 - **Tarboton ve diğerleri 1991 (Hydrol. Proc. 5:81 ile 100).** Ölçek yasalarını sağlayan en yüksek çözünürlüklü ağı seçme ölçütü, 21 ABD DEM'i; örnek eşikler 50 piksel (30 m) ve 20 piksel; kırılma yaklaşık 20 ile 50 piksel arasında (cümle kesik, doğrulanmalı) [B]. Helmlinger ve diğerleri 1993 (WRR 29): drenaj yoğunluğu A_th ve çözünürlüğe güçlü bağlı [Ö]. Montgomery ve Dietrich 1992: kanal başı eşiği A·|∇z|² ve ters alan eğim ilişkisi [Ö]; sayısal A_c değerleri bulunamadı [Y].
 - **Perron, Kirchner ve Dietrich 2008, JGR 113 (doi 10.1029/2007JF000866).** Arazi tek fraktal değil [Ö]; özet ve ana sonuçlar okunamadı.
-- **Guérin ve diğerleri 2017 (ACM TOG 36(4):228).** Koşullu GAN ile örnek tabanlı arazi sentezi [Ö]. "Schott 2024" diye bir makale bulunamadı; en yakın eşleşme Huftier, Schott ve diğerleri, Computer Graphics Forum 45 (2026), "Terrain Synthesis and Authoring based on Iso-Contours" (tarih uyuşmuyor).
+- **Guérin ve diğerleri 2017 (ACM TOG 36(4):228).** Koşullu GAN ile örnek tabanlı arazi sentezi [Ö]. Schott 2024 bu çözünürlük ajanı tarafından bulunamadı; sonradan 17. konuda doğrulandı: Schott ve diğerleri 2024, "Terrain Amplification using Multi-Scale Erosion", ACM TOG 43(4):145 (yalnızca özet okundu). Huftier, Schott ve diğerleri CGF 45 (2026) ayrı bir makale.
 
 **GMBA (Global Mountain Biodiversity Assessment) rölyef ölçütü.** Pürüzlülük: 3×3 = 9 noktada (30 yay saniyesi veri, 2,5 yay dakikası piksel) en büyük yükseklik farkı 200 m'yi aşarsa piksel "engebeli" sayılır [B-öz, gmba.unibe.ch]. Promptumdaki 300 m değeri bu sayfayla uyuşmuyor; Körner ve diğerleri 2011 PDF'i açılamadığı için 1,8 km pencere ve çok pencereli formül doğrulanmadı. Kapsam yüzde 12,3 (511 milyon kişi, GMBA) ile yaklaşık yüzde 22 (1,27 milyar kişi, Kapos ve diğerleri) arasında çelişiyor [Ö].
 
@@ -79,13 +79,13 @@ Yorum [H]: ince ızgarada kaynak hücresinin alanı (δx²) küçük olduğundan
 - Körner ve diğerleri 2011 tam metni, Grohmann 2007 ve 2013 tam metinleri, Perron 2008, Pelletier spektral, Whipple ve Tucker 1999, Cordonnier 2016 K-alan ilişkisi, Gailleton 2019, Braun ve Willett 2013 ızgara kuralı.
 - www.doi.org 403, efi.eng.uci.edu sertifika zinciri güvenilmez, www.geomorphometry.org DNS hatası; atlatılmadı.
 - Benim ölçümüm A_c, difüzyon, çok akış ve HEALPix'i kapsamıyor; yalnızca raster, tek akış, düzgün yükselme.
-- Schott 2024 ve Tarboton 1997 D∞ drenaj yoğunluğu iddiası doğrulanamadı.
+- Tarboton 1997 D∞ drenaj yoğunluğu iddiası doğrulanamadı. (Schott 2024 makalesi 17. konuda bulundu; tam metni okunamadı.)
 
 ## 7. Promptumdaki hatalar (düzeltildi)
 
 - "Hergarten 2025, Earth Surface Dynamics" yanlış atıf; 2025 makalesi Kargère ve diğerleri (ESurf 13:403).
 - "Körner 2011 GMBA eşik 300 m" doğrulanmadı; GMBA sayfası 200 m diyor.
-- "Schott 2024" doğrulanamadı.
+- "Schott 2024" bu konuda bulunamadı; 17. konuda var olduğu doğrulandı (ACM TOG 43(4):145).
 - "Perron 2008 Spectral" ve "Pelletier spektral" ifadeleri karışık; Perron, Kirchner ve Dietrich 2008, JGR 113.
 
 ## Başlıca kaynaklar
