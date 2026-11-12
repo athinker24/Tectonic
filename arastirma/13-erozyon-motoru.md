@@ -74,7 +74,7 @@ Süre düğüm sayısıyla yaklaşık doğrusal. Bu örnekten çıkarım [H]: 1 
 
 Yayımlanmış kıyaslar: Barnhart 2020, Braun ve Willett 2013, Yuan 2019 tam metinlerinde çalışma süresi rakamı bulunamadı [B ve Y]; Landlab tek çekirdek hızı ve 1 ile 4 milyon düğüm süreleri bulunamadı [Y].
 
-**Ek ölçek notu.** Kıta 87° × 67° bölgesidir (8. belge); 10 km hücreyle yaklaşık 970 × 745 = 0,72 milyon hücre, 5 km hücreyle yaklaşık 2,9 milyon hücre [H]. Yani 5 ile 10 km çözünürlükte tüm kıta tek bir ağda bu ölçümün kapsamında kalıyor.
+**Ek ölçek notu.** Kıta 87° × 67° bölgesidir (8. belge); 10 km hücreyle yaklaşık 970 × 745 = 0,72 milyon hücre, 5 km hücreyle yaklaşık 2,9 milyon hücre [H]; bu sayılar derece adımı sabit (eşdikdörtgen) ağ içindir, 60,9 milyon km²'lik bandın eşit alanlı ağda (ör. HEALPix) karşılığı 10 km'de yaklaşık 0,61 milyon, 5 km'de yaklaşık 2,44 milyon hücredir, ve kara bandın yalnızca bir kısmıdır (doğrulama notu, 12 Kasım 2026). Yani 5 ile 10 km çözünürlükte tüm kıta tek bir ağda bu ölçümün kapsamında kalıyor.
 
 ## 5. Aracın varsayılan değerleri ve öneri
 

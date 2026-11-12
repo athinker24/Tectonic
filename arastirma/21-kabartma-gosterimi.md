@@ -30,7 +30,7 @@ Dürüst durum: bu konu araca özgü ölçümler gerektiriyor (telefonda kare h�
 
 Bulunamayanlar: Mark 1992 tam metni, Jenny 2001 denklemleri, Horn 1981 (aranmadı), Imhof tam metni, Veronesi ve Hurni 2014, düşey abartma çarpanı ve küçük ölçekte eğim ağırlığı için kaynak [Y]. "Kennelly 2014 Geomorphology" ifadesi yanlıştı: 2008 Geomorphology (Kennelly) ve 2014 IJGIS (Kennelly ve Stewart) iki ayrı makale. Yokoyama makalesinin yazar adları promptumda yanlıştı (Yokoyama, Shirasawa ve Pike 2002, PE&RS 68(3):257 ile 265).
 
-**Hücre sayısı aritmetiği (ajanın hesabı, kaynak değil) [H].** Küresel 5 km hücre yaklaşık 20 milyon hücre, 10 km yaklaşık 5 milyon; yalnızca kara için 5 km'de yaklaşık 6 milyon, 10 km'de yaklaşık 1,5 milyon. Aracın kıtası (87° × 67°) 8. belgedeki hesapla 10 km'de yaklaşık 0,72 milyon, 5 km'de yaklaşık 2,9 milyon hücre. 1 ile 3 milyon hücre yani tüm kıtayı 5 ile 10 km arasında kapsıyor.
+**Hücre sayısı aritmetiği (ajanın hesabı, kaynak değil) [H].** Küresel 5 km hücre yaklaşık 20 milyon hücre, 10 km yaklaşık 5 milyon; yalnızca kara için 5 km'de yaklaşık 6 milyon, 10 km'de yaklaşık 1,5 milyon. Aracın kıtası (87° × 67°) 8. belgedeki hesapla (derece adımı sabit ağ) 10 km'de yaklaşık 0,72 milyon, 5 km'de yaklaşık 2,9 milyon hücre; eşit alanlı ağda 0,61 ve 2,44 milyon. 1 ile 3 milyon hücre yani tüm kıtayı 5 ile 10 km arasında kapsıyor.
 
 ## 2. Telefonda WebGL ile çizim (B kolu)
 
