@@ -343,7 +343,7 @@ Tam liste ve her bilginin tek tek kaynağı `arastirma/notlar/02/` içindeki not
 - Clark ve Royden 2000: https://basin.earth.ncu.edu.tw/Course/SeminarII/abstract2014_1/2014.10.02_Sun,%20Yuan-Cheng/Topographic%20ooze%20building%20the%20eastern%20margin%20fo%20Tibet%20by%20low%20crustal%20flow.pdf
 - Willett 1999: https://www.tectonics.caltech.edu/meetings/journal_club/session4/Willett1999JGR.pdf
 - Portenga ve Bierman 2011: https://www.geosociety.org/gsatoday/archive/21/8/pdf/i1052-5173-21-8-4.pdf
-- Montgomery ve Brandon 2002: https://repository.geologyscience.ru/bitstream/handle/123456789/28097/Mont_02.pdf?sequence=1
+- Montgomery ve Brandon 2002 (EPSL 201, 481-489; özet ve ham notlardaki sayılar bir depo kopyasından okundu, yayıncı bağlantısı): https://doi.org/10.1016/S0012-821X(02)00725-2
 - Molnar ve England 1990: https://www.tectonics.caltech.edu/meetings/journal_club/session2/Molnar_and_England1990Nature.pdf
 - MIT 12.002 ders notu, Airy izostazisi: https://ocw.mit.edu/courses/12-002-physics-and-chemistry-of-the-terrestrial-planets-fall-2008/74fb28dc068682451773d2616e914ff2_MIT12_002f08_lec26.pdf
 - Cordonnier ve diğerleri 2016: https://www.cs.purdue.edu/homes/bbenes/papers/Cordonier16CGF.pdf
