@@ -1,6 +1,6 @@
 # Inland Seas and Enclosed Ocean Basins: Research Notes
 
-Status: IN PROGRESS (skeleton written first; sections filled as sources are read)
+Status: COMPLETE FOR THIS PASS (values are search-summary level; see section 6 for what could not be verified)
 
 Access note: en.wikipedia.org fails DNS resolution in this session (getaddrinfo ENOTFOUND). No [E] encyclopedia values could be read directly; this is noted per basin below. Network must allow en.wikipedia.org for [E] checks.
 
@@ -10,16 +10,16 @@ Tags: [B] primary source read; [Ö] search summary only; [E] encyclopedia; BULUN
 
 | Basin | Area | Mean depth | Max depth | Crust | Age | Origin | Sediment | Messinian salt | Shelf width |
 |---|---|---|---|---|---|---|---|---|---|
-| Western Mediterranean | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| Eastern Mediterranean | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| Black Sea | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| Caspian Sea | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| Baltic Sea | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| Hudson Bay | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| Red Sea | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| Sea of Japan | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| South China Sea | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| Gulf of Mexico | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+| Western Mediterranean | BULUNAMADI (part of ~2.5M km2 sea) | BULUNAMADI | BULUNAMADI | Alboran thinned continental (~6-7 km), toward oceanic-type in Algerian Basin [Ö] | Oligocene-Miocene; Alboran/Tyrrhenian early Tortonian or early-middle Miocene (conflict) [Ö] | Back-arc, slab rollback [Ö] | BULUNAMADI | Deep basins up to ~1 km or >1 km (conflict); Balearic up to 325 m [Ö] | BULUNAMADI; narrow off Iberia, Balearics, Sardinia; 70 km Gulf of Lion [Ö] |
+| Eastern Mediterranean | BULUNAMADI (part of ~2.5M km2) | BULUNAMADI (sea mean 1,500 m) | 5,109 or 5,267 m (whole sea, conflict) | Oceanic (Nature Geosci 2016) vs continental (EGU05, CIESM) [Ö] | Tethys-related; BULUNAMADI as number | Relict Tethys remnant (interpretation) [Ö] | 5-7 km Jurassic-Miocene below evaporites; 14-16 km total fill [Ö] | ~2 km (seismic) to 3 km (Hsu 1973) [Ö] | BULUNAMADI |
+| Black Sea | 436,400 km2 (Wiki mirror) / 422,000 km2 (Britannica) [Ö] | 1,253 m [Ö] | 2,212 m [Ö] | W: oceanic (2002) vs thinned continental (EGU22); E: ~13 km oceanic-type or ~7 km (conflict) [Ö] | W 135-95 Ma; E ~110 Ma; opening 70-60 Ma (2002) [Ö] | Back-arc (Cretaceous / 70-60 Ma) or relict Paleotethys (conflict) [Ö] | BULUNAMADI | None found in search | BULUNAMADI |
+| Caspian Sea | 371,000 km2 (range 371,000-386,400) [Ö] | 211 m (range 184-211) [Ö] | 1,025 m [Ö] | SCB: <10 km (2024) vs oceanic vs thinned continental (conflict) [Ö] | Mesozoic (2024 study) [Ö] | Back-arc / Neo-Tethys-related; Alpine flexure [Ö] | SCB sediment ~20 km (2024) up to 28.5 km (other) [Ö] | BULUNAMADI | BULUNAMADI |
+| Baltic Sea | BULUNAMADI (415,000 km2 unconfirmed) | 54-55 m [Ö] | 459 m (Landsort Deep) [Ö] | BULUNAMADI | Basin on craton reactivated Late Ediacaran-Cambrian [Ö] | Craton-reactivation / glacial erosion (conflict) [Ö] | Holocene up to 36 m [Ö] | None found | BULUNAMADI |
+| Hudson Bay | BULUNAMADI | 100 m or 128 m (conflict) [Ö] | 270 m or 183 m (conflict) [Ö] | Continental craton | Paleozoic (Ordovician-Devonian) [Ö] | Intracratonic sag, mechanism contested [Ö] | ~2 km; max ~2,500 m [Ö] | BULUNAMADI | Not applicable |
+| Red Sea | 438,000 km2 (Wiki); 491,465 km2 (country table) [Ö] | 490 m [Ö] | 2,730 m (conflict: 2,130-3,040) [Ö] | Oceanic, ultra-slow spreading 8.3-14.5 mm/yr [Ö] | Spreading 13 Ma (recent) or 5 Ma (older) [Ö] | Rift / young ocean [Ö] | BULUNAMADI | BULUNAMADI (Messinian not checked) | Southern shelves <50 m [Ö] |
+| Sea of Japan | 978,000 or 1,007,800 km2 [Ö] | 1,350 or 1,752 m (conflict) [Ö] | 3,742 m [Ö] | Basin oceanic; Yamato Basin ~13 km; margin ~24 km [Ö] | Back-arc opening ~23-16 Ma (Oligocene-Miocene) [Ö] | Back-arc; India-Eurasia link debated [Ö] | BULUNAMADI | BULUNAMADI | BULUNAMADI |
+| South China Sea | ~3,500,000 km2 [Ö] | 1,212 m [Ö] | 5,016 m (Britannica) or 5,563 m (Wikipedia) (conflict) [Ö] | Oceanic [Ö] | Spreading ~33 to ~20.5 Ma (overall 32-15 Ma) [Ö] | Rift then seafloor spreading; back-arc not established in these sources [Ö] | BULUNAMADI | BULUNAMADI | BULUNAMADI |
+| Gulf of Mexico | ~1.5-1.6 million km2 [Ö] | ~1,615 m [Ö] | 3,750 or 4,384 m (conflict) [Ö] | Central oceanic ~6 km (3-12 km) [Ö] | Late Jurassic spreading; end ~145-150 Ma or late Berriasian [Ö] | Rift and seafloor spreading; salt over transitional crust [Ö] | Louann (Jurassic) salt avg ~4 km, max ~8 km; Campeche ~2 km [Ö] | Jurassic salt, not Messinian | ~280 km (Florida/Yucatan) to <10 km (Mississippi Delta) [Ö] |
 
 ## 2. Findings per basin
 
