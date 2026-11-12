@@ -1,0 +1,105 @@
+"""Sahibin kıtasında çarpışma laboratuvarı: bloklar geçmiş konumlarından başlayıp ileri zamanda gelir.
+
+Kullanım: python -m deneyler.kita_lab [ADAY_NO] [H_KM] [BAS_MA]
+
+Başlangıç: her blok, aday tarihinin geri sürmesiyle BAS_MA anındaki konumuna yerleştirilir
+(Kuzey sabit). Sonra hiçbir kalıp olmadan: bloklar tarihlerindeki hızlarla sürülür, ince viskoz levha
+akar, kabuk kalınlaşır ve taşınır, alt kabuk akışı, bükülmeli izostazi, yağışlı aşınma ve çökelme.
+Kıyılar serbesttir; son durum sahibin maskesiyle karşılaştırılır (örtüşme oranı raporlanır).
+"""
+import json
+import os
+import sys
+import time
+
+import numpy as np
+from PIL import Image, ImageDraw
+from scipy import ndimage
+from scipy.spatial import cKDTree
+
+from deneyler.carpisma_lab import resim
+from tektonik import kure
+from tektonik.bloklar import bloklara_ayir
+from tektonik.izgara import _lonlat_xyz, izgara_kur, maske_yukle
+from tektonik.lab import LabAyar, LabCok
+from tektonik.levha import duzlem_kur, laea_ileri
+from tektonik.levha_model import yerel_eksenler
+from tektonik.uretici import aday_kur
+from tektonik.yazi import yazi_tipi
+
+
+def main():
+    no = int(sys.argv[1]) if len(sys.argv) > 1 else 1029
+    h_km = float(sys.argv[2]) if len(sys.argv) > 2 else 30.0
+    bas = float(sys.argv[3]) if len(sys.argv) > 3 else 70.0
+    t0 = time.time()
+    os.makedirs("cikti/kita_lab", exist_ok=True)
+    on = f"cikti/kita_lab/kita_{no}_{h_km:g}km_{bas:g}ma"
+    maske, sinir = maske_yukle("veri/maske.json")
+    sen = json.load(open("veri/senaryo.json", encoding="utf-8"))
+    dz = duzlem_kur(maske, sinir, h_km=h_km, pay_km=900.0)
+    ny, nx = dz.sekil
+    iz = izgara_kur(maske, sinir, nside=128)
+    bl = bloklara_ayir(iz, sen)
+    rapor = json.load(open("cikti/gercek/adaylar.json", encoding="utf-8"))
+    p = dict(next(a["parametre"] for a in rapor["secilen"] if a["no"] == no))
+    aday = aday_kur(no, np.random.default_rng(0), iz, bl, sen, p)
+
+    # bugünkü blok etiketleri ızgarada
+    ki = np.flatnonzero(iz.kara)
+    _, j = cKDTree(iz.xyz[ki]).query(_lonlat_xyz(dz.lon[dz.kara], dz.lat[dz.kara]))
+    blok_bugun = np.full(dz.sekil, -1)
+    blok_bugun[dz.kara] = bl.etiket[ki[j]]
+    # başlangıç: her bloğun kara hücrelerini BAS_MA anına geri sür, ızgaraya yerleştir
+    S0 = np.full(dz.sekil, 7e3)
+    L0 = np.full(dz.sekil, -1.0)
+    for b, ad in enumerate(bl.adlar):
+        m = blok_bugun == b
+        if not m.any():
+            continue
+        xyz = _lonlat_xyz(dz.lon[m], dz.lat[m])
+        if ad in aday.tarihler:
+            xyz = kure.uygula(aday.tarihler[ad].geri_donme(bas), xyz)
+        lo, la = kure.xyz_lonlat(xyz)
+        px, py = laea_ileri(np.asarray(lo), np.asarray(la), dz.lon0, dz.lat0)
+        c = np.round((px - dz.x[0]) / dz.h).astype(int)
+        r = np.round((dz.y[0] - py) / dz.h).astype(int)
+        ok = (r >= 0) & (r < ny) & (c >= 0) & (c < nx)
+        yer = np.zeros(dz.sekil, bool)
+        yer[r[ok], c[ok]] = True
+        yer = ndimage.binary_closing(yer, iterations=1) | yer
+        S0[yer] = 35e3
+        L0[yer] = b
+    # okyanus hücreleri: en yakın bloğun etiketi (levha)
+    kita0 = S0 > 20e3
+    _, (ri, ci) = ndimage.distance_transform_edt(~kita0, return_indices=True)
+    L0 = L0[ri, ci]
+
+    a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=5e-7, cek_gelen_km=400.0, cek_sabit_km=450.0)
+    lab = LabCok(S0, L0, bas, a, dz.lon, dz.lat, aday.tarihler, bl.adlar, bl.sabit, yerel_eksenler(dz, dz.lon, dz.lat))
+    kareler = []
+    adim = int(round(bas / a.dt_myr))
+    for i in range(adim):
+        d = lab.adim()
+        if i % 4 == 3 or i == adim - 1:
+            im = resim(d.z, h_km, 2)
+            ImageDraw.Draw(im).text((8, 6), f"{d.ma:.0f} milyon yıl önce", fill=(255, 255, 255), font=yazi_tipi(16))
+            kareler.append(im)
+        if i % 20 == 19 or i == adim - 1:
+            g = d.gunluk[-1]
+            print(f"{d.ma:5.1f} Ma  zmax {g['zmax']:5.0f} m  Smax {g['Smax_km']:4.1f} km  kara %{100 * g['kara_orani']:.0f}  "
+                  f"vmax {g['vmax_cm']:.1f} cm/yıl  {time.time() - t0:.0f} s", flush=True)
+    kareler[0].save(f"{on}.gif", save_all=True, append_images=kareler[1:] + [kareler[-1]] * 8, duration=150, loop=0)
+    kareler[-1].save(f"{on}_son.png")
+    z = lab.durum.z
+    kara_son = z > 0
+    ort = (kara_son & dz.kara).sum() / max((kara_son | dz.kara).sum(), 1)
+    # maskeye göre kesilmiş: kıyı sahibin maskesi, yükseklik simülasyondan
+    zm = np.where(dz.kara, np.maximum(z, 1.0), np.minimum(z, -1.0))
+    resim(zm, h_km, 2).save(f"{on}_maskeli.png")
+    np.save(f"{on}_z.npy", z.astype(np.float32))
+    print(f"maske örtüşmesi (IoU) {ort:.2f}; en yüksek {z.max():.0f} m; toplam {time.time() - t0:.0f} s")
+
+
+if __name__ == "__main__":
+    main()

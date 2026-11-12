@@ -125,19 +125,15 @@ class Lab:
         self.eroder = fs.SPLEroder(self.router, self.k_alan, a.m, a.nsp, 1e-4)
         kita = S0 > 20e3
         self.temas_ma = None
+        self.etiket_derece = 1
         self.kenar_S = (S0[0, :].astype(float).copy(), S0[-1, :].astype(float).copy(), S0[:, 0].astype(float).copy(), S0[:, -1].astype(float).copy())
         self.kenar_L = (etiket0[0, :].astype(float).copy(), etiket0[-1, :].astype(float).copy(), etiket0[:, 0].astype(float).copy(), etiket0[:, -1].astype(float).copy())
         self.durum = LabDurum(S0.astype(float).copy(), etiket0.astype(float).copy(),
                               yuzey(S0, kita, self.suzgec, a), np.zeros((ny, nx)), np.zeros((ny, nx)), bas_ma)
 
-    def adim(self):
-        a, d = self.a, self.durum
-        S, L = d.S, d.etiket
-        ny, nx, h = self.ny, self.nx, self.h
-        dt_s = a.dt_myr * 1e6 * SANIYE_YIL
-        kita = S > 20e3
+    def _hiz(self, S, L, kita, d):
+        a = self.a
         gelen = L > 0.5
-        # --- hız ---
         dis_sabit_kita = ndimage.distance_transform_edt(~(kita & ~gelen)) * a.h_km
         dis_gelen_kita = ndimage.distance_transform_edt(~(kita & gelen)) * a.h_km
         cek_g = kita & gelen & (dis_sabit_kita > a.cek_gelen_km)
@@ -157,6 +153,17 @@ class Lab:
         eta_t = np.where(kita, a.eta0 * np.where(gelen, a.sert_gelen, 1.0), a.eta0 * a.okyanus)
         # kalın sıcak kabuk zayıflar
         eta_t = eta_t * np.exp(-np.clip(S - a.S_ref_km * 1e3, 0, None) / 15e3)
+        return sabit, u0, v0, eta_t
+
+    def adim(self):
+        a, d = self.a, self.durum
+        S, L = d.S, d.etiket
+        ny, nx, h = self.ny, self.nx, self.h
+        dt_s = a.dt_myr * 1e6 * SANIYE_YIL
+        kita = S > 20e3
+        gelen = L > 0.5
+        # --- hız ---
+        sabit, u0, v0, eta_t = self._hiz(S, L, kita, d)
         _, (rk, ck) = ndimage.distance_transform_edt(~kita, return_indices=True)
         Sg = S[rk, ck] if kita.any() else S
         eta = eta_t.copy()
@@ -169,7 +176,7 @@ class Lab:
         rr, cc = np.mgrid[0:ny, 0:nx].astype(float)
         r0, c0 = rr + v * sn, cc - u * sn
         S = ndimage.map_coordinates(S, [r0, c0], order=1, mode="nearest")
-        L = ndimage.map_coordinates(L, [r0, c0], order=1, mode="nearest")
+        L = ndimage.map_coordinates(L, [r0, c0], order=self.etiket_derece, mode="nearest")
         # kenarlar: alandan giren malzeme başlangıçtaki kenar değerini taşır (sivrilik birikmesin)
         S[0, :], S[-1, :], S[:, 0], S[:, -1] = self.kenar_S
         L[0, :], L[-1, :], L[:, 0], L[:, -1] = self.kenar_L
@@ -249,3 +256,50 @@ class Lab:
                              kara_orani=float(kara.mean()), asinma_km3=float(hacim * h * h / 1e9),
                              vmax_cm=float(np.hypot(u, v).max() * SANIYE_YIL * 100), temas_ma=self.temas_ma))
         return d
+
+
+class LabCok(Lab):
+    """Çok bloklu laboratuvar: her blok kendi tarihinin (BlokTarihi, sabit bloğa göre) hızıyla sürülür.
+
+    etiket: blok sırası (−1 okyanus başlangıçta; okyanus hücreleri en yakın bloğun levhasına sayılır).
+    Konumlar düzlemde; hız Euler kutbundan hücrenin coğrafi konumunda hesaplanıp ızgaraya çevrilir."""
+
+    def __init__(self, S0, etiket0, bas_ma, ayar, lon, lat, tarihler: dict, adlar: list, sabit_ad: str, eksen):
+        super().__init__(S0, etiket0, (0.0, 0.0), bas_ma, ayar)
+        self.etiket_derece = 0
+        self.lon, self.lat = lon, lat
+        self.tarihler, self.adlar, self.sabit_ad = tarihler, adlar, sabit_ad
+        self.de, self.dn = eksen
+
+    def _hiz(self, S, L, kita, d):
+        from .izgara import _lonlat_xyz
+        a = self.a
+        Li = np.rint(L).astype(int)
+        # levha: her hücre en yakın kıta hücresinin bloğu
+        _, (ri, ci) = ndimage.distance_transform_edt(~kita, return_indices=True)
+        lev = Li[ri, ci]
+        sabit = np.zeros(S.shape, bool)
+        u0 = np.zeros(S.shape); v0 = np.zeros(S.shape)
+        for b, ad in enumerate(self.adlar):
+            kb = kita & (lev == b)
+            if not kb.any():
+                continue
+            diger = kita & (lev != b)
+            dis = ndimage.distance_transform_edt(~diger) * a.h_km if diger.any() else np.full(S.shape, 1e9)
+            cek_km = a.cek_sabit_km if ad == self.sabit_ad else a.cek_gelen_km
+            cek = kb & (dis > cek_km)
+            sabit |= cek
+            if ad in self.tarihler:
+                m = lev == b
+                xyz = _lonlat_xyz(self.lon[m], self.lat[m])
+                vel = self.tarihler[ad].hiz_cm_yil(d.ma - 0.5 * a.dt_myr, xyz) / 100 / SANIYE_YIL
+                lo, la = np.radians(self.lon[m]), np.radians(self.lat[m])
+                ev = np.stack([-np.sin(lo), np.cos(lo), np.zeros_like(lo)], 1)
+                nv = np.stack([-np.sin(la) * np.cos(lo), -np.sin(la) * np.sin(lo), np.cos(la)], 1)
+                ve, vn = (vel * ev).sum(1), (vel * nv).sum(1)
+                u0[m] = ve * self.de[0][m] + vn * self.dn[0][m]
+                v0[m] = ve * self.de[1][m] + vn * self.dn[1][m]
+        sabit[[0, -1], :] = True; sabit[:, [0, -1]] = True
+        eta_t = np.where(kita, a.eta0, a.eta0 * a.okyanus)
+        eta_t = eta_t * np.exp(-np.clip(S - a.S_ref_km * 1e3, 0, None) / 15e3)
+        return sabit, u0, v0, eta_t
