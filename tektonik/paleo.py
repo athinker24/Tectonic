@@ -11,7 +11,8 @@ from .gorsel import _DENIZ, _RENK, golgele
 from .izgara import Izgara, _lonlat_xyz
 from .tarih import BlokTarihi
 
-BLOK_RENK = [(196, 180, 140), (150, 180, 120), (200, 150, 120), (160, 150, 200), (120, 170, 190), (210, 190, 110)]
+BLOK_RENK = [(196, 180, 140), (150, 180, 120), (200, 150, 120), (160, 150, 200), (120, 170, 190), (210, 190, 110),
+             (170, 130, 160), (130, 150, 110), (220, 160, 160), (140, 190, 170)]
 
 
 def konumlar(iz: Izgara, bloklar: Bloklar, tarihler: dict[str, BlokTarihi], ma: float) -> np.ndarray:

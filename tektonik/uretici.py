@@ -227,8 +227,10 @@ def kisitlari_denetle(aday: Aday, iz: Izgara, bloklar: Bloklar, senaryo: dict, a
     # hız
     for ad, t in aday.tarihler.items():
         m = bloklar.maske(ad)
-        for a in t.asamalar:
-            v = np.linalg.norm(kure.hiz_cm_yil(a.kutup_lon, a.kutup_lat, a.hiz_derece_myr, iz.xyz[m]), axis=1)
+        # aşama sınırlarının ortalarında toplam hız (devralınan aşamalar dahil)
+        sinirlar = sorted({x for a in t.asamalar for x in (a.baslangic_ma, a.bitis_ma)})
+        for u, w in zip(sinirlar[:-1], sinirlar[1:]):
+            v = np.linalg.norm(t.hiz_cm_yil(0.5 * (u + w), iz.xyz[m]), axis=1)
             if v.max() > HIZ_SINIRI_CM_YIL + 1e-6:
                 ihlal.append(f"hız: {ad} {v.max():.1f} cm/yıl (sınır {HIZ_SINIRI_CM_YIL})")
                 break
@@ -239,7 +241,12 @@ def kisitlari_denetle(aday: Aday, iz: Izgara, bloklar: Bloklar, senaryo: dict, a
     for ma in zamanlar[1:]:
         p = konumlar(iz, bloklar, aday.tarihler, ma)
         agaclar = {ad: cKDTree(p[bloklar.maske(ad)]) for ad in bloklar.adlar}
+        izin = aday.parametre.get("izinli_cakisma", {})
         for a, b in combinations(bloklar.adlar, 2):
+            # birleşmiş komşular: ikisi de yerine oturduktan sonraki üst üste binme, sınırdaki
+            # kısalmanın (dağ kuşağına giden kabuğun) katı blok çizimindeki karşılığıdır
+            if ma < izin.get(f"{a}|{b}", izin.get(f"{b}|{a}", -1.0)):
+                continue
             d, _ = agaclar[b].query(p[bloklar.maske(a)], distance_upper_bound=0.5 * hucre)
             binen = int(np.isfinite(d).sum())
             if binen > 3:

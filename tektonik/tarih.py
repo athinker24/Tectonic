@@ -48,10 +48,12 @@ class BlokTarihi:
 
     def hiz_cm_yil(self, ma: float, p: np.ndarray) -> np.ndarray:
         """`ma` anında, o andaki konumu p olan noktaların sabit bloğa göre hızı."""
-        a = self.asama(ma)
-        if a is None:
-            return np.zeros_like(np.asarray(p, float))
-        return kure.hiz_cm_yil(a.kutup_lon, a.kutup_lat, a.hiz_derece_myr, p)
+        # aynı anda etkin birden çok aşama (ana bloktan devralınan + kendi) toplanır
+        v = np.zeros_like(np.asarray(p, float))
+        for a in self.asamalar:
+            if a.bitis_ma <= ma < a.baslangic_ma:
+                v = v + kure.hiz_cm_yil(a.kutup_lon, a.kutup_lat, a.hiz_derece_myr, p)
+        return v
 
 
 def hareket_kutbu(merkez_lonlat: tuple[float, float], yon_derece: float, hiz_cm_yil: float) -> tuple[float, float, float]:

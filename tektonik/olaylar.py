@@ -75,7 +75,8 @@ class Carpisma:
     kusak_k_carpani: float = 1.0  # kuşak çekirdeğinde aşınabilirlik çarpanı (metamorfik çekirdek daha sert)
     _geo: dict = field(default_factory=dict, repr=False)
 
-    def hazirla(self, iz: Izgara, gurultu: np.ndarray | None = None) -> None:
+    def _uzaklik(self, iz: Izgara) -> tuple[np.ndarray, np.ndarray]:
+        """Kara düğümleri için cepheye işaretli uzaklık (üst levha +) ve boyuna sönüm."""
         sec = iz.kara
         d = isaretli_uzaklik_km(iz, self.cephe, sec)
         if not self.ust_sol:
@@ -90,6 +91,11 @@ class Carpisma:
         # uçların dışına taşan bölge: uca uzaklık > |d| ise uç ötesindedir
         disari = d_uc < np.abs(d) * 0.999
         boy = np.where(disari, np.exp(-((d_uc / self.yan_sonum_km) ** 2)), 1.0)
+        return d, boy
+
+    def hazirla(self, iz: Izgara, gurultu: np.ndarray | None = None) -> None:
+        sec = iz.kara
+        d, boy = self._uzaklik(iz)
 
         # ana kuşak profili: alt levha tarafında dar ön kuşak, üst tarafta tepe ~0,35 W'da
         W, F = self.kusak_km, self.on_kusak_km
@@ -208,3 +214,35 @@ class BlokSikismasi:
         hiz = self.hiz_cm_yil / 100.0 * H0_M / (self.genislik_km * 1e3) * e
         kabul = np.clip((self.hmax_m - h[g["idx"]]) / 5000.0, 0, 1)
         return hiz * g["m"] * kabul
+
+
+@dataclass
+class SinirCarpismasi(Carpisma):
+    """Çizgi yerine iki bloğun ortak sınırından tanımlanan çarpışma (rastgele mod).
+
+    ust_blok, alt_blok: [N] bool. Uzaklık: üst blok düğümlerinde alt bloğa (+),
+    diğer kara düğümlerinde üst bloğa (−). Temas noktalarından uzaklaşan sınır
+    uçlarında kuşak yan_sonum_km ölçeğinde söner."""
+
+    ust_blok: np.ndarray | None = None
+    alt_blok: np.ndarray | None = None
+
+    def _uzaklik(self, iz: Izgara) -> tuple[np.ndarray, np.ndarray]:
+        from scipy.spatial import cKDTree
+
+        sec = iz.kara
+        p = iz.xyz[sec]
+        km = YARICAP_M / 1e3
+        d_alt, _ = cKDTree(iz.xyz[self.alt_blok]).query(p)
+        d_ust, _ = cKDTree(iz.xyz[self.ust_blok]).query(p)
+        ust = self.ust_blok[sec]
+        d = np.where(ust, d_alt, -d_ust) * km
+        # temas: alt bloğa bir buçuk hücreden yakın üst düğümler
+        h = iz.hucre_km * 1.6
+        temas = np.flatnonzero(sec)[ust & (d_alt * km < h)]
+        if temas.size == 0:
+            return d, np.zeros_like(d)
+        d_t, _ = cKDTree(iz.xyz[temas]).query(p)
+        fark = np.clip(d_t * km - np.abs(d) - h, 0, None)
+        boy = np.exp(-((fark / self.yan_sonum_km) ** 2))
+        return d, boy
