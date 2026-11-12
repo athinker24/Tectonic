@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw
 from tektonik.bloklar import bloklara_ayir
 from tektonik.izgara import izgara_kur, maske_oku
 from tektonik.paleo import paleo_harita
+from tektonik.yazi import yazi_tipi
 from tektonik.uretici import celiskiler, cesitli_sec, evrimlestir
 
 
@@ -43,7 +44,7 @@ def main():
         bas = a.parametre["baslangic_ma"]
         for ma in (round(bas), round(a.parametre["carpisma_ma"]), round(a.parametre["ta_ma"]), 0):
             im = paleo_harita(iz, bloklar, a.tarihler, float(ma), derece=0.25)
-            ImageDraw.Draw(im).text((8, 8), f"{ma} milyon yıl önce", fill=(0, 0, 0))
+            ImageDraw.Draw(im).text((8, 6), f"{ma} milyon yıl önce", fill=(0, 0, 0), font=yazi_tipi(16))
             kareler.append(im)
         w, h = kareler[0].size
         serit = Image.new("RGB", (w * 4, h), (255, 255, 255))

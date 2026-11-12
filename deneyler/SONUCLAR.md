@@ -63,3 +63,26 @@ Gerçek veri hedefi (arastirma/20, hücre ortalamaları arası eğim): 20 km'de 
 **Hata ve düzeltme:** K = 2e-9 koşusunda kabuk 197 km'ye fırladı; plato dolunca fazla hacim birkaç boş düğüme yığılıyordu. Düğüm başına üst sınır eklendi ve teste bağlandı. K = 2e-9 satırı bu düzeltmeden önce koşuldu; yeniden koşulmalı.
 
 **Açık:** eğim dağılımının dar olması (gerçekte daha çok dik yamaç var); kıyı sönümlemesinin kıyı türüne göre ayarlanması; ova yüksekliği gerçek iç ovalardan (100 ile 300 m) biraz düşük.
+
+## 12 Kasım 2026: aşama 4, aday tarih üretici (ilk sürüm)
+
+Test maskesi dört bloğa ayrıldı (Kuzey sabit, Güneydoğu, Güneybatı, Takımada) ve dikişler senaryo dosyasında (`veri/test_senaryo.json`). Batı kara köprüsü test maskesinde yaklaşık 31°B ile 27°B, 25°K'de 1 ile 2 piksellik bir boyun; dikiş oraya çizildi.
+
+**Kısıtlar:** blokların geçmişte üst üste binmemesi, kıtasal hızın 6 cm/yıl'ı geçmemesi, güney geçidinin hiç kapanmaması (ölçüm eşiği 60 km, 50 km hücreyle). Güney geçidi bugün yaklaşık 205 km genişliğinde (100 km hücreyle ölçüldü); ilk denemedeki 150 km eşiği benim koyduğum ve neredeyse her adayı eleyen bir sayıydı, düşürüldü.
+
+**İstekler** kabuk kalınlığından ölçülüyor (aşınmasız hızlı tarama): sıradağ kuşağında kabuğun %95'lik dilimi ≥ 60 km; çanakta izostatik yükseklik ortancası 1000 ile 1500 m; mikro kıtanın en az %60'ında kabuk ≥ 45 km.
+
+**Arama:** 300 rastgele tohumdan yalnızca 4'ü geçerli çıktı. Geçerli adaylardan mutasyonla 6 nesil sonra 1200 adaydan 572'si geçerli, arşivde 11 farklı hücre. Süre 50 km hücreyle 19 dakika.
+
+**Coğrafyanın dayattığı sonuçlar (bu maske için):**
+- Güneydoğu bloğu yalnızca güneydoğudan, kuzeybatıya doğru hareket ederek gelebiliyor (seçilen adaylarda yön kuzeyden 15° ile 25° batıya). Tam kuzeye ya da kuzeydoğuya gelen her aday güneybatı kıtasıyla çakıştı ya da güney geçidini kapattı.
+- Güneybatı kıtası yerinde durmuş olamıyor: geçerli adayların hepsinde kuzeydoğuya kayıyor, geriye sürünce güneybatıya çekilip güneydoğu bloğuna yol açıyor.
+- Mikro kıta hiçbir geçerli adayda güneydoğu bloğuna doğru sıkışmadı; kuzey kıyısına ya da güneybatı kıtasına sıkışıyor.
+
+**Seçilen beş aday** (dört isteğin üçü de her birinde sağlanıyor; çelişki yok): çarpışma 25, 42, 47, 65 ve 65 milyon yıl önce; kapanan okyanus 600 ile 1187 km; mikro kıta 11 ile 16 milyon yıl önce kuzey kıyısına ya da güneybatı kıtasına sıkışıyor. Görsel: `cikti/ornek_adaylar.png`.
+
+**Eksikler:**
+- Olay şablonları test maskesine özgü yazıldı (`aday_kur`); sahibin maskesi için senaryo dosyasından okunacak biçimde genelleştirilmeli.
+- 3. istek (yarımada çarpışması, Apenin ve Alp tarzı) henüz yok; test maskesinde yarımadanın yeri belirsiz.
+- İstekler aşınmasız kabuk tahmininden ölçülüyor; seçilen aday tam modelle (aşınmalı) yeniden ölçülmeli.
+- Çeşitlilik özellikleri ve aday sayısı (5) benim tasarımım.
