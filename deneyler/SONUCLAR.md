@@ -125,3 +125,9 @@ Sonuç (Nside 512, pay 0,5, çarpan 0,3):
 | kara ortancası | yaklaşık 100 m | yaklaşık 96 m |
 
 Bilinen sınırlar: aşınma bugünkü kıyı çizgisiyle bugünkü ızgarada hesaplanır, paleo karelerde yükseklik bloklarla taşınır. Adaylar eski (aşınmasız, plato payı yok) ölçümle seçildi; aday araması yeni fizikle yeniden yapılmalı. Ovalar alçak (kara ortancası yaklaşık 100 m).
+
+## Rastgele mod (12 Kasım 2026)
+
+`python -m deneyler.rastgele TOHUM [NSIDE] [BLOK_SAYISI]`. Senaryo ve sahip işaretleri kullanılmaz. Kıta 4 ile 8 tohumdan gürültülü jeodezik uzaklıkla bloklara ayrılır; 0,5 milyon km²'den büyük tohumsuz kara parçası kendi bloğu olur. Tarih bir birleşme tarihidir: çekirdekten genişleyen bir ağaçta her blok ana bloğuna göre hareket eder ve onun hareketini devralır. Ortak sınırda göreli dik yakınsama 0,3 cm/yıl'ı geçerse sınır çarpışması kurulur (gelen blok altta, %25 ters). Birleşmiş komşular arasındaki üst üste binme serbest bırakıldı (sınırdaki kısalmanın katı çizimdeki karşılığı); birleşmeden önceki binme ve 6 cm/yıl hız sınırı sert.
+
+İlk sürüm (bağımsız bloklar): 400 adayda geçerli yok. Ağaçla ve birleşme sonrası binme serbest: tohum 1 için 284, tohum 2 için 14, tohum 3 için 36 aday denendi. Nside 256 sonuçları: en yüksek nokta 6167, 4877, 4785 m; kara ortancası 110, 90, 93 m. Bilinen eksik: başka bloğa sınırı olmayan ada blokları (iç denizdeki mikro kıta) hareketsiz ve olaysız kalıyor.
