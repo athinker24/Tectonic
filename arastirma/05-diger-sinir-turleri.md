@@ -173,12 +173,12 @@ Sınır türü, bloklar arasındaki göreli hızın sınıra göre açısından 
 | Büyük Havza fay aralığı | 15 ile 20 km (sırt aralığı kaynaksız) | [B] ve [Y] |
 | Rift omuz yükselmesi | 1,5 ile 2 km (hızlı rift evresi) | [B] |
 | Çek-ayır havzası | uzunluk = 3,2 × genişlik (2,4 ile 4,3); derinlik ≤ ötelenmenin yaklaşık %10 | [B] |
-| Yanal fay kayma hızı | 6 ile 35 mm/yıl (fayına göre) | [B ve Ö] |
+| Yanal fay kayma hızı | 6 ile 35 mm/yıl; çok fay üzerinden bir aralık: alt uç Kuzey Anadolu Neojen ortalaması 6,5 mm/yıl, üst uç güney San Andreas tarihsel 35 mm/yıl (USGS sayfasında San Andreas derin kayma 20, Maacama 13, Bartlett Springs 7 mm/yıl) | [B ve Ö] |
 | Yanal fay toplam ötelenme | 80 ile 480 km | [B ve Ö] |
-| Hotspot izi hızı | 5 ile 6 cm/yıl (Pasifik tipi), 2 ile 6 cm/yıl (Yellowstone tipi) | [B ve Ö] |
+| Hotspot izi hızı | Pasifik tipi: 5,7 cm/yıl (57 ± 2 km/milyon yıl) yalnızca 57 ile 25 milyon yıl önce arası için [B, O'Connor 2013 özeti]; son ~15 milyon yılda Hawaii yaş ilerlemesi "çok daha hızlı" (sayısı özette yok, ikincil özet yaklaşık 9 cm/yıl [Ö]). Yellowstone tipi: 2 ile 6 cm/yıl [Ö] | [B ve Ö] |
 | Hotspot şişmesi | 1000 km genişlik, 0,5 ile 1,2 km yükseklik | [B ve Ö] |
 | Ada çökmesi | 2 ile 4 km, deniz seviyesine ulaşmadan | [Ö] |
-| Büyük volkanik plato | alan 0,15 ile 1,5 milyon km²; kalınlık 1 ile 3,5 km; ana evre 0,3 ile 1 milyon yıl | [B ve Ö] |
+| Büyük volkanik plato | alan 0,15 ile 1,5 milyon km²; kalınlık 1 ile 3,5 km; ana evre 0,3 ile 1 milyon yıl (tek tek plato örnekleri; Wikipedia'nın LIP tanımı kısa magmatik darbeyi 1 ile 5 milyon yıl veriyor, tanım farkı) | [B ve Ö] |
 | Dinamik topografya | isteğe bağlı, en çok ± 0,5 km | [B] |
 
 ## 7. Kaynaklar arası çelişkiler

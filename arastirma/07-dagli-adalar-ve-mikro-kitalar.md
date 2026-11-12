@@ -92,12 +92,12 @@ Milliman ve Syvitski (1992): küçük dağlık nehirlerin yükü "belki üç kat
 |---|---|---|
 | Dağlık ada alanı | 8 000 ile 800 000 km² (örnek aralığı) | [E] |
 | Alan-tepe ilişkisi | Korsika 8 680 km² ile 2 706 m; Tayvan 35 808 km² ile 3 952 m; Yeni Gine 785 753 km² ile 4 884 m | [E] |
-| Çarpışma adasında yükselme hızı | 1 ile 14 mm/yıl, çoğu evrede 4 ile 10 | [Ö] |
+| Çarpışma adasında yükselme hızı | 1 mm/yıl'ın altından 14 mm/yıl'ın üstüne (Communications Earth & Environment 2022 özeti: "14 mm/yıl'ın üstüne çıkabilir"; Tayvan'ın bir GSA özeti 7,3 ile 12,9); "çoğu evrede 4 ile 10" bizim özetimiz | [Ö] |
 | Çarpışma adasında aşınma | 3 ile 6 mm/yıl (Tayvan, dengeli); Güney Alpleri 5 ile 6; Yeni Gine düşük (0,02 ile 0,18) | [B ve Ö] |
 | Çarpışma yaşı ve yükselme başlangıcı | Tayvan 5 ile 7 milyon yıl; Yeni Gine yaklaşık 12 milyon yıl | [B] |
 | Mikro kıta dönmesi | seçenek: 30°, 45° ya da 60° (Korsika-Sardunya) | [B ve Ö] |
 | Mikro kıta oluşumu | plume yakını yeniden riftleşme ya da yay ardı sürüklenme; 25 milyon yıldan genç kenar | [Ö] |
-| Dalma ilişkili mikro kıta ömrü | 50 milyon yıldan kısa | [Ö] |
+| Dalma ilişkili mikro kıta oluşum süresi | 50 milyon yıldan kısa (van den Broek ve Gaina 2020 özeti oluşum süresini veriyor; "kısa ömürlü" ifadesi ayrı, ömür sınırı verilmiyor) | [Ö] |
 | Küçük nehir tortu yükü | modelden yaklaşık 3 kat yüksek (güvenlik çarpanı) | [B] |
 | Yağmur gölgesi | batı doğu oranı yaklaşık 8 ile 10 (Güney Alpleri) | [B] |
 | Kıyıdan zirveye mesafe | kaynaksız; tasarım seçimi | [Y] |

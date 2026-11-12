@@ -96,12 +96,12 @@ Aracın sabit kıyı kuralı gereği deniz seviyesi değişimi kıyıyı oynatma
 | Pasif kenar sahanlık genişliği | 88 km ortalama, geniş saçılma (kaynaklarda 65 ile 88) | [B] |
 | Aktif kenar sahanlık genişliği | 31 km ortalama | [B] |
 | Yamaç genişliği | pasif 46 km, aktif 36 km | [B] |
-| Sahanlık kırılma derinliği | ortalama 133 m, aralık 20 ile 550 m | [E] |
+| Sahanlık kırılma derinliği | ortalama yaklaşık 133 m, aralık 20 ile 550 m (Britannica özeti); Wikipedia tek değer olarak yaklaşık 140 m veriyor; Britannica sayfası bot koruması nedeniyle okunamadı | [Ö ve E] |
 | Kanyon aralığı | eğim 3°'nin altında yok; 3 ile 5° 2 ile 10 km; 6°'nin üstünde 1,5 ile 4 km | [Ö] |
 | Buzul etkili sahanlık oranı | yaklaşık %21 | [B] |
-| Okyanus tabanı derinliği | 2500 + 350 √t m (0 ile 70 Ma), sonra asimptot yaklaşık 6400 m | [Ö] ve [B ikincil] |
+| Okyanus tabanı derinliği | 2500 + 350 √t m (geçerlilik sınırı kaynaklarda 70, 80 ya da 90 Ma; Wikipedia 80 Ma), sonra asimptot yaklaşık 6400 m (Wikipedia'da doğrulandı); katsayıların kendisi arama özetinde | [Ö] ve [B ikincil] |
 | Derin havza | yaklaşık 4 ile 6 km, yaşa göre | [H] |
-| Hendek | 6 ile 8 km, en çok yaklaşık 11 km (5. belge) | [E] |
+| Hendek | Peru-Şili çukuru 7 ile 8 km; bazı çukurlar 6 km'den derin; en derin Challenger 10 994 m (Wikipedia; başka bir sayfa tipik değer olarak yaklaşık 10 km veriyor); "tipik 6 ile 8 km" bizim özetimiz, tek kaynakta yok (5. belge) | [E] |
 | Yay ardı havzası taban kabuğu | okyanusal ya da inceltilmiş kıtasal (seçim) | [Ö] |
 | İç deniz çevresi | kuşakla çevrili havza olarak oluştur; eski bir yay ardı ya da kalıntı havza | [Ö] |
 | Kara köprüsü eşik derinliği | 30 ile 300 m, boğaza göre | [E ve Ö] |
