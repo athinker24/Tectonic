@@ -94,3 +94,11 @@ Maske `veri/maske.png` (3808 × 2914, eşdikdörtgen, sınır kutusu 44,43°B il
 Batı köprüsü test maskesinden geniş: 40,3°B ile 37,6°B arasında, yaklaşık 28,2°K, genişlik yaklaşık 250 km. Dikiş buraya taşındı (`veri/senaryo.json`). Blok alanları (Nside 512): Kuzey 17,53, Güneybatı 9,73, Güneydoğu 6,62, Takımada 0,90 milyon km², toplam kara 34,78 milyon km².
 
 Üretici (Nside 128, 300 tohum, 6 nesil): 1200 aday, 480 geçerli (tohumda 5). İhlaller: çakışma 733, geçit 534, hız 108. Çelişki yok. Seçilen beş aday: çarpışma 40, 55, 64, 63, 65 milyon yıl önce; güneydoğu yönü −16° ile −24° (yine güneydoğudan geliyor); güneybatı her adayda yaklaşıyor (yön 20° ile 62°). Test maskesinden farklı olarak mikro kıtanın güneydoğu bloğuna sıkıştığı geçerli bir aday çıktı (1145).
+
+## Sahibin bölge işaretleriyle (12 Kasım 2026)
+
+İşaretler `veri/sahip_isaretleri.png`; renkler çokgene çevrildi (`veri/senaryo.json`). Kırmızı sıradağ alanı 1,39, sarı çanak 3,55 milyon km² (İran platosu yaklaşık 3,7 milyon km²). Kırmızı alanın ekseni 0,2°D 40,1°K ile 32,1°D 30,0°K arasında, yaklaşık 3000 km. Eksenin batı ucu karada bittiği için duvar dikişi 5°D yakınında güneye kırılıp iç denizin kuzeydoğu körfezine bağlandı (bizim kararımız). Mavi çizginin kara üzerindeki batı kenarı yeni Yarımada dikişi; Yarımada 2,69 milyon km², güney geçidinin batı kıyısı artık bu blok.
+
+Yeni kod: plato çokgenle verilebilir (Carpisma.plato_maske); istek 3 iki türlü: Alp (Yarımada doğudan yaklaşıp kökünden çarpar, kökte kuşak, kabuk %95 ≥ 55 km), Apenin (Güneybatı ile birlikte gider, omurga şeridinde kalınlaşma, kabuk %90 42 ile 52 km).
+
+Üretici (Nside 128): 300 rastgele tohumun hiçbiri geçerli değil; mutasyonla 1200 adayda 329 geçerli. İhlal: çakışma 1040, geçit 665, hız 151. 80 adaylık ayrı örnekte en sık çakışan çift Güneydoğu ile Yarımada (65), sonra Güneybatı ile Takımada (30). Çelişki yok; seçilen beşin hepsi dört isteği sağlıyor (2 Apenin, 3 Alp). Seçilenlerin bir kısmı aralık sınırında: güneydoğu yönü −25° (aralığın ucu), çarpışma 65 milyon yıl (aralığın ucu). Aralık genişletilince daha kuzeybatıdan gelen ve daha eski çarpışmalar da geçerli çıkabilir. Apenin türünde ölçülen 50,0 km kabuğun üst sınırı (hmax); omurga ölçüsü bu sınırla belirleniyor.
