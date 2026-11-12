@@ -1,0 +1,50 @@
+{
+ "Alpler": {
+  "hi": 0.22283162262057685,
+  "theta_concavity_A_gt_10km2": 0.26478453098974347,
+  "n_binned": 9,
+  "max_A_km2": 30317.90042202143,
+  "median_slope_A_1_to_3km2": 0.06665306540786563,
+  "median_slope_A_100_to_1000km2": 0.010222728954200847
+ },
+ "Himalaya_Nepal": {
+  "hi": 0.41153574622871336,
+  "theta_concavity_A_gt_10km2": 0.26847636903148053,
+  "n_binned": 9,
+  "max_A_km2": 22837.656260596847,
+  "median_slope_A_1_to_3km2": 0.10835031079858717,
+  "median_slope_A_100_to_1000km2": 0.014112168752252484
+ },
+ "Appalachian": {
+  "hi": 0.23291205271829848,
+  "theta_concavity_A_gt_10km2": 0.18530760462692702,
+  "n_binned": 9,
+  "max_A_km2": 23946.331543242442,
+  "median_slope_A_1_to_3km2": 0.038080081205933675,
+  "median_slope_A_100_to_1000km2": 0.011174945890801846
+ },
+ "Skandinav_Dagları": {
+  "hi": 0.39401792548728004,
+  "theta_concavity_A_gt_10km2": 0.291993678857111,
+  "n_binned": 8,
+  "max_A_km2": 9730.817325537424,
+  "median_slope_A_1_to_3km2": 0.09821044196684635,
+  "median_slope_A_100_to_1000km2": 0.021650119635032695
+ },
+ "Zagros": {
+  "hi": 0.4390886869397709,
+  "theta_concavity_A_gt_10km2": 0.11002694747562437,
+  "n_binned": 9,
+  "max_A_km2": 31933.35487534142,
+  "median_slope_A_1_to_3km2": 0.030552848124355485,
+  "median_slope_A_100_to_1000km2": 0.009482078035866039
+ },
+ "Orta_And": {
+  "hi": 0.5385365189089596,
+  "theta_concavity_A_gt_10km2": 0.20993050333201246,
+  "n_binned": 9,
+  "max_A_km2": 40285.96177922504,
+  "median_slope_A_1_to_3km2": 0.03011806067710619,
+  "median_slope_A_100_to_1000km2": 0.007377492680335856
+ }
+}
