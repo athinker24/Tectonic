@@ -86,3 +86,11 @@ Test maskesi dört bloğa ayrıldı (Kuzey sabit, Güneydoğu, Güneybatı, Tak�
 - 3. istek (yarımada çarpışması, Apenin ve Alp tarzı) henüz yok; test maskesinde yarımadanın yeri belirsiz.
 - İstekler aşınmasız kabuk tahmininden ölçülüyor; seçilen aday tam modelle (aşınmalı) yeniden ölçülmeli.
 - Çeşitlilik özellikleri ve aday sayısı (5) benim tasarımım.
+
+## Aşama 4, sahibin maskesiyle (12 Kasım 2026)
+
+Maske `veri/maske.png` (3808 × 2914, eşdikdörtgen, sınır kutusu 44,43°B ile 43,11°D, 7,08°G ile 59,99°K). Test maskesinin aynı kutuya kırpılmasıyla örtüşme (IoU) 0,966, en iyi kayma sıfır: sınırlar doğru. Kenar yumuşatmalı 15 545 gri piksel 128 eşiğiyle ikilendi; güneydoğu körfezindeki iki gri leke (yaklaşık 2650 ile 2800 x, 2150 ile 2300 y piksel) kara sayıldı.
+
+Batı köprüsü test maskesinden geniş: 40,3°B ile 37,6°B arasında, yaklaşık 28,2°K, genişlik yaklaşık 250 km. Dikiş buraya taşındı (`veri/senaryo.json`). Blok alanları (Nside 512): Kuzey 17,53, Güneybatı 9,73, Güneydoğu 6,62, Takımada 0,90 milyon km², toplam kara 34,78 milyon km².
+
+Üretici (Nside 128, 300 tohum, 6 nesil): 1200 aday, 480 geçerli (tohumda 5). İhlaller: çakışma 733, geçit 534, hız 108. Çelişki yok. Seçilen beş aday: çarpışma 40, 55, 64, 63, 65 milyon yıl önce; güneydoğu yönü −16° ile −24° (yine güneydoğudan geliyor); güneybatı her adayda yaklaşıyor (yön 20° ile 62°). Test maskesinden farklı olarak mikro kıtanın güneydoğu bloğuna sıkıştığı geçerli bir aday çıktı (1145).
