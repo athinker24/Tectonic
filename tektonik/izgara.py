@@ -113,3 +113,13 @@ def buyuk_daire_km(iz: Izgara, lon0: float, lat0: float) -> np.ndarray:
     """Her düğümün (lon0, lat0) noktasına büyük daire uzaklığı, km."""
     p = _lonlat_xyz(np.array(lon0), np.array(lat0))
     return np.arccos(np.clip(iz.xyz @ p, -1, 1)) * YARICAP_M / 1e3
+
+
+def maske_yukle(json_yol: str) -> tuple[np.ndarray, tuple[float, float, float, float]]:
+    """Maske tanım dosyasını oku: {dosya, sinir: [batı, güney, doğu, kuzey], esik}."""
+    import json
+    import os
+
+    t = json.load(open(json_yol, encoding="utf-8"))
+    yol = os.path.join(os.path.dirname(json_yol), t["dosya"])
+    return maske_oku(yol, t.get("esik", 128)), tuple(float(x) for x in t["sinir"])

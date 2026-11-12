@@ -1,6 +1,6 @@
 """Aşama 4: aday tarihler üret, denetle, seç, anlat.
 
-Kullanım: python -m deneyler.adaylar NSIDE SAYI
+Kullanım: python -m deneyler.adaylar NSIDE SAYI [MASKE_JSON SENARYO]
 """
 import json
 import sys
@@ -10,7 +10,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 from tektonik.bloklar import bloklara_ayir
-from tektonik.izgara import izgara_kur, maske_oku
+from tektonik.izgara import izgara_kur, maske_yukle
 from tektonik.paleo import paleo_harita
 from tektonik.yazi import yazi_tipi
 from tektonik.uretici import celiskiler, cesitli_sec, evrimlestir
@@ -19,8 +19,12 @@ from tektonik.uretici import celiskiler, cesitli_sec, evrimlestir
 def main():
     nside, sayi = int(sys.argv[1]), int(sys.argv[2])
     t0 = time.time()
-    senaryo = json.load(open("veri/test_senaryo.json", encoding="utf-8"))
-    iz = izgara_kur(maske_oku("veri/test_maske.png"), nside=nside)
+    mj = sys.argv[3] if len(sys.argv) > 3 else "veri/maske.json"
+    sj = sys.argv[4] if len(sys.argv) > 4 else "veri/senaryo.json"
+    cikti = "cikti" if "test" in sj else "cikti/gercek"
+    senaryo = json.load(open(sj, encoding="utf-8"))
+    maske, sinir = maske_yukle(mj)
+    iz = izgara_kur(maske, sinir, nside=nside)
     bloklar = bloklara_ayir(iz, senaryo)
     adaylar = evrimlestir(iz, bloklar, senaryo, tohum_sayisi=sayi, nesil=6, nesil_boyu=sayi // 2)
     sayi = len(adaylar)
@@ -50,8 +54,8 @@ def main():
         serit = Image.new("RGB", (w * 4, h), (255, 255, 255))
         for n, im in enumerate(kareler):
             serit.paste(im, (n * w, 0))
-        serit.save(f"cikti/aday_{a.no}.png")
-    json.dump(rapor, open("cikti/adaylar.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        serit.save(f"{cikti}/aday_{a.no}.png")
+    json.dump(rapor, open(f"{cikti}/adaylar.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
 if __name__ == "__main__":

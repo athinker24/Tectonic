@@ -1,0 +1,153 @@
+{
+  "_not": "Sahibin maskesi (veri/maske.json) için senaryo. Dikiş hatları maskeden ölçüldü: batı köprüsü 40,3°B ile 37,6°B arasında, yaklaşık 28,2°K boyunca.",
+  "bloklar": {
+    "Kuzey": {
+      "tohum": [
+        0,
+        48
+      ],
+      "sabit": true
+    },
+    "Güneydoğu": {
+      "tohum": [
+        15,
+        12
+      ]
+    },
+    "Güneybatı": {
+      "tohum": [
+        -25,
+        12
+      ]
+    },
+    "Takımada": {
+      "tohum": [
+        -11,
+        26
+      ]
+    }
+  },
+  "dikisler": [
+    {
+      "ad": "Duvar dikişi",
+      "bloklar": [
+        "Kuzey",
+        "Güneydoğu"
+      ],
+      "cizgi": [
+        [
+          -2,
+          30.5
+        ],
+        [
+          5,
+          31.0
+        ],
+        [
+          15,
+          31.2
+        ],
+        [
+          25,
+          31.2
+        ],
+        [
+          35,
+          31.2
+        ],
+        [
+          43,
+          31.2
+        ]
+      ]
+    },
+    {
+      "ad": "Batı köprüsü dikişi",
+      "bloklar": [
+        "Kuzey",
+        "Güneybatı"
+      ],
+      "cizgi": [
+        [
+          -41.5,
+          28.3
+        ],
+        [
+          -40,
+          28.25
+        ],
+        [
+          -38.5,
+          28.2
+        ],
+        [
+          -36.8,
+          28.3
+        ]
+      ],
+      "_not": "Test maskesindeki 1 ile 2 piksellik kara boynu (KARARLAR 1) yaklaşık 31B ile 27B, 25K'de."
+    }
+  ],
+  "gecitler": [
+    {
+      "ad": "Güney geçidi",
+      "bloklar": [
+        "Güneybatı",
+        "Güneydoğu"
+      ],
+      "nokta": [
+        0,
+        6
+      ],
+      "yaricap_km": 900,
+      "en_az_km": 60,
+      "kural": "hep açık",
+      "_not": "Sahibin kuralı 'hep açık' (KARARLAR 1). 60 km, kapanmadı saymak için ölçüm eşiği; tarama 50 km hücreyle yapılmalı."
+    }
+  ],
+  "istekler": [
+    {
+      "no": 1,
+      "ad": "Kuzeydoğunun güneyinde büyük doğu batı sıradağı",
+      "tur": "kusak",
+      "bolge": [
+        [
+          0,
+          31.5
+        ],
+        [
+          43,
+          35.0
+        ]
+      ],
+      "kabuk_km_en_az": 60
+    },
+    {
+      "no": 2,
+      "ad": "Arkasında 1000 ile 1500 m bozkır çanağı (Zagros tipi)",
+      "tur": "plato",
+      "bolge": [
+        [
+          -5,
+          35.5
+        ],
+        [
+          35,
+          41.0
+        ]
+      ],
+      "yukseklik_m": [
+        1000,
+        1500
+      ]
+    },
+    {
+      "no": 4,
+      "ad": "İç denizde tümüyle dağlık mikro kıta",
+      "tur": "dagli_blok",
+      "blok": "Takımada",
+      "kabuk_km_en_az": 45,
+      "pay_en_az": 0.6
+    }
+  ]
+}
