@@ -16,14 +16,9 @@ from tektonik.gorsel import kabartma, tuval_kur, yukseklik_png
 from tektonik.izgara import izgara_kur, maske_yukle
 from tektonik.model import ModelAyar, kos
 from tektonik.paleo import paleo_harita
-from tektonik.rastgele import rastgele_aday, rastgele_bloklar, tohum_sec
+from tektonik.rastgele import bloklari_tasi, rastgele_aday, rastgele_bloklar, tohum_sec
 from tektonik.uretici import kisitlari_denetle
 from tektonik.yazi import yazi_tipi
-
-
-def kur(nside, maske, sinir, tohumlar, tohum):
-    iz = izgara_kur(maske, sinir, nside=nside)
-    return iz, rastgele_bloklar(iz, tohumlar, gurultu_tohum=tohum)
 
 
 def main():
@@ -40,10 +35,11 @@ def main():
     bl_t = rastgele_bloklar(iz_t, tohumlar, gurultu_tohum=tohum)
     print(f"{len(bl_t.adlar)} blok: {bl_t.adlar}")
 
-    iz, bl = (iz_t, bl_t) if nside == 128 else kur(nside, maske, sinir, tohumlar, tohum)
-    if bl.adlar != bl_t.adlar:
-        print("uyarı: son çözünürlükte blok sırası farklı; tarama son çözünürlükte yapılacak")
-        iz_t, bl_t = iz, bl
+    if nside == 128:
+        iz, bl = iz_t, bl_t
+    else:
+        iz = izgara_kur(maske, sinir, nside=nside)
+        bl = bloklari_tasi(iz_t, bl_t, iz)
     denenen, aday = 0, None
     nedenler: dict = {}
     for no in range(400):

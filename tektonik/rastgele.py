@@ -167,8 +167,8 @@ def rastgele_aday(no: int, rng: np.random.Generator, iz: Izgara, bloklar: Blokla
         q = {
             "carpisma_ma": zaman[k],
             "mesafe_km": float(rng.uniform(200, 1800)),
-            "hiz_once": float(rng.uniform(2.0, 5.5)),
-            "hiz_sonra": float(rng.uniform(0.3, 3.0)),
+            "hiz_once": float(rng.uniform(1.5, 4.5 if ortak == 0 else 3.5)),
+            "hiz_sonra": float(rng.uniform(0.3, 2.5 if ortak == 0 else 1.5)),
             "yon": float(yon0 + rng.uniform(-30, 30)),
             "ortak": bloklar.adlar[ortak],
         }
@@ -244,3 +244,13 @@ def rastgele_aday(no: int, rng: np.random.Generator, iz: Izgara, bloklar: Blokla
                          f"{q['carpisma_ma']:.0f} milyon yıl önce {q['ortak']} bloğuna çarptı.")
     p["baslangic_ma"] = max([a.baslangic_ma for t in tarihler.values() for a in t.asamalar] + [1.0])
     return Aday(no, p, tarihler, olaylar, anlati)
+
+
+def bloklari_tasi(iz_kaynak: Izgara, bl: Bloklar, iz_hedef: Izgara) -> Bloklar:
+    """Blok etiketlerini başka çözünürlükteki ızgaraya en yakın kara düğümüyle taşı (adlar aynı kalır)."""
+    ki = np.flatnonzero(iz_kaynak.kara)
+    hi = np.flatnonzero(iz_hedef.kara)
+    _, j = cKDTree(iz_kaynak.xyz[ki]).query(iz_hedef.xyz[hi])
+    etiket = np.full(iz_hedef.n, -1)
+    etiket[hi] = bl.etiket[ki[j]]
+    return Bloklar(list(bl.adlar), etiket, bl.sabit)
