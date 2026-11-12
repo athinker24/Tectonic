@@ -70,3 +70,35 @@ Date of research: 2026-11-12. Status: IN PROGRESS (saved incrementally).
   - Graben-wide Moho: "decreased crustal thickness of 24 km below the Mulhouse Potash Salt Basin" under a regional topographic dome (same source).
   - Crustal thickness/stretch factor values for URG not given numerically beyond this. Stretching factor beta = L0/Lf type relation is implied (not stated numerically in the excerpt).
   - Note: the snippet's "average width 36 km" (Mayer et al. 1997) is consistent with the 35 km lower bound.
+## 6. East African Rift (additional primary reads)
+
+- Delvaux 2016 "Western Rift" geological sites review (Royal Museum for Central Africa, read full text): Western Rift arcuate zone ~2600 km long, from Lake Albert to Beira; rift spreading "a few millimetres per year" (west direction, same source: https://www.africamuseum.be/publication_docs/2016_Delvaux_Africa-Top-Geological-Sites_Western-Rift.pdf). Western Rift extension "possibly as much as 30 km in the last 7 Ma" vs Gregory (Eastern) Rift 8-10 km north to south over 5 Ma (same source; the text reads "8-0km" in OCR, likely 8-10 km, flagged).
+  - Large rift basins (Malawi, Tanganyika) are series of asymmetric half-grabens bounded on one side by a normal fault and related rift-flank uplift. Same source.
+  - Lake floor altitudes: Malawi depression ~400 m above sea level, Kivu up to ~1160 m (same source). Lake Tanganyika: 677 km long, "second deepest at 1,433 m" (same source). DISAGREEMENT: brief says 1470 m; this source says 1433 m. Not reconciled; treat 1433 to 1470 m as range pending a third source.
+  - Karonga/Livingstone escarpment: "2 km-high Livingstone escarpment", uplifted along the fault (same source, Figure 33.4 caption).
+- Ebinger et al. 1991 (search snippet, Tectonics 10, zendy 10.1029/91tc00579): in the Western Rift, basin depth and flank height explained by small heaves 3-10 km across border faults and effective elastic thickness 17-38 km. Snippet from the Ebinger/Karner/Weissel study; not read.
+- Ebinger 1989 (snippet, WHOI): flank uplift zones 150-200 km wide rising >1 km above surrounding topography; another Ebinger paper quotes ~400 km wide uplift zone. Sources disagree (different measures). Not read (WHOI PDF fetch failed: curl could not open the file, see failed list).
+- Ebinger snippet: border faults with 2-5 km throws bound the basins; basin depth to basement 1-8 km; flank topography 1-2 km (Ebinger et al. 1991, snippet).
+- Ebinger snippet (1988 thesis): faults bounding Kenya and Western rift valleys delineate two N-S 40-75 km wide zones of crustal extension; within-basin E-W extension <25% (<16 km). Snippet only, UNVERIFIED.
+- Corti 2018 (read): see section 1 for border fault length 50 km and throw 500 m typical; Guraghe escarpment ~1500 m.
+- Corti 2015 book chapter (snippet, not read): Ethiopian plateau up to 2 km rock uplift since 30 Ma. UNVERIFIED.
+- KRISP crust: 20 km (Turkana) to ~35 km (Kenya dome, Naivasha). Snippet only. Not read.
+- Koptev 2018 (wide Turkana rift 200-350 km): not read, TLS certificate error (failed).
+- Macgregor 2015: most of East Africa's fault activity and uplift in last 5-9 Ma. Snippet only.
+
+## 7. Afar (read Bastow and Keir 2011, Nature Geoscience 4, 248-250, PDF)
+
+- Crust abruptly thins to <15 km in northern Afar; upper-mantle velocities 7.4-7.5 km/s. Source: https://flore.unifi.it/bitstream/2158/1110138/1/ngeo1095.pdf (DOI 10.1038/NGEO1095)
+- Danakil basin filled by up to ~3 km Pliocene-Recent evaporites and basalt; subsidence below sea level no older than ~5 Myr. Same source.
+- Effective elastic thickness Te ~5 km in northernmost Afar vs ~9 km farther south. Same source.
+- Extension accommodated by magma intrusion without marked plate thinning implies low stretching factors early in breakup. Same source.
+- A figure label lists 16.4 mm/yr near Erta Ale (rate meaning not stated in extracted text; UNVERIFIED as extension rate). Same source.
+- Snippet (Danakil, 2023 paper and Eagles 2002): Danakil ~200 km long, 50-150 km wide (snippet only). Crust ~27 km in central Afar to <15 km at Danakil (snippet only, UNVERIFIED).
+- Ebinger & Casey 2001 Geology 29, 527-530: magmatic segment ~20 km wide, ~60 km long (snippet only, UNVERIFIED).
+
+## 8. Dead Sea (secondary, snippets only)
+
+- Dead Sea basin: "150 km long" classic pull-apart; >8 km sediment since 15-17 Ma (secondary snippet from https://en.wikipedia.org/wiki/Dead_Sea_Transform, UNVERIFIED primary).
+- USGS (snippet, https://www.usgs.gov/publications/geometry-and-subsidence-history-dead-sea-basin-a-case-fluid-induced-mid-crustal-shear): deepest, widest part under the Lisan ~8-8.5 km deep, ~15 km wide; ~3 km deep further north; basement ~11 km below deepest part. Not read.
+- Pull-apart ranges (secondary, geomechanics page https://www.deadseaquake.info/EarthquakeCatalogOfTheDeadSea/TechnicalReferences/DSTGeomechanics.html): 15-50 km long, 5-20 km wide, 5-15 km deep. Not read/verified.
+

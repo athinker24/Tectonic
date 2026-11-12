@@ -141,3 +141,75 @@ Source read (PDF, open): McGrath, J.D. et al. 2025, JGR Solid Earth, "Linking ge
 - Fitch 1972 partitioning: trench-normal thrust plus trench-parallel strike-slip; forearc sliver (snippet, UNVERIFIED primary; Fitch 1972 not read).
 - Sumatra: GPS in northern Sumatra found convergence strain almost fully partitioned between trench-normal forearc contraction and trench-parallel shear within a few tens of km of the Sumatran fault (snippet, UNVERIFIED primary; cited as a classic example).
 - Alpine Fault convergence obliquity ~74 deg, strain partitioning not clearly observed (snippet, UNVERIFIED). Note: this is a claim I did not verify.
+
+## 15. North Anatolian Fault (read primary: Hubert-Ferrari et al. 2002)
+
+Source read (PDF, Armijo lab copy): https://www.ipgp.fr/~armijo/ArmijoPDF/HubertJGR02.pdf , Hubert-Ferrari, Armijo, King, Meyer, Barka (JGR 107, 2002, doi:10.1029/2001JB000393, per paper header).
+- Total NAF displacement re-evaluated from large river valleys 80 +/- 15 km (Gerede) and structural markers: Pontide suture 85 +/- 25 km; Tosya-Vezirkopru basins 80 +/- 10 km. Neogene slip rate 6.5 mm/yr over 13 Myr. Same source (abstract).
+- Holocene slip rate 18 +/- 3.5 mm/yr (from offset small rivers, correlated with deglaciation); consistent with 18 +/- 5 mm/yr from 14C-dated stream terraces; GPS 22 +/- 3 mm/yr (short term). Same source (abstract).
+- Literature total offset range 30 to ~100 km (Kocyigit 1989 and others, as cited). Same source (intro).
+- Gerede valley: total offset 65-95 km; Yesilirmak valley ~75 km (lower bound). Largest river deflection 80 +/- 15 km. Same source (sec. 3).
+- Offsets at scales of 20 m to 14 km across the trace; small rivers offset 200 m. Same source (abstract).
+- Conclusion: NAF total offset nearly uniform along fault; deformation localized within a few km of the trace over several Myr. Same source.
+- Fault age ~13 Ma in the eastern part (as cited). Same source (intro).
+- Snippet-level (UNVERIFIED primary): NAF total length ~1200 km (Karliova to Aegean), ~1400 km (eastern Turkey to N Aegean Trough), ~1500 km (Aegean to EAFZ junction, educational source). Length depends on endpoint choice.
+- Snippet-level (UNVERIFIED): Anatolian escape started ~11 Ma per one source; no escape rate found.
+- Marmara segments: 1912 Ganos rupture ~140 km total (Armijo et al. 2005, read). 70 km strike-slip segment between Cinarcik and Central basins (Armijo et al. 2005, read).
+- Valley width of NAF linear valleys: NOT FOUND in searches (gap).
+
+## 16. San Andreas total offset (snippets, not primary)
+- ~315 km (Pinnacles-Neenach, ~23 Ma) cited as the most robust Neogene displacement; removing ~315 km realigns seismic scattering; movement starting no earlier than ~23.1 Ma. Source: USGS/AGU snippets, UNVERIFIED primary.
+- La Honda and San Joaquin paleobathymetry: 320-330 km. Mint Canyon/Caliente older estimate 240-270 km reduced to ~195 +/- 15 km. Southern transrotation model 200 +/- 14 km; range 160-240 km. Mojave Triassic granite offset 160 +/- 10 km. These are snippet-level (UNVERIFIED primary).
+- Cajon Pass Holocene slip rate 24.5 +/- 3.5 mm/yr (snippet, UNVERIFIED primary).
+- Coachella Valley: releasing stepover (Salton) SE, restraining bend (San Gorgonio) NW; right-slip stepped left to Banning fault into San Gorgonio Pass where it is absorbed by convergence (snippet, UNVERIFIED primary).
+
+## 17. Scaling and topography: status
+- No primary source read yet for: restraining-bend pop-up plan dimensions (km) beyond the San Gorgonio ~15 km snippet; Sylvester 1988 dimensions; Mann 2007 catalogue values; Harbert 2018 numbers beyond the abstract snippet; Mitchell and Faulkner 2009 and Savage and Brodsky 2011 values; topography-vs-collision relief comparison (no 1-2 km benchmark found; Altun Shan 5830 m snippet is the high end). These remain gaps.
+
+## 18. Disagreements and ranges (summary)
+- SAF total offset: ~315 km (Pinnacles-Neenach) vs 160-240 km (southern and Mojave reconstructions). Unresolved in snippets.
+- NAF total offset: 65-100 km from rivers and markers (Hubert-Ferrari 2002: 80-85 km) vs 30 km at low end (literature range). Ranges reflect marker choice.
+- NAF Marmara: GPS 18-20 mm/yr and geological ~10 mm/yr on northern strand (Armijo 2005 and snippet); some strands geologic 15-20 mm/yr (snippet).
+- Alpine Fault: total offset 410-480 km (snippets); slip 27-28 mm/yr geologic; south section 17-30 mm/yr depending on study (McGrath 2025 GNSS: 17 mm/yr south).
+- Altyn Tagh: 8-12 mm/yr consensus; >20 mm/yr early; GPS ~10 mm/yr or less (snippets). Karakoram: <120 km geologic; 32 mm/yr (Avouac and Tapponnier 1993 as cited) vs ~3 mm/yr (cosmogenic).
+- Dead Sea depth: 3-16 km depending on location and method; south basin sediment 8.5-14 km.
+- Sumatra: geologic 11-27 mm/yr vs GPS 23-24 mm/yr (Prawirodirdjo 2000 read); SE-to-NW increase debated.
+- East Anatolian: length 430-700 km; slip 6-10 mm/yr; 4.5 mm/yr to 10 mm/yr along strike (GPS).
+- Pull-apart sample count: 62 (Gurbuz citing Aydin and Nur) vs 70 (Aydin and Nur abstract snippet).
+
+## 19. Key takeaways for the tool
+(These are my synthesis of sourced numbers. Confidence noted.)
+1. Pull-apart basins: plan-view length:width ~3:1 (Aydin and Nur 1982 log-linear fit with slope ~1, mean intercept c2 = 3.2, range 2.4-4.3; Gurbuz 2010 citing). Width is set by releasing-bend width; length grows with overlap and displacement. Acute bounding angles ~30-35 deg. Use: basin length L = 3.2 * W (range 2.4-4.3 W), W tied to stepover width. Source read: Gurbuz 2010 and Armijo 2005.
+2. Pull-apart depth: Rodgers 1980 (via Gurbuz): depth ~10% of displacement when overlap > 2x separation. Hempton and Dunne 1984 (via Gurbuz): deposit thickness d = 0.8 L + 0.26 (units to check). Dead Sea scale: 130 km x 18 km, depths 8-16 km by method.
+3. Real examples: Marmara central basin lozenge with normal scarps; Salton Sea subsiding 9-19 mm/yr; onset ~0.5 Ma (Brothers 2009).
+4. Fault length vs offset: the SAF and NAF show offsets far below length-based expectations; NAF total offset 80-85 km along ~1000-1500 km length (Hubert-Ferrari 2002 and endpoints). Ratio is about 0.05-0.1 offset/length for NAF; not computed for SAF. Length choice dominates the ratio. Source: Hubert-Ferrari 2002 (read); length values snippet-level.
+5. Segmentation: Marmara 70 km segment (Armijo 2005); Sumatra 19-20 segments with 4-12 km discontinuities (snippet). Use segment lengths 20-150 km with releasing/restraining steps 4-12 km wide for discontinuities (snippet, verify).
+6. Slip rates (mm/yr) to use as ranges: SAF 24-35 (Cajon 24.5, Carrizo 34); NAF 18-22 (Holocene and GPS; Neogene 6.5); Alpine 27 (+/-5); Sagaing 11-24 (snippet); Sumatra 11-27 geologic, 23-24 GPS; Altyn Tagh 8-12 (snippet); EAF 6-10 (snippet); Karakoram 3-32 (disputed).
+7. Cumulative offsets (km): SAF 160-320; NAF 65-100; Alpine 410-480; DST ~105; Altyn Tagh ~360 (Qaidam piercing, snippet); Sagaing ~203 (snippet); Karakoram <120 (snippet).
+8. Strike-slip topography: linear, narrow zones of uplift at restraining bends and valleys at releasing bends. Pop-up examples: Altun Shan up to 5830 m (snippet, Altyn Tagh restraining bend); Alpine Fault peak 3724 m with uplift 50 x 30 km focus (McGrath 2025). Collision belt relief is broader; a 1-2 km benchmark was not confirmed.
+9. Shutter ridges: offset length set mostly by shutter ridge length (Harbert 2018 snippet), not total offset. Channels offset 5-35 m per event at Carrizo (Liu-Zeng 2006 read: 5-8 m events, 1.4 m low end).
+10. Strain partitioning: oblique margins partition into trench-parallel strike-slip plus forearc sliver (Sumatra; Alpine Fault 70% of plate motion on fault, 30% in Southern Alps; Armijo 2005 Marmara shows asymmetric partitioning). Use a partition fraction as a parameter: Alpine 0.7 on fault, Marmara extension plus strike-slip.
+11. Fault zone width and damage: no firm km-scale width law confirmed; Mitchell and Faulkner 2009 and Faulkner 2011 give damage-zone widths scaling with displacement (snippet). Keep width as a parameter (SAF/Brawley zone <5 km wide per Brothers 2009).
+12. Gaps to fix before final tool design: primary text for Sylvester 1988, Mann 2007, Harbert 2018, Savage and Brodsky 2011, Dewey and Jones 1998, Wallace 1968, Dead Sea DESIRE, Altyn Tagh primary, NAF valley width.
+
+## URLs read (full text or primary abstract)
+- https://www.ipgp.fr/~klinger/web_Yann/papiers/Liu_JGR06_Carrizo.pdf (PDF, read)
+- https://www.ipgp.fr/~armijo/ArmijoPDF/ArmijoG-Cubed05.pdf (PDF, read)
+- https://people.uncw.edu/lamaskint/GLY%20445-545%20FALL%202013/Gurbuz%202010%20GEOSPHERE%20Pull%20Apart%20Basins.pdf (PDF, read)
+- https://igppweb.ucsd.edu/~dkilb/NG/SaltonSea/Publications_files/brothers_NG_2009.pdf (PDF, read)
+- https://ntrs.nasa.gov/api/citations/20000064068/downloads/20000064068.pdf (PDF, read: Prawirodirdjo et al. 2000)
+- https://www.ipgp.fr/~armijo/ArmijoPDF/HubertJGR02.pdf (PDF, read)
+- https://eprints.whiterose.ac.uk/id/eprint/235658/1/ (McGrath et al. 2025 PDF, read)
+- https://central.scec.org/node/3893 (Wesnousky 2008 abstract, read)
+- https://zendy.io/title/10.1029/tc001i001p00091 (Aydin and Nur 1982 abstract fragment, read)
+- https://www.royalsociety.org.nz/assets/104-Alpha-Series-New-Zealands-Alpine-Fault.pdf (not readable, see failed)
+- Search-snippet-only sources (not read in full): central.scec.org/node/5388, nosamsresearch.whoi.edu, Wikipedia pages (Alpine, DST, Salton, Sagaing, Sumatran), zendy.io/title/10.1002/... , typeset.io pages, doc.surf wiki, USGS snippets, GSA abstracts, Caltech thesis page, zendy.io/title/10.1029/2018gl080045 (Harbert), Coachella Valley Copernicus 2022 page.
+
+## Failed fetches or blocked (not bypassed)
+- https://scilit.com/publications/aa39a61b96151b267aab8ba3dca8eac1: Access Denied (publisher aggregator block). Not bypassed.
+- https://www.royalsociety.org.nz/assets/104-Alpha-Series-New-Zealands-Alpine-Fault.pdf: fetched as HTML, text not extracted (41 chars via oku.py); curl returned an HTML page, not a PDF.
+- https://par.nsf.gov/servlets/purl/10514401: returned 0 chars (oku.py) and the curl file was a different paper (scarp-morphology DEM study). Not the Wesnousky paper. Discarded.
+- https://gfzpublic.gfz-potsdam.de/.../11097.pdf: wrong paper (Lohr et al. 2008). Discarded.
+- Carrizo PDF and Marmara PDF via oku.py returned empty text (PDF); fixed with curl and pdftotext.
+- WebFetch: not used (disabled in this environment).
+- Note: the scratchpad pdf folder already contained many unrelated PDFs from an earlier run; I used only the files I downloaded myself.
