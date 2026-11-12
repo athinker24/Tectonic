@@ -4,7 +4,7 @@ Sahibiyle 11 Kasım 2026'da belirlendi; üç kez brief, kararlar ve atlas reposu
 
 **Araştırma ölçütü (sahibi, 11 Kasım 2026):** Araştırmalar üstünkörü ve hızlı olmayacak. Tamamen ayrıntılı ve özenli olacak; olabildiğince çok ve geçerli kaynağa bakılacak. Birincil kaynaklar (resmi belgeler, makaleler, sürüm notları) ikincil özetlere tercih edilir. Doğrulanamayan bilgi doğrulanamadı diye yazılır.
 
-**Durum (12 Kasım 2026):** 1. konu `01-mevcut-araclar.md`, 2. konu `02-carpisma-kusaklari.md`, 3. konu `03-izostazi-ve-bukulme.md`, 4. konu `04-daglarin-yaslanmasi.md`, 5. konu `05-diger-sinir-turleri.md`, 6. konu `06-kiyi-ic-denizler-deniz-tabani.md` olarak tamamlandı. Ham notlar `notlar/01/` ile `notlar/06/` altında. Sonraki: 7. konu.
+**Durum (12 Kasım 2026):** 1. konu `01-mevcut-araclar.md`, 2. konu `02-carpisma-kusaklari.md`, 3. konu `03-izostazi-ve-bukulme.md`, 4. konu `04-daglarin-yaslanmasi.md`, 5. konu `05-diger-sinir-turleri.md`, 6. konu `06-kiyi-ic-denizler-deniz-tabani.md`, 7. konu `07-dagli-adalar-ve-mikro-kitalar.md` olarak tamamlandı. Ham notlar `notlar/01/` ile `notlar/07/` altında. Sonraki: 8. konu.
 
 Sıra bağımlılık sırasıdır: önce ne üretileceği, sonra geriye dönük kurgu, sonra arazi modeli, görsel ve altyapı.
 
