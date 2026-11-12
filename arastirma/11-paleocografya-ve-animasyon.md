@@ -59,8 +59,8 @@ Dinamik topografya: Moucha ve diğerleri (2008) New Jersey ve Batı Afrika kenar
 | Karelerin zaman adımı | 1 ile 5 milyon yıl (hikaye kareleri), hesap adımı 0,1 ile 1 milyon yıl; kaynaksız tasarım seçimi | [H] |
 | Dönme ara değerleme | quaternion slerp; spline ile C1 süreklilik | [B] |
 | Paleotopografya kaynağı | aracın kendi hesabı; Scotese-Wright yalnızca karşılaştırma için | [B] |
-| Deniz seviyesi | kıyı sabit; hikaye karelerinde ±100 m bandında senaryo, uzun dönem eğilim 1 m/milyon yıl'dan az | [Ö ve B] |
-| Deniz seviyesi belirsizliği | Kretase tepesinde ±100 m civarı | [B-öz] |
+| Deniz seviyesi | kıyı sabit; hikaye karelerinde çalışmalar arası yayılımı kapsayan senaryo bandı, uzun dönem eğilim 1 m/milyon yıl'dan az | [Ö ve B] |
+| Deniz seviyesi belirsizliği | Kretase tepesi için çalışmalar arası yayılım yaklaşık +40 ile +270 m; tek çalışmanın kendi belirsizliği ±50 m (Miller 2005) | [B-öz] |
 | Dinamik topografya | ±0,5 km (5. belge) | [B] |
 | Yakınsama testi | dt'yi yarıya indirip sonuç farkını ölç | [H] |
 

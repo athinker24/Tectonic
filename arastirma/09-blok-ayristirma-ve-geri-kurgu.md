@@ -35,10 +35,10 @@ Hellinger (1981, JGR 86:9312 ile 9318): ağırlıklı en küçük kareler ile Eu
 |---|---|---|
 | Okyanusal levha / kıtasal levha hız oranı | 2 ile 3 kat | [Ö] |
 | Küresel levha hızı | medyan yaklaşık 4 cm/yıl, en hızlı yaklaşık 8,5 cm/yıl (15 cm/yıl üstü yaklaşık 10 milyon yıl için model artefaktı) | [Ö] |
-| Hindistan | 18 cm/yıl'ın üstü, çarpışmada (yaklaşık 50 milyon yıl önce) yaklaşık üçte bire düştü; 1978 paleomanyetik ortalama 14,9 cm/yıl (70 ile 40 milyon yıl) sonra 5,2 cm/yıl; kısa hızlanmalar yaklaşık 130, 80, 65 milyon yıl önce | [Ö] |
+| Hindistan | 18 cm/yıl'ın üstü, çarpışmada (yaklaşık 50 milyon yıl önce) yaklaşık üçte bire düştü (Capitanio ve diğerleri 2010, Nature Geoscience; Molnar ve Stock özeti 20 ile 10 milyon yıl öncesi arasında "%40'tan fazla" yavaşlama diyor, iki sayı farklı dönemleri ölçüyor); 1978 paleomanyetik ortalama 14,9 cm/yıl (70 ile 40 milyon yıl) sonra 5,2 cm/yıl; kayda değer hız değişimleri yaklaşık 90, 65 ve 50 milyon yıl önce (65 milyon yıl önce yaklaşık 80 ile 90 mm/yıl'dan yaklaşık 180 mm/yıl'a geçiş, doğrulama ajanı). "130 milyon yıl" bir hız değişimi değil, Hint-Gondwana ayrılışının başlangıç tarihi olarak geçiyor | [Ö] |
 | Arabistan | yaklaşık 5 milyon yıldan beri yaklaşık yüzde 30 yavaşlama (Austermann ve Iaffaldano 2013, Zagros nedeni); ArRajehi (2010) buna karşı; bugün yaklaşık 18 mm/yıl | [Ö] |
 | Slab çekişi | levha itkisinin yaklaşık yarısı (Conrad ve Lithgow-Bertelloni 2002, Science 298:207) | [Ö] |
-| Hendek geri çekilmesi | Tonga yaklaşık 16 cm/yıl, Lau açılması yaklaşık 15 cm/yıl; İzu-Bonin kuzeyi 2 ile 6; Mariana birkaç cm/yıl (bu hız sayıları arama özetlerinden; kaynağı doğrulanamadı, Schellart 2008'e ait değil). Schellart 2008, GSA Bull. 120:1441 yalnızca korelasyon veriyor: hendek hızı korelasyonu 0,33 ile 0,68; geri çekilme genellikle genişlemeyle, sabit ya da ilerleyen hendek kısalmayla ilişkili (üst levha kısalması ve genişlemesi, And parametrik çalışması; hız sayısı yok) | [Ö] |
+| Hendek geri çekilmesi | Tonga yaklaşık 16 cm/yıl, Lau açılması yaklaşık 15 cm/yıl; İzu-Bonin kuzeyi 2 ile 6; Mariana birkaç cm/yıl (Tonga, Lau ve İzu-Bonin hız sayıları arama özetlerinden, tek tek doğrulanmadı). Schellart ve diğerleri 2007 (Nature 446:308, özet) en büyük hendek geri çekilmesini 6 ile 16 cm/yıl olarak veriyor, yalnızca slab kenarına 1200 km'den yakın yerlerde; 2000 km'den uzakta 2 cm/yıl'ın altı (tam metin okunmadı). Schellart 2008, GSA Bull. 120:1441 ise yalnızca korelasyon veriyor: hendek hızı korelasyonu 0,33 ile 0,68; geri çekilme genellikle genişlemeyle, sabit ya da ilerleyen hendek kısalmayla ilişkili (üst levha kısalması ve genişlemesi, And parametrik çalışması; hız sayısı yok) | [Ö] |
 | Atlantik açılma örnekleri | Orta Atlantik yaklaşık 134 ile 126 milyon yıl, Güney Atlantik yaklaşık 112 milyon yıl; Pangea kırılması Jura başı (200 ile 175 milyon yıl) | [Ö] |
 | Hindistan kat ettiği yol | 70 milyon yılda yaklaşık 8,6 cm/yıl, 130 milyon yılda yaklaşık 4,6 cm/yıl (varsayımsal çıkarım, kendi hesabım) | [H] |
 
@@ -66,9 +66,9 @@ Wilson döngüsü süresi için tek bir kaynaklı değer bulunamadı [Y]. Wilson
 | Blok modeli | rijit bloklar, aralarında deformasyon bantları | [B] |
 | Kıtasal hız üst sınırı | 60 mm/yıl (Müller 2022 kuralı) | [B] |
 | Tipik kıtasal levha hızı | 1 ile 8 cm/yıl; okyanusal levhalar 2 ile 3 kat hızlı | [Ö] |
-| Çarpışma sonrası yavaşlama | hızın yaklaşık üçte birine düşmesi (Hindistan), %30 (Arabistan) | [Ö] |
-| Hız değişimi | ani değişimler olası (Hindistan 130, 80, 65 milyon yıl önce); ivme kısıtı kaynaksız | [Ö ve Y] |
-| Hendek geri çekilmesi | 2 ile 16 cm/yıl | [Ö] |
+| Çarpışma sonrası yavaşlama | Hindistan: yaklaşık üçte bire (Capitanio 2010) ile %40'tan fazla (Molnar ve Stock, 20 ile 10 milyon yıl önce); Arabistan: yaklaşık %30 yalnızca ikincil özet, birincil kaynakta bulunamadı | [Ö] |
+| Hız değişimi | ani değişimler olası (Hindistan: yaklaşık 90, 65, 50 milyon yıl önce); ivme kısıtı kaynaksız | [Ö ve Y] |
+| Hendek geri çekilmesi | slab kenarında 6 ile 16 cm/yıl, kenardan 2000 km'den uzakta 2 cm/yıl'ın altı (Schellart 2007, özet); "2 ile 16" tek bir aralık olarak kaynakta geçmiyor | [Ö] |
 | Blok sayısı | tasarım seçimi; 5 ile 30 başlangıç aralığı önerilir | [H] |
 | Referans çerçeve | göreli hareket yeterli (hayali gezegende mutlak çerçeve gereksiz) | [H] |
 | Kıta alanı kaybı/kazancı | geri kurgu sırasında alan korunmalı; model kıta alanını bugünkü %10 aralığında tutsun | [B] |

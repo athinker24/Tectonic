@@ -266,7 +266,7 @@ Tayvan dışında hiçbir ada için ortalama yükseklik bulunamadı [Y].
 | Uzak etki gecikmesi | 10 ile 30 milyon yıl (tasarım seçimi) | Jiao; Nissen; Richter | [H] |
 | Uzak etki hızı | yılda birkaç mm | Altay, Tien Shan | [B] |
 | Yağış gölgesi gecikmesi | yaklaşık 10 milyon yıl | Tarım | [B] |
-| Aşınma: etkin kuşak | yılda 0,2 ile 6 mm | Montgomery ve Brandon; Tayvan; Zagros | [B] ve [Ö] |
+| Aşınma: etkin kuşak | yılda 0,2 ile 6 mm | Montgomery ve Brandon; Tayvan; Zagros (doğrulama turunda Montgomery ve Brandon metni yeniden açılamadı; 0,2 ile 6 aralığı yeniden doğrulanamadı) | [B] ve [Ö] |
 | Aşınma: arka plan | yılda 0,005 ile 0,05 mm | Portenga ve Bierman | [B] |
 | Fiziksel alfa (yükselme / toplam kalınlaşma hızı) | 0,15 (kök kalınlaşmasına göre 0,18); litosfer mantosu kalınlaşırsa daha küçük | Airy | [H] |
 | Cordonnier alfa | ortalama 0,5 mm/yıl (stil seçimi) | Cordonnier 2016, 2018 | [B] |
