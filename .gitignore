@@ -3,3 +3,5 @@ __pycache__/
 .pytest_cache/
 cikti/*
 !cikti/ornek_el_yapimi.png
+!cikti/ornek_tek_carpisma.png
+!cikti/ornek_tek_carpisma.gif

@@ -37,3 +37,29 @@ Sönümleme olmadan sıradağın denize vardığı yerde 3 km'lik basamak oluşu
 K = 5e-6 eğim hedefini tutuyor ama 4 mm/yıl yükselmeyle zirve 3,9 km'de kalıyor. 6 ile 7 km'lik zirve ve gerçekçi eğim birlikte isteniyorsa kuşak daha geniş olmalı (gerçek Himalaya yaklaşık 250 ile 350 km); bu elle çizilmiş sıradağ 150 km yarı genişlikte. Kesin ayar, gerçek yükselme alanı (aşama 3) gelince yapılacak.
 
 **Görülen kusur:** düz ve tekdüze yükselmede vadiler tarak dişi gibi düzenli çıkıyor (tek yönlü akışın ızgara izi). Gerçek yükselme alanı düzensiz olacak; ayrıca yükselmeye ve kayaç sertliğine düzensizlik eklenmeli.
+
+## 12 Kasım 2026: aşama 3, tek çarpışmadan yükselme ve animasyon
+
+Senaryo: 31,2°K boyunca 37°B ile 41°D arasında dikiş hattı, kuzey üst levha, 50 milyon yıl önce başlayıp süren çarpışma, 4 cm/yıl. Kuşak 280 km, arkasında 700 km plato bölgesi; kabuk üst sınırı kuşakta 70 km, platoda 44 km (Zagros ve İran tipi, karar 6). Kayaç sertliği ln K'de 0,5 standart sapmalı rastgele alan; yükselmeye boyuna yüzde 35 düzensizlik.
+
+**Yeni fizik:**
+- Kütle korunumu: kuşağa giren hacim hız × 35 km kabuk; kalınlığı sınıra varan düğüm fazlasını platoya devrediyor (düğüm başına en çok 5 mm/yıl).
+- Airy: yüzey yükselmesi kalınlaşmanın 0,152 katı.
+- Bölgesel izostazi: aşınan yükün 0,85'i geri sıçrıyor, 80 km bükülme ölçeğinde yayılarak (ölçülen yayılma genişliği 83 km, korunum binde 2 sapma).
+
+**n = 1'in kusuru:** tüm kıta deniz seviyesine aşındı (kara medyanı 3 m), çünkü büyük ve düz akarsular sınırsız kazıyor. n = 2, m = 1 (Ruetenik 2023 küresel uyumu n ≈ 2,3) ile kara medyanı 102 ile 126 m.
+
+**Sonuçlar (50 milyon yıl, bugün):**
+
+| Nside | Hücre | K (n = 2) | En yüksek | Kara medyanı | Kuşak ortalama / %95 | Kuşak eğimi ortanca / %90 | Plato ortalama (%10 ile %90) | Süre |
+|---|---|---|---|---|---|---|---|---|
+| 256 | 25,5 km | 4e-9 | 4117 m | 102 m | 1624 / 2759 m | 0,92° / 1,58° | 1169 (560 ile 1834) m | 83 s |
+| 256 | 25,5 km | 1,5e-8 | 2317 m | 59 m | 910 / 1590 m | 0,50° / 0,87° | 667 m | 83 s |
+| 512 | 12,7 km | 4e-9 | 4562 m | 110 m | 1773 / 3032 m | 1,69° / 2,92° | 1269 (620 ile 2002) m | 412 s |
+| 512 | 12,7 km | 2e-9 | 7861 m | 126 m | 2492 / 4500 m | 2,45° / 4,54° | 1707 m | 414 s |
+
+Gerçek veri hedefi (arastirma/20, hücre ortalamaları arası eğim): 20 km'de Himalaya ve Alpler ortanca 0,9°; 10 km'de Alpler 1,24° / 3,7°, Himalaya 1,6° / 4,7°. K = 4e-9 ortancayı tutuyor ama %90'lık dilim gerçekten düşük (eğim dağılımı dar). K = 2e-9 %90'ı tutuyor, ortancayı aşıyor. Varsayılan K = 4e-9; plato 1269 m ile seçilen 1000 ile 1500 m aralığında.
+
+**Hata ve düzeltme:** K = 2e-9 koşusunda kabuk 197 km'ye fırladı; plato dolunca fazla hacim birkaç boş düğüme yığılıyordu. Düğüm başına üst sınır eklendi ve teste bağlandı. K = 2e-9 satırı bu düzeltmeden önce koşuldu; yeniden koşulmalı.
+
+**Açık:** eğim dağılımının dar olması (gerçekte daha çok dik yamaç var); kıyı sönümlemesinin kıyı türüne göre ayarlanması; ova yüksekliği gerçek iç ovalardan (100 ile 300 m) biraz düşük.

@@ -72,7 +72,7 @@ Tam geodinamik simülasyon yapılmaz; Actions'a sığmaz ve gereksizdir (12. bel
 
 ## Katman 3: aşınma
 
-- Motor: Fastscapelib 0.3.0. Akarsu güç yasası (m/n yaklaşık 0,5, n = 1) ve yamaç difüzyonu, örtük çözücü (13. belge).
+- Motor: Fastscapelib 0.3.0 (conda-forge derlemesi; pip tekerleğinde HEALPix yok). Akarsu güç yasası n = 2, m = 1 (m/n = 0,5); n = 1 tüm ovaları deniz seviyesine aşındırdığı için değiştirildi (deneyler/SONUCLAR.md). Yamaç difüzyonu bu hücre boyunda etkisiz, kullanılmıyor. Bölgesel izostazi: aşınan yükün 0,85'i 80 km ölçeğinde geri sıçrar.
 - Zaman: tarihin dilimleri boyunca yürür; her dilimde katman 2'nin yükselmesi eklenir. Böylece dağlar yükselirken aşınır, olay bitince yaşlanır (4. belge).
 - Çökelme: Fastscapelib'de yok. İlk sürümde basit kural: kapalı çukurlar dolup taşar (göl), önülke çukurları dolu varsayılır, kıyıya ulaşan tortu sistemden çıkar (15. belge). Gerçek tortu taşınımı ancak ilk sonuçlar yetersiz çıkarsa eklenir.
 - **Ayar, literatürden değil ölçümden.** Aşınma katsayısı, aynı hücre boyunda gerçek dağlardan ölçtüğüm rölyef hedeflerine göre ayarlanır: 10 km hücrede genç yüksek dağ 1100 ile 1450 m, eski dağ yaklaşık 460 m, Zagros tipi yaklaşık 840 m yerel rölyef (20. belge). Tek çözünürlükte koşulur; çözünürlük değişirse yeniden ayar gerekir, çünkü aynı katsayı 20 km ile 5 km arasında 3,6 ile 5,5 kat farklı yükseklik verdi (14. belge).

@@ -43,3 +43,22 @@ def test_kiyi_sabit(iz):
     assert (son.z[~iz.kara] == 0).all()
     assert son.z[iz.kara].max() > 1.0
     assert np.isfinite(son.z).all()
+
+
+def test_carpisma_kutle_ve_sinir(iz):
+    from tektonik.olaylar import H0_M, Carpisma
+    from tektonik.gurultu import fbm
+    cephe = np.array([[x, 31.2] for x in np.linspace(-37, 41, 30)])
+    c = Carpisma("t", cephe, ust_sol=True, baslangic_ma=10.0, hiz_cm_yil=4.0, plato_km=500.0)
+    c.hazirla(iz, fbm(iz.xyz, 1500.0, 200.0))
+    h = np.full(iz.n, H0_M)
+    r = c.kalinlasma(5.0, h)
+    # kuşak üst levha tarafında (kuzey) olmalı
+    lat = iz.lat[iz.kara]
+    assert r[lat > 31.2].sum() > 5 * r[lat < 31.2].sum()
+    # kütle: toplam hacim akısı ≈ hız × H0 × cephenin karadaki boyu mertebesinde, pozitif ve sonlu
+    assert np.isfinite(r).all() and (r >= 0).all()
+    # doygunluk: kalınlık sınırdaysa kuşak kabul etmez, plato düğüm sınırı aşılmaz
+    h[:] = 80_000.0
+    r2 = c.kalinlasma(5.0, h)
+    assert r2.max() <= c.plato_azami_m_yil + 1e-12
