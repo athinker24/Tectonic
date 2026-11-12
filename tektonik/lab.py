@@ -51,6 +51,7 @@ class LabAyar:
     nsp: float = 1.0
     cokelme: float = 0.7  # aşınan hacmin karadaki çukurlara giden payı
     tohum: int = 1
+    carpisma_sonrasi_hiz: float = 0.5  # temas sonrası hız çarpanı (Hindistan çarpışmadan sonra yavaşladı)
 
 
 @dataclass
@@ -108,6 +109,9 @@ class Lab:
         self.router = fs.FlowGraph(self.grid, [fs.SingleFlowRouter(), fs.MSTSinkResolver()])
         self.eroder = fs.SPLEroder(self.router, a.K, a.m, a.nsp, 1e-4)
         kita = S0 > 20e3
+        self.temas_ma = None
+        self.kenar_S = (S0[0, :].astype(float).copy(), S0[-1, :].astype(float).copy(), S0[:, 0].astype(float).copy(), S0[:, -1].astype(float).copy())
+        self.kenar_L = (etiket0[0, :].astype(float).copy(), etiket0[-1, :].astype(float).copy(), etiket0[:, 0].astype(float).copy(), etiket0[:, -1].astype(float).copy())
         self.durum = LabDurum(S0.astype(float).copy(), etiket0.astype(float).copy(),
                               yuzey(S0, kita, self.suzgec, a), np.zeros((ny, nx)), np.zeros((ny, nx)), bas_ma)
 
@@ -125,8 +129,12 @@ class Lab:
         cek_s = kita & ~gelen & (dis_gelen_kita > a.cek_sabit_km)
         sabit = cek_g | cek_s
         sabit[[0, -1], :] = True; sabit[:, [0, -1]] = True
-        u0 = np.where(gelen, self.v_gelen[0], 0.0)
-        v0 = np.where(gelen, self.v_gelen[1], 0.0)
+        # kıtalar temas edince (aradaki en kısa uzaklık iki hücreden az) gelen yavaşlar
+        if self.temas_ma is None and (kita & gelen).any() and dis_sabit_kita[kita & gelen].min() < 2.5 * a.h_km:
+            self.temas_ma = d.ma
+        carp = a.carpisma_sonrasi_hiz if self.temas_ma is not None else 1.0
+        u0 = np.where(gelen, self.v_gelen[0] * carp, 0.0)
+        v0 = np.where(gelen, self.v_gelen[1] * carp, 0.0)
         eta_t = np.where(kita, a.eta0 * np.where(gelen, a.sert_gelen, 1.0), a.eta0 * a.okyanus)
         # kalın sıcak kabuk zayıflar
         eta_t = eta_t * np.exp(-np.clip(S - a.S_ref_km * 1e3, 0, None) / 15e3)
@@ -143,6 +151,9 @@ class Lab:
         r0, c0 = rr + v * sn, cc - u * sn
         S = ndimage.map_coordinates(S, [r0, c0], order=1, mode="nearest")
         L = ndimage.map_coordinates(L, [r0, c0], order=1, mode="nearest")
+        # kenarlar: alandan giren malzeme başlangıçtaki kenar değerini taşır (sivrilik birikmesin)
+        S[0, :], S[-1, :], S[:, 0], S[:, -1] = self.kenar_S
+        L[0, :], L[-1, :], L[:, 0], L[:, -1] = self.kenar_L
         kita = S > 20e3
         # --- kalınlaşma (yalnız kıtada; okyanusta dalma) ---
         dS = np.where(kita, -S * ekk * dt_s, 0.0)
@@ -191,5 +202,5 @@ class Lab:
         kara = (S > 20e3) & (d.z > 0)
         d.gunluk.append(dict(ma=d.ma, zmax=float(d.z.max()), Smax_km=float(S.max() / 1e3),
                              kara_orani=float(kara.mean()), asinma_km3=float(hacim * h * h / 1e9),
-                             vmax_cm=float(np.hypot(u, v).max() * SANIYE_YIL * 100)))
+                             vmax_cm=float(np.hypot(u, v).max() * SANIYE_YIL * 100), temas_ma=self.temas_ma))
         return d

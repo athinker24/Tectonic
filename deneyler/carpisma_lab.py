@@ -71,13 +71,13 @@ def main():
     h_km = float(sys.argv[2]) if len(sys.argv) > 2 else 15.0
     hiz = float(sys.argv[3]) if len(sys.argv) > 3 else 5.0
     os.makedirs("cikti/lab", exist_ok=True)
-    ny, nx = int(4000 / h_km), int(3600 / h_km)
+    ny, nx = int(5000 / h_km), int(3600 / h_km)
     # kuzey kıtası: geniş, güney kıyısı düzensiz
-    kuzey = kita_bicimi(ny, nx, h_km, (-int(900 / h_km), nx // 2), 2600, 3, uzama=(1.0, 1.4))
-    guney = kita_bicimi(ny, nx, h_km, (int(3150 / h_km), nx // 2), 560, 7, uzama=(1.0, 1.15))
+    kuzey = kita_bicimi(ny, nx, h_km, (-int(800 / h_km), nx // 2), 3500, 3, uzama=(1.0, 1.3))
+    guney = kita_bicimi(ny, nx, h_km, (int(4150 / h_km), nx // 2), 560, 7, uzama=(1.0, 1.15))
     S0 = np.where(kuzey | guney, 35e3, 7e3)
     et = np.zeros((ny, nx))
-    et[int(2000 / h_km):, :] = 1.0  # güneydeki levha (kıta + önündeki okyanus) gelen
+    et[int(3000 / h_km):, :] = 1.0  # güneydeki levha (kıta + önündeki okyanus) gelen
     a = LabAyar(h_km=h_km, Te_km=float(sys.argv[4]) if len(sys.argv) > 4 else 30.0)
     lab = Lab(S0, et, (0.0, hiz), sure, a)
     t0 = time.time()
@@ -93,7 +93,7 @@ def main():
             if i % 20 == 19 or i == adim - 1:
                 g = d.gunluk[-1]
                 print(f"{d.ma:5.1f} Ma  zmax {g['zmax']:5.0f} m  Smax {g['Smax_km']:4.1f} km  kara %{100 * g['kara_orani']:.0f}  "
-                      f"vmax {g['vmax_cm']:.1f} cm/yıl  aşınma {g['asinma_km3']:.0f} km³/adım  {time.time() - t0:.0f} s", flush=True)
+                      f"temas {g['temas_ma']}  vmax {g['vmax_cm']:.1f} cm/yıl  aşınma {g['asinma_km3']:.0f} km³/adım  {time.time() - t0:.0f} s", flush=True)
             if i % 40 == 39 or i == adim - 1:
                 kesitler.append((d.ma, d.z.copy(), d.S.copy()))
     on = f"cikti/lab/lab_{sure:g}my_{h_km:g}km_{hiz:g}cm"
