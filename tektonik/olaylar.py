@@ -153,3 +153,38 @@ class Carpisma:
                 toplam_akı = float(np.sum(istek) * g["alan"])
                 r = r + self.uzak_orani * toplam_akı * uz / top
         return r
+
+
+@dataclass
+class BlokSikismasi:
+    """Bir blok iki levha arasında sıkışıp bütünüyle kalınlaşıyor (Yeni Gine,
+    Tayvan benzeri; arastirma/07). Kalınlaşma hızı = hız × H0 / blok genişliği,
+    blok içinde düzensiz dağılır, kıyıya doğru söner."""
+
+    ad: str
+    blok_maske: np.ndarray  # [N] bool
+    baslangic_ma: float
+    bitis_ma: float = 0.0
+    hiz_cm_yil: float = 3.0
+    genislik_km: float = 600.0
+    hmax_m: float = 62_000.0
+    _geo: dict = field(default_factory=dict, repr=False)
+
+    def hazirla(self, iz: Izgara, gurultu: np.ndarray | None = None) -> None:
+        sec = iz.kara
+        m = self.blok_maske[sec].astype(float)
+        if gurultu is not None:
+            m *= np.clip(1.0 + 0.4 * gurultu[sec], 0.3, 2.0)
+        self._geo = dict(idx=np.flatnonzero(sec), m=m)
+
+    def etkin(self, ma: float) -> float:
+        return Carpisma.etkin(self, ma)  # aynı açılma ve sönme kuralı
+
+    def kalinlasma(self, ma: float, h: np.ndarray) -> np.ndarray:
+        g = self._geo
+        e = self.etkin(ma)
+        if e == 0.0:
+            return np.zeros(g["idx"].size)
+        hiz = self.hiz_cm_yil / 100.0 * H0_M / (self.genislik_km * 1e3) * e
+        kabul = np.clip((self.hmax_m - h[g["idx"]]) / 5000.0, 0, 1)
+        return hiz * g["m"] * kabul
