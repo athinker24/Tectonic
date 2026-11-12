@@ -132,16 +132,94 @@ Note on the batch of "area/depth" searches: the query strings contained my own c
 
 ## 3. Relict ocean basins (Black Sea, Caspian, East Mediterranean): age and crust thickness
 
-(to be filled)
+Black Sea [Ö]:
+- Western basin age 135-95 Ma; eastern ~110 Ma (geophysical study).
+- Back-arc opening 70-60 Ma (2002 study, seismic and magnetic dating; "north of the Pontide arc").
+- Whole-basin ~80 Ma (same 2002 study, as cited).
+- Crust: W basin oceanic (2002 heat flow) vs thinned continental, possibly Precambrian lithosphere (EGU22-2493). E basin thinned continental (2002) vs ~13 km thick oceanic-type crust (Scott 2009 thesis); ~7 km with low-velocity features (2005 seismic). Scott 2009: W basin ~7 km thinned continental.
+- Lithosphere 60-65 km (2002).
+
+Caspian (South Caspian Basin) [Ö]:
+- Mesozoic extensional/back-arc origin, likely Neo-Tethys-related; possible Eocene rifting.
+- Crust <10 km beneath ~20 km sediment ("cold" SCB; 2024 study) vs up to 28.5 km sediment with mostly oceanic crust vs oceanic or thinned continental (BP-coauthored abstract). Crustal thickness: no independent confirmed value found.
+
+East Mediterranean (Levant Basin) [Ö]:
+- Crust: oceanic-type (lineated magnetic anomalies, Nature Geoscience 2016) vs continental (EGU05, CIESM). Age: Tethys-related, precise age BULUNAMADI. Crustal thickness: BULUNAMADI as number.
+
+Eastern Black Sea / Greater Caucasus (related) [Ö]:
+- Greater Caucasus basin: back-arc behind Lesser Caucasus arc, opened Early-Middle Jurassic (Sosson et al.); later inverted.
 
 ## 4. Orogenic belts surrounding inland seas and basin formation
 
-(to be filled)
+[Ö] Relationship summary (not one-to-one; sources disagree on whether the basins belong to one subduction system or to separate Paleotethys/Neotethys systems):
+- Black Sea: Cretaceous back-arc / intra-arc extension (Hassig et al. 2020, Tectonics): Eastern Black Sea opened obliquely as back-arc to intra-arc basin, tearing the Southern Eurasian arc. Alternative: relic Paleotethys mostly destroyed by Mesozoic south-dipping subduction.
+- Caucasus: Greater Caucasus basin back-arc behind Lesser Caucasus arc; later closed and inverted during collision (Arabia-Eurasia).
+- Caspian: Surrounding orogens (Caucasus, Alborz, Kopet Dagh) uplifted in the Cenozoic, isolating the SCB (2004 summary). Syn-compressional flexure at onset of Alpine phase proposed for Kopet Dagh (structural study). Arabia-Eurasia collision: last inversion of SCB margin and Alborz orogeny from late Eocene (2024-era abstract). Recent deep earthquakes read as possible SCB subduction beneath central Caspian.
+- Western Mediterranean: back-arc basins (Alboran, Tyrrhenian; also Valencia, Liguro-Provencal, Algero-Balearic per one review) linked to slab rollback. Ages disputed (see 2.2).
+- Sea of Japan: back-arc opening Oligocene-Miocene; one hypothesis links it to India-Eurasia collision, but this is debated [Ö].
+- South China Sea: NOT an orogen-linked basin in these sources; spreading 32-15 Ma, mechanism not checked in this pass: BULUNAMADI.
+- Baltic and Hudson Bay: intracratonic / cratonic settings, not orogen-back-arc. Baltic basin reactivated craton (Late Ediacaran-Cambrian) [Ö]. Hudson Bay: intracratonic sag, mechanism contested [Ö].
+- Red Sea and Gulf of Mexico: rift-related (Red Sea: rift, ultra-slow spreading [Ö]; GoM: Late Jurassic rift and spreading, salt over transitional crust [Ö]); not orogen-linked in these sources.
 
 ## 5. Conflicting numbers
 
-(to be filled)
+| Quantity | Value A | Value B | Value C | Note |
+|---|---|---|---|---|
+| Mediterranean max depth | 5,267 m (Calypso Deep) | 5,109 m +/-1 m (Wikipedia infobox, per search) | - | [Ö] |
+| Messinian salt thickness (Med, general) | 3 km (CNRS press) | ~2 km (summary) | ~1.2 km (4,000 ft, drilling summary) | [Ö] |
+| Levant evaporite thickness | ~2 km (Netzeband seismic) | up to 3 km (Hsu 1973, as cited) | - | [Ö] |
+| Mediterranean deep MSC halite | up to 1 km | >1 km | "1e2 km" (ambiguous) | [Ö] |
+| Black Sea area | 436,400 km2 (Wikipedia mirrors) | 422,000 km2 sea proper; ~461,000 km2 incl. Azov (Britannica) | 423,000 km2 (Romanian) | [Ö] |
+| Black Sea max depth | 2,212 m | 2,210 m (old school page) | 2,206 m (one older source) | [Ö] |
+| Black Sea basin age (W) | 135-95 Ma | 70-60 Ma opening (2002) | ~80 Ma whole basin | [Ö] |
+| Black Sea crust (W) | oceanic (2002) | thinned continental (EGU22) | - | [Ö] |
+| Caspian area | 371,000 km2 | 386,400 km2 (Britannica) | 376,000 km2 (Kazakh govt) | [Ö] |
+| Caspian mean depth | 211 m | 184 m | 187 m; 200.5 m | [Ö] |
+| Caspian SCB crust | <10 km (2024 study) | oceanic (other) | oceanic or thinned continental (BP abstract) | [Ö] |
+| Red Sea max depth | 2,730 m (current Wikipedia) | 2,850 m (tourism) | 3,040 m (WorldAtlas/old wiki); 2,211 m (old wiki); 2,130 m (defense library) | [Ö] |
+| Red Sea mean depth | 490 m (Wikipedia infobox) | 491 m (query echo, not independent) | - | [Ö] |
+| Red Sea area | 438,000 km2 (most) | 491,465 km2 (Wikipedia country table) | - | [Ö] |
+| Red Sea oceanic crust start | ~13 Ma (Ligi 2011 style) | ~5 Ma (earlier) | - | [Ö] |
+| Sea of Japan area | 1,007,800 km2 (NOAA) | ~978,000 km2 (Britannica main) | - | [Ö] |
+| Sea of Japan mean depth | ~1,350 m (NOAA) | ~1,752 m (Britannica main) | - | [Ö] |
+| Sea of Japan max depth | 3,742 m (several) | - | - | [Ö] |
+| South China Sea max depth | 5,016 m (Britannica) | 5,563 m +/-4 m (Wikipedia) | 5,377 m (China Daily); 5,559/5,567 m (Wikiwand copy) | [Ö] |
+| South China Sea spreading end | ~20.5 Ma (magnetic modelling) | ~15 Ma (overall window) | - | [Ö] |
+| Gulf of Mexico mean depth | ~1,615 m (encyclopedia) | - | - | [Ö] |
+| Gulf of Mexico max depth | 3,750 m | 4,384 m | - | [Ö] |
+| Gulf of Mexico spreading end | ~145-150 Ma | late Berriasian (1994 reconstruction) | - | [Ö] |
+| Gulf of Mexico shelf share | 22% | 32% | - | [Ö] |
+| Gulf of Mexico Louann salt | avg ~4 km, max ~8 km (gravity inversion) | Campeche avg ~2 km | - | [Ö] |
+| Hudson Bay mean depth | 100 m (archived wiki) | 128 m (EBSCO) | - | [Ö] |
+| Hudson Bay max depth | 270 m | 183 m | - | [Ö] |
+| Gulf of Bothnia | mean ~60 m, max 295 m | Bothnian Bay mean 43 m, max 147 m | - | [Ö] |
+| Gulf of Lion / shelf | ~70 km | Strait of Otranto ~72 km | - | different definitions [Ö] |
+
+Relevance note: Some "conflicts" in this table come from different definitions (surface area incl./excl. Azov; sediment vs salt; shelf-edge depth), not measurement error. Ages and crust types of the Black Sea and South Caspian are genuinely contested among authors.
 
 ## 6. Sources
 
-(to be filled)
+Primary/peer-reviewed or thesis material was not directly readable. Access limits in this session:
+- en.wikipedia.org: DNS failure (ENOTFOUND). No direct [E] reading. Wikipedia values above come only through search snippets and mirrors.
+- journals.tubitak.gov.tr, www.mdpi.com: DNS failure. Could not read the 2002 Black Sea paper or the 2024 Caspian paper directly.
+- Other hosts: fetch attempts were stopped after the first failures per tool guidance, so the rest of the list was taken from search results only.
+
+Search-result URLs used (all [Ö] unless stated):
+- Mediterranean: https://www.cnrs.fr/en/press/how-70-mediterranean-sea-was-lost-55-million-years-ago ; https://www.wikiwand.com/en/Mediterranean_sea ; https://www.doc.surf/wiki/mediterranean-sea
+- Black Sea: https://journals.tubitak.gov.tr/earth/vol11/iss3/5 (search summary only); https://eprints.soton.ac.uk/66348 (Scott 2009 PhD); https://meetingorganizer.copernicus.org/EGU22/EGU22-2493.html ; https://old.lefo.ro/iwlearn/bsein/publish/morphom1.htm ; https://www.britannica.com/place/Black-Sea
+- Caspian: https://journals.uran.ua/geofizicheskiy/article/view/306357 ; https://www.mdpi.com/2076-3263/15/8/281 (search summary only); https://www.livescience.com/57999-caspian-sea-facts.html ; https://www.britannica.com/place/Caspian-Sea ; https://www.ig.cas.cz/wp-content/uploads/2024/02/International_Geology_Review_Nouri_et_al_2024.pdf
+- Baltic: https://www.marinefinland.fi/en-US/Nature_and_how_it_changes/The_unique_Baltic_Sea/The_Baltic_Sea_in_numbers ; https://www.britannica.com/print/article/75117 ; https://esd.copernicus.org/articles/16/585/2025/
+- Hudson Bay: https://www.ebsco.com/research-starters/earth-and-atmospheric-sciences/hudson-bay ; https://webarchive.library.unt.edu/web/20141107071750/http://en.wikipedia.org/wiki/Hudson_Bay
+- Red Sea: https://website.whoi.edu/gfd/wp-content/uploads/sites/14/2018/10/Geology-2011-Ligi-1019-22_249844.pdf ; https://discovery.kaust.edu.sa/en/article/1129/an-ocean-13-million-years-in-the-making
+- Sea of Japan: https://www.britannica.com/place/Sea-of-Japan ; https://webarchive.library.unt.edu/web/20130223225501/http://www.pmel.noaa.gov/np/pages/seas/sjp.html ; https://nichibun.repo.nii.ac.jp/record/224/files/JN2001.pdf
+- South China Sea: https://www.britannica.com/place/South-China-Sea ; https://www.gep.ncu.edu.tw/storage/thesis/2015/thesis_1487212425.pdf ; https://www.chinadaily.com.cn/SouthChinaSeaen/2017-03/15/c_71510.htm
+- Gulf of Mexico: https://link.springer.com/chapter/10.1007/978-1-4939-3447-8_3/fulltext.html ; https://www.searchanddiscovery.com/abstracts/html/2017/90291ace/abstracts/2614149.html ; https://www.searchanddiscovery.com/abstracts/html/1994/annual/abstracts/0207.htm ; https://www.wikiwand.com/en/articles/Gulf_Coast_of_Mexico
+- Alboran/Tyrrhenian: https://macau.uni-kiel.de/servlets/MCRFileNodeServlet/dissertation_derivate_00005845 (Leuchters, thesis) ; https://zendy.io/title/10.1029/2007gc001639 ; https://egusphere.copernicus.org/preprints/2022/egusphere-2022-1166/ (preprint) ; https://core.ac.uk/works/47011256
+- Levant/Eastern Med: https://meetings.copernicus.org/www.cosis.net/abstracts/EGU05/05116/EGU05-J-05116-2.pdf ; https://ciesm.org/online/monographs/33/WM_33_97_105.pdf ; https://www.nature.com/articles/ngeo2784
+- Western Med salt: https://hal.umontpellier.fr/hal-02977398/document ; https://arts.units.it/bitstream/11368/2886623/4/DalCin&2016-VQR.pdf
+- Orogeny: https://abdn.elsevierpure.com/files/72577413/1_s2.0_S1631071315002023_main.pdf ; https://zendy.io/title/10.1029/2020tc006336 ; https://searchanddiscovery.com/documents/abstracts/2004hedberg_baku/short/brunet.htm
+- Shelves: https://www.sincem.unibo.it/images/articoli/ROBGLI_ch32.pdf ; https://tos.org/oceanography/assets/docs/17-4_amblas.pdf
+
+Items to confirm with [B] or [E] once network allows: Wikipedia basin pages (en.wikipedia.org), Scott 2009 thesis full text, tubitak 2002 Black Sea paper, mdpi 2024 Caspian paper, Hsu 1973, Nature Geoscience 2016 ngeo2784.
+
+Final status: basin table partly filled; several cells remain BULUNAMADI (see section 2.12). No [B] tags were earned in this pass because all page reads failed or were limited to search summaries.
