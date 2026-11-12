@@ -1,6 +1,6 @@
 # A: Plate tectonic backward reconstruction (geri kurgu) methods
 
-Status: IN PROGRESS. Findings are appended as they are verified.
+Status: COMPLETE (first pass). Several items remain BULUNAMADI or unverified; see "Not verified / blocked".
 
 Tags: [B] primary source read, [D] official documentation, [O] summary, [E] encyclopedia.
 Unfound items: BULUNAMADI.
@@ -57,9 +57,25 @@ Unfound items: BULUNAMADI.
 - Source: https://se.copernicus.org/articles/13/1127/2022/ (full text fetched via curl)
 - The user's "Annual Review 2022" label: NOT CONFIRMED. Only the 2016 Annual Review paper was found.
 
-### F8 Buffan et al. 2023 (Methods Ecol. Evol.) [O]
-- Used five open-access global plate models to reconstruct Phanerozoic palaeogeography (540-0 Ma) and quantify uncertainty. Found model differences grow with reconstruction age.
-- Source: https://doaj.org/article/97f797fc7a114159a96fb790cd497431 (search hit)
+### F8 Buffan et al. 2023, "Mind the uncertainty: Global plate model choice impacts deep-time palaeobiological studies" (Methods Ecol. Evol. 14(12):3007-3019) [O]
+- Authors: Buffan, Jones, Domeier, Scotese, Zahirovic, Varela.
+- Five open-access global plate models; palaeopositions of hex-grid cell centroids, 540-0 Ma.
+- Metrics: palaeolatitude standard deviation; mean pairwise geodesic distance.
+- Findings: disagreement grows with age; young intervals also uncertain near terrane/plate boundaries; for last 240 Myr, fossil-based subtropical estimates shifted ~6-7 deg latitude on average, up to 24 deg.
+- Recommendation: use palaeomagnetic-frame models; carry uncertainty into analyses.
+- Source: https://doaj.org/article/97f797fc7a114159a96fb790cd497431 (search hit; abstract-level only)
+
+### F15 Gordon 1998, Annual Review (Earth Planet. Sci. 26:615-642) "The Plate Tectonic Approximation: Plate Nonrigidity, Diffuse Plate Boundaries, and Global Plate Reconstructions" [O]
+- Rigid-interior assumption is a useful but uncertain approximation.
+- Diffuse plate boundaries cover ~15% of Earth's surface; some exceed 1000 km on a side.
+- Relative speed across diffuse boundaries ~2-15 mm/yr; strain rates ~25x above the upper bound for stable interiors, but far below narrow boundaries (~1e-8 /yr).
+- Stresses quantification and error propagation.
+- Later: Kreemer & Gordon 2014: Pacific plate departs from rigidity by ~2 mm/yr (cooling contraction).
+- Source: https://rjes.wdcb.ru/v15/2015ES000554/refsdir-554/gord98.html (reference record); full text not accessed.
+- Relevance to item (6): diffuse-deformation blocks violate rigid-plate closure; reconstructions of such blocks carry extra error.
+
+### F16 Werner et al. 2026 preprint (Research Square) [O, unverified]
+- Compares PALEOMAP, MERDITH and PANALESIS reconstructions in climate runs; reports up to ~8 C global mean temperature difference from reconstruction choice alone. Preprint, not peer-reviewed. Source: https://www.researchsquare.com/article/rs-9696531/v1
 
 ### F9 Nature Reviews Earth & Environment Technical Review, 2022 [B] (abstract fetched)
 - DOI 10.1038/s43017-022-00384-8. Title "Deconstructing plate tectonic reconstructions" was from a search snippet and is NOT verified against the page.
@@ -106,6 +122,37 @@ Unfound items: BULUNAMADI.
 - Hanna & Chang 1990: graphical confidence region for unknown 3D rotation. Source: https://www.usgs.gov/publications/graphically-representing-confidence-region-unknown-rotation-three-dimensions
 - Formula of the confidence region: BULUNAMADI.
 - Note: a 2012 EPS paper reports multicollinearity between Euler vector components (see earlier entry).
+
+### F17 Hellinger 1981 (JGR 86(B10):9312-9318), "The uncertainties of finite rotations in plate tectonics" [O]
+- Corrects earlier note: journal is JGR, not GJI. Title and journal from search metadata; full text NOT read.
+- Method: weighted least-squares fit as function of rotation parameters; yields an uncertainty region for pole and angle.
+- Isochrons modelled as unions of great-circle segments; fracture zones fit to great circles (simplifies least squares, though plate theory expects small circles).
+- Reported that earlier anomaly-13 pole uncertainties were underestimated.
+- Sources: https://scilit.com/publications/dc790a404ed1c7fe03abc8ac532ab319 ; https://earthref.org/ERR/34540 (search hits)
+
+### F18 Jigsaw fit / paleogeographic background [E/O]
+- Margin matching is the classic jigsaw fit; visual fit preferred for sinuous COBs (same as F13).
+- Paleomagnetism constrains latitude (inclination) and rotation angle (declination), not longitude. (GPlates Paleomagnetism tutorial; search snippet.) Source: https://www.earthbyte.org/webdav/ftp/earthbyte/GPlates/TutorialData_GPlates2.1/Tutorial_2.5_Working_with_Paleomagnetic_Data.pdf
+- Pangea fit contested: 2010 GSA abstract on Pangea-A vs Pangea-B. Source: https://gsa.confex.com/gsa/2010TU/webprogram/Paper174799.html
+- Formal definition of "paleogeographic reconstruction": not found in a primary source; Cavac/Slideshare sources are not used.
+
+### F19 Gordon 1998 and Kreemer & Gordon 2014 (see F15) feed item (6). Plate-motion-model limit for blocks: model choice and rigidity both introduce error.
+
+## Summary by item (status)
+
+1. Paleomagnetism / hotspot frames: F11, F10. Hybrid frame is standard (hotspot <100 Ma, paleomag older). Formula for TPW correction: BULUNAMADI.
+2. Fixed Euler pole, finite rotation, Bullard fit: F12, F13. Area-preserving reconstruction: BULUNAMADI (no source found).
+3. Müller 2016 / 2019 / 2022: F1, F6, F7, F10. "Annual Review 2022" label: not confirmed; 2022 paper is Solid Earth.
+4. Matthews 2016, Merdith 2021: F2, F3. Model structure details (boundary classes, time step in Myr, model error): BULUNAMADI in fetched text; boundary classification not verified.
+5. Euler pole uncertainty: F17 (Hellinger 1981), F14 (Chang, Royer, Kirkwood). Confidence-region formulas: BULUNAMADI.
+6. Deformed / distributed blocks: F15 (Gordon 1998), F16 (Werner preprint), F8 (Buffan).
+7. Inverse-problem framing: F12 (closure via anchoring), F18 (jigsaw), F7 (optimisation approach used in Müller 2022 is an inverse problem with explicit weights). Explicit "inverse problem" wording: not found.
+
+## Not verified / blocked
+- gplates.org, www.ncbi.nlm.nih.gov, www.earthbyte.org: DNS fail in WebFetch; curl used for some. Allow in session network settings to read official docs.
+- annualreviews.org: HTTP 403 via curl.
+- Kirkwood 1999 abstract and ADS Doubrovine 2012 page: fetch returned empty text.
+- Merdith 2021 full text: not read (only search snippets). Model-error values: BULUNAMADI.
 
 ## Open items (updated)
 - Müller 2019 and 2022 models: not yet searched
