@@ -1,74 +1,116 @@
-# goSPL: Tektonik Zorlama (Levha Hareketi ve Yükselme Girdisi) Araştırma Notları
+# goSPL: Tectonic Forcing (Plate Motion and Uplift Input) Research Notes
 
-Durum: DEVAM EDİYOR. Bölüm 1, 4 ve 5 kısmen dolu; bölüm 2 ve 3 için kaynaklar taranıyor.
+Status: COMPLETE for the scope below. Open items are listed at the end.
 
-Etiketler: [B] tam metin, [B-öz] özet, [D] resmi belgelendirme, [Ö] arama özeti.
-Erişim notu: WebFetch gospl.readthedocs.io için ENOTFOUND verdi; curl ile indirme başarılı (HTTP 200) ve metin oku.py ile çıkarıldı. github.com için curl 403 döndü (GitHub kaynak kodu okunamadı; ayrıca bkz. bölüm 5).
+Labels: [B] full text read, [B-öz] summary of full text, [D] official documentation, [Ö] search-result summary only.
+Access notes:
+- WebFetch returned ENOTFOUND for gospl.readthedocs.io. The same pages were downloaded with curl (HTTP 200) and converted with oku.py.
+- github.com and api.github.com returned 403 to curl. raw.githubusercontent.com worked for the goSPL LICENSE and the goSPL-examples README.
+- science.org returned 403 to curl (ERİŞİLEMEDİ, not accessible).
+- pmc.ncbi.nlm.nih.gov returned a bot-check page (ERİŞİLEMEDİ). The check was not bypassed.
+- pyGPlates / gospl-pygplates example: BULUNAMADI (not found).
 
-## Kaynak listesi
+## Source list
 
-- K1 [D]: goSPL, Tectonic forcing (dev): https://gospl.readthedocs.io/en/dev/tech_guide/tecto.html
-- K2 [D]: goSPL, Tectonic related parameters (kullanıcı kılavuzu): https://gospl.readthedocs.io/en/latest/user_guide/optfile2.html
-- K3 [D]: goSPL, Required input file parameters: https://gospl.readthedocs.io/en/latest/user_guide/inputfile.html
-- K4 [D]: goSPL, HPC scaling & performance: https://gospl.readthedocs.io/en/latest/user_guide/hpc_scaling.html
-- K5 [D]: goSPL, Installation via Conda: https://gospl.readthedocs.io/en/latest/getting_started/installConda.html
-- K6 [D]: goSPL kök sayfa (örnek araştırma listesi ve kaynak linkleri): https://gospl.readthedocs.io/en/latest/
-- K7 [Ö]: Arama özeti, PyPI: https://pypi.org/project/gospl (sürümler 2026.6.12 / 2026.6.13 görüldü)
-- K8 [B-öz]: JOSS makalesi (Salles 2020): https://joss.theoj.org/papers/10.21105/joss.02804.pdf (henüz okunmadı)
+- S1 [D] goSPL, Tectonic forcing (dev docs): https://gospl.readthedocs.io/en/dev/tech_guide/tecto.html
+- S2 [D] goSPL, Tectonic related parameters (user guide, optfile2): https://gospl.readthedocs.io/en/latest/user_guide/optfile2.html
+- S3 [D] goSPL, Required input file parameters: https://gospl.readthedocs.io/en/latest/user_guide/inputfile.html
+- S4 [D] goSPL, HPC scaling and performance: https://gospl.readthedocs.io/en/latest/user_guide/hpc_scaling.html
+- S5 [D] goSPL, Installation via Conda: https://gospl.readthedocs.io/en/latest/getting_started/installConda.html
+- S6 [D] goSPL docs root (version 2026.7.14, research examples list): https://gospl.readthedocs.io/en/latest/
+- S7 [B] goSPL-examples README (raw): https://raw.githubusercontent.com/Geodels/goSPL-examples/main/README.md
+- S8 [B] goSPL GPLv3 LICENSE (raw): https://raw.githubusercontent.com/Geodels/gospl/master/LICENSE
+- S9 [B] PyPI metadata for gospl 2026.7.14: https://pypi.org/pypi/gospl/json
+- S10 [B] Salles et al. 2023, Nature 624:115-121, "Landscape dynamics and the Phanerozoic diversification of the biosphere": https://www.nature.com/articles/s41586-023-06777-z
+- S11 [B] Salles et al. 2024, Nature Communications 15:3430, "Physiography, foraging mobility, and the first peopling of Sahul": https://www.nature.com/articles/s41467-024-47662-1
+- S12 [B-öz] Braun, Tectonophysics 2012 (PECUBE review): https://www.isterre.fr/IMG/pdf/Braun-Tectonophysics2012.pdf
+- S13 [D] Badlands README (raw, master): https://raw.githubusercontent.com/badlands-model/badlands/master/README.md
+- S14 [D] Badlands docs (build dated 2023-05-02; older than current): https://badlands.readthedocs.io/en/latest/ (xml.html, social.html, install.html)
+- S15 [Ö] Salles et al. 2020, JOSS 5(56):2804 (goSPL software paper): https://joss.theoj.org/papers/10.21105/joss.02804.pdf (listed in S6; PDF reachable, not read in full)
+- S16 [Ö] Search summary on Science 2023 paper (doi 10.1126/science.add2541): not read directly, see Section 3.
+- S17 [Ö] Search summaries on pyGPlates and Pecube (no goSPL-specific content).
 
-## Bulgular
+## 1. Tectonic forcing: vertical and horizontal input
 
-### 1. Tektonik zorlama (yatay ve düşey)
+- [D] S1: Tectonic forcing is user-defined. goSPL does not know whether it is lithospheric or mantle-driven and does not model crustal shortening or sediment compaction.
+- [D] S2: The `tectonics:` block is a list of events. Each event has `start` and `end` (years) and either `upsub` (vertical only) or `hdisp` (3D displacement rates). Rates are in m/yr.
+- [D] S2 example: `upsub: ['data/uplift20Ma','t']` (key `t`, one value per node, m/yr). `hdisp: ['data/hdisp18Ma','hxyz']` (key `hxyz`, 3D array with x, y, z components, m/yr; for 2D grids the z component is 0.0).
+- [D] S3 and S2: Every input file must be a numpy zip archive (`.npz`). NetCDF or HDF5 is not an input format. Outputs are HDF5 with an XDMF descriptor (S4 / user guide outputs page).
+- [D] S3: Model time keys are `start`, `end`, `dt` (implicit internal step), `tout` (output interval), `strat` (stratigraphic record interval), `rstep` (restart step). All times are in years.
+- [D] S3: `advect` is set in the `domain:` block and takes `upwind`, `iioe1`, `iioe2` or `interp`.
+- [D] S2: With `interp` (typically global plate motion), horizontal displacement is applied only at the event `end` time. Other schemes apply horizontal displacement at every `dt`. Vertical displacement is always applied every `dt`.
+- [D] S1: `interp` events typically span "several thousands to millions of years".
+- [D] S1: `upwind` and `iioe` were designed for 2D meshes. Surface advection on the global sphere is "has not been validated".
+- [D] S1: With `interp`, the mesh is not remeshed. Advected points are interpolated back onto the fixed initial mesh with inverse-distance weighting from the three nearest advected points (SciPy cKDTree). A node that coincides with an advected point takes its value exactly. The docs call this efficient but "might not be the most accurate". Node density changes over time, and the docs note remeshing would be needed for strict accuracy.
+- [D] S1: Stratigraphic layers are moved semi-Lagrangian after each surface step, not advected individually. Interpolation is not mass conservative; surface and layer totals can drift apart over long runs with strong motion. Layer moving costs about 3% of run time on a 1M-node mesh with a layer written every step.
+- [D] S1: Cyclic 2D models run in serial (one MPI rank).
+- [D] S1 and S2: Flexure is solved by `method: 'fem'` for 2D and `method: 'global'` (spherical harmonics, via pyshtools, run on the root rank) for global models.
+- [D] S3: Planet `radius` (default 6378137.0 m) and `gravity` (default 9.81 m/s2) can be overridden.
 
-- [D] Tektonik zorlama kullanıcı tanımlıdır; goSPL'in süreci (litosferik ya da manto kaynaklı) bilmediği ve sıkışma ile kabuk/tortu sıkışmasını hesaba katmadığı belirtiliyor. K1.
-- [D] Zorlama, `tectonics:` bloğunda `start` ve `end` (yıl) ile tanımlanan olaylar dizisidir. Her olay ya `upsub` (yalnızca düşey), ya da `hdisp` (3B yer değiştirme hızı) içerir. K2.
-- [D] Düşey girdi: `upsub: ['data/uplift20Ma','t']` gibi, anahtarı `t` olan bir `.npz` dosyası. Birim m/yıl. Düşey değer her düğüm için 1B vektör. K2, K1.
-- [D] Yatay girdi: `hdisp: ['data/hdisp18Ma', 'hxyz']`, anahtarı `hxyz`, 3B dizi; x, y, z yönünde hız bileşenleri m/yıl. 2B ağlarda z bileşeni 0.0 verilir. K2.
-- [D] Dosya formatı: TÜM girdi dosyaları numpy zip (`.npz`) olmak zorunda; netCDF ya da HDF5 değil. Bu, başlatmada hızlı yükleme sağlar. K3, K2. (Not: çıktılar HDF5 + XDMF'tir; girdi değil. Bkz. bölüm 3.)
-- [D] Zaman adımı: düşey yer değiştirme her `dt` adımında uygulanır. `interp` yatay şeması DIŞINDAKİ yatay advection da her `dt` adımında yapılır. K2.
-- [D] Zaman adımı (model): `time:` bloğunda `start`, `end` (yıl), `dt` (iç adım, örtük), `tout` (çıktı aralığı), `strat` (stratigrafi aralığı) ve `rstep` (yeniden başlatma). K3.
-- [D] Advection şeması, `domain: advect:` anahtarında `upwind`, `iioe1`, `iioe2` veya `interp` olarak seçilir. K1, K3.
-- [D] `interp` şeması (küresel ağ için, levha hareketi için): yatay hareket yalnızca tektonik aralığın SONUNDA (`end` zamanında) uygulanır. Aralık "birkaç bin ila milyon yıl" olabilir. K1, K2.
-- [D] `upwind` ve `iioe1/2` şemaları 2B ağlar için tasarlandı; global (küresel) yüzey advection'ı "doğrulanmamış" (not edilmiş). K1.
-- [D] Küresel `interp` yönteminde ağ yeniden üretilmez (remeshing yok); bunun yerine yer değiştirmiş noktalardan en yakın üç noktaya ters uzaklık ağırlıklı enterpolasyon yapılır (SciPy cKDTree). Tam eşleşen düğüm değerini aynen alır. "Verimli ama en doğru olmayabilir" diye not düşülmüş. K1.
-- [D] Düğüm yoğunluğu advection ile zamanla değişir (seyrekleşme/yığılma); dokümantasyon bunu açıkça belirtiyor ve yine de ağı yeniden kurmadan ilerliyor. K1.
-- [D] Stratigrafik kayıt: katmanlar tek tek advect edilmez; her zaman adımında yüzeyden sonra yarı-Lagrange ile taşınır. Uyarı: ters uzaklık enterpolasyonu kütle korumaz; uzun ve güçlü yatay hareketlerde toplam katman kalınlığı ile yüzey yüksekliği hafifçe ayrışabilir. K1.
-- [D] Stratigrafi maliyeti: 1M düğümlü ağda her adımda bir katman kaydedilirse, katman taşıma çalışma süresinin yaklaşık %3'ü. K1.
-- [D] Bir sınırlama: döngüsel (periodik, silindirik) 2B modeller yalnızca tek MPI süreci ile çalışır. K1.
-- [D] Kaynak tanımı: yatay advection için levha hareketleri "plate-tectonic reconstruction software" çıktısından alınabilir (K1). Bu bağlamda GPlates adı sayfada geçmiyor (bkz. bölüm 2).
+## 2. Plate motion on the grid and the GPlates link
 
-### 2. Levha hareketinin ızgaraya uygulanması, GPlates bağlantısı
+- [D] S1: For global meshes, horizontal advection "often corresponds to plate motions and can be obtained from plate-tectonic reconstruction software." The docs do not name GPlates or pyGPlates in the fetched pages.
+- [B] S10 (Nature 2023): goSPL inputs are generated from palaeo-elevation maps "consistently tied to a plate tectonic model". The text uses 108 PALEOMAP maps spaced about 5 Myr apart, from the Holocene back to 541 Ma, on a 0.1 x 0.1 degree grid (about 10 km at the equator). The maps are resampled onto the icosahedral mesh. The Nature text does not describe a horizontal advection step in the sections read.
+- [D] S7 (examples README): example `plate_mvt` is listed as "Global landscape evolution driven by horizontal plate motion (advection) together with vertical tectonics." The example files were not retrievable (raw paths returned 404 for guessed names).
+- gospl-pygplates example: BULUNAMADI. Search (S17) found only general pyGPlates material. No goSPL-pyGPlates script was confirmed.
+- Open point: whether plate_mvt uses pyGPlates or a precomputed velocity .npz.
 
-- [B-öz] Hangi yazılım arandığında: pyGPlates/gospl-pygplates örneği için henüz tam metin bulunmadı. Arama özeti (K7 ya da [Ö]): "horizontal advection ... can be obtained from plate-tectonic reconstruction software". Doğrudan GPlates bağlantısı için kaynak bulunamadı: BULUNAMADI (henüz). Sonraki adım: goSPL-examples deposu ya da kılavuzun örnek bölümü.
+## 3. Example uses: grid size, run time, cores, memory
 
-### 3. Örnek kullanımlar, ızgara boyutu, süre, çekirdek, bellek
+Benchmarks (S4, HPC scaling, Gadi 48-core nodes; fixed number of steps, I/O off):
 
-- [D] HPC ölçek testi (K4): üç küresel ağ, Gadi (48 çekirdekli düğümler):
-  - 10 km ağ: 5.9 milyon düğüm, 11.8 milyon yüzey; en küçük çalışan çekirdek sayısı 16; düğüm başına RSS ~6.6 GB. Adım sayısı sabit (ölçüm: sabit sayıda model adımı, I/O kapalı). 16 çekirdek: 521.3 s; 240 çekirdek: 46.9 s (hızlanma 11.1x, verim 0.74); 288: 44.4 s (verim 0.65).
-  - 8 km ağ: 9.2 milyon düğüm; en küçük 24 çekirdek; RSS ~9.9 GB; 24 çekirdek 800.7 s; 96 çekirdek 194.7 s.
-  - 5 km ağ: 23.7 milyon düğüm; en küçük 96 çekirdek; RSS ~24 GB (rank 0'da yoğunlaşıyor; ortalama ~3 GB). 48 çekirdek tek 192 GB düğümde OOM ile öldürülüyor. K4.
-- [D] "Bir global ağ çok düşük çekirdek sayısında bellekten sığmaz; 10 km ağ 16 çekirdekten az başlatılamaz." K4.
-- [D] Bu ölçekler yalnızca çekirdek/bellek ölçekleme tanımı; tam simülasyon süresi (ör. Kenozoyik, 65 Ma) ve bu yayınlardaki sonuçlar BULUNAMADI (henüz). Sonraki adım: kök sayfadaki Salles 2023/2024 ve PNAS 2025 makale bağlantılarını (K6) okumak.
-- [D] Kök sayfa (K6) örnek araştırmalar listesi bağlantıları: Nature 2023 (10.1038/s41586-023-06777-z), Nature Communications 2024 (10.1038/s41467-024-47662-1), Science 2023 (10.1126/science.add2541), PNAS 2025 (10.1073/pnas.2516468122), ESurf 2025 (esurf.copernicus.org/articles/13/683/2025/), JGR Earth Surface 2025 (10.1029/2025JF008473), PLOS ONE 2025 (10.1371/journal.pone.0332766), Scientific Reports 2022 (s41598-022-23206-9). Bu makalelerin içeriği henüz okunmadı; hangisinin "Kenozoyik küresel" ya da "paleo-erozyon" olduğu doğrulanmadı.
+| Mesh | Nodes | Faces | Min ranks baseline | RSS per rank | Notes |
+|---|---|---|---|---|---|
+| 10 km | 5.9 M | 11.8 M | 16 | ~6.6 GB | 16 ranks: 521.3 s; 240 ranks: 46.9 s (speedup 11.1, efficiency 0.74); 288: 44.4 s |
+| 8 km | 9.2 M | 18.5 M | 24 | ~9.9 GB | 24 ranks: 800.7 s; 96 ranks: 194.7 s |
+| 5 km | 23.7 M | 47.3 M | 96 | ~24 GB on rank 0 (average ~3 GB) | 48 ranks on one 192 GB node is OOM-killed (S4) |
 
-### 4. Badlands ve Pecube ile fark
+- [D] S4: A global mesh cannot start below these rank counts because of memory. Per-rank memory is replicated and stays roughly flat with rank count.
+- [B] S10 (Nature 2023, Phanerozoic run): icosahedral mesh with more than 10 million nodes and 21 million cells, about 5 km average resolution. Each time slice used 168 CPUs. Simulation 1 covered 2 Myr with prescribed elevation and runoff. Simulation 2 added tectonic forcing and ran until erosion balanced uplift, reached within the first 1 Myr. Wall-clock time and memory are not reported in the text read.
+- Consistency check: the 5 km benchmark needs at least 96 ranks (S4). The 168-CPU run in S10 is above that minimum. The S10 node count (>10 M nodes) does not match any S4 mesh row exactly, so the mesh definition is not identical.
+- [B] S11 (Nature Comms 2024, Sahul): regional model at about 1 km resolution, forward from 75 to 35 ka, outputs every 1 kyr, run on 80 CPUs. Rock uplift is set to 0 (U = 0 m/yr); forcing is sea level and paleo-precipitation.
+- Science 2023 (S16, doi 10.1126/science.add2541, "Hundred million years of landscape dynamics from catchment to global scale"): ERİŞİLEMEDİ (science.org returned 403). Search summary only [Ö]: resolution down to about 10 km; frames of 1 Myr; output maps every 5 Myr; "several hundred processors" and "several days" per simulation. These are unverified search-summary figures.
+- Naming check against the request: the request refers to a "Salles 2023 Earth system landscape" and a "Salles 2024 paleo-erosion" study. The actual titles are "Landscape dynamics and the Phanerozoic diversification of the biosphere" (Nature 2023, S10) and "Physiography, foraging mobility, and the first peopling of Sahul" (Nature Comms 2024, S11). The 2023 Science paper is the "Hundred million years" study above. The request's "gospl ... Computers & Geosciences or Earth Surface Dynamics" 2023 software paper was not found: the software paper is Salles, Mallard, Zahirovic (2020), JOSS 5(56):2804 (S6, S15). BULUNAMADI for a separate 2023 software paper.
+- [D] S6 research list also includes: Husson et al. 2022 (Sci. Rep.), Hadler Boggiani et al. 2025 (ESurf), Lorcery et al. 2025 (PLOS ONE), Salles et al. 2025 (PNAS), Hadler Boggiani et al. 2026 (JGR Earth Surface). Not read.
+- The global "Cenozoic" simulation mentioned in the request was not identified. Mesh, time and core details for it: BULUNAMADI.
 
-- BULUNAMADI (henüz). Sonraki adım: Badlands ve Pecube kılavuzu ya da makalesi.
+## 4. Comparison with Badlands and Pecube
 
-### 5. Lisans, kurulum, GitHub Actions uygunluğu
+Badlands:
+- [D] S13 and S14: Python code, LGPL v3 licence (the README and the social.html page both say LGPL). Processes include diffusion, stream power, transport, marine deposition, reef growth, turbidity currents, and tectonic horizontal and vertical displacement, plus rainfall and sea-level forcing.
+- [D] S14 (xml.html): Tectonics is set in an XML `<tectonic>` block. `<disp3d>` is 0 for vertical only or 1 for 3D. Vertical displacement uses an ASCII 1-column file in the same node order as the topography grid, with `<dstart>` and `<dend>` in years. For 3D, the displacement file has 3 columns (x, y, z), `<merge3d>` sets the node merge distance, and `<time3d>` splits long periods into shorter intervals. The docs cite Thieulot et al. (2014) for the 3D method.
+- [D] S14: Input topography is a regular DEM CSV (e.g. `data/regularMR.csv`). The surface is a triangulated irregular network (TIN) that is remeshed when horizontal displacement is on.
+- Difference from goSPL: Badlands is regional and works on a TIN with remeshing. goSPL is global and spherical, uses a fixed icosahedral mesh with interpolation, and takes .npz inputs. Badlands uses XML and CSV/ASCII inputs.
+- Caveat: the Badlands docs build is dated 2023-05-02. Current behaviour may differ.
 
-- [Ö] Lisans: GPL (kaynak: arama özeti, K7). Resmî metin ve dosya henüz doğrulanmadı.
-- [D] Kurulum (conda, K5): `mamba create -n gospl -c geodels -c conda-forge gospl`. `-c conda-forge` zorunlu; aksi halde petsc4py, mpi4py, pyshtools, vtk gibi bağımlılıklar conda-forge'dan çözülmez. Güncel sürüm kayıtlarında v2026.7.14 listelenmiş. K5.
-- [D] HPC kurulumu: Intel MPI, HDF5, PETSc 3.21.3, netCDF, MKL, Python 3.11 modülleri; h5py ve hdf5 MPI bağlantılı olmalı (paralel HDF5 yazımı için; nompi varyantı sessizce hata verir). K5, kılavuzun HPC sayfası (dl2/74e352fe88 metni).
-- [D] Bağımlılıklar (kılavuz): mpi4py, petsc4py, h5py (MPI bağlantılı), netCDF4. K-doc (dl2/dda28dbd5a).
-- [D] Çıktılar: HDF5 + XDMF; bu nedenle girdi NetCDF değildir, ama çıktı için netCDF4 kullanılır (CF-NetCDF ara dönüşüm aracı var). K-doc.
-- Bellek varsayımı (16 GB, 2-4 çekirdek) İLE benchmark değerleri: 10 km ağ 16 çekirdekte düğüm başına ~6.6 GB; 16 GB'lık bir çalışma ortamında 2-4 çekirdek bu ağ için BAŞLATILAMAZ (K4'e göre en az 16 çekirdek gerekir). 8 ve 5 km ağlar daha da fazlasını ister. Sonuç: GitHub Actions ortamı (2-4 çekirdek, 16 GB) küresel ağ için yeterli değil; yalnızca çok kaba (dolayısıyla bu benchmark'tan farklı, küçük) ağlarla ya da 2B/yerel modelle ileri test yapılabilir. Bu kaba ağ için bellek/süre ölçümü BULUNAMADI.
-- [D] Sınırlama: döngüsel 2B modeller yalnızca seri çalışır (K1).
+PECUBE:
+- [B-öz] S12 (Braun 2012 review): PECUBE is a three-dimensional thermal-kinematic finite-element code. It solves heat production, diffusion and advection under a time-varying surface. It predicts thermochronometric ages by tracking rock-particle time-temperature paths. Reported features include fault-controlled kinematics (fault geometry, slip rates), time-varying topography, subsurface (tunnel or borehole) prediction, detrital thermochronology, and inverse modelling with the Neighbourhood Algorithm.
+- [B-öz] S12: "PECUBE explicitly decouples rock uplift from surface evolution." The rock-uplift rate is defined with respect to the base of the model.
+- [Ö] S17: Pecube was originally developed by Jean Braun (2003). A modified version, Pecube-D, is maintained by Ehlers' group.
+- Difference from goSPL: PECUBE is a regional thermochronology (age-prediction) tool. Its outputs are cooling ages and temperature histories, not sediment fluxes or stratigraphy. Its kinematic inputs are fault and velocity-field descriptions, not global plate-reconstruction grids. goSPL is a global landscape and sediment-routing model.
+- Pecube licence and current repository: BULUNAMADI. github.com/Pecube returned 403 to curl.
 
-## Açık sorular (sonraki turda)
+## 5. Licence, installation, and GitHub Actions suitability
 
-1. goSPL-examples deposundaki gospl-pygplates örneğinin tam metni (Bölüm 2).
-2. Kök sayfadaki makalelerin (özellikle Salles 2023/2024 ve PNAS 2025) süre ve ızgara ayrıntıları (Bölüm 3).
-3. Badlands ve Pecube karşılaştırması (Bölüm 4).
-4. Resmi lisans dosyası (Bölüm 5).
-5. GitHub kaynağı github.com üzerinden curl ile 403 aldı; alternatif kaynak (PyPI sayfası, conda paket meta verisi) gerekebilir.
+- [B] S8: goSPL is licensed under GNU GPL v3. S9 (PyPI) lists license "GNU GENERAL PUBLIC LICENSE Version 3".
+- [D] S5: Conda install is `mamba create -n gospl -c geodels -c conda-forge gospl`. `-c conda-forge` is required so that petsc4py, mpi4py, pyshtools and vtk resolve. The docs list release tags from v2026.06.08 to v2026.7.14.
+- [D] HPC install page (getting_started/installHPC, text in working copy): requires Intel MPI, HDF5, PETSc 3.21.3, netCDF, MKL, Python 3.11 modules. h5py and HDF5 must be MPI-linked for collective writes; a non-MPI h5py silently breaks this. A known issue exists with parallel HDF5 writes inside Singularity on Setonix.
+- [D] S7 (examples README): recommends mamba or micromamba. Docker image `geodels/gospl-examples` is available. Example runs use `mpirun -np 4 gospl -i input-strati.yml`.
+- [D] S7: The devcontainer requests a 4-core, 8 GB machine. The README warns that "some of the global examples are memory-hungry" and that free GitHub Codespaces accounts may be capped at 2 cores.
+- Feasibility for a GitHub Actions runner (2 to 4 cores, 16 GB, as stated in the request; runner specs were not verified):
+  - 10 km global mesh: needs at least 16 ranks; about 6.6 GB per rank at 16 ranks (about 105 GB total). Not feasible on 2 to 4 cores with 16 GB.
+  - 8 km: needs 24 ranks minimum (about 9.9 GB per rank). Not feasible.
+  - 5 km: needs 96 ranks minimum (about 24 GB on rank 0). Not feasible.
+  - Global example `plate_mvt` memory and mesh size: BULUNAMADI. Likely infeasible on 16 GB if it uses a global mesh of comparable size (inference, not verified).
+  - Local/2D examples (e.g. `generate_2Dmesh`, `flow_direction`, `implicit_timestepping` as listed in S7): not tested for memory or time. Likely feasible for small meshes, but unverified.
+  - Cyclic 2D runs are serial only (S1).
+- Other constraints: MPI-linked HDF5 is required for parallel output, so a plain pip install may not support full parallel I/O. The benchmark runs used 192 GB nodes; no CI-sized benchmark was found.
+
+## Open items (not resolved in this pass)
+
+1. gospl-pygplates example: BULUNAMADI. Need the goSPL-examples plate_mvt folder contents (raw paths 404 for guessed names; a directory listing would be needed).
+2. Science 2023 full text: ERİŞİLEMEDİ (403). Needs a legitimate access route.
+3. Memory and wall time for the Nature 2023 run: not in the text read; supplementary material not retrieved.
+4. Badlands current docs (2023 build) and any newer version: not checked.
+5. Pecube licence and current repository: not checked (github.com 403).
+6. The 2020 JOSS software paper (S15) was not read in full.
