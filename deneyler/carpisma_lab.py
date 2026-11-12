@@ -91,6 +91,10 @@ def main():
     et[int(3000 / h_km):, :] = 1.0
     et[kuzey] = 0.0  # kuzey kıtasının her parçası sabit levhada  # güneydeki levha (kıta + önündeki okyanus) gelen
     a = LabAyar(h_km=h_km, Te_km=float(sys.argv[4]) if len(sys.argv) > 4 else 30.0)
+    if len(sys.argv) > 5:
+        a.kappa_max = float(sys.argv[5])
+    if len(sys.argv) > 6:
+        a.K = float(sys.argv[6])
     lab = Lab(S0, et, (0.0, hiz), sure, a)
     t0 = time.time()
     kareler, kesitler = [], []
@@ -108,7 +112,7 @@ def main():
                       f"temas {g['temas_ma']}  vmax {g['vmax_cm']:.1f} cm/yıl  aşınma {g['asinma_km3']:.0f} km³/adım  {time.time() - t0:.0f} s", flush=True)
             if i % 40 == 39 or i == adim - 1:
                 kesitler.append((d.ma, d.z.copy(), d.S.copy()))
-    on = f"cikti/lab/lab_{sure:g}my_{h_km:g}km_{hiz:g}cm"
+    on = f"cikti/lab/lab_{sure:g}my_{h_km:g}km_{hiz:g}cm_k{a.kappa_max:g}_K{a.K:g}"
     kareler[0].save(f"{on}.gif", save_all=True, append_images=kareler[1:] + [kareler[-1]] * 8, duration=150, loop=0)
     kareler[-1].save(f"{on}_son.png")
     ks = [kesit(z, S, sutun, h_km) for _, z, S in kesitler]
