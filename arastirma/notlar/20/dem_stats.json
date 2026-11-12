@@ -1,0 +1,230 @@
+{
+ "Alpler": {
+  "valid_frac": 1.0,
+  "mean_elev_m": 1025.6865234375,
+  "max_elev_m": 4543.0,
+  "min_elev_m": 19.0,
+  "slope30m_median_deg": 11.282795906066895,
+  "slope30m_p90_deg": 35.72557067871094,
+  "5 km": {
+   "cells": 4356,
+   "mean_relief_m": 791.9031372070312,
+   "median_relief_m": 641.0,
+   "p90_relief_m": 1692.5,
+   "mean_elev_m": 1030.5029296875,
+   "cell_slope_median_deg": 1.955833077430725,
+   "cell_slope_p90_deg": 7.391001224517822,
+   "cell_dx_km": 3.4482434114802913
+  },
+  "10 km": {
+   "cells": 1089,
+   "mean_relief_m": 1103.7218017578125,
+   "median_relief_m": 947.0,
+   "p90_relief_m": 2275.39990234375,
+   "mean_elev_m": 1030.5029296875,
+   "cell_slope_median_deg": 1.2397209405899048,
+   "cell_slope_p90_deg": 3.7190327644348145,
+   "cell_dx_km": 6.896486822960583
+  },
+  "20 km": {
+   "cells": 256,
+   "mean_relief_m": 1470.765625,
+   "median_relief_m": 1291.0,
+   "p90_relief_m": 2796.5,
+   "mean_elev_m": 1048.11962890625,
+   "cell_slope_median_deg": 0.8875958919525146,
+   "cell_slope_p90_deg": 2.2127318382263184,
+   "cell_dx_km": 13.792973645921165
+  }
+ },
+ "Himalaya_Nepal": {
+  "valid_frac": 1.0,
+  "mean_elev_m": 3630.326171875,
+  "max_elev_m": 8748.0,
+  "min_elev_m": 65.0,
+  "slope30m_median_deg": 17.20025062561035,
+  "slope30m_p90_deg": 35.65867614746094,
+  "5 km": {
+   "cells": 4356,
+   "mean_relief_m": 1005.9221801757812,
+   "median_relief_m": 848.0,
+   "p90_relief_m": 1975.0,
+   "mean_elev_m": 3654.343017578125,
+   "cell_slope_median_deg": 2.65678334236145,
+   "cell_slope_p90_deg": 7.511079788208008,
+   "cell_dx_km": 4.402346444168849
+  },
+  "10 km": {
+   "cells": 1089,
+   "mean_relief_m": 1455.5858154296875,
+   "median_relief_m": 1171.0,
+   "p90_relief_m": 2828.199951171875,
+   "mean_elev_m": 3654.343017578125,
+   "cell_slope_median_deg": 1.60316002368927,
+   "cell_slope_p90_deg": 4.696644306182861,
+   "cell_dx_km": 8.804692888337698
+  },
+  "20 km": {
+   "cells": 256,
+   "mean_relief_m": 2077.63671875,
+   "median_relief_m": 1536.0,
+   "p90_relief_m": 4179.5,
+   "mean_elev_m": 3725.7001953125,
+   "cell_slope_median_deg": 0.9180396795272827,
+   "cell_slope_p90_deg": 3.4020543098449707,
+   "cell_dx_km": 17.609385776675396
+  }
+ },
+ "Appalachian": {
+  "valid_frac": 1.0,
+  "mean_elev_m": 569.45849609375,
+  "max_elev_m": 2035.0,
+  "min_elev_m": 130.0,
+  "slope30m_median_deg": 10.489867210388184,
+  "slope30m_p90_deg": 24.150863647460938,
+  "5 km": {
+   "cells": 4356,
+   "mean_relief_m": 345.45111083984375,
+   "median_relief_m": 314.0,
+   "p90_relief_m": 629.5,
+   "mean_elev_m": 570.7828369140625,
+   "cell_slope_median_deg": 0.5756105184555054,
+   "cell_slope_p90_deg": 2.202479839324951,
+   "cell_dx_km": 4.026840557575888
+  },
+  "10 km": {
+   "cells": 1089,
+   "mean_relief_m": 459.7667541503906,
+   "median_relief_m": 416.0,
+   "p90_relief_m": 823.0,
+   "mean_elev_m": 570.7828369140625,
+   "cell_slope_median_deg": 0.367828369140625,
+   "cell_slope_p90_deg": 1.3634086847305298,
+   "cell_dx_km": 8.053681115151775
+  },
+  "20 km": {
+   "cells": 256,
+   "mean_relief_m": 625.14453125,
+   "median_relief_m": 572.0,
+   "p90_relief_m": 1073.5,
+   "mean_elev_m": 571.9971313476562,
+   "cell_slope_median_deg": 0.2548849284648895,
+   "cell_slope_p90_deg": 0.825352668762207,
+   "cell_dx_km": 16.10736223030355
+  }
+ },
+ "Skandinav_Dagları": {
+  "valid_frac": 1.0,
+  "mean_elev_m": 884.3592529296875,
+  "max_elev_m": 2431.0,
+  "min_elev_m": -1038.0,
+  "slope30m_median_deg": 10.650164604187012,
+  "slope30m_p90_deg": 31.140722274780273,
+  "5 km": {
+   "cells": 4356,
+   "mean_relief_m": 688.3485107421875,
+   "median_relief_m": 662.5,
+   "p90_relief_m": 1201.5,
+   "mean_elev_m": 880.90478515625,
+   "cell_slope_median_deg": 2.5864222049713135,
+   "cell_slope_p90_deg": 6.589541435241699,
+   "cell_dx_km": 2.390279093644482
+  },
+  "10 km": {
+   "cells": 1089,
+   "mean_relief_m": 980.2736206054688,
+   "median_relief_m": 977.0,
+   "p90_relief_m": 1574.199951171875,
+   "mean_elev_m": 880.90478515625,
+   "cell_slope_median_deg": 1.3246973752975464,
+   "cell_slope_p90_deg": 2.9556047916412354,
+   "cell_dx_km": 4.780558187288964
+  },
+  "20 km": {
+   "cells": 256,
+   "mean_relief_m": 1315.70703125,
+   "median_relief_m": 1348.0,
+   "p90_relief_m": 1855.5,
+   "mean_elev_m": 869.5803833007812,
+   "cell_slope_median_deg": 0.6976529955863953,
+   "cell_slope_p90_deg": 1.476511836051941,
+   "cell_dx_km": 9.561116374577928
+  }
+ },
+ "Zagros": {
+  "valid_frac": 1.0,
+  "mean_elev_m": 1914.6500244140625,
+  "max_elev_m": 4418.0,
+  "min_elev_m": -125.0,
+  "slope30m_median_deg": 5.571638107299805,
+  "slope30m_p90_deg": 25.835710525512695,
+  "5 km": {
+   "cells": 4356,
+   "mean_relief_m": 553.619140625,
+   "median_relief_m": 488.0,
+   "p90_relief_m": 1126.0,
+   "mean_elev_m": 1922.740234375,
+   "cell_slope_median_deg": 1.6007905006408691,
+   "cell_slope_p90_deg": 4.797101974487305,
+   "cell_dx_km": 4.271215639315389
+  },
+  "10 km": {
+   "cells": 1089,
+   "mean_relief_m": 838.2608032226562,
+   "median_relief_m": 764.0,
+   "p90_relief_m": 1601.199951171875,
+   "mean_elev_m": 1922.7401123046875,
+   "cell_slope_median_deg": 1.0258945226669312,
+   "cell_slope_p90_deg": 2.7093722820281982,
+   "cell_dx_km": 8.542431278630778
+  },
+  "20 km": {
+   "cells": 256,
+   "mean_relief_m": 1228.80859375,
+   "median_relief_m": 1106.0,
+   "p90_relief_m": 2198.0,
+   "mean_elev_m": 1946.930419921875,
+   "cell_slope_median_deg": 0.6385897994041443,
+   "cell_slope_p90_deg": 1.5972142219543457,
+   "cell_dx_km": 17.084862557261555
+  }
+ },
+ "Orta_And": {
+  "valid_frac": 1.0,
+  "mean_elev_m": 3810.2353515625,
+  "max_elev_m": 6577.0,
+  "min_elev_m": 625.0,
+  "slope30m_median_deg": 4.35283899307251,
+  "slope30m_p90_deg": 25.79576873779297,
+  "5 km": {
+   "cells": 4356,
+   "mean_relief_m": 497.126708984375,
+   "median_relief_m": 325.5,
+   "p90_relief_m": 1299.0,
+   "mean_elev_m": 3817.443603515625,
+   "cell_slope_median_deg": 1.178656816482544,
+   "cell_slope_p90_deg": 4.866020202636719,
+   "cell_dx_km": 4.777549693078168
+  },
+  "10 km": {
+   "cells": 1089,
+   "mean_relief_m": 756.1055908203125,
+   "median_relief_m": 556.0,
+   "p90_relief_m": 1860.5999755859375,
+   "mean_elev_m": 3817.444091796875,
+   "cell_slope_median_deg": 0.7953138947486877,
+   "cell_slope_p90_deg": 3.351278305053711,
+   "cell_dx_km": 9.555099386156336
+  },
+  "20 km": {
+   "cells": 256,
+   "mean_relief_m": 1128.8671875,
+   "median_relief_m": 842.5,
+   "p90_relief_m": 2490.5,
+   "mean_elev_m": 3841.97216796875,
+   "cell_slope_median_deg": 0.5125620365142822,
+   "cell_slope_p90_deg": 2.28340482711792,
+   "cell_dx_km": 19.11019877231267
+  }
+ }
+}
