@@ -102,3 +102,26 @@ Batı köprüsü test maskesinden geniş: 40,3°B ile 37,6°B arasında, yaklaş
 Yeni kod: plato çokgenle verilebilir (Carpisma.plato_maske); istek 3 iki türlü: Alp (Yarımada doğudan yaklaşıp kökünden çarpar, kökte kuşak, kabuk %95 ≥ 55 km), Apenin (Güneybatı ile birlikte gider, omurga şeridinde kalınlaşma, kabuk %90 42 ile 52 km).
 
 Üretici (Nside 128): 300 rastgele tohumun hiçbiri geçerli değil; mutasyonla 1200 adayda 329 geçerli. İhlal: çakışma 1040, geçit 665, hız 151. 80 adaylık ayrı örnekte en sık çakışan çift Güneydoğu ile Yarımada (65), sonra Güneybatı ile Takımada (30). Çelişki yok; seçilen beşin hepsi dört isteği sağlıyor (2 Apenin, 3 Alp). Seçilenlerin bir kısmı aralık sınırında: güneydoğu yönü −25° (aralığın ucu), çarpışma 65 milyon yıl (aralığın ucu). Aralık genişletilince daha kuzeybatıdan gelen ve daha eski çarpışmalar da geçerli çıkabilir. Apenin türünde ölçülen 50,0 km kabuğun üst sınırı (hmax); omurga ölçüsü bu sınırla belirleniyor.
+
+## Tam model, gerçek maske ve sahibin bölgeleri (12 Kasım 2026)
+
+Adaylar 1029 (Alp) ve 443 (Apenin), Nside 512, K = 4e-9, n = 2. Koşu süresi 10 ile 12 dakika.
+
+İlk koşuda sıradağ (dikişten 200 ile 300 km'de ortalama 1530 m) platodan (yaklaşık 1250 ile 1500 m) yalnızca yaklaşık 300 m yüksek çıktı. Neden: kabuk kalınlığı h yerel olarak birikiyor, aşınmanın geri sıçraması ise 80 km bükülmeyle bölgesel; kuşakta h doyuma (70 km) ulaşıp kabul sıfırlanırken yüzey alçakta kalıyordu. Plato yalnızca bu yapay doygunluk fazlasıyla besleniyordu. Kuşak sertliği (K çarpanı 0,3 ve 0,15) ve yakınsama hızı (3,5, 5 cm/yıl) bunu değiştirmedi; bu, sınırın aşınma değil doygunluk olduğunu gösterdi.
+
+Düzeltme: her adımda h = H0 + düz(z) / AIRY (ModelAyar.kabuk_yuzeyden). Bununla sıradağ yükseldi (Nside 256, dikişten 0 ile 100 km ortalama 2445 m) ama plato 120 m'ye düştü. Ek: yaklaşmanın bir payı (plato_orani) doğrudan çizilen plato bölgesine yayılır (yaygın kısalma; Zagros Arabistan ile Avrasya yaklaşmasının yalnızca bir kısmını karşılar). Nside 256'da pay 0,4: plato ortancası 983 m; 0,6: 1137 m. Seçim 0,5, kuşak K çarpanı 0,3. Çizilen plato sınırı arazide basamak bıraktığı için 200 km'lik yumuşak geçiş eklendi.
+
+Sonuç (Nside 512, pay 0,5, çarpan 0,3):
+
+| | 1029 Alp | 443 Apenin |
+|---|---|---|
+| en yüksek nokta | 5153 m | 5466 m |
+| sıradağ bölgesi p95 | 3361 m | 3421 m |
+| dikişten 100 ile 200 km ortalama | 2156 m | 2444 m |
+| çanak ortancası (hedef 1000 ile 1500) | 1220 m | 1280 m |
+| çanak p10 ile p90 | 714 ile 1613 m | 1017 ile 1638 m |
+| yarımada | kök p95 3423 m | omurga p90 2591 m |
+| mikro kıta ortancası, 500 m üstü pay | 1147 m, 0,88 | 832 m, 0,75 |
+| kara ortancası | yaklaşık 100 m | yaklaşık 96 m |
+
+Bilinen sınırlar: aşınma bugünkü kıyı çizgisiyle bugünkü ızgarada hesaplanır, paleo karelerde yükseklik bloklarla taşınır. Adaylar eski (aşınmasız, plato payı yok) ölçümle seçildi; aday araması yeni fizikle yeniden yapılmalı. Ovalar alçak (kara ortancası yaklaşık 100 m).
