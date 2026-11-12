@@ -202,11 +202,23 @@ class Lab:
         maske = np.where(acik, np.maximum(z, 0.0), z)
         dolu = reconstruction(tohum, maske, method="erosion")
         cukur = np.where(~acik & (S > 15e3), np.clip(dolu - z, 0, None), 0.0)  # okyanus kabuğunda çökelme yok
-        if cukur.sum() > 0 and hacim > 0:
+        butce = a.cokelme * hacim
+        if cukur.sum() > 0 and butce > 0:
             # çukurun izostatik derinleşmesi için yaklaşık 1/(1−ρc/ρm) kat malzeme gerekir; payı sınırlı
             gerek = cukur.sum() / (1 - RHO_C / RHO_M)
-            oran = min(1.0, a.cokelme * hacim / gerek)
+            oran = min(1.0, butce / gerek)
             S = S + cukur * oran / (1 - RHO_C / RHO_M)
+            butce -= oran * gerek
+        # kalan tortu: kıta kabuğu üstündeki sığ deniz (çöküntü havzası, şelf) deniz seviyesine doğru dolar;
+        # önce kıyıya yakın olanlar (nehir ağızları) dolsun diye kıyı uzaklığıyla ağırlıklı
+        if butce > 0:
+            deniz_kita = acik & (S > 20e3) & (z < 0)
+            if deniz_kita.any():
+                kiyi_uz = ndimage.distance_transform_edt(acik) * a.h_km
+                w = np.where(deniz_kita, np.exp(-kiyi_uz / 150.0), 0.0)
+                gerek_h = np.where(deniz_kita, -z / (1 - RHO_C / RHO_M), 0.0)
+                pay = np.minimum(gerek_h, butce * w / max(w.sum(), 1e-9))
+                S = S + pay
         d.S, d.etiket, d.u, d.v = S, L, u, v
         d.z = yuzey(S, S > 20e3, self.suzgec, a)
         d.ma = round(d.ma - a.dt_myr, 6)

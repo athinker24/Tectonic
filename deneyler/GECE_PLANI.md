@@ -26,3 +26,12 @@ arkasında plato büyür, önünde çökme havzası (ova) oluşur; nehirler ve a
 - [ ] Aşınma + çökelme
 - [ ] Animasyon ve kesit
 - [ ] Sahibin güneydoğu bloğu ile kuzeye uygulama
+
+## İlerleme kaydı
+- Koşu 1 (10 milyon yıl, 30 km): okyanus boşluğu çok dar kurulmuş.
+- Koşu 2 (50 milyon yıl, 20 km): gelen kıta karşı kıtayı bütünüyle itti (sabit çekirdek 900 km uzaktaydı); bükülme dar kalınlaşmayı 21 km yükseltti (elastik destek kısa dalga boyunda fiziksel değil).
+- Düzeltmeler: sabit çekirdek 450 km; kısa dalga boyunda yerel izostazi, bükülme yalnız bölgesel farkı ekler; temas sonrası hız yarıya; sabit kenar değerleri.
+- Koşu 3: temas hemen algılandı (kuzey kıtasının gürültü adacıkları gelen levhada); iç göller doldurulmuyordu.
+- Düzeltmeler: en büyük parça, delik doldurma; açık okyanusa bağlı olmayan her çukur dolar; temas yalnız ana gövdeyle.
+- Koşu 4: temas 31 Ma; 20 Ma 3,5 km asimetrik dağ; 10 Ma düz tepeli plato; 0 Ma yaklaşık 4,5 km, 300 km genişlikte plato; iki yanda bükülme havzası (denizle dolu).
+- Düzeltme: kalan tortu kıta üstündeki sığ denize (kıyıya yakın önce) dolar; çöküntü havzaları ovaya dönmeli.
