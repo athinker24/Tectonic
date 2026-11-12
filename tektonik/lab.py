@@ -168,6 +168,17 @@ class Lab:
         S[0, :], S[-1, :], S[:, 0], S[:, -1] = self.kenar_S
         L[0, :], L[-1, :], L[:, 0], L[:, -1] = self.kenar_L
         kita = S > 20e3
+        # --- dikişin kapanması: iki kıta arasında sıkışan dar okyanus şeridi dalarak yok olur ---
+        # sabit ızgarada hücre yok olamadığı için: yakınsayan ve iki yanı kıta olan, 3 hücreden dar
+        # okyanus hücreleri komşu kıta kabuğunu alır (kalan okyanus litosferi dalmış sayılır)
+        kapali = ndimage.binary_closing(kita, structure=np.ones((3, 3)), iterations=2)
+        sikisan = kapali & ~kita & (ekk < 0)
+        if sikisan.any():
+            Sk = np.where(kita, S, 0.0)
+            say = ndimage.uniform_filter(kita.astype(float), 5)
+            ort = ndimage.uniform_filter(Sk, 5) / np.maximum(say, 1e-6)
+            S = np.where(sikisan, np.maximum(ort, 30e3), S)
+            kita = S > 20e3
         # --- kalınlaşma (yalnız kıtada; okyanusta dalma) ---
         dS = np.where(kita, -S * ekk * dt_s, 0.0)
         S = S + np.clip(dS, -0.2 * S, 15e3)
