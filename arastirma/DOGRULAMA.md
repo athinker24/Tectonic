@@ -51,7 +51,7 @@ Kapsanmayan: belgelerin ana bölümlerindeki ve tablolarındaki zayıf etiketli 
 - **Birincil kaynağı okunamadı:** Montgomery ve Brandon 2002 (0,2 ile 6 mm/yıl), Syvitski ve Milliman 2007, Zahirovic 2015, Cortial 2019, Tzathas 2024, Hergarten 2020 denklemleri 7 ile 11 (metnin okunan kısmında üs yok), Schott 2024 tam metni, Egholm 2009 yöntem bölümü.
 - **Kaynağı bulunamayanlar:** Wilson döngüsü süresi, kıta bloğu tipik hızı, boyut dağılımı, U vadi ve sirk boyutları, abartma çarpanı, telefonda kare hızı ve çizim süresi, MerakMapMaker belgeleri.
 - **Kaynaksız ama kullanılan çıkarımlar ([H]):** blok sayısı aralığı (5 ile 30), mesafe tanımı (çeşitlilik için), kıyıda yükselmenin sönümlenmesi, günlük koşu sayacı tasarımı, Web Push ile bildirim. Bunlar tasarım önerisi, olgu değil.
-- **Bilinen çelişkiler çözülmedi:** kıtanın batı sınırı 44°B (karar günlüğü) ile 47°B (atlas özeti); Messiniyen tuz kalınlığı 1,2, 2 ya da 3 km; Panama kapanması 3 ile 15 milyon yıl önce; Kretase deniz seviyesi tepesi +40 ile +270 m.
+- **Bilinen çelişkiler çözülmedi:** kıtanın batı sınırı çözüldü: atlas yükseklik haritasından 44,43°B ölçüldü, karar günlüğü doğru, atlas özetindeki 47°B yanlış; Messiniyen tuz kalınlığı 1,2, 2 ya da 3 km; Panama kapanması 3 ile 15 milyon yıl önce; Kretase deniz seviyesi tepesi +40 ile +270 m.
 
 ## Yöntemin sınırları
 

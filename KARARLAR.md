@@ -34,6 +34,19 @@ Sahibiyle adım adım verilen kararlar. Gerekçe ve kaynak brief: `tektonik-arac
 - Site ve Worker Cloudflare Access arkasında, yalnızca sahibin e-postasıyla açılır.
 - Sahibi Cloudflare ve GitHub tarafındaki kurulumu kendisi yapacak: adım adım, ekran ekran bir kurulum rehberi (`KURULUM.md`) yazılacak ve kurulum sırasında birlikte gidilecek.
 
+## 6. Bölge ve altyapı kararları (12 Kasım 2026)
+
+- **Bölge 2 (bozkır çanağı):** Zagros ve İran benzeri. Çarpışmanın hemen arkasında, Tibet gibi aşırı kalınlaşmamış, orta yükseklikte bir plato. Tibet benzeri 4 ile 5 km'lik plato seçilmedi.
+- **Çanak yüksekliği:** 1000 ile 1500 m. Atlas iklimi çanak içini 800 ile 1000 m alıyor; bu yüzden araç çıktısı atlasa girince atlasın nem ayarları yeniden denenmeli, sıra kuralı gereği önce yükseklik eğrisi, sonra nem ayarları.
+- **Bölge 3 (yarımada çarpışması):** Araç hem Apenin tarzını (dalan levha geri çekiliyor, arkada açılan havza) hem Alp tarzını (doğrudan kıta çarpışması) tutarlı tarih seçenekleri olarak üretecek; seçim haritalara bakılarak yapılacak.
+- **Depo:** herkese açık olacak (Actions'ta 4 işlemci, 16 GB, ücretsiz ve sınırsız dakika). Kod, çıktılar ve araştırma belgeleri herkese görünür olur. Görünürlüğü sahibi GitHub ayarlarından kendisi değiştirecek.
+
+**Not (doğrulanmadı):** Zagros bloğu için ölçtüğüm ortalama yükseklik (10 km hücrede yaklaşık 1900 m) kıvrım kuşağının kendisine ait. Seçilen 1000 ile 1500 m'lik çanak, bu kuşağın arkasındaki iç havzalara karşılık gelir; İran platosu iç havzalarının gerçek yüksekliği bu turda kaynakla doğrulanmadı.
+
+## 7. Kıtanın sınırları ölçüldü (12 Kasım 2026)
+
+Atlasın yükseklik haritasından (`dunya/dunyam_heightmap.png`, 4096 × 2048, deniz seviyesi değeri 11934) ölçüldü: ana kıta 7,08°G ile 59,99°K, 44,43°B ile 43,11°D arasında. Bu, 2. bölümdeki 44°B ile 43°D değerini doğruluyor; atlasın `tektonik/OZET.md` dosyasındaki "47°B" ifadesi yanlış (atlas deposuna dokunulmadı). Ana kıtanın dışında 18 kara parçası var; en büyüğü yaklaşık 9100 piksel (kabaca 790 000 km²), 18°B ile 4°B, 20,5°K ile 30,5°K arasında.
+
 ## Açık
 
 - Çözünürlükler ve animasyon boyutu
