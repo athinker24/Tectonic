@@ -1,63 +1,69 @@
 # C block decomposition: research notes
 
-Status: DONE (first pass). Verified = search-summary level [Ö]; no full-text primary reading yet. Labels: [B] primary read, [Ö] search summary, [E] encyclopedia. No [B] labels were obtained in this pass.
+Status: ROUND 2 (full-text pass). Labels:
+- [B] = full text or full-page text read and quoted/checked here (path noted).
+- [B-abs] = publisher/repository abstract text read; full paper NOT read.
+- [Ö] = search-summary level only, not verified against text.
+- [E] = encyclopedia/secondary web summary.
+- BULUNAMADI = not found in any read source.
+Scratchpad text files: /tmp/claude-0/-home-user-Tectonic/1cb340b3-df7d-519b-96f4-5170b8cfb37a/scratchpad/dl/t2/
+
+## 0. Reference corrections
+- Müller et al. 2016 = "Ocean Basin Evolution and Global-Scale Plate Reorganization Events Since Pangea Breakup", Annu. Rev. Earth Planet. Sci. 44:107-138, DOI 10.1146/annurev-earth-060115-012211 [B-abs, search result: https://www.earthbyte.org/?p=4306 ; DOI page returned 403 to curl]. The user's suggested title is CORRECT. Abstract: continuously closing plate boundaries from 230 Ma; global mean plate speed ~6 cm/yr drop near 50 Ma (search summary) [Ö].
+- "Müller 2019 Annual Review" was wrong: the 2019 paper is Müller et al. 2019, Tectonics (see §4).
+- Gurnis & Yang 2018, Computers & Geosciences 116:32-41, "Global tectonic reconstructions with continuously deforming and evolving rigid plates" [B] (text: .../dl/t2/par1.txt).
 
 ## 1. Crustal mosaic blocks (cratons, orogens, sutures)
-- Metcalfe 2013, J. Asian Earth Sci. 66:1-33, "Gondwana dispersion and Asian accretion" [Ö, search abstract only]. URL: https://researchers.mq.edu.au/en/publications/gondwana-dispersion-and-asian-accretion-tectonic-and-palaeogeogra/ . Three Gondwana dispersal phases: (a) Devonian: North China, Tarim, South China, Indochina separate and open Palaeo-Tethys; (b) late Early Permian: Cimmerian blocks separate, open Meso-Tethys; Triassic eastern Cimmerian blocks collide with South China/Indochina, closing Palaeo-Tethys; (c) Late Triassic-Late Jurassic: Lhasa separates from NW Australia, accretes to SE Sundaland in Cretaceous. [Ö]
-- Metcalfe 1996, Aust. J. Earth Sci. 43(6), similar title, overlapping content [Ö]. Source: https://scienceopen.com / search results only, not read in full.
-- Yin & Harrison 2000, Annu. Rev. Earth Planet. Sci. 28:211-280 [Ö]. Source: https://citedrive.com/en/discovery/geologic-evolution-of-the-himalayan-tibetan-orogen/ . Abstract-level: Triassic flysch in Songpan-Ganzi/Hoh Xil and Qiangtang; Mesozoic tectonics localized Tertiary shortening. Collision onset ~70 Ma (secondary blog summary) [E/Ö]. Jurassic-Cretaceous Qiangtang-Lhasa suture timing: BULUNAMADI (not in retrieved text).
-- Tarim/North China merger date: BULUNAMADI as a firm date. Altaids review (Frontiers/PMC, 2023 Tarim paper https://www.frontiersin.org/articles/10.3389/feart.2023.1101360/full) [Ö]: Kudi and North Altyn oceans closed end-Ordovician; Kunlun and Altyn-Qilian accreted to Tarim; northern Tarim Paleozoic tectonics disputed; Qaidam-Tarim-Alxa-North China relations unclear. Tarim/CAOB final collision: late Paleozoic, not dated in snippet.
-- Mongolia (PMC9933446) [Ö]: Permian consumption of Paleo-Asian Ocean; terrane collision 280-260 Ma. Regional only.
+- Metcalfe 2013, J. Asian Earth Sci. 66:1-33 [B-abs]. Record: https://researchers.mq.edu.au/en/publications/gondwana-dispersion-and-asian-accretion-tectonic-and-palaeogeogra/ (text: dl/t2/dl3/ad98e010.bin.txt). Quote (abstract): "Separation and northwards migration of the various continental terranes/blocks from Gondwana occurred in three phases linked with the successive opening and closure of three intervening Tethyan oceans, the Palaeo-Tethys (Devonian-Triassic), Meso-Tethys (late Early Permian-Late Cretaceous) and Ceno-Tethys (Late Triassic-Late Cretaceous)." Also: "The first group of continental blocks dispersed from Gondwana in the Devonian... included the North China, Tarim, S[outh China]..." Full text NOT read: Cimmerian/Lhasa timing [Ö] from the abstract only.
+- Metcalfe 1996 Aust. J. Earth Sci. 43(6): not read [Ö].
+- Yin & Harrison 2000, Annu. Rev. Earth Planet. Sci. 28:211-280: abstract-level only [Ö]. Collision onset ~70 Ma [E]. Qiangtang-Lhasa suture closure date: BULUNAMADI.
+- Tarim / North China merger date: BULUNAMADI as a firm date. Altaids/Tarim review (https://www.frontiersin.org/articles/10.3389/feart.2023.1101360/full) [Ö]: Kudi and North Altyn oceans closed end-Ordovician; Kunlun and Altyn-Qilian accreted to Tarim.
+- Mongolia (PMC9933446) [Ö]: Permian consumption of Paleo-Asian Ocean; terrane collision 280-260 Ma (regional).
+
+## 1b. Eurasian / Laurussia assembly
+- Torsvik, Van der Voo et al. 2012, Earth-Sci. Rev. 114:325-368, "Phanerozoic polar wander, palaeogeography and dynamics" [B] (text: dl/t2/dl3/a974bcf3.bin.txt; source: https://www.geologist.nl/wp-content/uploads/2016/11/2012_Torsvik_ESR.pdf). Quotes: "Following the Silurian Caledonian Orogeny, Laurentia's and Baltica's Apparent Polar Wander Paths (APWPs) can be merged into a Laurussia path... followed in turn by a merger of the Laurussia and Siberia data from latest Permian time onward into a Laurasian combined palaeomagnetism path." Also: "Caledonian Orogeny at 430-420 Ma" (figure caption/text in Torsvik 2012 and Cocks & Torsvik 2011 cited there) [B].
+- Cocks & Torsvik 2005 (Baltica joined Avalonia ~443 Ma): [Ö] only, not read.
+- Avalonia-Baltica collision timing: debated, late Ordovician vs late Silurian [Ö] (search summary of Torsvik 1992).
+- Kazakhstania: Torsvik 2012 mentions Kazakhstania as one of the Palaeozoic APWP entries (not a timing) [B]. Kazakhstania-specific collision timing: BULUNAMADI.
+- Siberia: narrower Iapetus (<1000 km) in older models; palaeomagnetism suggests wider [Ö] (Torsvik & Cocks 2017 not read).
 
 ## 2. Block count and size
-- Continental crust area (for scale): Cogley 1984 as cited in Cawood et al. review: ~210.4 x 10^6 km^2 (~41% of Earth surface) [Ö]. Source: https://instruct.uwo.ca/earth-sci/fieldlog/Archean/Cawood%20et%20al%20-%20Continental%20Crust%20review%20GSAB.pdf . EBSCO research starter: ~150 x 10^6 km^2 (~43%) [E]. Conflict in absolute value noted. Cawood & Hawkesworth: area ~40% of surface since ~3 Ga [Ö] https://research-repository.st-andrews.ac.uk/bitstream/10023/18867/1/Cawood_2018_GR_Continentalcrustal_AAM.pdf
-- Craton areas in km^2: BULUNAMADI (definitions only).
-- Typical 10^5-10^7 km^2 block size: NOT verified by a source. Mark as an assumption.
-- Block count 'reasonable for inverse problem': no source found. Derived only from the area scale above (150-210 x 10^6 km^2 divided by 10^5-10^7 km^2 gives roughly 15 to 2000 blocks). This is arithmetic, not a literature claim.
+- Continental crust area: Cogley 1984 via Cawood et al. (https://instruct.uwo.ca/earth-sci/fieldlog/Archean/Cawood%20et%20al%20-%20Continental%20Crust%20review%20GSAB.pdf) [Ö]: 210.4 x 10^6 km^2 (~41%). EBSCO [E]: ~150 x 10^6 km^2. Conflict noted.
+- Müller et al. 2019 [B]: pre-Pangea-breakup (~240 Ma) continental area estimated at ~198 x 10^6 km^2; present day ~220 x 10^6 km^2 after combined extension and compression (~10% increase). Paraphrase of the read text (dl/t2/par2.txt; OCR spacing noisy): before Pangea breakup (240 Ma) continental area ~198 x 10^6 km^2; combined extension and compression raised it to ~220 x 10^6 km^2 at present day (~10% increase).
+- Craton areas (km^2): BULUNAMADI.
+- Typical block size 10^5-10^7 km^2: BULUNAMADI as a sourced range; treat as assumption.
+- Block count: arithmetic only. 150-220 x 10^6 km^2 divided by 10^5-10^7 km^2 gives roughly 15 to 2200 blocks. Not a literature claim.
 
-## 1b. Eurasian assembly (search summaries, [Ö])
-- Cocks & Torsvik 2005, Earth-Sci. Rev. 72: Baltica joined Avalonia near Ordovician-Silurian boundary (~443 Ma). Source: search summary only.
-- Fortey & Cocks 2003, Earth-Sci. Rev. 61: Avalonia rifted from West Gondwana early Ordovician; collided with Baltica end-Ordovician, then Laurentia early Silurian. Also challenges Early Palaeozoic Kipchak arc model; Kazakhstan faunas closer to Gondwana/peri-Gondwana.
-- Cocks & Torsvik 2011: Laurentia merged with Avalonia-Baltica in Silurian Caledonide orogeny (430-420 Ma), Laurussia.
-- Torsvik & Cocks 2017: Iapetus narrower (<1000 km) in older reconstructions; paleomagnetism points wider.
-- Torsvik et al. 2012: Laurussia and Siberia merge into Laurasia from latest Permian.
-- Kazakhstania-specific review: BULUNAMADI.
-- Source list URL: https://www.geologist.nl/wp-content/uploads/2016/11/2012_Torsvik_ESR.pdf (search result, not read).
+## 3. Suture zones: ophiolite/mélange width, paleo-ocean width
+- van der Meer et al. 2018, Tectonophysics 723:309-448 "Atlas of the Underworld" [B-abs via thesis + Utrecht repository, not the paper]. Thesis abstract (https://dspace.library.uu.nl/handle/1874/355072; text dl/t2/dl3/23eecda5...): "The identification and geological interpretation of slabs is further expanded to 94 slabs." Also: "Initially 28 slabs were characterized..."; "sinking rates of slabs as a novel implicit observation of the rate of lower mantle flow"; "slab-fitting reconstructions" for absolute plate position; "calculate total slab, and hence subduction zone length versus depth." Thus the width-related method is subduction-zone LENGTH vs depth, not a direct ocean-width formula. Ocean width value: BULUNAMADI in read text.
+- Atlas site https://www.atlas-of-the-underworld.org : reached (39 KB), contains viewer menus only; no numbers extracted [B-partial].
+- Ophiolite/mélange width generic values: BULUNAMADI. Case: Erzincan suture within ~40 km thrust belt (not ocean width) [Ö]. Caveat: some ophiolitic mélanges form from left-slip faults in remnant basins [Ö].
+- Vardar Ocean >3000 km composite width from tomography [Ö], not verified.
+- Paleomagnetic ocean width method: BULUNAMADI in this pass.
 
-## 3. Suture zones: ophiolite/mélange width, paleo-ocean width estimation
-- Ophiolite/melange belt width values: BULUNAMADI as a general number. Case examples [Ö]: Erzincan suture sits in a ~40 km wide south-vergent thrust belt (N Anatolia, Lesser Caucasus), a thrust-belt width, NOT an ocean width. Solonker mélange: middle Permian, kinematics linked to southward subduction of Paleo-Asian Ocean margin.
-- Caveat [Ö]: some ophiolitic melanges come from left-slip faults in a remnant basin, not from subduction sutures. So mélange width is a weak proxy for ocean width.
-- Tomography-based width example [Ö]: Vardar Ocean composite width >3000 km inferred from mantle tomography under Hellenides (search summary only, verify before use).
-- Paleomagnetism method for ocean width: no source retrieved in this pass (BULUNAMADI).
-- van der Meer, van Hinsbergen, Spakman 2018, Tectonophysics 723:309-448, "Atlas of the underworld". [Ö] Source: https://research-portal.uu.nl/en/publications/atlas-of-the-underworld-slab-remnants-in-the-mantle-their-sinking/ . Catalogues 94 slab remnants; slab sinking 10-40 mm/yr at top of lower mantle, 10-15 mm/yr near 1600-1700 km. Search summary says NO explicit paleo-ocean width method in abstract. Pending: check the full text or atlas-of-the-underworld.org for how subduction-zone length vs depth constrains ocean width. Result: paleo-ocean width NOT found in abstract -> BULUNAMADI for direct width formula.
-
-## 4. Measuring total tectonic cost (shortening, thickening, closure checks)
-- Müller et al. 2016/2019 "closed plate polygons" and area-conservation claim: the search did NOT return the 2016 paper directly. Found Gurnis et al. 2012 (continuously closing plates, GPlates): plate polygon kept closed as margins move on different Euler poles. Source: https://www.earthbyte.org/paper-published-in-computers-and-geosciences-plate-reconstructions-with-continuously-closing-plates/ [Ö]
-- Müller et al. 2019, Tectonics 38(6):1884-1907, DOI 10.1029/2018TC005462 [Ö]. Source: https://resolver.caltech.edu/CaltechAUTHORS:20190506-151333044 . Rigid-only reconstructions give overlaps where extension later occurs and gaps where compression later occurs; earlier models handled these ad hoc. New model: distributed deformation peaks ~30 x 10^6 km^2 in Late Jurassic (~160-155 Ma) and ~48 x 10^6 km^2 in Late Eocene (~35 Ma). [Ö]
-- NOTE: the requested 'Müller 2016 Annual Review' citation was NOT found; the search returned Müller 2019 Tectonics instead. Treat the 2016 reference as unverified.
-- 'Closed polygons' term not confirmed in retrieved text.
-- Gap: the phrase 'Müller 2016 closed plate polygons' was not confirmed as the exact reference. Mark as UNVERIFIED.
+## 4. Total tectonic cost: closure, overlap/gap, deformation volume
+- Gurnis et al. 2012 (Computers & Geosciences, "Plate tectonic reconstructions with continuously closing plates") [B-abs: earthbyte copy, dl/t2/gurnis.txt]. Quote: "We introduce a 'continuously closed plate' (CCP), such that, as each margin moves independently, the plate polygon remains closed geometrically as a function of time." Demo: global reconstruction 140 Ma to present.
+- Gurnis & Yang 2018, C&G 116:32-41 [B]: rigid-plate polygons replaced by continuously deforming fields; "At any moment of time... the polygonal outline [must] be closed as a polygon"; GPlates "fills gaps between data lines with automatically generated ones." Text: dl/t2/par1.txt (OCR-partial, layout noisy).
+- Müller et al. 2019, Tectonics 38(6):1884-1907, DOI 10.1029/2018TC005462 [B]. Full text (dl/t2/par2.txt): distributed deformation peaks ~30 x 10^6 km^2 in the Late Jurassic (~160-155 Ma), driven by a rift network; drops to ~10 x 10^6 km^2 mid-Cretaceous (~105 Ma); rises to ~48 x 10^6 km^2 in Late Eocene (~35 Ma). Continental area in compression ~25 x 10^6 km^2 at 35 Ma (text: "rise to a peak of ~25 x 10^6 km^2 at 35 Ma"). Overlap/gap motivation (rigid-only models overlap where extension later occurs, leave gaps where compression later occurs) comes from search summary [Ö], not from the read text.
+- Müller et al. 2016 [B-abs] (see §0): closing plate boundaries from 230 Ma; alternative absolute motion models compared.
+- The term "closed plate polygons" is present in Gurnis & Yang 2018 and Gurnis et al. 2012 (CCP) [B]; it is NOT verified in Müller 2016's text.
 
 ## 5. Reconstruction software and automatic block segmentation
-- GPlates (EarthByte) supports continuously closing plates (Gurnis et al. 2012) and PyGPlates resolve_topologies. [Ö] https://www.earthbyte.org/?p=1098 . GPlates-discuss 2017 thread reports PyGPlates resolve_topologies leaving gaps for some plates in a Müller 2016 reconstruction, not in GUI GPlates. [Ö] https://mailman.sydney.edu.au/pipermail/gplates-discuss/2017-October/000655.html
-- Automatic segmentation (search): ADOPT watershed transform (crest lines as boundaries, catchments as plates) [Ö]; Platerecipy Random Walker on convection/geophysical fields with Euler-vector rigidity check [Ö]; clustering of GNSS velocities in Euler-vector space (angular velocity, not raw velocity) [Ö] Kyoto paper https://www.dpri.kyoto-u.ac.jp/nenpo/no61/ronbunB/a61b0p07.pdf ; Morse-Smale segmentation example https://topology-tool-kit.github.io/examples/tectonicPuzzle . Voronoi-based block generation: BULUNAMADI. Geological-map polygon segmentation: BULUNAMADI.
-- Search for 'paleoplate' and 'BEST-FIT' returned NO matching reconstruction software (BULUNAMADI). Related tools found: pyGPlates (https://www.gplates.org/docs/pygplates), GPlately (Python, reconstructs points/lines/polygons/rasters), paleo-age-grids (PyPI), gptools (https://code.paleoearthlabs.org/gptools/). [Ö]
-- 'Reconstruction Tool' is not confirmed as a separate product; the GPlates tooling above is the verified option.
+- GPlates / pyGPlates: CCP algorithm (Gurnis 2012, 2018 [B]); GPlates fills gaps with auto-generated lines [B]. pyGPlates resolve_topologies gap issue (GPlates-discuss 2017, https://mailman.sydney.edu.au/pipermail/gplates-discuss/2017-October/000655.html) [Ö].
+- GPlately, paleo-age-grids, gptools: [Ö] search summaries.
+- "paleoplate", "BEST-FIT", "Reconstruction Tool" as separate products: BULUNAMADI.
+- Automatic segmentation (search summary [Ö]): ADOPT watershed (crest lines as boundaries); Platerecipy random walker plus Euler-vector rigidity check; GNSS velocity clustering in Euler-vector space (https://www.dpri.kyoto-u.ac.jp/nenpo/no61/ronbunB/a61b0p07.pdf); Morse-Smale on viscosity (https://topology-tool-kit.github.io/examples/tectonicPuzzle). Voronoi and geological-map segmentation: BULUNAMADI.
 
-## Summary for the inverse problem (what is safe to say)
-- Cratonic blocks and orogenic belts are the natural block unit; Metcalfe 2013 gives a Gondwana-dispersal order (Devonian Palaeo-Tethys, Permian-Triassic Meso-Tethys, Jurassic-Cretaceous Lhasa). [Ö]
-- Continental area scale is ~150-210 x 10^6 km^2 (conflicting sources). [Ö/E]
-- Model-count and block-size ranges are NOT sourced; they must be set as an explicit modelling assumption.
-- Rigid-plate overlap/gap artifacts are real and quantified in scale by Müller 2019 (distributed deformation 30-48 x 10^6 km^2 peaks). [Ö]
-- Automatic block segmentation exists (watershed, random walker, Euler-vector clustering), but none was tested on geological maps.
+## Summary (what is safe to state)
+- Müller 2019 [B] gives a usable scale for the cost of rigid-only reconstruction: distributed deformation up to ~30-48 x 10^6 km^2 and area change of ~10% across the Pangea breakup.
+- Metcalfe 2013 [B-abs] gives the three-phase Gondwana dispersal order for the block list.
+- Subduction-zone length vs depth (van der Meer thesis [B-abs]) is the closest sourced width-proxy; no ocean width formula found.
+- Block size and count remain assumptions.
 
 ## Not found (BULUNAMADI)
-- Craton areas (km^2) and a sourced 10^5-10^7 km^2 block-size range.
-- Paleo-ocean width method from slab data (van der Meer 2018 abstract).
-- Explicit Qiangtang-Lhasa suture closure date; firm Tarim-North China merger date.
-
-- Ophiolite/melange width values.
-- Voronoi or geological-map segmentation tools.
-- 'paleoplate' and 'BEST-FIT' software.
-- Müller 2016 'closed plate polygons' paper.
-- Kazakhstania-specific review; Voronoi and geological-map segmentation tools; BEST-FIT software.
+- Craton areas (km^2); sourced 10^5-10^7 km^2 block-size range.
+- Ocean width formula from slab data (direct).
+- Qiangtang-Lhasa suture closure date; firm Tarim-North China merger date; Kazakhstania collision timing.
+- Ophiolite/mélange width values.
+- Voronoi and geological-map segmentation; "paleoplate", "BEST-FIT", "Reconstruction Tool".
+- Full text of Metcalfe 2013, van der Meer 2018 paper, Cocks & Torsvik 2005/2011, Torsvik & Cocks 2017 (not downloaded; only abstracts or the 2012 review were read).
