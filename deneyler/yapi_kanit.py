@@ -96,30 +96,13 @@ def desen(ny, nx, h_km, tx, ty, aralik_km, boy_km, rng):
     return np.clip(up / 2.0, -1, 1)
 
 
-def main():
-    on = sys.argv[1] if len(sys.argv) > 1 else "cikti/dunya_lab/dl_50km_50ma_avr1500_K5e-07_s10_z0.3_150_kk0_sh0_in5_kb1_dk0.02_yay2000_iklim"
-    kaba_h = float(sys.argv[2]) if len(sys.argv) > 2 else 50.0
-    h_km = float(sys.argv[3]) if len(sys.argv) > 3 else 2.5
-    sure = float(sys.argv[4]) if len(sys.argv) > 4 else 3.0
-    K = float(sys.argv[5]) if len(sys.argv) > 5 else 2e-6
-    genlik = float(sys.argv[6]) if len(sys.argv) > 6 else 1800.0
-    t0 = time.time()
-    zr10, _, _ = gercek_yukseklik()
-    dzk = duzlem_kur(zr10 > 0, SINIR, h_km=kaba_h, pay_km=800.0)
-    lo = np.array([BOLGE[0], BOLGE[1], BOLGE[0], BOLGE[1]]); la = np.array([BOLGE[2], BOLGE[2], BOLGE[3], BOLGE[3]])
-    px, py = laea_ileri(lo, la, dzk.lon0, dzk.lat0)
+def yapi_ve_asinma(z, S, kara, LA, h_km, sure, K, genlik, sert=None, t0=None):
+    """Yapı katmanı + ince ızgarada aşınma. z, S: kaba yüzey ve kabuk kalınlığı ince ızgarada; kara: kara maskesi;
+    LA: enlem (yağış kuşakları); sert: sert çekirdek maskesi (yapı orada bastırılır) ya da None.
+    Dönüş: (son yüzey kara üstünde, hedef yüzey, deniz yüzeyi)."""
+    t0 = t0 or time.time()
     h = h_km * 1e3
-    x = np.arange(px.min(), px.max(), h); y = np.arange(py.max(), py.min(), -h)
-    X, Y = np.meshgrid(x, y)
-    LO, LA = laea_geri(X, Y, dzk.lon0, dzk.lat0)
-    ny, nx = X.shape
-    cc = (X - dzk.x[0]) / dzk.h; rr = (dzk.y[0] - Y) / dzk.h
-    zk = np.load(f"{on}_z.npy").astype(float); Sk = np.load(f"{on}_S.npy").astype(float)
-    z = ndimage.map_coordinates(zk, [rr, cc], order=3, mode="nearest")
-    S = ndimage.map_coordinates(Sk, [rr, cc], order=1, mode="nearest")
-    kara = ndimage.map_coordinates(zk, [rr, cc], order=1, mode="nearest") > 0
-    print(f"ızgara {ny}×{nx}, {h_km} km", flush=True)
-
+    ny, nx = z.shape
     # --- yapı katmanı ---
     Sd = ndimage.gaussian_filter(S, 100.0 / h_km)
     gy, gx = np.gradient(Sd)
@@ -146,11 +129,9 @@ def main():
     # yalnız deforme kabukta: kalınlaşma 40 km'den 55 km'ye; kenar kuşağı terimi yalnız kalınlaşmış yerde
     kalin = np.clip((S - 40e3) / 15e3, 0, 1)
     siddet = np.clip(kalin * 0.75 + np.clip(egim / 40.0, 0, 1) * np.clip((S - 37e3) / 3e3, 0, 1) * 0.5, 0, 1)
-    sert = np.zeros(z.shape, bool)
-    for c_ in SERT.values():
-        sert |= cokgen_ici(LO, LA, c_)
-    w_sert = ndimage.gaussian_filter(sert.astype(float), 60.0 / h_km)  # yumuşak geçiş, çokgen izi kalmasın
-    siddet = siddet * (1.0 - 0.85 * np.clip(w_sert * 1.5, 0, 1))
+    if sert is not None:
+        w_sert = ndimage.gaussian_filter(sert.astype(float), 60.0 / h_km)  # yumuşak geçiş, çokgen izi kalmasın
+        siddet = siddet * (1.0 - 0.85 * np.clip(w_sert * 1.5, 0, 1))
     # plato kenarı: bindirme cepheleri geçişi dikleştirir; ova (zb) ile plato (zt) arasındaki yükseklik
     # iki kez yumuşak basamak eğrisinden geçirilir (geçiş kuşağı yaklaşık yarıya daralır); yalnız
     # yükseklik farkının büyük olduğu yerde (zt − zb > 1500 m)
@@ -197,8 +178,39 @@ def main():
         zz = np.where(kara, np.maximum(zz + U, 0.5), 0.0)
         if i % 50 == 49:
             print(f"  {i + 1}/{n} adım, {time.time() - t0:.0f} s", flush=True)
+    return np.where(kara, zz, z_deniz), hedef, z_deniz
+
+
+
+def main():
+    on = sys.argv[1] if len(sys.argv) > 1 else "cikti/dunya_lab/dl_50km_50ma_avr1500_K5e-07_s10_z0.3_150_kk0_sh0_in5_kb1_dk0.02_yay2000_iklim"
+    kaba_h = float(sys.argv[2]) if len(sys.argv) > 2 else 50.0
+    h_km = float(sys.argv[3]) if len(sys.argv) > 3 else 2.5
+    sure = float(sys.argv[4]) if len(sys.argv) > 4 else 3.0
+    K = float(sys.argv[5]) if len(sys.argv) > 5 else 2e-6
+    genlik = float(sys.argv[6]) if len(sys.argv) > 6 else 1800.0
+    t0 = time.time()
+    zr10, _, _ = gercek_yukseklik()
+    dzk = duzlem_kur(zr10 > 0, SINIR, h_km=kaba_h, pay_km=800.0)
+    lo = np.array([BOLGE[0], BOLGE[1], BOLGE[0], BOLGE[1]]); la = np.array([BOLGE[2], BOLGE[2], BOLGE[3], BOLGE[3]])
+    px, py = laea_ileri(lo, la, dzk.lon0, dzk.lat0)
+    h = h_km * 1e3
+    x = np.arange(px.min(), px.max(), h); y = np.arange(py.max(), py.min(), -h)
+    X, Y = np.meshgrid(x, y)
+    LO, LA = laea_geri(X, Y, dzk.lon0, dzk.lat0)
+    ny, nx = X.shape
+    cc = (X - dzk.x[0]) / dzk.h; rr = (dzk.y[0] - Y) / dzk.h
+    zk = np.load(f"{on}_z.npy").astype(float); Sk = np.load(f"{on}_S.npy").astype(float)
+    z = ndimage.map_coordinates(zk, [rr, cc], order=3, mode="nearest")
+    S = ndimage.map_coordinates(Sk, [rr, cc], order=1, mode="nearest")
+    kara = ndimage.map_coordinates(zk, [rr, cc], order=1, mode="nearest") > 0
+    print(f"ızgara {ny}×{nx}, {h_km} km", flush=True)
+
+    sert = np.zeros(z.shape, bool)
+    for c_ in SERT.values():
+        sert |= cokgen_ici(LO, LA, c_)
+    zs, hedef, z_deniz = yapi_ve_asinma(z, S, kara, LA, h_km, sure, K, genlik, sert, t0)
     sure_s = time.time() - t0
-    zs = np.where(kara, zz, z_deniz)
     np.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}_" + os.path.basename(on)[-12:] + "_z.npy", zs.astype(np.float32))
     dzi = Duzlem(dzk.lon0, dzk.lat0, h, x, y, LO, LA, kara)
     zg6, lo6, la6 = gercek_06()

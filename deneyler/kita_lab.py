@@ -1,6 +1,6 @@
 """Sahibin kıtasında çarpışma laboratuvarı: bloklar geçmiş konumlarından başlayıp ileri zamanda gelir.
 
-Kullanım: python -m deneyler.kita_lab [ADAY_NO] [H_KM] [BAS_MA] [PAY] [BUYUK] [YAY_M] [MIRAS_NPZ]
+Kullanım: python -m deneyler.kita_lab [ADAY_NO] [H_KM] [BAS_MA] [PAY] [BUYUK] [YAY_M] [MIRAS_NPZ] [TAM]
 
 Başlangıç: her blok, aday tarihinin geri sürmesiyle BAS_MA anındaki konumuna yerleştirilir
 (Kuzey sabit). Sonra hiçbir kalıp olmadan: bloklar tarihlerindeki hızlarla sürülür, ince viskoz levha
@@ -117,6 +117,13 @@ def main():
     a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=5e-7, cek_gelen_km=400.0, cek_sabit_km=450.0, yay_uretim_m=yay)
     if yay > 0:
         on += f"_yay{yay:g}"
+    if len(sys.argv) > 8 and sys.argv[8] == "1":
+        # gerçek dünya sınamasında toplam puanı en iyi genel ayar (deneyler/SONUCLAR.md, çok bölgeli puan 0,377):
+        # dikiş fay kuşağı, kıyı sızıntısı kapalı, dar şerit eşiği, yarılma zayıflaması, iklim ve buzul, termal kaldırma
+        from dataclasses import replace
+        a = replace(a, sinir_zayif=0.3, sinir_km=150.0, kiyi_sizinti=False, dikis_esik=0.02, incelme_km=5.0,
+                    iklim=True, termal_m=1200.0)
+        on += "_tam"
     lab = LabCok(S0, L0, bas, a, dz.lon, dz.lat, aday.tarihler, bl.adlar, bl.sabit, yerel_eksenler(dz, dz.lon, dz.lat))
     kareler = []
     adim = int(round(bas / a.dt_myr))
@@ -138,7 +145,7 @@ def main():
     # maskeye göre kesilmiş: kıyı sahibin maskesi, yükseklik simülasyondan
     zm = np.where(dz.kara, np.maximum(z, 1.0), np.minimum(z, -1.0))
     resim(zm, h_km, 2).save(f"{on}_maskeli.png")
-    np.save(f"{on}_z.npy", z.astype(np.float32))
+    np.save(f"{on}_z.npy", z.astype(np.float32)); np.save(f"{on}_S.npy", lab.durum.S.astype(np.float32))
     print(f"maske örtüşmesi (IoU) {ort:.2f}; en yüksek {z.max():.0f} m; toplam {time.time() - t0:.0f} s")
 
 
