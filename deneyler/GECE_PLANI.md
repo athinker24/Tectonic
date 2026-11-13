@@ -45,3 +45,4 @@ arkasında plato büyür, önünde çökme havzası (ova) oluşur; nehirler ve a
 - Sahibin kıtası: Büyük Güneydoğu uzantısıyla zincir tamamlandı (58 Ma temas, sıradağ, plato, yarımada çarpışması); IoU 0,81. Görseller cikti/ornek_kita_lab_kareler.png, cikti/ornek_kita_lab_son.png, cikti/ornek_kita_lab.gif.
 - Sırada: iç denizin korunması (okyanus kabuğu bölgelerinin daha dayanıklı olması ya da maskeye çekme), mikro kıtanın ayrı kalması, daha ince çözünürlük.
 - İç deniz korundu (uzantı yalnız tükenecek önle sınırlı); IoU 0,84. Sırada: düz çizgili yapay kenarların nedeni, çözünürlük, mikro kıtanın sıkışma tarihine göre dağlanması.
+- 30 km koşusu: aynı zincir, IoU 0,84, en yüksek 5251 m (cikti/ornek_kita_lab30_kareler.png). Sırada: plato yüksekliğinin sahibin 1000 ile 1500 m isteğine göre ayarı (plato bölgesinde kabuk kalınlaşmasını sınırlayan daha zayıf alt kabuk ya da daha ince başlangıç kabuğu), mikro kıtanın sıkışması, tarayıcıya taşıma.
