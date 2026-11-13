@@ -32,6 +32,32 @@ from tektonik.levha_model import yagis_alani
 from tektonik.yazi import yazi_tipi
 
 
+YAMAC_K = 2.0  # m²/yıl, yamaç yayılma katsayısı (2,5 km hücrede ızgara altı yamaç süreçleri)
+
+
+def ciz(z, kara, h):
+    """Görselleştirme: renk 2 hücre düzgünleştirilmiş yükseklikten (renk ölçeğinin 4000 ile 5500 m arasındaki
+    hızlı kahverengi beyaz geçişi küçük yükseklik farklarında sert ton atlamaları yapmasın), gölge hafif
+    düzgünleştirilmiş yükseklikten; dikey abartma hücre boyuna göre (10 km'de 2,5)."""
+    from tektonik.gorsel import _RENK
+    from deneyler.dunya_ince import DENIZ
+    zr = ndimage.gaussian_filter(np.where(kara, z, 0.0), 2.0)
+    zg = ndimage.gaussian_filter(np.where(kara, z, 0.0), 0.8)
+    rgb_k = np.stack([np.interp(np.clip(zr, 0, 7000), _RENK[:, 0], _RENK[:, i]) for i in (1, 2, 3)], -1)
+    rgb_d = np.stack([np.interp(np.clip(z, -6000, 0), DENIZ[:, 0], DENIZ[:, i]) for i in (1, 2, 3)], -1)
+    gy, gx = np.gradient(zg, h)
+    ab = 2.5 * np.sqrt(h / 10e3)
+    isik = 0.0
+    for az, w in ((315, 0.55), (270, 0.25), (0, 0.2)):
+        a = np.radians(az)
+        lx, ly, lz = np.sin(a) * np.cos(np.radians(45)), np.cos(a) * np.cos(np.radians(45)), np.sin(np.radians(45))
+        nx_, ny_ = -gx * ab, gy * ab
+        isik = isik + w * (nx_ * lx + ny_ * ly + lz) / np.sqrt(nx_ ** 2 + ny_ ** 2 + 1)
+    isik = np.clip(0.45 + 0.7 * isik, 0.35, 1.12)
+    rgb = np.where(kara[..., None], rgb_k * isik[..., None], rgb_d)
+    return Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8))
+
+
 def cizgi_tumlevi(N, tx, ty, adim):
     """Gürültüyü (tx, ty) doğrultu alanı boyunca her iki yönde `adim` hücre ortalar (LIC)."""
     ny, nx = N.shape
@@ -133,6 +159,8 @@ def main():
     grid = fs.RasterGrid([ny, nx], [h, h], fs.NodeStatus.FIXED_VALUE, durum)
     router = fs.FlowGraph(grid, [fs.SingleFlowRouter(), fs.MSTSinkResolver(), fs.MultiFlowRouter(1.0)])  # çok yönlü: düz paralel oluklar olmasın
     eroder = fs.SPLEroder(router, K, 0.5, 1.0, 1e-4)
+    # yamaç süreçleri (sürünme, kayma) ızgara altı ölçekte: doğrusal yayılma; bıçak sırtları ve hücre pürüzü
+    yamac = fs.DiffusionADIEroder(grid, YAMAC_K) if YAMAC_K > 0 else None
     dt = 2e4; n = int(round(sure * 1e6 / dt))
     s15 = 15.0 / h_km
     hedef_d = ndimage.gaussian_filter(np.where(kara, hedef, 0.0), s15)
@@ -145,6 +173,9 @@ def main():
         A = np.asarray(router.accumulate(np.ascontiguousarray(P)))
         e = np.where(kara, np.clip(np.asarray(eroder.erode(zf, A, dt)).reshape(z.shape), 0, None), 0.0)
         zz = zz - e
+        if yamac is not None:
+            zd = np.ascontiguousarray(zz, dtype=np.float64).copy()
+            zz = zz - np.where(kara, np.asarray(yamac.erode(zd, dt)).reshape(z.shape), 0.0)
         # yükselme: 15 km düzgünleştirilmiş yüzey 0,5 milyon yılda hedefe yaklaşır
         U = (hedef_d - ndimage.gaussian_filter(zz, s15)) * min(1.0, dt / 5e5)
         zz = np.where(kara, np.maximum(zz + U, 0.5), 0.0)
@@ -152,12 +183,12 @@ def main():
             print(f"  {i + 1}/{n} adım, {time.time() - t0:.0f} s", flush=True)
     sure_s = time.time() - t0
     zs = np.where(kara, zz, z_deniz)
-    np.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_c_z.npy", zs.astype(np.float32))
+    np.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy_g{genlik:g}_z.npy", zs.astype(np.float32))
     dzi = Duzlem(dzk.lon0, dzk.lat0, h, x, y, LO, LA, kara)
     zg6, lo6, la6 = gercek_06()
     zg, _ = izgaraya(dzi, zg6, lo6, la6)
     zg = ndimage.gaussian_filter(zg, 0.6)
-    m_im = golge(zs, kara, h); g_im = golge(zg, zg > 0, h)
+    m_im = ciz(zs, kara, h); g_im = ciz(zg, zg > 0, h)
     W, H = m_im.size; s = 900 / W
     m_s = m_im.resize((900, int(H * s)), Image.LANCZOS); g_s = g_im.resize((900, int(H * s)), Image.LANCZOS)
     t = Image.new("RGB", (900, m_s.height * 2 + 70), "white")
@@ -165,11 +196,11 @@ def main():
     dr = ImageDraw.Draw(t)
     dr.text((8, 4), f"Model: tektonik + yapı katmanı + {h_km:g} km'de {sure:g} milyon yıl aşınma ({sure_s / 60:.0f} dakika)", fill=(0, 0, 0), font=yazi_tipi(20))
     dr.text((8, m_s.height + 40), "Gerçek (06' veri, yaklaşık 11 km)", fill=(0, 0, 0), font=yazi_tipi(20))
-    t.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_c.png")
+    t.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy_g{genlik:g}.png")
     c0, r0 = int(nx * 0.25), int(ny * 0.25)
-    m_im.crop((c0, r0, c0 + 700, r0 + 450)).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_c_yakin.png")
+    m_im.crop((c0, r0, c0 + 700, r0 + 450)).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy_g{genlik:g}_yakin.png")
     # yapı katmanının kendisi (aşınmadan önce), tanı için
-    golge(np.where(kara, hedef, z_deniz), kara, h).resize((900, int(H * s)), Image.LANCZOS).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_c_hedef.png")
+    ciz(np.where(kara, hedef, z_deniz), kara, h).resize((900, int(H * s)), Image.LANCZOS).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy_g{genlik:g}_hedef.png")
     print(f"toplam {sure_s:.0f} s")
 
 
