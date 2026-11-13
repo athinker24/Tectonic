@@ -54,9 +54,12 @@ def main():
     iklim = (sys.argv[15] == "1") if len(sys.argv) > 15 else False  # enlem kuşakları ve buzul aşınması
     plas = float(sys.argv[16]) if len(sys.argv) > 16 else 0.0  # plastik akma gerilimi (MPa), 0 kapalı
     zay_miras = float(sys.argv[17]) if len(sys.argv) > 17 else 1.0  # miras zayıf kuşak viskozite çarpanı (Tien Şan)
+    tek_yan = (sys.argv[18] == "1") if len(sys.argv) > 18 else False  # fay kuşağı yalnız üstteki levhada
+    dalma = float(sys.argv[19]) if len(sys.argv) > 19 else 0.0  # kıta kabuğu dalma payı
+    gsert = float(sys.argv[20]) if len(sys.argv) > 20 else 1.0  # gelen blokların kıta viskozite çarpanı
     t0 = time.time()
     os.makedirs("cikti/dunya_lab", exist_ok=True)
-    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}_sh{int(sahan)}_in{incel:g}_kb{int(kubik)}_dk{dikis:g}" + (f"_y{yum:g}" if yum > 0 else "") + (f"_yay{yay:g}" if yay > 0 else "") + ("_iklim" if iklim else "") + (f"_p{plas:g}" if plas > 0 else "") + (f"_mz{zay_miras:g}" if zay_miras != 1.0 else "")
+    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}_sh{int(sahan)}_in{incel:g}_kb{int(kubik)}_dk{dikis:g}" + (f"_y{yum:g}" if yum > 0 else "") + (f"_yay{yay:g}" if yay > 0 else "") + ("_iklim" if iklim else "") + (f"_p{plas:g}" if plas > 0 else "") + (f"_mz{zay_miras:g}" if zay_miras != 1.0 else "") + ("_ty" if tek_yan else "") + (f"_kd{dalma:g}" if dalma > 0 else "") + (f"_gs{gsert:g}" if gsert != 1.0 else "")
 
     zr, lon_r, lat_r = gercek_yukseklik()
     dz = duzlem_kur(zr > 0, SINIR, h_km=h_km, pay_km=800.0)
@@ -151,7 +154,7 @@ def main():
     L0 = L0[ri, ci]
 
     a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=K, cek_gelen_km=400.0, cek_sabit_km=avr,
-                 sinir_zayif=zay, sinir_km=zay_km, kiyi_sizinti=sizinti, incelme_km=incel, tasima_kubik=kubik, dikis_esik=dikis, yumusama_e0=yum, yay_uretim_m=yay, iklim=iklim, plastik_mpa=plas)
+                 sinir_zayif=zay, sinir_km=zay_km, kiyi_sizinti=sizinti, incelme_km=incel, tasima_kubik=kubik, dikis_esik=dikis, yumusama_e0=yum, yay_uretim_m=yay, iklim=iklim, plastik_mpa=plas, sinir_tek_yan=tek_yan, kita_dalma=dalma, gelen_sert=gsert)
     lab = LabCok(S0, L0, bas, a, dz.lon, dz.lat, tarihler, adlar, "Avrasya", yerel_eksenler(dz, dz.lon, dz.lat))
     if sert != 1.0:
         # sert bölgeler bugünkü yerlerinde (Avrasya sabit olduğundan geri sürülmez); 50 km kenar yumuşatması

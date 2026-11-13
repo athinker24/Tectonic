@@ -16,6 +16,7 @@ Yapı katmanı (kural; kopya değil, her parametresi tektonik katmandan):
 Hedef yüzey = kaba yüzey + genlik × şiddet × desen. Aşınma katmanı: 15 km'den büyük ölçek hedefe
 0,5 milyon yıl sürede yaklaşır (yükselme), küçük ölçek (vadiler) aşınmayla serbest oluşur.
 """
+import os
 import sys
 import time
 
@@ -198,7 +199,7 @@ def main():
             print(f"  {i + 1}/{n} adım, {time.time() - t0:.0f} s", flush=True)
     sure_s = time.time() - t0
     zs = np.where(kara, zz, z_deniz)
-    np.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}_z.npy", zs.astype(np.float32))
+    np.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}_" + os.path.basename(on)[-12:] + "_z.npy", zs.astype(np.float32))
     dzi = Duzlem(dzk.lon0, dzk.lat0, h, x, y, LO, LA, kara)
     zg6, lo6, la6 = gercek_06()
     zg, _ = izgaraya(dzi, zg6, lo6, la6)
@@ -211,11 +212,11 @@ def main():
     dr = ImageDraw.Draw(t)
     dr.text((8, 4), f"Model: tektonik + yapı katmanı + {h_km:g} km'de {sure:g} milyon yıl aşınma ({sure_s / 60:.0f} dakika)", fill=(0, 0, 0), font=yazi_tipi(20))
     dr.text((8, m_s.height + 40), "Gerçek (06' veri, yaklaşık 11 km)", fill=(0, 0, 0), font=yazi_tipi(20))
-    t.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}.png")
+    t.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}_" + os.path.basename(on)[-12:] + ".png")
     c0, r0 = int(nx * 0.25), int(ny * 0.25)
-    m_im.crop((c0, r0, c0 + 700, r0 + 450)).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}_yakin.png")
+    m_im.crop((c0, r0, c0 + 700, r0 + 450)).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}_" + os.path.basename(on)[-12:] + "_yakin.png")
     # yapı katmanının kendisi (aşınmadan önce), tanı için
-    ciz(np.where(kara, hedef, z_deniz), kara, h).resize((900, int(H * s)), Image.LANCZOS).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}_hedef.png")
+    ciz(np.where(kara, hedef, z_deniz), kara, h).resize((900, int(H * s)), Image.LANCZOS).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy3_g{genlik:g}_" + os.path.basename(on)[-12:] + "_hedef.png")
     print(f"toplam {sure_s:.0f} s")
 
 

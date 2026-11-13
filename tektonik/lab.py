@@ -56,6 +56,9 @@ class LabAyar:
     carpisma_sonrasi_hiz: float = 0.5  # temas sonrası hız çarpanı (Hindistan çarpışmadan sonra yavaşladı)
     sinir_zayif: float = 1.0  # levha sınırı fay kuşağının viskozite çarpanı (1 = yok); bindirme kuşağı
     sinir_km: float = 200.0  # fay kuşağının sınırdan iki yana genişliği
+    gelen_sert: float = 1.0  # çok bloklu: hareketli blokların kıtası bu kat viskoz (Hindistan, Arabistan kalkanları)
+    kita_dalma: float = 0.0  # kıta kabuğu dalması: kalınlaşmanın bu payı mantoya gider (Hindistan Asya için yaklaşık 0,5)
+    sinir_tek_yan: bool = False  # True: fay kuşağı yalnız üstteki (sabit) levhada; gelen kıtanın önü kalınlaşmasın
     dikis_esik: float = 0.0  # dar okyanus şeridinin kapanması için adım başına en az kısalma (0,02: %2); 0 her yakınsamada
     yumusama_e0: float = 0.0  # >0: gerinim yumuşaması; birikmiş gerinim ε ile viskozite exp(−ε/e0) (fay yerelleşmesi)
     yumusama_min: float = 0.1  # yumuşamanın alt sınırı (viskozite çarpanı)
@@ -304,6 +307,10 @@ class Lab:
             kita = S > 20e3
         # --- kalınlaşma (yalnız kıtada; okyanusta dalma) ---
         dS = np.where(kita, -S * ekk * dt_s, 0.0)
+        if a.kita_dalma > 0:
+            # çarpışmada kıta kabuğunun bir kısmı manto içine dalar (Ingalls ve diğ. 2016: Hindistan Asya
+            # çarpışmasında çarpışma öncesi kabuk kütlesinin yaklaşık %50'si yüzeyde yok)
+            dS = np.where(dS > 0, dS * (1.0 - a.kita_dalma), dS)
         S = S + np.clip(dS, -0.2 * S, 15e3)
         if a.yay_uretim_m > 0:
             S = S + self._yay(kita, ekk, u, v, dt_s)
@@ -428,6 +435,9 @@ class LabCok(Lab):
                 v0[m] = ve * self.de[1][m] + vn * self.dn[1][m]
         sabit[[0, -1], :] = True; sabit[:, [0, -1]] = True
         eta_t = np.where(kita, a.eta0, a.eta0 * a.okyanus)
+        if a.gelen_sert != 1.0:
+            # gelen bloklar (kalkanlar) sağlam: deformasyon üstteki levhanın içine taşınır
+            eta_t = eta_t * np.where(kita & (lev != self.adlar.index(self.sabit_ad)), a.gelen_sert, 1.0)
         eta_t = eta_t * np.exp(-np.clip(S - a.S_ref_km * 1e3, 0, None) / 15e3)
         if self.eta_carpan is not None:
             eta_t = eta_t * np.where(kita, self.eta_carpan, 1.0)
@@ -441,6 +451,8 @@ class LabCok(Lab):
                 d_s = ndimage.distance_transform_edt(~sb) * a.h_km
                 d_g = ndimage.distance_transform_edt(~gb) * a.h_km
                 zayif = kita & (d_s < a.sinir_km) & (d_g < a.sinir_km)
+                if a.sinir_tek_yan:
+                    zayif &= sb
             # bindirme kuşağı: iki levhanın kıtaları arasındaki sınırda fay zonu zayıftır (gerinim orada
             # yoğunlaşır; Himalaya cephesi gibi). Kenar yumuşatması bir hücre.
                 w = ndimage.gaussian_filter(zayif.astype(float), 1.0)
