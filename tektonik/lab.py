@@ -106,6 +106,7 @@ class Lab:
     def __init__(self, S0: np.ndarray, etiket0: np.ndarray, hiz_gelen: tuple[float, float], bas_ma: float,
                  ayar: LabAyar | None = None):
         self.a = a = ayar or LabAyar()
+        self.eta_carpan = None  # sert bölgeler (kratonlar): kıtada viskozite çarpanı, ızgarada sabit
         ny, nx = S0.shape
         self.ny, self.nx = ny, nx
         h = a.h_km * 1e3
@@ -153,6 +154,8 @@ class Lab:
         eta_t = np.where(kita, a.eta0 * np.where(gelen, a.sert_gelen, 1.0), a.eta0 * a.okyanus)
         # kalın sıcak kabuk zayıflar
         eta_t = eta_t * np.exp(-np.clip(S - a.S_ref_km * 1e3, 0, None) / 15e3)
+        if self.eta_carpan is not None:
+            eta_t = eta_t * np.where(kita, self.eta_carpan, 1.0)
         return sabit, u0, v0, eta_t
 
     def adim(self):
@@ -309,4 +312,6 @@ class LabCok(Lab):
         sabit[[0, -1], :] = True; sabit[:, [0, -1]] = True
         eta_t = np.where(kita, a.eta0, a.eta0 * a.okyanus)
         eta_t = eta_t * np.exp(-np.clip(S - a.S_ref_km * 1e3, 0, None) / 15e3)
+        if self.eta_carpan is not None:
+            eta_t = eta_t * np.where(kita, self.eta_carpan, 1.0)
         return sabit, u0, v0, eta_t
