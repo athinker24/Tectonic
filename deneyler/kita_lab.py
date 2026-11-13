@@ -34,10 +34,11 @@ def main():
     bas = float(sys.argv[3]) if len(sys.argv) > 3 else 70.0
     t0 = time.time()
     os.makedirs("cikti/kita_lab", exist_ok=True)
-    on = f"cikti/kita_lab/kita_{no}_{h_km:g}km_{bas:g}ma"
+    on = f"cikti/kita_lab/kita_{no}_{h_km:g}km_{bas:g}ma" + ("_buyuk" if (len(sys.argv) <= 5 or sys.argv[5] == "1") else "")
     maske, sinir = maske_yukle("veri/maske.json")
     sen = json.load(open("veri/senaryo.json", encoding="utf-8"))
     pay = float(sys.argv[4]) if len(sys.argv) > 4 else 1800.0
+    buyuk = (sys.argv[5] == "1") if len(sys.argv) > 5 else True
     dz = duzlem_kur(maske, sinir, h_km=h_km, pay_km=pay)
     ny, nx = dz.sekil
     iz = izgara_kur(maske, sinir, nside=128)
@@ -60,7 +61,19 @@ def main():
             continue
         xyz = _lonlat_xyz(dz.lon[m], dz.lat[m])
         if ad in aday.tarihler:
-            xyz = kure.uygula(aday.tarihler[ad].geri_donme(bas), xyz)
+            tr = aday.tarihler[ad]
+            p0 = xyz
+            xyz = kure.uygula(tr.geri_donme(bas), p0)
+            # "Büyük" blok: çarpışmadan sonraki itmenin tüketeceği kıta uzantısı. Katı geri sürmede bu
+            # itme çarpışma anında bir boşluk olarak görünür; o boşluk aslında bloğun dağa itilip yok
+            # olan önüdür (Büyük Hindistan). Çarpışma anı: sıfırdan büyük en geç aşama sonu.
+            tc = max([a.bitis_ma for a in tr.asamalar if 0 < a.bitis_ma < bas], default=0.0)
+            if buyuk and tc > 0:
+                q = kure.carp(tr.geri_donme(bas), kure.ters(tr.geri_donme(tc)))
+                kor = [kure.uygula(tr.geri_donme(t), p0) for t in np.linspace(0, tc, 24)]
+                ek = kure.uygula(q, np.vstack(kor))
+                xyz = np.vstack([xyz, ek])
+                print(f"{ad}: çarpışma {tc:.1f} Ma, Büyük {ad} uzantısı eklendi")
         lo, la = kure.xyz_lonlat(xyz)
         px, py = laea_ileri(np.asarray(lo), np.asarray(la), dz.lon0, dz.lat0)
         c = np.round((px - dz.x[0]) / dz.h).astype(int)
