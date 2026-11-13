@@ -9,8 +9,9 @@ Yapı katmanı (kural; kopya değil, her parametresi tektonik katmandan):
             kuşakları güçlü); deforme olmamış ovada sıfır; sert çekirdeklerde (Tarim, Junggar, Sichuan,
             Ordos, kalkanlar) 60 km yumuşak geçişle 0,15 kat.
   desen:    rastgele gürültü doğrultu boyunca çizgi tümlevi ile uzatılır (iki ölçek: ana kuşaklar
-            yaklaşık 150 km aralık ve 900 km boy, ikincil sırtlar 40 km ve 250 km); sırt biçimi 1 − |n|.
-            Negatif bölgeler düz tabanlı havza olur.
+            yaklaşık 140 km aralık ve 600 km boy, ikincil sırtlar 45 km ve 140 km), 150 km ölçekte 45 km
+            bükülür (kıvrım, dallanma); sırtlar yalnız desen tepelerinde (düzensiz aralık, sönen uçlar),
+            arası düz tabanlı havza; ikincil sırtlar ana kuşak üstünde güçlü.
 Hedef yüzey = kaba yüzey + genlik × şiddet × desen. Aşınma katmanı: 15 km'den büyük ölçek hedefe
 0,5 milyon yıl sürede yaklaşır (yükselme), küçük ölçek (vadiler) aşınmayla serbest oluşur.
 """
@@ -101,11 +102,17 @@ def main():
     th = 0.5 * np.arctan2(2 * jxy, jxx - jyy)  # eğim doğrultusu
     tx, ty = -np.sin(th), np.cos(th)  # doğrultu (kuşak uzanımı) eğime dik
     rng = np.random.default_rng(11)
-    ana = desen(ny, nx, h_km, tx, ty, 150.0, 900.0, rng)
-    ikincil = desen(ny, nx, h_km, tx, ty, 40.0, 250.0, rng)
-    sirt = lambda n: 1.0 - np.abs(n)  # sırt: keskin tepe, geniş vadi
-    d = 0.65 * (2 * sirt(ana) - 1) + 0.35 * (2 * sirt(ikincil) - 1)
-    d = np.where(d < -0.3, -0.3 - 0.2 * (d + 0.3), d)  # derin çukurlar düz tabanlı havza
+    ana = desen(ny, nx, h_km, tx, ty, 140.0, 600.0, rng)
+    ikincil = desen(ny, nx, h_km, tx, ty, 45.0, 140.0, rng)
+    # büyük ölçekli bükme: kuşaklar kıvrılır, dallanır, kavislenir (genlik 45 km, ölçek 150 km)
+    wx = ndimage.gaussian_filter(rng.standard_normal(z.shape), 150.0 / h_km); wx *= (45.0 / h_km) / (wx.std() + 1e-12)
+    wy = ndimage.gaussian_filter(rng.standard_normal(z.shape), 150.0 / h_km); wy *= (45.0 / h_km) / (wy.std() + 1e-12)
+    ri_, ci_ = np.mgrid[0:ny, 0:nx].astype(float)
+    bük = lambda f: ndimage.map_coordinates(f, [ri_ + wy, ci_ + wx], order=1, mode="reflect")
+    ana, ikincil = bük(ana), bük(ikincil)
+    # sırt yalnız desenin tepelerinde: düzensiz aralık, uçlarda doğal sönme; arası düz havza
+    tepe = lambda n: np.clip(n, 0, 1) ** 1.2
+    d = 1.5 * tepe(ana) + 0.45 * tepe(ikincil) * (0.3 + 0.7 * np.clip(ana + 0.5, 0, 1)) - 0.3
     egim = np.hypot(gx, gy) * 1e3 / h_km  # m kabuk / km
     # yalnız deforme kabukta: kalınlaşma 40 km'den 55 km'ye; kenar kuşağı terimi yalnız kalınlaşmış yerde
     kalin = np.clip((S - 40e3) / 15e3, 0, 1)
@@ -124,7 +131,7 @@ def main():
     z_deniz = np.where(kara, 0.0, np.minimum(z, -1.0))
     durum = {(int(i), int(j)): fs.NodeStatus.FIXED_VALUE for i, j in zip(*np.nonzero(~kara))}
     grid = fs.RasterGrid([ny, nx], [h, h], fs.NodeStatus.FIXED_VALUE, durum)
-    router = fs.FlowGraph(grid, [fs.SingleFlowRouter(), fs.MSTSinkResolver()])
+    router = fs.FlowGraph(grid, [fs.SingleFlowRouter(), fs.MSTSinkResolver(), fs.MultiFlowRouter(1.0)])  # çok yönlü: düz paralel oluklar olmasın
     eroder = fs.SPLEroder(router, K, 0.5, 1.0, 1e-4)
     dt = 2e4; n = int(round(sure * 1e6 / dt))
     s15 = 15.0 / h_km
@@ -145,7 +152,7 @@ def main():
             print(f"  {i + 1}/{n} adım, {time.time() - t0:.0f} s", flush=True)
     sure_s = time.time() - t0
     zs = np.where(kara, zz, z_deniz)
-    np.save(f"cikti/yapi_kanit_{h_km:g}km_z.npy", zs.astype(np.float32))
+    np.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_c_z.npy", zs.astype(np.float32))
     dzi = Duzlem(dzk.lon0, dzk.lat0, h, x, y, LO, LA, kara)
     zg6, lo6, la6 = gercek_06()
     zg, _ = izgaraya(dzi, zg6, lo6, la6)
@@ -158,11 +165,11 @@ def main():
     dr = ImageDraw.Draw(t)
     dr.text((8, 4), f"Model: tektonik + yapı katmanı + {h_km:g} km'de {sure:g} milyon yıl aşınma ({sure_s / 60:.0f} dakika)", fill=(0, 0, 0), font=yazi_tipi(20))
     dr.text((8, m_s.height + 40), "Gerçek (06' veri, yaklaşık 11 km)", fill=(0, 0, 0), font=yazi_tipi(20))
-    t.save(f"cikti/yapi_kanit_{h_km:g}km.png")
+    t.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_c.png")
     c0, r0 = int(nx * 0.25), int(ny * 0.25)
-    m_im.crop((c0, r0, c0 + 700, r0 + 450)).save(f"cikti/yapi_kanit_{h_km:g}km_yakin.png")
+    m_im.crop((c0, r0, c0 + 700, r0 + 450)).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_c_yakin.png")
     # yapı katmanının kendisi (aşınmadan önce), tanı için
-    golge(np.where(kara, hedef, z_deniz), kara, h).resize((900, int(H * s)), Image.LANCZOS).save(f"cikti/yapi_kanit_{h_km:g}km_hedef.png")
+    golge(np.where(kara, hedef, z_deniz), kara, h).resize((900, int(H * s)), Image.LANCZOS).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_c_hedef.png")
     print(f"toplam {sure_s:.0f} s")
 
 
