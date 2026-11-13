@@ -344,3 +344,10 @@ Sahibin kıtasında iç deniz yeniden büyük ölçüde kapanıyor ve mikro kıt
 ### Kanıt denemesi: arazi katmanı 2,5 km (13 Kasım 2026)
 
 `deneyler/arazi_kanit.py`: 25 km tektonik koşunun yüzeyi Tibet, Tarim ve Hindistan'ın kuzeyi bölgesinde (65 ile 105°D, 22 ile 45°K) 2,5 km'ye taşındı (1,9 milyon hücre); yükselme 50 km ölçekte aşınmayı karşılar, orografik ve enlemli yağış, K 2e-6, 3 milyon yıl; 186 s. Sonuç: dallanan, birbirine bağlı vadi ağı oluşuyor; ancak görüntü düz bir kubbeye oyulmuş kanyonlar gibi; gerçekteki sıradağ ve havza deseni (Kunlun, Tien Şan, Qaidam, iç kuşaklar) yok, çünkü hiçbir katman bu yapıyı üretmiyor. Aşınma tek başına görünümü kurtarmıyor; eksik olan yapı katmanı.
+
+### Kanıt denemesi 2: yapı katmanı (13 Kasım 2026)
+
+`deneyler/yapi_kanit.py`. Tektonik katman (50 km, yaylar ve iklim) + kurala dayalı yapı katmanı + 2,5 km aşınma (3 milyon yıl, yaklaşık 2,5 dakika). Doğrultu: kalınlaşmış kabuğun eş kalınlık çizgileri (yapı tensörü); desen: doğrultu boyunca çizgi tümleviyle uzatılmış gürültüden sırtlar; şiddet: kalınlaşma ve kenar eğimi, sert çekirdeklerde düşük; hedef yüzeyin 15 km'den büyük ölçeği yükselmeyle korunur, vadiler aşınmayla oluşur.
+- Tur 1 (120/400 km ve 35/120 km, şiddet ovada da): plato benekli, ova da benekli, sert çekirdek çokgenleri görünüyor.
+- Tur 2 (150/900 km ve 40/250 km, şiddet yalnız deforme kabukta, sert çekirdek 60 km yumuşak geçiş): ovalar temiz; plato içinde doğu batı uzanan, doğuda güneye kıvrılan kuşaklar; uzaktan gerçek Tibet'in yapı yönüne benziyor, yakından taranmış saç gibi çok düzenli paralel çizgiler. En iyisi bu.
+- Tur 3 (kuşaklar 300 km ölçekte bölütlenmiş, arası düz havza): fırça darbesi gibi tek tek beyaz şeritler; daha yapay. Geri alındı.
