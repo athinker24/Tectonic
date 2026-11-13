@@ -60,6 +60,14 @@ class LabAyar:
     yumusama_e0: float = 0.0  # >0: gerinim yumuşaması; birikmiş gerinim ε ile viskozite exp(−ε/e0) (fay yerelleşmesi)
     yumusama_min: float = 0.1  # yumuşamanın alt sınırı (viskozite çarpanı)
     iyilesme_myr: float = 20.0  # birikmiş gerinimin iyileşme süresi
+    yay_uretim_m: float = 0.0  # >0: dalma batma magmatizması; tüketilen okyanus alanı başına eklenen kabuk (m), ör. 800
+    yay_uzaklik_km: float = 200.0  # yayın hendekten (ilk kıta hücresinden) içeri uzaklığı
+    yay_zayif: float = 1.0  # <1: etkin yayın altındaki sıcak kabuk zayıflar (en düşük viskozite çarpanı)
+    iklim: bool = False  # enlem kuşakları (yağış çarpanı) ve kar çizgisi üstünde buzul aşınması; enlem gerekir
+    buzul_k: float = 1.33e-6  # 1/yıl: kar çizgisinin 1500 m üstünde yaklaşık 2 mm/yıl aşınma (buzul testeresi)
+    plastik_mpa: float = 0.0  # >0: derinlik ortalamalı akma gerilimi (MPa); η ≤ τy / (2 ε̇E) (fay davranışı)
+    plastik_e: float = 1.0  # akma geriliminin yarıya indiği birikmiş gerinim (yumuşama yalnız akmada)
+    plastik_min: float = 0.4  # akma geriliminin en düşük oranı
     tasima_kubik: bool = True  # sınırlı kübik taşıma (False: eski doğrusal, kıyıyı yayar)
     incelme_km: float = 0.0  # >0: incelen kıtada viskozite exp(−(S_ref−S)/incelme) düşer (yırtılma, Kızıldeniz); 0 kapalı
     kiyi_sizinti: bool = True  # alt kabuk akışı kıyıdan okyanusa geçebilir mi (False: kıta kenarında akı yok)
@@ -74,6 +82,19 @@ class LabDurum:
     v: np.ndarray
     ma: float
     gunluk: list = field(default_factory=list)
+
+
+def enlem_yagis(lat):
+    """Enlemsel ortalama yağış çarpanı (yaklaşık): ekvator ıslak, dönence altı kurak (Hadley hücresi),
+    orta enlem ıslak (kutup cephesi), kutuplar kurak. Kıta içi kuruma yagis_alani'nde ayrıca var."""
+    e = np.abs(lat)
+    return np.interp(e, [0, 10, 20, 27, 35, 45, 55, 65, 80, 90], [1.8, 1.6, 0.9, 0.35, 0.6, 1.1, 1.1, 0.7, 0.35, 0.3])
+
+
+def kar_cizgisi(lat):
+    """Buzul denge hattı yüksekliği (m), enleme göre yaklaşık: dönence altı kurak kuşakta en yüksek."""
+    e = np.abs(lat)
+    return np.interp(e, [0, 20, 30, 45, 60, 70, 90], [4800, 5500, 5000, 3000, 1200, 300, 0])
 
 
 def acik_okyanus(z):
@@ -118,7 +139,8 @@ class Lab:
         self.eta_carpan = None  # sert bölgeler (kratonlar): kıtada viskozite çarpanı, ızgarada sabit
         # birikmiş gerinim; başlangıçta küçük rastgele miras zayıflıklar (yerelleşmenin çekirdekleri)
         _r = np.random.default_rng(a.tohum + 7)
-        self.Eps = 0.2 * a.yumusama_e0 * np.abs(ndimage.gaussian_filter(_r.standard_normal(S0.shape), 1.5)) / 0.2
+        _e0 = a.yumusama_e0 if a.yumusama_e0 > 0 else 0.5 * a.plastik_e
+        self.Eps = 0.2 * _e0 * np.abs(ndimage.gaussian_filter(_r.standard_normal(S0.shape), 1.5)) / 0.2
         ny, nx = S0.shape
         self.ny, self.nx = ny, nx
         h = a.h_km * 1e3
@@ -170,6 +192,52 @@ class Lab:
             eta_t = eta_t * np.where(kita, self.eta_carpan, 1.0)
         return sabit, u0, v0, eta_t
 
+    def _yay(self, kita, ekk, u, v, dt_s):
+        """Dalma batma magmatizması. İnce levhada okyanus zayıf olduğu için yakınsama hendekte değil okyanus
+        şeridine yayılmış olarak görünür; bu yüzden yakınsayan her okyanus hücresinde tüketilen alan
+        (−ε̇kk dt h²) dalıyor sayılır. Hücreden hareket yönünde (m) ilerlenir; ilk kıta hücresine göre okyanus
+        yaklaşıyorsa ((u_okyanus − u_kıta)·m > 0) o kıta üstteki levhadır ve dalan alan × yay_uretim_m hacminde
+        kabuk kıyıdan yay_uzaklik_km içeri eklenir (σ 30 km). Kıtayla birlikte giden okyanus yay doğurmaz.
+        Okyanus içi yaylar şimdilik yok."""
+        a = self.a
+        ny, nx = kita.shape
+        ek = np.zeros(kita.shape)
+        hz = np.hypot(u, v)
+        kay = ~kita & (ekk * dt_s < -1e-3) & (hz > 1.0 / 100 / SANIYE_YIL)
+        if not kay.any():
+            return ek
+        ri, ci = np.nonzero(kay)
+        hacim = -ekk[ri, ci] * dt_s * a.yay_uretim_m  # hücre alanına yayılmış kalınlık (m)
+        dc, dr = u[ri, ci] / hz[ri, ci], -v[ri, ci] / hz[ri, ci]
+        r, c = ri.astype(float), ci.astype(float)
+        bulundu = np.zeros(len(ri), bool); gecerli = np.zeros(len(ri), bool)
+        hr = np.zeros(len(ri)); hc = np.zeros(len(ri))
+        for _ in range(int(3000.0 / a.h_km)):
+            r += dr; c += dc
+            ii = np.clip(np.rint(r).astype(int), 0, ny - 1); jj = np.clip(np.rint(c).astype(int), 0, nx - 1)
+            yeni = ~bulundu & kita[ii, jj]
+            if yeni.any():
+                w = (u[ri, ci] - u[ii, jj]) * dc - (v[ri, ci] - v[ii, jj]) * dr
+                gecerli |= yeni & (w > 1.0 / 100 / SANIYE_YIL)  # en az 1 cm/yıl yaklaşma (pasif kıyıda yay yok)
+                hr[yeni] = r[yeni] + dr[yeni] * a.yay_uzaklik_km / a.h_km
+                hc[yeni] = c[yeni] + dc[yeni] * a.yay_uzaklik_km / a.h_km
+                bulundu |= yeni
+            if bulundu.all():
+                break
+        if not gecerli.any():
+            return ek
+        ii = np.clip(np.rint(hr[gecerli]).astype(int), 0, ny - 1)
+        jj = np.clip(np.rint(hc[gecerli]).astype(int), 0, nx - 1)
+        np.add.at(ek, (ii, jj), hacim[gecerli])
+        ek = ndimage.gaussian_filter(ek, max(30.0 / a.h_km, 0.5))
+        ek = np.where(kita, ek, 0.0)
+        # ısı: eklenen kalınlığın 5 milyon yıllık sönümlü toplamı
+        isi = getattr(self, "yay_isi", None)
+        self.yay_isi = (np.zeros(ek.shape) if isi is None else isi * np.exp(-a.dt_myr / 5.0)) + ek
+        self.yay_top = getattr(self, "yay_top", 0.0) + ek  # birikmiş yay kabuğu (ızgarada; taşınmaz, tanı için)
+        self.yay_hacim = getattr(self, "yay_hacim", 0.0) + float(ek.sum()) * self.h * self.h / 1e9
+        return ek
+
     def adim(self):
         a, d = self.a, self.durum
         S, L = d.S, d.etiket
@@ -181,6 +249,9 @@ class Lab:
         sabit, u0, v0, eta_t = self._hiz(S, L, kita, d)
         if a.yumusama_e0 > 0:
             eta_t = eta_t * np.where(kita, np.maximum(a.yumusama_min, np.exp(-self.Eps / a.yumusama_e0)), 1.0)
+        if a.yay_zayif < 1.0 and getattr(self, "yay_isi", None) is not None:
+            # son birkaç milyon yılda magma eklenen kabuk sıcak ve zayıf (500 m eklemede e kat)
+            eta_t = eta_t * np.maximum(a.yay_zayif, np.exp(-self.yay_isi / 500.0))
         _, (rk, ck) = ndimage.distance_transform_edt(~kita, return_indices=True)
         Sg = S[rk, ck] if kita.any() else S
         eta = eta_t.copy()
@@ -188,6 +259,12 @@ class Lab:
             u, v = self.coz.coz(eta, Sg, sabit, u0, v0)
             ekk, eE = self.coz.gerinim(u, v)
             eta = np.clip(eta_t * (np.maximum(eE, 1e-18) / 1e-15) ** (1 / a.n - 1), 1e19, 1e25)
+            if a.plastik_mpa > 0:
+                # plastik akma: gerilim akma sınırını aşamaz; sınır birikmiş gerinimle düşer (fay zayıflaması)
+                ty = a.plastik_mpa * 1e6 * np.maximum(a.plastik_min, 1.0 - 0.5 * self.Eps / a.plastik_e)
+                if self.eta_carpan is not None:  # kratonların akma sınırı da yüksek (viskozite çarpanının karekökü)
+                    ty = ty * np.sqrt(self.eta_carpan)
+                eta = np.where(kita, np.maximum(np.minimum(eta, ty / (2 * np.maximum(eE, 1e-18))), 1e19), eta)
         # --- taşıma ---
         sn = dt_s / h
         rr, cc = np.mgrid[0:ny, 0:nx].astype(float)
@@ -205,7 +282,7 @@ class Lab:
         else:
             S = ndimage.map_coordinates(S, [r0, c0], order=1, mode="nearest")
         L = ndimage.map_coordinates(L, [r0, c0], order=self.etiket_derece, mode="nearest")
-        if a.yumusama_e0 > 0:
+        if a.yumusama_e0 > 0 or a.plastik_mpa > 0:
             Eps = np.where(kita, self.Eps + eE * dt_s, self.Eps) * np.exp(-a.dt_myr / a.iyilesme_myr)
             self.Eps = ndimage.map_coordinates(Eps, [r0, c0], order=1, mode="nearest")
         # kenarlar: alandan giren malzeme başlangıçtaki kenar değerini taşır (sivrilik birikmesin)
@@ -228,6 +305,8 @@ class Lab:
         # --- kalınlaşma (yalnız kıtada; okyanusta dalma) ---
         dS = np.where(kita, -S * ekk * dt_s, 0.0)
         S = S + np.clip(dS, -0.2 * S, 15e3)
+        if a.yay_uretim_m > 0:
+            S = S + self._yay(kita, ekk, u, v, dt_s)
         # --- alt kabuk akışı (alt adımlı, açık) ---
         kap = a.kappa_min + a.kappa_max / (1 + np.exp(-(S - a.S_akis_km * 1e3) / 4e3))
         kap = np.where(kita, kap, 0.0)
@@ -252,11 +331,19 @@ class Lab:
         if a.yagis:
             from .levha_model import yagis_alani
             self.P = yagis_alani(kara, np.where(kara, z, 0.0), h, 3000.0, 1500.0, 0.15)
+            if a.iklim and getattr(self, "lat", None) is not None:
+                self.P = self.P * enlem_yagis(self.lat)
             A = np.asarray(self.router.accumulate(np.ascontiguousarray(self.P)))
         else:
             A = np.asarray(self.router.accumulate(1.0))
         e = np.asarray(self.eroder.erode(zr, A, dt_yil)).reshape(S.shape)
         e = np.where(kara, np.clip(e, 0, None), 0.0)
+        if a.iklim and getattr(self, "lat", None) is not None:
+            # buzul aşınması: kar çizgisinin üstündeki yükseklik zamanla kırpılır (buzul testeresi)
+            # buz akısı yağışla orantılı: kurak plato içinde buzul testeresi zayıf
+            Pb = self.P if (a.yagis and getattr(self, "P", None) is not None) else 1.0
+            eg = np.where(kara, a.buzul_k * dt_yil * Pb * np.clip(z - e - kar_cizgisi(self.lat), 0, None), 0.0)
+            e = e + np.minimum(eg, np.clip(z - e, 0, None))
         S = S - e
         hacim = float(e.sum())
         # --- çökelme: açık okyanusa bağlı olmayan bütün çukurlar (iç göller dahil) dolar ---

@@ -98,7 +98,10 @@ def main():
     _, (ri, ci) = ndimage.distance_transform_edt(~kita0, return_indices=True)
     L0 = L0[ri, ci]
 
-    a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=5e-7, cek_gelen_km=400.0, cek_sabit_km=450.0)
+    yay = float(sys.argv[6]) if len(sys.argv) > 6 else 0.0  # yay magmatizması üretimi (m)
+    a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=5e-7, cek_gelen_km=400.0, cek_sabit_km=450.0, yay_uretim_m=yay)
+    if yay > 0:
+        on += f"_yay{yay:g}"
     lab = LabCok(S0, L0, bas, a, dz.lon, dz.lat, aday.tarihler, bl.adlar, bl.sabit, yerel_eksenler(dz, dz.lon, dz.lat))
     kareler = []
     adim = int(round(bas / a.dt_myr))

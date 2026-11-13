@@ -24,6 +24,7 @@ from scipy import ndimage
 from deneyler.dunya import SINIR, gercek_yukseklik
 from tektonik.gorsel import _RENK
 from tektonik.levha import duzlem_kur, laea_ileri
+from tektonik.lab import enlem_yagis, kar_cizgisi
 from tektonik.levha_model import yagis_alani
 from tektonik.yazi import yazi_tipi
 
@@ -85,6 +86,7 @@ def main():
     kaba_h = float(sys.argv[5]) if len(sys.argv) > 5 else 25.0
     denge = (sys.argv[6] == "1") if len(sys.argv) > 6 else True  # etkin bölgede yükselme bölgesel aşınmayı karşılar
     cok = (sys.argv[7] == "1") if len(sys.argv) > 7 else True  # çok yönlü akış (D8'in düz paralel kanallarını önler)
+    iklim = (sys.argv[8] == "1") if len(sys.argv) > 8 else False  # enlem yağış kuşakları ve buzul aşınması
     t0 = time.time()
     zr10, _, _ = gercek_yukseklik()
     dzk = duzlem_kur(zr10 > 0, SINIR, h_km=kaba_h, pay_km=800.0)
@@ -122,7 +124,7 @@ def main():
     kar = kara.astype(float)
     sig = 80.0 / h_km
     zk_ = np.where(kara, z, 0.0)
-    P = yagis_alani(kara, zk_, dz.h, 3000.0, 1500.0, 0.15)
+    P = yagis_alani(kara, zk_, dz.h, 3000.0, 1500.0, 0.15) * (enlem_yagis(dz.lat) if iklim else 1.0)
     top_e = np.zeros(dz.sekil)
     for i in range(n):
         zf = np.ascontiguousarray(zk_, dtype=np.float64).copy()
@@ -130,11 +132,13 @@ def main():
         A = np.asarray(router.accumulate(np.ascontiguousarray(P)))
         e = np.asarray(eroder.erode(zf, A, dt)).reshape(dz.sekil)
         e = np.where(kara, np.clip(e, 0, None), 0.0)
+        if iklim:  # buzul testeresi: kar çizgisinin üstü kırpılır; buz akısı yağışla orantılı
+            e = e + np.where(kara, np.minimum(1.33e-6 * dt * P * np.clip(zk_ - e - kar_cizgisi(dz.lat), 0, None), np.clip(zk_ - e, 0, None)), 0.0)
         reb = ndimage.gaussian_filter(e, sig) / np.maximum(ndimage.gaussian_filter(kar, sig), 1e-6)
         zk_ = np.where(kara, np.maximum(zk_ - e + gs * reb, 0.5), 0.0)
         top_e += e
         if i % 25 == 24:
-            P = yagis_alani(kara, zk_, dz.h, 3000.0, 1500.0, 0.15)
+            P = yagis_alani(kara, zk_, dz.h, 3000.0, 1500.0, 0.15) * (enlem_yagis(dz.lat) if iklim else 1.0)
             print(f"  {i + 1}/{n} adım, {time.time() - t0:.0f} s", flush=True)
     router.update_routes(np.ascontiguousarray(zk_, dtype=np.float64).copy())
     A = np.asarray(router.accumulate(np.ascontiguousarray(P))).reshape(dz.sekil)
@@ -142,7 +146,7 @@ def main():
 
     zs = np.where(kara, zk_, z_deniz)
     nehir = kara & (A > 1.5e11)
-    son = on + f"_ince{h_km:g}km_{sure:g}my_K{K:g}_c{int(cok)}"
+    son = on + f"_ince{h_km:g}km_{sure:g}my_K{K:g}_c{int(cok)}" + ("_iklim" if iklim else "")
     np.save(f"{son}_z.npy", zs.astype(np.float32))
     m_im = golge(zs, kara, dz.h, nehir)
     # gerçek, aynı ızgarada (06' veri)
