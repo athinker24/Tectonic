@@ -2,14 +2,16 @@
 geri sürülür, sonra ileri zamanda Avrasya'ya (sabit) karşı sürülür. Kalıp yok; başlangıçta kabuk her
 yerde 35 km (bugünkü dağlar başlangıçta yok). Sonuç gerçek yükseklikle (GMT earth_relief 10') karşılaştırılır.
 
-Kullanım: python -m deneyler.dunya_lab [H_KM] [BAS_MA] [AVR_CEKIRDEK_KM] [K]
+Kullanım: python -m deneyler.dunya_lab [H_KM] [BAS_MA] [AVR_CEKIRDEK_KM] [K] [SERT] [ZAYIF] [ZAYIF_KM]
+          [SIZINTI] [SAHANLIK] [INCELME_KM] [KUBIK] [DIKIS_ESIK]  (varsayılanlar en iyi bilinen ayar)
 
 Hızlar (Avrasya'ya göre, yuvarlanmış):
   Hindistan: 50 ile 20 Ma 5 cm/yıl N20°D, 20 ile 0 Ma 4 cm/yıl N15°D; çarpışma 50 Ma
              (Molnar ve Stock 2009 ile Zahirovic ve diğ. 2012 çarpışma sonrası yavaşlama).
-  Arabistan: 25 Ma'ya dek Afrika ile birlikte; sonra 2 cm/yıl N15°B; çarpışma 27 Ma
+  Arabistan: 25 Ma'ya dek Afrika ile birlikte; sonra Euler kutbu 27,5°K 17,6°D 0,404°/My
+             (ArRajehi ve diğ. 2010); çarpışma 27 Ma
              (McQuarrie ve diğ. 2003; McQuarrie ve van Hinsbergen 2013).
-  Afrika: 50 ile 25 Ma 2 cm/yıl kuzeye, sonra 0,6 cm/yıl N30°B.
+  Afrika: 50 ile 25 Ma 2 cm/yıl kuzeye, sonra Euler kutbu 0,95°G 21,8°B 0,06°/My (McClusky ve diğ. 2003).
 """
 import json
 import os
@@ -40,12 +42,16 @@ def main():
     avr = float(sys.argv[3]) if len(sys.argv) > 3 else 1500.0
     K = float(sys.argv[4]) if len(sys.argv) > 4 else 5e-7
     sert = float(sys.argv[5]) if len(sys.argv) > 5 else 10.0  # kratonların viskozite çarpanı (1 = yok)
-    zay = float(sys.argv[6]) if len(sys.argv) > 6 else 1.0  # levha sınırı fay kuşağı viskozite çarpanı
-    zay_km = float(sys.argv[7]) if len(sys.argv) > 7 else 200.0
-    sizinti = (sys.argv[8] == "1") if len(sys.argv) > 8 else True
+    zay = float(sys.argv[6]) if len(sys.argv) > 6 else 0.3  # levha sınırı fay kuşağı viskozite çarpanı
+    zay_km = float(sys.argv[7]) if len(sys.argv) > 7 else 150.0
+    sizinti = (sys.argv[8] == "1") if len(sys.argv) > 8 else False
+    sahan = (sys.argv[9] == "1") if len(sys.argv) > 9 else False  # sığ denizler (−200 m'den sığ) deniz altı kıta kabuğu
+    incel = float(sys.argv[10]) if len(sys.argv) > 10 else 5.0  # incelen kıtanın zayıflaması (km), 0 kapalı
+    kubik = (sys.argv[11] == "1") if len(sys.argv) > 11 else True
+    dikis = float(sys.argv[12]) if len(sys.argv) > 12 else 0.02  # dar şerit kapanma eşiği (adım başına kısalma)
     t0 = time.time()
     os.makedirs("cikti/dunya_lab", exist_ok=True)
-    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}"
+    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}_sh{int(sahan)}_in{incel:g}_kb{int(kubik)}_dk{dikis:g}"
 
     zr, lon_r, lat_r = gercek_yukseklik()
     dz = duzlem_kur(zr > 0, SINIR, h_km=h_km, pay_km=800.0)
@@ -74,8 +80,13 @@ def main():
 
     # Arabistan 25 milyon yıl öncesine dek Afrika ile tek levha (Kızıldeniz sonra açıldı); o dönemde
     # Afrika Avrasya'ya 2 cm/yıl yaklaşıyordu, 25 Ma'dan sonra 1 cm/yılın altına yavaşladı (McQuarrie ve diğ. 2003)
-    afr_t = tarih("Afrika", afr, [(80, 25, 0, 2.0), (25, 0, -30, 0.6)])
-    ara_t = tarih("Arabistan", ara, [(25, 0, -15, 2.0)])
+    # 25 Ma'dan bugüne GPS Euler kutupları (Avrasya'ya göre, saat yönünün tersine pozitif):
+    # Arabistan 27,5°K 17,6°D 0,404°/My (ArRajehi ve diğ. 2010; erken Miyosen'den beri tutarlı),
+    # Nubia 0,95°G 21,8°B 0,06°/My (McClusky ve diğ. 2003). Yakın kutup Arabistan'ı Afrika'dan döndürerek
+    # ayırır: Kızıldeniz güneyde daha hızlı açılır.
+    afr_t = tarih("Afrika", afr, [(80, 25, 0, 2.0)])
+    afr_t.asamalar.append(Asama(25, 0, -21.8, -0.95, 0.06))
+    ara_t = BlokTarihi("Arabistan", [Asama(25, 0, 17.6, 27.5, 0.404)])
     ara_t.asamalar.insert(0, Asama(80, 25, *[getattr(afr_t.asamalar[0], k) for k in ("kutup_lon", "kutup_lat", "hiz_derece_myr")]))
     tarihler = {
         "Hindistan": tarih("Hindistan", hin, [(80, 20, 20, 5.0), (20, 0, 15, 4.0)]),
@@ -83,11 +94,22 @@ def main():
         "Afrika": afr_t,
     }
 
+    # başlangıç kabuğu: kara 35 km; sahanlık (istenirse) bugünkü derinliğe izostatik denk kalınlıkta kıta
+    # kabuğu, en yakın kara bloğuna ait. z = (S − S_ref)(1 − ρc/ρm) + serbest bord.
+    Sdeg = np.where(dz.kara, 35e3, 0.0)
+    if sahan:
+        sh = ~dz.kara & (gercek > -200)
+        sh &= ndimage.distance_transform_edt(~dz.kara) * h_km <= 600  # kıtaya bağlı sahanlıklar
+        _, (rb, cb) = ndimage.distance_transform_edt(blok < 0, return_indices=True)
+        blok = np.where(sh, blok[rb, cb], blok)
+        Sdeg = np.where(sh, 35e3 + (np.clip(gercek, -200, 0) - 300.0) / (1 - 2800.0 / 3300.0), Sdeg)
+        print(f"sahanlık {sh.sum()} hücre", flush=True)
     S0 = np.full(dz.sekil, 7e3)
     L0 = np.full(dz.sekil, -1.0)
     for b, ad in enumerate(adlar):
         m = blok == b
         p0 = _lonlat_xyz(dz.lon[m], dz.lat[m])
+        sv = Sdeg[m]
         xyz = p0
         if ad in tarihler:
             tr = tarihler[ad]
@@ -103,6 +125,7 @@ def main():
                 kor = kor[np.isfinite(dd)]
                 q = kure.carp(tr.geri_donme(bas), kure.ters(tr.geri_donme(tc)))
                 xyz = np.vstack([xyz, kure.uygula(q, kor)])
+                sv = np.r_[sv, np.full(len(kor), 35e3)]
                 print(f"{ad}: çarpışma {tc:g} Ma, Büyük {ad} uzantısı {len(kor)} nokta", flush=True)
         lo, la = kure.xyz_lonlat(xyz)
         qx, qy = laea_ileri(np.asarray(lo), np.asarray(la), dz.lon0, dz.lat0)
@@ -111,15 +134,19 @@ def main():
         ok = (r >= 0) & (r < ny) & (c >= 0) & (c < nx)
         yer = np.zeros(dz.sekil, bool)
         yer[r[ok], c[ok]] = True
-        yer = ndimage.binary_closing(yer, iterations=1) | yer
-        S0[yer] = 35e3
+        deg = np.zeros(dz.sekil)
+        np.maximum.at(deg, (r[ok], c[ok]), sv[ok])
+        kapa = ndimage.binary_closing(yer, iterations=1) & ~yer  # döndürmede açılan tek hücrelik delikler
+        deg = np.where(kapa, ndimage.maximum_filter(deg, 3), deg)
+        yer |= kapa
+        S0[yer] = deg[yer]
         L0[yer] = b
     kita0 = S0 > 20e3
     _, (ri, ci) = ndimage.distance_transform_edt(~kita0, return_indices=True)
     L0 = L0[ri, ci]
 
     a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=K, cek_gelen_km=400.0, cek_sabit_km=avr,
-                 sinir_zayif=zay, sinir_km=zay_km, kiyi_sizinti=sizinti)
+                 sinir_zayif=zay, sinir_km=zay_km, kiyi_sizinti=sizinti, incelme_km=incel, tasima_kubik=kubik, dikis_esik=dikis)
     lab = LabCok(S0, L0, bas, a, dz.lon, dz.lat, tarihler, adlar, "Avrasya", yerel_eksenler(dz, dz.lon, dz.lat))
     if sert != 1.0:
         # sert bölgeler bugünkü yerlerinde (Avrasya sabit olduğundan geri sürülmez); 50 km kenar yumuşatması

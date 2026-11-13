@@ -56,6 +56,9 @@ class LabAyar:
     carpisma_sonrasi_hiz: float = 0.5  # temas sonrası hız çarpanı (Hindistan çarpışmadan sonra yavaşladı)
     sinir_zayif: float = 1.0  # levha sınırı fay kuşağının viskozite çarpanı (1 = yok); bindirme kuşağı
     sinir_km: float = 200.0  # fay kuşağının sınırdan iki yana genişliği
+    dikis_esik: float = 0.0  # dar okyanus şeridinin kapanması için adım başına en az kısalma (0,02: %2); 0 her yakınsamada
+    tasima_kubik: bool = True  # sınırlı kübik taşıma (False: eski doğrusal, kıyıyı yayar)
+    incelme_km: float = 0.0  # >0: incelen kıtada viskozite exp(−(S_ref−S)/incelme) düşer (yırtılma, Kızıldeniz); 0 kapalı
     kiyi_sizinti: bool = True  # alt kabuk akışı kıyıdan okyanusa geçebilir mi (False: kıta kenarında akı yok)
 
 
@@ -181,7 +184,18 @@ class Lab:
         sn = dt_s / h
         rr, cc = np.mgrid[0:ny, 0:nx].astype(float)
         r0, c0 = rr + v * sn, cc - u * sn
-        S = ndimage.map_coordinates(S, [r0, c0], order=1, mode="nearest")
+        if a.tasima_kubik:
+            # kübik yarı Lagrange + yerel sınırlama (Bermejo ve Staniforth 1992): doğrusal ara değerleme
+            # hareket eden kıyıyı her adımda yayıyordu (100 adımda 20 ile 36 hücre); kıyı S 33 km'nin
+            # altına inince deniz oluyordu. Sınırlama, kalkış noktasını çevreleyen 4 düğümün aralığı.
+            Sy = ndimage.map_coordinates(S, [r0, c0], order=3, mode="nearest")
+            i0 = np.clip(np.floor(r0).astype(int), 0, ny - 1); j0 = np.clip(np.floor(c0).astype(int), 0, nx - 1)
+            i1 = np.clip(i0 + 1, 0, ny - 1); j1 = np.clip(j0 + 1, 0, nx - 1)
+            q = (S[i0, j0], S[i0, j1], S[i1, j0], S[i1, j1])
+            S = np.clip(Sy, np.minimum(np.minimum(q[0], q[1]), np.minimum(q[2], q[3])),
+                        np.maximum(np.maximum(q[0], q[1]), np.maximum(q[2], q[3])))
+        else:
+            S = ndimage.map_coordinates(S, [r0, c0], order=1, mode="nearest")
         L = ndimage.map_coordinates(L, [r0, c0], order=self.etiket_derece, mode="nearest")
         # kenarlar: alandan giren malzeme başlangıçtaki kenar değerini taşır (sivrilik birikmesin)
         S[0, :], S[-1, :], S[:, 0], S[:, -1] = self.kenar_S
@@ -193,7 +207,7 @@ class Lab:
         # yalnız gerçekten dar şeritler (yaklaşık 60 km'ye kadar); iç denizler ve boğazlar kapanmasın
         yineleme = max(1, int(round(30.0 / a.h_km)))
         kapali = ndimage.binary_closing(kita, structure=np.ones((3, 3)), iterations=yineleme)
-        sikisan = kapali & ~kita & (ekk < 0)
+        sikisan = kapali & ~kita & (ekk * dt_s < -a.dikis_esik)
         if sikisan.any():
             Sk = np.where(kita, S, 0.0)
             say = ndimage.uniform_filter(kita.astype(float), 5)
@@ -319,6 +333,8 @@ class LabCok(Lab):
         eta_t = eta_t * np.exp(-np.clip(S - a.S_ref_km * 1e3, 0, None) / 15e3)
         if self.eta_carpan is not None:
             eta_t = eta_t * np.where(kita, self.eta_carpan, 1.0)
+        if a.incelme_km > 0:
+            eta_t = eta_t * np.where(kita, np.exp(-np.clip(a.S_ref_km * 1e3 - S, 0, None) / (a.incelme_km * 1e3)), 1.0)
         if a.sinir_zayif != 1.0:
             # yalnız sabit blok ile gelen bloklar arasındaki dikiş: iki yandan da sınıra yakın kıta
             sb = kita & (lev == self.adlar.index(self.sabit_ad))
