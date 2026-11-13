@@ -267,6 +267,8 @@ class LabCok(Lab):
     def __init__(self, S0, etiket0, bas_ma, ayar, lon, lat, tarihler: dict, adlar: list, sabit_ad: str, eksen):
         super().__init__(S0, etiket0, (0.0, 0.0), bas_ma, ayar)
         self.etiket_derece = 0
+        # kenardan giren her şey okyanus (kıta kenara çakılıp sonsuz kaynak olmasın)
+        self.kenar_S = tuple(np.full_like(k, 7e3) for k in self.kenar_S)
         self.lon, self.lat = lon, lat
         self.tarihler, self.adlar, self.sabit_ad = tarihler, adlar, sabit_ad
         self.de, self.dn = eksen

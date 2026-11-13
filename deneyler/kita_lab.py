@@ -37,7 +37,8 @@ def main():
     on = f"cikti/kita_lab/kita_{no}_{h_km:g}km_{bas:g}ma"
     maske, sinir = maske_yukle("veri/maske.json")
     sen = json.load(open("veri/senaryo.json", encoding="utf-8"))
-    dz = duzlem_kur(maske, sinir, h_km=h_km, pay_km=900.0)
+    pay = float(sys.argv[4]) if len(sys.argv) > 4 else 1800.0
+    dz = duzlem_kur(maske, sinir, h_km=h_km, pay_km=pay)
     ny, nx = dz.sekil
     iz = izgara_kur(maske, sinir, nside=128)
     bl = bloklara_ayir(iz, sen)
@@ -65,6 +66,8 @@ def main():
         c = np.round((px - dz.x[0]) / dz.h).astype(int)
         r = np.round((dz.y[0] - py) / dz.h).astype(int)
         ok = (r >= 0) & (r < ny) & (c >= 0) & (c < nx)
+        if (~ok).any():
+            print(f"uyarı: {ad} bloğunun {(~ok).sum()} hücresi alan dışında")
         yer = np.zeros(dz.sekil, bool)
         yer[r[ok], c[ok]] = True
         yer = ndimage.binary_closing(yer, iterations=1) | yer
