@@ -113,19 +113,19 @@ def zaman_cizelgesi():
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(9, 2.6), dpi=150)
+    fig, ax = plt.subplots(figsize=(9, 3.4), dpi=150)
     renk = ["#8c6d5a", "#9b7b63", "#a98a6c", "#7d93a8", "#6d8bb0", "#9a8f6a", "#b08a5a", "#7aa07a", "#a0b46a", "#c99a5a", "#c86e4e", "#d28c3c", "#8fb8d8"]
     f = lambda t: np.log10(t + 1)
     for i, D in enumerate(O.DONEMLER):
         a, b = D["aralik"]
         ax.barh(0, f(a) - f(b), left=f(b), color=renk[i % len(renk)], edgecolor="white", height=0.6)
-        ax.text((f(a) + f(b)) / 2, 0.42 + 0.22 * (i % 2), D["ad"], ha="center", va="bottom", fontsize=6.3, rotation=0)
+        ax.text((f(a) + f(b)) / 2, 0.36, D["ad"], ha="left", va="bottom", fontsize=6.3, rotation=35, rotation_mode="anchor")
     for D in O.DONEMLER:
         for ty, bas, ac in D["olaylar"]:
             ax.plot([f(ty)], [-0.42], marker="|", color="#5a2a1a", ms=7)
     tik = [0, 1, 3, 10, 30, 100, 300, 1000, 3000]
     ax.set_xticks([f(t) for t in tik]); ax.set_xticklabels([str(t) for t in tik], fontsize=7)
-    ax.set_xlim(f(3500), f(0) - 0.02); ax.set_ylim(-0.7, 1.1); ax.set_yticks([])
+    ax.set_xlim(f(3500), f(0) - 0.02); ax.set_ylim(-0.7, 2.6); ax.set_yticks([])
     ax.set_xlabel("milyon yıl önce (logaritmik ölçek; çentikler olaylar)", fontsize=7.5)
     for sp in ("top", "right", "left"):
         ax.spines[sp].set_visible(False)

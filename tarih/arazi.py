@@ -416,23 +416,56 @@ def etiketle(im):
             for x in range(0, W, int(24 * s)):
                 d.line([(x, y), (x + 10 * s, y)], fill=(255, 255, 255, 90), width=max(1, int(s)))
             d.text((6 * s, y + 2 * s), f"{abs(la)}°{'K' if la >= 0 else 'G'}", fill=(255, 255, 255), font=f(13))
+    def bukulmus(x, y):
+        """Yapı katmanındaki alan bükmesi: çizgideki nokta haritada (x − WX, y − WY) yerine düşer."""
+        gx, gy = int(np.clip(x * G, 0, NX - 1)), int(np.clip(y * G, 0, NY - 1))
+        return x - WX[gy, gx] / G, y - WY[gy, gx] / G
+    kus = {k[0]: k[1] for k in O.KUSAKLAR}
+    def kusak_yeri(ad, kay=(0, 0), oran=0.5):
+        c = np.array(kus[ad], float); L = np.r_[0, np.cumsum(np.hypot(*np.diff(c, axis=0).T))]
+        t = oran * L[-1]; i = min(np.searchsorted(L, t) - 1, len(c) - 2); i = max(i, 0)
+        p = c[i] + (c[i + 1] - c[i]) * (t - L[i]) / max(L[i + 1] - L[i], 1e-6)
+        x, y = bukulmus(*p)
+        return x + kay[0], y + kay[1]
     yazi = [
-        ("1", (380, 330), 34, True), ("2", (1250, 180), 34, True), ("3", (1260, 980), 34, True), ("4", (330, 1150), 34, True),
-        ("5", (820, 1190), 26, True), ("6", (720, 790), 24, True), ("7", (1040, 1255), 22, True),
-        ("MOR SIRADAĞLARI", (1330, 600), 15, False), ("MOR YAYLASI", (1420, 520), 15, False),
-        ("UZAK SIRA", (1230, 280), 14, False), ("Kum Havzası", (1270, 378), 13, False), ("Derin Göl", (1690, 250), 12, False),
-        ("MAVİ DAĞLAR", (825, 300), 13, False), ("ULU DAĞLAR", (150, 420), 12, False), ("KÖPRÜ DAĞLARI", (30, 845), 12, False),
-        ("SARI SIRADAĞLARI", (600, 1205), 12, False), ("Kızıl Basamaklar", (1180, 1060), 13, False),
-        ("DOĞU YAY DAĞLARI", (1505, 1000), 12, False), ("Kuzey Tuzakları", (1230, 150), 13, False),
-        ("Köz Yaylası", (330, 1080), 13, False), ("Mor Ön Ovası", (1330, 700), 12, False),
-        ("İÇ DENİZ", (900, 760), 16, False), ("Batı Körfezi", (250, 790), 12, False), ("Güneydoğu Kanalı", (1080, 1150), 11, False),
-        ("KUZEY OKYANUSU", (1100, 20), 16, False), ("BATI OKYANUSU", (10, 990), 14, False), ("DOĞU OKYANUSU", (1700, 1100), 16, False),
-        ("GÜNEY OKYANUSU", (800, 1460), 16, False), ("Doğu Hendeği", (1590, 1240), 11, False),
+        ("1", (380, 330), 46, True), ("2", (1560, 120), 46, True), ("3", (1260, 980), 46, True), ("4", (330, 1150), 46, True),
+        ("5", (820, 1190), 36, True), ("6", (720, 790), 32, True), ("7", (1040, 1255), 30, True),
+        ("MOR SIRADAĞLARI", kusak_yeri("Mor Sıradağları", (-110, 45), 0.55), 20, False),
+        ("MOR YAYLASI", kusak_yeri("Şerit Sırtları", (-60, 12), 0.5), 20, False),
+        ("UZAK SIRA", kusak_yeri("Uzak Sıra", (-50, -35), 0.45), 18, False),
+        ("Kum Havzası", (1290, 375), 17, False), ("Derin Göl", (1700, 245), 16, False),
+        ("MAVİ DAĞLAR", kusak_yeri("Mavi Dağlar", (15, 0), 0.45), 17, False),
+        ("ULU DAĞLAR", kusak_yeri("Ulu Dağlar", (20, 0), 0.5), 16, False),
+        ("KÖPRÜ DAĞLARI", kusak_yeri("Köprü Dağları", (-60, 40), 0.4), 16, False),
+        ("SARI SIRADAĞLARI", kusak_yeri("Sarı Sıradağları", (-190, 20), 0.6), 16, False),
+        ("Kızıl Basamaklar", (1180, 1060), 17, False),
+        ("DOĞU YAY DAĞLARI", kusak_yeri("Doğu Yay Dağları", (25, 0), 0.6), 15, False),
+        ("Kuzey Tuzakları", (1240, 150), 17, False), ("Köz Yaylası", (300, 1060), 17, False),
+        ("Mor Ön Ovası", (1300, 715), 16, False),
+        ("İÇ DENİZ", (900, 700), 22, False), ("Batı Körfezi", (215, 790), 15, False), ("Güneydoğu Kanalı", (1060, 1150), 14, False),
+        ("KUZEY OKYANUSU", (1100, 18), 22, False), ("DOĞU OKYANUSU", (1660, 1100), 22, False),
+        ("GÜNEY OKYANUSU", (800, 1470), 22, False), ("Doğu Hendeği", (1590, 1250), 14, False),
     ]
     for t, (x, y), n, k in yazi:
         ff = f(n, k)
-        d.text((x * s, y * s), t, fill=(30, 30, 30) if not k else (40, 20, 20), font=ff,
-               stroke_width=max(1, int(2 * s)), stroke_fill=(255, 255, 255))
+        d.text((x * s, y * s), t, fill=(25, 25, 25), font=ff, stroke_width=max(1, int(2.5 * s)), stroke_fill=(250, 250, 245))
+    # batı okyanusu: dikey yazı
+    ff = f(20)
+    kat = Image.new("RGBA", (int(260 * s), int(40 * s)), (0, 0, 0, 0))
+    ImageDraw.Draw(kat).text((0, 0), "BATI OKYANUSU", fill=(25, 25, 25), font=ff, stroke_width=max(1, int(2.5 * s)), stroke_fill=(250, 250, 245))
+    kat = kat.rotate(90, expand=True)
+    im.paste(kat, (int(4 * s), int(380 * s)), kat)
+    # yükseklik göstergesi
+    x0, y0, gw, gh = 1640 * s, 1380 * s, 300 * s, 14 * s
+    for k in range(int(gw)):
+        zz = -4000 + (7000 + 4000) * k / gw
+        c = renk(HIPSO, np.array([max(zz, 0)]))[0] if zz >= 0 else renk(DENIZ, np.array([zz]))[0]
+        d.line([(x0 + k, y0), (x0 + k, y0 + gh)], fill=tuple(int(v) for v in c))
+    for zz in (-4000, 0, 1000, 3000, 5000, 7000):
+        xx = x0 + (zz + 4000) / 11000 * gw
+        d.line([(xx, y0 + gh), (xx, y0 + gh + 4 * s)], fill=(255, 255, 255))
+        d.text((xx - 10 * s, y0 + gh + 5 * s), f"{zz}", fill=(255, 255, 255), font=f(9))
+    d.text((x0, y0 - 16 * s), "yükseklik (m)", fill=(255, 255, 255), font=f(11))
     # ölçek çubuğu
     x0, y0 = 1650 * s, 1480 * s; L = 1000 / O.KM_PX * s
     d.rectangle([x0, y0, x0 + L, y0 + 6 * s], fill=(255, 255, 255)); d.rectangle([x0, y0, x0 + L / 2, y0 + 6 * s], fill=(30, 30, 30))

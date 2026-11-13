@@ -61,10 +61,10 @@ GUNEY_KITA = [(0, 0, 1500), (60, 0, 1150), (100, 0, 700), (130, 0, 380), (160, 0
 # ---------------------------------------------------------------------------------------------
 LEVHALAR = [
     ("Kuzey Levhası", "büyük", "1, 2 ve 4 ile batı iç deniz tabanı, kuzey ve batı kıta sahanlıkları", "sabit çerçeve"),
-    ("Doğu Dil Levhası", "küçük", "3 ve doğu kıyısının önündeki kabuk", "kuzeye, doğu ucunda yaklaşık 2,9 cm/yıl, batı ucunda 1,5 cm/yıl; saat yönünün tersine yavaş dönüş"),
-    ("Orta Blok", "mikro", "5", "batıya yaklaşık 3 cm/yıl, saat yönünde dönüş; 4'ün altına dalıyor"),
-    ("Uzun Yarımada Bloğu", "mikro", "7", "kuzeybatıya yaklaşık 4 cm/yıl; 3'e göre kanal fayı boyunca sağ yanal kayma"),
-    ("Ada Bloğu", "mikro", "6", "güneye yaklaşık 1,2 cm/yıl; yay ardı gerilmesi"),
+    ("Doğu Dil Levhası", "küçük", "3 ve doğu kıyısının önündeki kabuk", "kuzeye, doğu ucunda yaklaşık 2,4 cm/yıl, batı ucunda 1,2 cm/yıl; saat yönünün tersine milyon yılda 0,3° dönüş"),
+    ("Orta Blok", "mikro", "5", "batıya yaklaşık 2,8 cm/yıl, saat yönünde dönüş; 4'ün altına dalıyor"),
+    ("Uzun Yarımada Bloğu", "mikro", "7", "kuzeybatıya yaklaşık 4,6 cm/yıl; 3'e göre kanal fayı boyunca yanal kayma"),
+    ("Ada Bloğu", "mikro", "6", "güneye yaklaşık 0,7 cm/yıl; yay ardı gerilmesi"),
     ("Doğu Havza Levhası", "mikro (okyanusal)", "doğu iç denizin tabanı, eski Mor Okyanusu kalıntısı", "kuzeybatıya 0,8 cm/yıl; 6'nın altına dalıyor"),
     ("Kaçış Bloğu", "mikro", "2'nin güneydoğu köşesi", "doğuya yaklaşık 1,2 cm/yıl; Büyük Kaçış Fayı boyunca sol yanal"),
     ("Doğu Okyanusu Levhası", "büyük (okyanusal)", "doğudaki açık okyanus", "batıya yaklaşık 6,5 cm/yıl; 3'ün doğu kıyısının altına dalıyor"),
