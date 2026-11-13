@@ -260,3 +260,11 @@ Eklenenler: orografik yağış (levha_model.yagis_alani, aşınma yağışla top
 - κ 3000, K 5e-7: temas 33,75 Ma; en yüksek 5407 m; en kalın kabuk 66,6 km. Kesit (orta boylam, bugün): okyanus, gelen kıtanın üstünde dolmuş çöküntü havzası (0 ile 300 m ova), 5,5 km'lik kuşak ve dar plato, kuzeyde ova. Çöküntü havzası artık tortuyla doluyor (önceki koşularda deniz kalıyordu); havzadan kıyıya akan nehirler var.
 - κ 3000, K 1e-6: en yüksek 5509 m, kabuk 62,8 km; daha sık nehir ağı, plato daha dar ve daha çok aşınmış.
 - 15 km, κ 8000, K 2e-7 (önceki): aynı zincir; plato geniş ve pürüzsüz, havzalar sığ deniz.
+
+## Sahibin kıtasında laboratuvar (13 Kasım 2026 gecesi)
+
+`deneyler/kita_lab.py`, `tektonik/lab.py` (LabCok). Bloklar aday 1029'un tarihiyle 60 milyon yıl önceki konumlarına geri sürülüp ileri zamanda kendi hızlarıyla sürülür; kalıp yok. 45 km, alan payı 1800 km, 9 dakika.
+
+- İlk koşular: güneydoğu bloğu kuzeye ulaşmadı. Nedenler: (1) güney kenara taşan blok kenar sıfırlamasıyla kenara çakılı kaldı (düzeltme: geniş alan, kenardan okyanus girer); (2) katı geri sürmede çarpışma sonrası itme (yaklaşık 1300 km) çarpışma anında bir boşluk olarak görünüyor; temas ancak bugüne yakın oluyordu (IoU 0,81, en yüksek 2372 m).
+- "Büyük" blok uzantısı: çarpışma sonrası itmenin süpürdüğü koridor (bugünkü konumdan çarpışma anındaki konuma kadar) bloğun önüne kıta olarak eklenir ve çarpışma öncesi hareketle başlangıca taşınır (Büyük Hindistan kavramı). Sonuç: temas yaklaşık 58 Ma; 46 Ma sahibin kırmızı sıradağının yerinde kuşak; 32 Ma arkasında plato; 16 Ma yarımada güneybatıya çarpıp kökünde kuşak (Alp türü); bugün kuzeydoğuda yaklaşık 5 km plato ve sıradağ, güneybatıda kuşak. En yüksek 5117 m, en kalın kabuk 67,7 km, maske örtüşmesi (IoU) 0,81.
+- Kusurlar: iç deniz büyük ölçüde kapandı ve mikro kıta kıtalara kaynaştı (bloklar deforme olup yayıldıkça iç deniz doluyor); kıyılar maskeyle yalnız %81 örtüşüyor; 45 km çözünürlük.
