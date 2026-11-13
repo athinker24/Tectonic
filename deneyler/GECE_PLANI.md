@@ -44,3 +44,4 @@ arkasında plato büyür, önünde çökme havzası (ova) oluşur; nehirler ve a
 - Sırada: sahibin kıtasına uygulama (güneydoğu bloğu kuzeye; başlangıç konumları tarih üreticisinin geri sürmesinden), maske ile son durum farkının ölçülmesi.
 - Sahibin kıtası: Büyük Güneydoğu uzantısıyla zincir tamamlandı (58 Ma temas, sıradağ, plato, yarımada çarpışması); IoU 0,81. Görseller cikti/ornek_kita_lab_kareler.png, cikti/ornek_kita_lab_son.png, cikti/ornek_kita_lab.gif.
 - Sırada: iç denizin korunması (okyanus kabuğu bölgelerinin daha dayanıklı olması ya da maskeye çekme), mikro kıtanın ayrı kalması, daha ince çözünürlük.
+- İç deniz korundu (uzantı yalnız tükenecek önle sınırlı); IoU 0,84. Sırada: düz çizgili yapay kenarların nedeni, çözünürlük, mikro kıtanın sıkışma tarihine göre dağlanması.
