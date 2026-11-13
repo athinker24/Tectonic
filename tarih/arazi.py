@@ -86,10 +86,17 @@ WY = (_g(600) * 110 + _g(160) * 35 + _g(50) * 8) / 4.2
 XYW = np.stack([(CC + WX).ravel(), (RR + WY).ravel()], 1)
 
 
+def buk_payi(yari_km):
+    """Dar kuşaklar daha az bükülür (kıyıdaki ince sırtlar denize kaymasın)."""
+    return float(np.clip((yari_km - 20.0) / 100.0, 0.15, 1.0))
+
+
 def kusak_alani(cizgi, deger, yari_km, dik):
     """Her hücre için: uzaklık (km), tepe değeri, teğet, yan (+1 sağ, −1 sol)."""
     pts, vals, tan = cizgi_ornek(cizgi, deger)
     tr = cKDTree(pts)
+    b = buk_payi(yari_km)
+    XYW = np.stack([(CC + b * WX).ravel(), (RR + b * WY).ravel()], 1)
     d, i = tr.query(XYW, distance_upper_bound=yari_km * 4 / H_KM)
     ok = np.isfinite(d)
     i = np.where(ok, i, 0)
@@ -204,7 +211,8 @@ def yapi(kara):
     d = 1.1 * tepe(ana) + 0.6 * tepe(orta) + 0.45 * tepe(ikinci) * (0.4 + 0.6 * np.clip(ana + 0.5, 0, 1)) - 0.38
     yukseklik_payi = np.clip((z - taban) / 2500.0, 0, 1)
     gen = (0.35 + 0.65 * genc) * yukseklik_payi * (1 - 0.65 * PW)
-    z = z + 1500.0 * gen * d
+    tavan = 1.0 - 0.6 * np.clip((z - 3500.0) / 3000.0, 0, 1)
+    z = z + 1100.0 * gen * d * tavan
     # eski kuşakların izi: rastgele doğrultulu yaşlı sırtlar (kuşak dışı her yerde, 150 ile 350 m)
     aci = gurultu(900) * 1.6
     ox, oy = np.cos(aci).astype(np.float32), np.sin(aci).astype(np.float32)
@@ -416,16 +424,17 @@ def etiketle(im):
             for x in range(0, W, int(24 * s)):
                 d.line([(x, y), (x + 10 * s, y)], fill=(255, 255, 255, 90), width=max(1, int(s)))
             d.text((6 * s, y + 2 * s), f"{abs(la)}°{'K' if la >= 0 else 'G'}", fill=(255, 255, 255), font=f(13))
-    def bukulmus(x, y):
+    def bukulmus(x, y, b=1.0):
         """Yapı katmanındaki alan bükmesi: çizgideki nokta haritada (x − WX, y − WY) yerine düşer."""
         gx, gy = int(np.clip(x * G, 0, NX - 1)), int(np.clip(y * G, 0, NY - 1))
-        return x - WX[gy, gx] / G, y - WY[gy, gx] / G
+        return x - b * WX[gy, gx] / G, y - b * WY[gy, gx] / G
     kus = {k[0]: k[1] for k in O.KUSAKLAR}
+    kyari = {k[0]: k[3] for k in O.KUSAKLAR}
     def kusak_yeri(ad, kay=(0, 0), oran=0.5):
         c = np.array(kus[ad], float); L = np.r_[0, np.cumsum(np.hypot(*np.diff(c, axis=0).T))]
         t = oran * L[-1]; i = min(np.searchsorted(L, t) - 1, len(c) - 2); i = max(i, 0)
         p = c[i] + (c[i + 1] - c[i]) * (t - L[i]) / max(L[i + 1] - L[i], 1e-6)
-        x, y = bukulmus(*p)
+        x, y = bukulmus(*p, buk_payi(kyari[ad]))
         return x + kay[0], y + kay[1]
     yazi = [
         ("1", (380, 330), 46, True), ("2", (1560, 120), 46, True), ("3", (1260, 980), 46, True), ("4", (330, 1150), 46, True),

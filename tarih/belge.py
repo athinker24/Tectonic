@@ -132,6 +132,31 @@ def zaman_cizelgesi():
     fig.tight_layout(); fig.savefig("cikti/zaman.png"); plt.close(fig)
 
 
+def olculen_tepeler():
+    """Son yüzeyde her kuşağın gerçek en yüksek noktası (bükülmüş çizgi çevresinde)."""
+    import arazi as R
+    from scipy import ndimage
+    z = np.load("cikti/son_z_tam.npy").astype(float)
+    ny, nx = z.shape; g = nx / O.GEN
+    zm = ndimage.maximum_filter(z, size=9)
+    out = {}
+    for ad, c, deger, yari, yas, dik in O.KUSAKLAR:
+        pts, _, _ = R.cizgi_ornek(c)
+        en = -1e9
+        for (px, py) in pts[::2] / R.G:
+            gx, gy = int(np.clip(px * R.G, 0, R.NX - 1)), int(np.clip(py * R.G, 0, R.NY - 1))
+            bp = R.buk_payi(yari)
+            x, y = px - bp * R.WX[gy, gx] / R.G, py - bp * R.WY[gy, gx] / R.G
+            r = int(min(yari, 40) / O.KM_PX * g * 0.6)
+            i, j = int(y * g), int(x * g)
+            win = z[max(i - r, 0):i + r + 1, max(j - r, 0):j + r + 1]
+            if win.size:
+                en = max(en, float(win.max()))
+        out[ad] = int(round(en, -1))
+    out["_genel"] = int(round(float(z.max()), -1))
+    return out
+
+
 def hiz_tablosu():
     """Anahtar karelerden hız: parça ağırlık merkezinin yer değiştirmesi (km / milyon yıl = mm/yıl)."""
     satir = []
@@ -235,9 +260,13 @@ def html():
     for ad, metin in BOLGELER:
         p.append(f"<h3>{ad}</h3><p>{metin}</p>")
     # yer şekilleri
+    if tepe_genel := (olculen_tepeler().get("_genel") if os.path.exists("cikti/son_z_tam.npy") else None):
+        p.append(f"<p>Kıtanın en yüksek noktası yaklaşık {tepe_genel:,} m".replace(",", ".") + "; Mor Sıradağları'nın doğu kesiminde. Yükseklikler aşınmadan sonraki yüzeyden ölçüldü.</p>")
     p.append("<h2>Bugünkü yer şekilleri ve nedenleri</h2><table><tr><th style='width:22%'>Yer şekli</th><th style='width:13%'>En yüksek (m)</th><th>Neden</th></tr>")
+    tepe = olculen_tepeler() if os.path.exists("cikti/son_z_tam.npy") else {}
     for ad, c, deger, yari, yas, dik in O.KUSAKLAR:
-        p.append(f"<tr><td><b>{ad}</b></td><td>{max(deger):,}".replace(",", ".") + f"</td><td>{NEDEN.get(ad, '')}</td></tr>")
+        v = tepe.get(ad, max(deger))
+        p.append(f"<tr><td><b>{ad}</b></td><td>{v:,}".replace(",", ".") + f"</td><td>{NEDEN.get(ad, '')}</td></tr>")
     for ad, pol, (y0, y1), _ in O.PLATOLAR:
         p.append(f"<tr><td><b>{ad}</b></td><td>{y0:,} ile {y1:,}".replace(",", ".") + f" (ortalama)</td><td>{PLATO_NEDEN.get(ad, '')}</td></tr>")
     p.append("</table>")
