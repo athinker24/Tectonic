@@ -23,7 +23,7 @@ from PIL import Image, ImageDraw
 from scipy import ndimage
 
 from deneyler.carpisma_lab import resim
-from deneyler.dunya import ARABISTAN, SERT, BOLGELER, HINDISTAN, SINIR, cokgen_ici, gercek_yukseklik, kutu
+from deneyler.dunya import ARABISTAN, SERT, ZAYIF, BOLGELER, HINDISTAN, SINIR, cokgen_ici, gercek_yukseklik, kutu
 from tektonik import kure
 from tektonik.izgara import _lonlat_xyz
 from tektonik.lab import LabAyar, LabCok
@@ -53,9 +53,10 @@ def main():
     yay = float(sys.argv[14]) if len(sys.argv) > 14 else 0.0  # yay magmatizması üretimi (m), 0 kapalı
     iklim = (sys.argv[15] == "1") if len(sys.argv) > 15 else False  # enlem kuşakları ve buzul aşınması
     plas = float(sys.argv[16]) if len(sys.argv) > 16 else 0.0  # plastik akma gerilimi (MPa), 0 kapalı
+    zay_miras = float(sys.argv[17]) if len(sys.argv) > 17 else 1.0  # miras zayıf kuşak viskozite çarpanı (Tien Şan)
     t0 = time.time()
     os.makedirs("cikti/dunya_lab", exist_ok=True)
-    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}_sh{int(sahan)}_in{incel:g}_kb{int(kubik)}_dk{dikis:g}" + (f"_y{yum:g}" if yum > 0 else "") + (f"_yay{yay:g}" if yay > 0 else "") + ("_iklim" if iklim else "") + (f"_p{plas:g}" if plas > 0 else "")
+    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}_sh{int(sahan)}_in{incel:g}_kb{int(kubik)}_dk{dikis:g}" + (f"_y{yum:g}" if yum > 0 else "") + (f"_yay{yay:g}" if yay > 0 else "") + ("_iklim" if iklim else "") + (f"_p{plas:g}" if plas > 0 else "") + (f"_mz{zay_miras:g}" if zay_miras != 1.0 else "")
 
     zr, lon_r, lat_r = gercek_yukseklik()
     dz = duzlem_kur(zr > 0, SINIR, h_km=h_km, pay_km=800.0)
@@ -159,6 +160,14 @@ def main():
             ms |= cokgen_ici(dz.lon, dz.lat, cg)
         w = ndimage.gaussian_filter(ms.astype(float), 50.0 / h_km)
         lab.eta_carpan = np.exp(np.log(sert) * np.clip(w * 2, 0, 1))
+    if zay_miras != 1.0:
+        # miras zayıf kuşaklar (Tien Şan: Paleozoyik kuşak, yeniden etkinleşir)
+        mz = np.zeros(dz.sekil, bool)
+        for cg in ZAYIF.values():
+            mz |= cokgen_ici(dz.lon, dz.lat, cg)
+        wz = ndimage.gaussian_filter(mz.astype(float), 50.0 / h_km)
+        c0 = lab.eta_carpan if lab.eta_carpan is not None else np.ones(dz.sekil)
+        lab.eta_carpan = c0 * np.exp(np.log(zay_miras) * np.clip(wz * 2, 0, 1))
     kareler = []
     adim = int(round(bas / a.dt_myr))
     for i in range(adim):

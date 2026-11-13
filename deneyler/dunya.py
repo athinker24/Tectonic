@@ -33,6 +33,12 @@ ARABISTAN = [(33.8, 28.5), (35.2, 32.5), (36.4, 36.3), (39, 37), (42, 37.6), (45
 
 
 # Sert bölgeler (kratonlar ve katı havzalar), genel bilgiyle kabaca çizildi; kesin harita değil.
+# Miras zayıf kuşaklar (eski dağ kuşakları, yeniden etkinleşir); genel bilgiyle kabaca çizildi.
+ZAYIF = {
+    "Tien Şan (Paleozoyik kuşak)": [(68, 40), (72, 42.3), (78, 43.6), (85, 44.4), (92, 44.2), (95, 43.2), (93, 41.9),
+                                     (86, 42.3), (80, 41.6), (75, 40.4), (70, 38.9)],
+}
+
 SERT = {
     "Tarim": [(76, 39.5), (78, 37.3), (83, 36.8), (88, 37.5), (90, 39), (89, 40.5), (84, 41.8), (79, 41), (76, 40.5)],
     "Junggar": [(83, 45), (86, 44.2), (90, 44.5), (91, 46), (88, 47), (84, 46.5)],
