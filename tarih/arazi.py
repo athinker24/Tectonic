@@ -440,13 +440,13 @@ def etiketle(im):
         ("1", (380, 330), 46, True), ("2", (1560, 120), 46, True), ("3", (1260, 980), 46, True), ("4", (330, 1150), 46, True),
         ("5", (820, 1190), 36, True), ("6", (720, 790), 32, True), ("7", (1040, 1255), 30, True),
         ("MOR SIRADAĞLARI", kusak_yeri("Mor Sıradağları", (-110, 45), 0.55), 20, False),
-        ("MOR YAYLASI", kusak_yeri("Şerit Sırtları", (-60, 12), 0.5), 20, False),
+        ("MOR YAYLASI", kusak_yeri("Şerit Sırtları", (10, -22), 0.5), 20, False),
         ("UZAK SIRA", kusak_yeri("Uzak Sıra", (-50, -35), 0.45), 18, False),
         ("Kum Havzası", (1290, 375), 17, False), ("Derin Göl", (1700, 245), 16, False),
         ("MAVİ DAĞLAR", kusak_yeri("Mavi Dağlar", (15, 0), 0.45), 17, False),
         ("ULU DAĞLAR", kusak_yeri("Ulu Dağlar", (20, 0), 0.5), 16, False),
         ("KÖPRÜ DAĞLARI", kusak_yeri("Köprü Dağları", (-60, 40), 0.4), 16, False),
-        ("SARI SIRADAĞLARI", kusak_yeri("Sarı Sıradağları", (-190, 20), 0.6), 16, False),
+        ("SARI SIRADAĞLARI", kusak_yeri("Sarı Sıradağları", (-175, 10), 0.6), 16, False),
         ("Kızıl Basamaklar", (1180, 1060), 17, False),
         ("DOĞU YAY DAĞLARI", kusak_yeri("Doğu Yay Dağları", (25, 0), 0.6), 15, False),
         ("Kuzey Tuzakları", (1240, 150), 17, False), ("Köz Yaylası", (300, 1060), 17, False),
@@ -555,6 +555,8 @@ def main():
         log(f"tam aşınma sonrası en yüksek {za.max():.0f} m")
     if adim == "ciz_tam":
         za = np.load("cikti/arazi_z_tam.npy").astype(float); A = np.load("cikti/akis_tam.npy").astype(float)
+        # 5000 m üstü yumuşak sıkıştırma: aşınma sırasında sırtlar hedefin üstüne itiliyor
+        za = np.where(za > 5000, 5000 + 4000 * np.tanh((za - 5000) / 4000), za)
         kt = np.asarray(Image.open("maske.png").convert("L")) > 127
         nyt, nxt = kt.shape
         P = np.load("cikti/yagis.npy").astype(float)

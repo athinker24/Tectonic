@@ -266,6 +266,8 @@ def html():
     tepe = olculen_tepeler() if os.path.exists("cikti/son_z_tam.npy") else {}
     for ad, c, deger, yari, yas, dik in O.KUSAKLAR:
         v = tepe.get(ad, max(deger))
+        if v < 300:
+            continue  # arazide belirgin oluşmadı
         p.append(f"<tr><td><b>{ad}</b></td><td>{v:,}".replace(",", ".") + f"</td><td>{NEDEN.get(ad, '')}</td></tr>")
     for ad, pol, (y0, y1), _ in O.PLATOLAR:
         p.append(f"<tr><td><b>{ad}</b></td><td>{y0:,} ile {y1:,}".replace(",", ".") + f" (ortalama)</td><td>{PLATO_NEDEN.get(ad, '')}</td></tr>")

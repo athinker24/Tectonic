@@ -10,5 +10,5 @@ Görev (13 Kasım 2026 gecesi, sahip uyurken): maskenin öncesini kuran, çok d�
 - [x] olaylar.py: dönemler, olaylar, levhalar (tek kaynak)
 - [x] arazi.py: v1 hazır (cikti/topografya_v1.png). v2: `python3 arazi.py asinma_tam 4.0 5e-6 25` (log_tam2.txt), sonra `python3 arazi.py ciz_tam`; v2 kötüyse v1'i topografya.png olarak geri koy
 - [x] animasyon.py: üretildi (v1 topografyayla); son topografyadan sonra yeniden koş
-- [~] belge.py: kod hazır; en son `NODE_PATH=$(npm root -g) python3 belge.py` (cikti/tarih.pdf)
-- [ ] commit, push, gönder
+- [x] belge.py: cikti/tarih.pdf (18 sayfa)
+- [x] v3 topografya son sürüm; animasyon ve PDF onunla üretildi; commit, push, gönderim yapıldı (22:56 UTC)
