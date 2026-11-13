@@ -8,7 +8,7 @@ Görev (13 Kasım 2026 gecesi, sahip uyurken): maskenin öncesini kuran, çok d�
 - [x] Notlar ve sahibin kararları: notlar/KARARLAR.md
 - [x] Uyandırıcılar: 01:15 ve 01:50 UTC
 - [x] olaylar.py: dönemler, olaylar, levhalar (tek kaynak)
-- [~] arazi.py: yapı tamam; aşınma: `python3 arazi.py asinma 3.0`, sonra `python3 arazi.py ciz 2` (cikti/topografya.png)
-- [~] animasyon.py: kod hazır ve sınandı; topografya bitince `python3 animasyon.py` (cikti/animasyon.mp4, .gif)
+- [x] arazi.py: v1 hazır (cikti/topografya_v1.png). v2: `python3 arazi.py asinma_tam 4.0 5e-6 25` (log_tam2.txt), sonra `python3 arazi.py ciz_tam`; v2 kötüyse v1'i topografya.png olarak geri koy
+- [x] animasyon.py: üretildi (v1 topografyayla); son topografyadan sonra yeniden koş
 - [~] belge.py: kod hazır; en son `NODE_PATH=$(npm root -g) python3 belge.py` (cikti/tarih.pdf)
 - [ ] commit, push, gönder

@@ -257,7 +257,7 @@ def yagis(kara, z, lat):
     return np.clip(P, 0.05, 3.0)
 
 
-def asinma(z_hedef, kara, P, sure=3.0, K=2.2e-6, h_m=H_M, dt=2e4):
+def asinma(z_hedef, kara, P, sure=3.0, K=2.2e-6, h_m=H_M, dt=2e4, s_km=14.0):
     ny_, nx_ = z_hedef.shape
     pur = ndimage.gaussian_filter(np.random.default_rng(9).standard_normal((ny_, nx_)), 1.0)
     zz = np.where(kara, z_hedef + np.abs(5 * pur / pur.std()), 0.0)
@@ -267,7 +267,7 @@ def asinma(z_hedef, kara, P, sure=3.0, K=2.2e-6, h_m=H_M, dt=2e4):
     eroder = fs.SPLEroder(router, K, 0.45, 1.0, 1e-4)
     yamac = fs.DiffusionADIEroder(grid, 1.5)
     n = int(round(sure * 1e6 / dt))
-    s15 = 14.0 / (h_m / 1e3)
+    s15 = s_km / (h_m / 1e3)
     hedef_d = ndimage.gaussian_filter(np.where(kara, z_hedef, 0.0), s15)
     Pm = np.ascontiguousarray(P * kara + 1e-3, dtype=np.float64)
     for i in range(n):
@@ -540,7 +540,8 @@ def main():
         Pt = ndimage.zoom(P, (nyt / NY, nxt / NX), order=1)[:nyt, :nxt]
         zt = np.where(kt, np.maximum(zt, 3.0), 0.0)
         sure = float(sys.argv[2]) if len(sys.argv) > 2 else 3.0
-        za, A = asinma(zt, kt, Pt, sure, 2.2e-6, H_M / 2, 2.5e4)
+        Kx = float(sys.argv[3]) if len(sys.argv) > 3 else 2.2e-6
+        za, A = asinma(zt, kt, Pt, sure, Kx, H_M / 2, 2.5e4, s_km=float(sys.argv[4]) if len(sys.argv) > 4 else 14.0)
         np.save("cikti/arazi_z_tam.npy", za.astype(np.float32)); np.save("cikti/akis_tam.npy", A.astype(np.float32))
         log(f"tam aşınma sonrası en yüksek {za.max():.0f} m")
     if adim == "ciz_tam":
@@ -554,7 +555,7 @@ def main():
         zdt = ndimage.zoom(zd, (nyt / NY, nxt / NX), order=1)[:nyt, :nxt]
         zl = np.load("cikti/hedef_z.npy").astype(float)
         gol, sv = goller(kara, zl)
-        golt = ndimage.zoom(ndimage.gaussian_filter(gol.astype(float), 0.8), (nyt / NY, nxt / NX), order=1)[:nyt, :nxt]
+        golt = ndimage.gaussian_filter(ndimage.zoom(gol.astype(float), (nyt / NY, nxt / NX), order=1)[:nyt, :nxt], 2.5)
         golt = (golt + 0.25 * ndimage.gaussian_filter(np.random.default_rng(4).standard_normal((nyt, nxt)), 1.5) / 0.2 * 0.3) > 0.5
         svt = ndimage.zoom(ndimage.grey_dilation(sv, size=5), (nyt / NY, nxt / NX), order=0)[:nyt, :nxt]
         golt &= kt
