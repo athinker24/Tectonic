@@ -82,10 +82,9 @@ def cizgi_tumlevi(N, tx, ty, adim):
 def desen(ny, nx, h_km, tx, ty, aralik_km, boy_km, rng):
     """Doğrultu boyunca uzamış, belirli aralıklı sırt deseni; kaba ızgarada üretilip büyütülür."""
     f = max(1, int(round(aralik_km / 8 / h_km)))  # hücre aralığın yaklaşık 1/8'i
-    nyc, nxc = ny // f + 1, nx // f + 1
     hc = h_km * f
-    N = ndimage.gaussian_filter(rng.standard_normal((nyc, nxc)), aralik_km / 4 / hc)
-    txc, tyc = tx[::f, ::f][:nyc, :nxc], ty[::f, ::f][:nyc, :nxc]
+    txc, tyc = tx[::f, ::f], ty[::f, ::f]  # kaba ızgara doğrultu alanıyla aynı boyutta
+    N = ndimage.gaussian_filter(rng.standard_normal(txc.shape), aralik_km / 4 / hc)
     L = cizgi_tumlevi(N, txc, tyc, int(boy_km / 2 / hc))
     L = L - ndimage.gaussian_filter(L, aralik_km / hc)  # aralıktan büyük ölçeği at (bant geçiren)
     L /= L.std() + 1e-12
@@ -130,15 +129,17 @@ def main():
     rng = np.random.default_rng(11)
     ana = desen(ny, nx, h_km, tx, ty, 140.0, 600.0, rng)
     ikincil = desen(ny, nx, h_km, tx, ty, 45.0, 140.0, rng)
+    # orta ölçek, yönü zayıf (boy/aralık yaklaşık 1,6): kuşaklar arasındaki küçük sıradağ ve çöküntüler
+    orta = desen(ny, nx, h_km, tx, ty, 60.0, 100.0, rng)
     # büyük ölçekli bükme: kuşaklar kıvrılır, dallanır, kavislenir (genlik 45 km, ölçek 150 km)
     wx = ndimage.gaussian_filter(rng.standard_normal(z.shape), 150.0 / h_km); wx *= (45.0 / h_km) / (wx.std() + 1e-12)
     wy = ndimage.gaussian_filter(rng.standard_normal(z.shape), 150.0 / h_km); wy *= (45.0 / h_km) / (wy.std() + 1e-12)
     ri_, ci_ = np.mgrid[0:ny, 0:nx].astype(float)
     bük = lambda f: ndimage.map_coordinates(f, [ri_ + wy, ci_ + wx], order=1, mode="reflect")
-    ana, ikincil = bük(ana), bük(ikincil)
+    ana, ikincil, orta = bük(ana), bük(ikincil), bük(orta)
     # sırt yalnız desenin tepelerinde: düzensiz aralık, uçlarda doğal sönme; arası düz havza
     tepe = lambda n: np.clip(n, 0, 1) ** 1.2
-    d = 1.5 * tepe(ana) + 0.45 * tepe(ikincil) * (0.3 + 0.7 * np.clip(ana + 0.5, 0, 1)) - 0.3
+    d = 1.2 * tepe(ana) + 0.7 * tepe(orta) + 0.4 * tepe(ikincil) * (0.4 + 0.6 * np.clip(ana + orta + 0.5, 0, 1)) - 0.35
     egim = np.hypot(gx, gy) * 1e3 / h_km  # m kabuk / km
     # yalnız deforme kabukta: kalınlaşma 40 km'den 55 km'ye; kenar kuşağı terimi yalnız kalınlaşmış yerde
     kalin = np.clip((S - 40e3) / 15e3, 0, 1)
@@ -183,7 +184,7 @@ def main():
             print(f"  {i + 1}/{n} adım, {time.time() - t0:.0f} s", flush=True)
     sure_s = time.time() - t0
     zs = np.where(kara, zz, z_deniz)
-    np.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy_g{genlik:g}_z.npy", zs.astype(np.float32))
+    np.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy2_g{genlik:g}_z.npy", zs.astype(np.float32))
     dzi = Duzlem(dzk.lon0, dzk.lat0, h, x, y, LO, LA, kara)
     zg6, lo6, la6 = gercek_06()
     zg, _ = izgaraya(dzi, zg6, lo6, la6)
@@ -196,11 +197,11 @@ def main():
     dr = ImageDraw.Draw(t)
     dr.text((8, 4), f"Model: tektonik + yapı katmanı + {h_km:g} km'de {sure:g} milyon yıl aşınma ({sure_s / 60:.0f} dakika)", fill=(0, 0, 0), font=yazi_tipi(20))
     dr.text((8, m_s.height + 40), "Gerçek (06' veri, yaklaşık 11 km)", fill=(0, 0, 0), font=yazi_tipi(20))
-    t.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy_g{genlik:g}.png")
+    t.save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy2_g{genlik:g}.png")
     c0, r0 = int(nx * 0.25), int(ny * 0.25)
-    m_im.crop((c0, r0, c0 + 700, r0 + 450)).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy_g{genlik:g}_yakin.png")
+    m_im.crop((c0, r0, c0 + 700, r0 + 450)).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy2_g{genlik:g}_yakin.png")
     # yapı katmanının kendisi (aşınmadan önce), tanı için
-    ciz(np.where(kara, hedef, z_deniz), kara, h).resize((900, int(H * s)), Image.LANCZOS).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy_g{genlik:g}_hedef.png")
+    ciz(np.where(kara, hedef, z_deniz), kara, h).resize((900, int(H * s)), Image.LANCZOS).save(f"cikti/yapi_kanit_{h_km:g}km_{sure:g}my_K{K:g}_cy2_g{genlik:g}_hedef.png")
     print(f"toplam {sure_s:.0f} s")
 
 
