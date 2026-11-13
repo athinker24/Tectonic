@@ -1,0 +1,5 @@
+tarih/cikti/*.npy
+tarih/cikti/kareler/
+tarih/cikti/log_*.txt
+tarih/cikti/tarih.html
+tarih/__pycache__/
