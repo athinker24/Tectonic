@@ -49,9 +49,10 @@ def main():
     incel = float(sys.argv[10]) if len(sys.argv) > 10 else 5.0  # incelen kıtanın zayıflaması (km), 0 kapalı
     kubik = (sys.argv[11] == "1") if len(sys.argv) > 11 else True
     dikis = float(sys.argv[12]) if len(sys.argv) > 12 else 0.02  # dar şerit kapanma eşiği (adım başına kısalma)
+    yum = float(sys.argv[13]) if len(sys.argv) > 13 else 0.0  # gerinim yumuşaması e0 (0 kapalı)
     t0 = time.time()
     os.makedirs("cikti/dunya_lab", exist_ok=True)
-    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}_sh{int(sahan)}_in{incel:g}_kb{int(kubik)}_dk{dikis:g}"
+    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}_sh{int(sahan)}_in{incel:g}_kb{int(kubik)}_dk{dikis:g}" + (f"_y{yum:g}" if yum > 0 else "")
 
     zr, lon_r, lat_r = gercek_yukseklik()
     dz = duzlem_kur(zr > 0, SINIR, h_km=h_km, pay_km=800.0)
@@ -146,7 +147,7 @@ def main():
     L0 = L0[ri, ci]
 
     a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=K, cek_gelen_km=400.0, cek_sabit_km=avr,
-                 sinir_zayif=zay, sinir_km=zay_km, kiyi_sizinti=sizinti, incelme_km=incel, tasima_kubik=kubik, dikis_esik=dikis)
+                 sinir_zayif=zay, sinir_km=zay_km, kiyi_sizinti=sizinti, incelme_km=incel, tasima_kubik=kubik, dikis_esik=dikis, yumusama_e0=yum)
     lab = LabCok(S0, L0, bas, a, dz.lon, dz.lat, tarihler, adlar, "Avrasya", yerel_eksenler(dz, dz.lon, dz.lat))
     if sert != 1.0:
         # sert bölgeler bugünkü yerlerinde (Avrasya sabit olduğundan geri sürülmez); 50 km kenar yumuşatması

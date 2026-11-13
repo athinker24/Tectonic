@@ -57,6 +57,9 @@ class LabAyar:
     sinir_zayif: float = 1.0  # levha sınırı fay kuşağının viskozite çarpanı (1 = yok); bindirme kuşağı
     sinir_km: float = 200.0  # fay kuşağının sınırdan iki yana genişliği
     dikis_esik: float = 0.0  # dar okyanus şeridinin kapanması için adım başına en az kısalma (0,02: %2); 0 her yakınsamada
+    yumusama_e0: float = 0.0  # >0: gerinim yumuşaması; birikmiş gerinim ε ile viskozite exp(−ε/e0) (fay yerelleşmesi)
+    yumusama_min: float = 0.1  # yumuşamanın alt sınırı (viskozite çarpanı)
+    iyilesme_myr: float = 20.0  # birikmiş gerinimin iyileşme süresi
     tasima_kubik: bool = True  # sınırlı kübik taşıma (False: eski doğrusal, kıyıyı yayar)
     incelme_km: float = 0.0  # >0: incelen kıtada viskozite exp(−(S_ref−S)/incelme) düşer (yırtılma, Kızıldeniz); 0 kapalı
     kiyi_sizinti: bool = True  # alt kabuk akışı kıyıdan okyanusa geçebilir mi (False: kıta kenarında akı yok)
@@ -113,6 +116,9 @@ class Lab:
                  ayar: LabAyar | None = None):
         self.a = a = ayar or LabAyar()
         self.eta_carpan = None  # sert bölgeler (kratonlar): kıtada viskozite çarpanı, ızgarada sabit
+        # birikmiş gerinim; başlangıçta küçük rastgele miras zayıflıklar (yerelleşmenin çekirdekleri)
+        _r = np.random.default_rng(a.tohum + 7)
+        self.Eps = 0.2 * a.yumusama_e0 * np.abs(ndimage.gaussian_filter(_r.standard_normal(S0.shape), 1.5)) / 0.2
         ny, nx = S0.shape
         self.ny, self.nx = ny, nx
         h = a.h_km * 1e3
@@ -173,6 +179,8 @@ class Lab:
         gelen = L > 0.5
         # --- hız ---
         sabit, u0, v0, eta_t = self._hiz(S, L, kita, d)
+        if a.yumusama_e0 > 0:
+            eta_t = eta_t * np.where(kita, np.maximum(a.yumusama_min, np.exp(-self.Eps / a.yumusama_e0)), 1.0)
         _, (rk, ck) = ndimage.distance_transform_edt(~kita, return_indices=True)
         Sg = S[rk, ck] if kita.any() else S
         eta = eta_t.copy()
@@ -197,6 +205,9 @@ class Lab:
         else:
             S = ndimage.map_coordinates(S, [r0, c0], order=1, mode="nearest")
         L = ndimage.map_coordinates(L, [r0, c0], order=self.etiket_derece, mode="nearest")
+        if a.yumusama_e0 > 0:
+            Eps = np.where(kita, self.Eps + eE * dt_s, self.Eps) * np.exp(-a.dt_myr / a.iyilesme_myr)
+            self.Eps = ndimage.map_coordinates(Eps, [r0, c0], order=1, mode="nearest")
         # kenarlar: alandan giren malzeme başlangıçtaki kenar değerini taşır (sivrilik birikmesin)
         S[0, :], S[-1, :], S[:, 0], S[:, -1] = self.kenar_S
         L[0, :], L[-1, :], L[:, 0], L[:, -1] = self.kenar_L

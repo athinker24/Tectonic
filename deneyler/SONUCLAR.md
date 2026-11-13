@@ -310,3 +310,16 @@ Denenip bırakılan: sığ denizleri (−200 m'den sığ) deniz altı kıta kabu
 İkinci aşama `deneyler/dunya_ince.py` (yeni): son yüzey aynı izdüşümde 10 km'ye kübik taşınır; 1, 2, 4 hücre ölçekli yaklaşık 40 m rastgele düzensizlik (kanal çekirdeklenmesi); fastscapelib SPL K 5e-7, m 0,5, n 1, çok yönlü akış (MultiFlowRouter; tek yönlü akışta düz paralel kanallar çıkıyordu), orografik yağışla drenaj alanı, 80 km izostatik geri sıçrama 0,85, kaba modelde kalınlaşmış kabukta 1 (kaya yükselmesi bölgesel aşınmayı karşılar). 5 milyon yıl, 7 dakika; ortalama aşınma 225 m, en çok 7707 m, en yüksek 8532 m. 1 milyon yıl yetersizdi (ortalama 27 m, kenarlar kazılmadı).
 
 Değerlendirme: plato kenarları vadilerle parçalanıyor, nehir ağları kıtalarda kendiliğinden oluşuyor. Büyük ölçekte sorunlar kaba simülasyondan: plato gerçeğe göre kuzeyde ve Tarim havzasını örtüyor (Tarim ×10 sertlik 25 km'de yetmiyor), Himalaya cephesi 6,5 km'lik keskin beyaz sırt, Kızıldeniz yarığı çok geniş ve kenarı tarak gibi çizgili (incelme zayıflaması 25 km'de aşırı), Karadeniz yok, Basra Körfezi dolu, plato içi pürüzsüz (gerçek Tibet'teki iç sıradağlar ve grabenler yok), eski dağlar yok. Görseller cikti/ornek_dunya_25_karsilastirma.png, cikti/ornek_dunya_25_yakin.png.
+
+### Gerinim yumuşaması denemesi (başarısız)
+
+`LabAyar.yumusama_e0` (birikmiş gerinim ε ile viskozite exp(−ε/e0), alt sınır 0,1, iyileşme 20 milyon yıl, küçük rastgele miras zayıflık). 50 km: e0 0,3 ve 1,0 ikisi de kararsız: en yüksek 15 km, Zagros ve İran 5,5 km, kıyı IoU 0,43 ve 0,57. İnce levhada yumuşama bütün deforme kıtayı akışkanlaştırıyor; ayrı fay kuşakları ve aradaki sağlam havzalar çıkmıyor. Varsayılan kapalı.
+
+### Yapaylığın nedenleri (sahibin "hâlâ çok yapay, çok eksik var" notu üzerine)
+
+1. Miras yok: kıtalar her yerde 35 km kabuk ve 300 m ovayla başlıyor; çarpışma dışında her yer düz. Gerçek kıtalardaki eski dağ kuşakları, kıta içi havzalar, manto kabarmaları (Afrika) ve yarık omuzları yüz milyonlarca yılın ürünü.
+2. Fay yok: deformasyon sürekli akış; ayrı sıradağlar (Kunlun, Tien Şan) ve aralarındaki çökük havzalar (Tarim, Qaidam) çıkmıyor, plato içi pürüzsüz.
+3. Dalma batma ve volkanik yay yok: Japonya, Endonezya, Makran, Anadolu, And tipi kıyı dağları.
+4. Eksik bloklar: Adria, Anadolu, İberya, Filipin.
+5. İklim kuşakları ve buzul aşınması yok; yağış yalnız yamaç etkisinden.
+6. Tektonik çözünürlük 25 km.
