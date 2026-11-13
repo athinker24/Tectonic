@@ -366,3 +366,14 @@ Sahibin kıtasında iç deniz yeniden büyük ölçüde kapanıyor ve mikro kıt
 - Gelen blokların kıtası 5 kat sağlam (`gelen_sert`; Hindistan ve Arabistan kalkanları) + dalma 0,35 (E): 0,47 / 0,56 / 0,42; 3000 m üstü alan 1113 (gerçek 1199); Tibet 4548 m; Zagros 3000 m'yi aşmıyor (861 m, gerçek 1299). En iyisi. Kalan fark: kuzeydoğu Tibet eksik, batı düğümü fazla.
 - E + çekirdek 2000 km: 3000 m 0,57, 4500 m 0,22, Tibet 4303; E + 2500 km: 0,57 / 0,03, Tibet 4059 (plato alçalıyor).
 - E üzerinde yapı ve aşınma katmanı (2,5 km): plato gerçeğe göre kuzey güney yönünde dar (özellikle batıda), Tarim çevresi kapalı havza değil, Ganj ovasında doldurulmamış göller.
+
+### Çok bölgeli şekil puanı (13 Kasım 2026)
+
+`deneyler/puan.py`: Tibet (1500 ve 3000 m), İran Zagros Anadolu Kafkas (1000 ve 2000 m), Tien Şan Tarim (1500 m) alan örtüşmelerinin ortalaması; tek bölgeye ayar yapılmasın diye. Sonuçlar:
+- yaysız ve iklimsiz temel 0,356; yaylar ve iklim 0,375 (İran 1000 m 0,21).
+- Dalma 0,35 + sağlam kalkanlar (E): 0,324 (Tibet 3000 m 0,52'den 0,58'e, ama İran 1000 m 0,21'den 0,09'a). Tibet'e göre ayardı; toplamda kötüleştirdi.
+- İran farkı: modelde Zagros gerçek yerinin 200 ile 300 km güneybatısında, Arabistan'ın üstünde; Anadolu ve Kafkas yükselmiyor (ortanca 242 ve 439 m; gerçek 1132 ve 1324 m).
+- E + yay ısısı zayıflığı (0,3, 20 milyon yıl): 0,333. Gelen sertliği 15: kararsız (vmax 40 cm/yıl), 0,239 ve 0,331.
+- Yay ardı termal kaldırma (`termal_m` 1200 m, 40 milyon yıl; ısınmış manto litosferi): etkisiz (0,324, 0,331, 0,377), çünkü İran altında biriken yay kabuğu ortancası 0 m, Anadolu'da 10 m.
+- Geçmiş 70 Ma'ya uzatıldı (Hindistan 80 ile 50 Ma 15 cm/yıl): yaylar ve iklim + termal 0,358; E + termal 0,277. İran düzelmedi.
+- Değerlendirme: Anadolu ve İran'ın yüksekliği büyük ölçüde manto süreçlerinden (litosfer kopması, sıcak manto) ve 100 milyon yılı aşkın dalma tarihinden geliyor; model bunları üretmiyor. En iyi toplam puan yaylar, iklim ve termal (0,377); E Tibet'te daha iyi.

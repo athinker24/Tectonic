@@ -65,6 +65,9 @@ class LabAyar:
     iyilesme_myr: float = 20.0  # birikmiş gerinimin iyileşme süresi
     yay_uretim_m: float = 0.0  # >0: dalma batma magmatizması; tüketilen okyanus alanı başına eklenen kabuk (m), ör. 800
     yay_uzaklik_km: float = 200.0  # yayın hendekten (ilk kıta hücresinden) içeri uzaklığı
+    termal_m: float = 0.0  # >0: yay ve yay ardı ısınmış manto litosferinin yüzeyi en çok bu kadar kaldırması (m)
+    termal_myr: float = 40.0  # termal kaldırmanın sönme süresi
+    yay_isi_myr: float = 5.0  # yay kabuğunun ısısının (zayıflığının) sönme süresi
     yay_zayif: float = 1.0  # <1: etkin yayın altındaki sıcak kabuk zayıflar (en düşük viskozite çarpanı)
     iklim: bool = False  # enlem kuşakları (yağış çarpanı) ve kar çizgisi üstünde buzul aşınması; enlem gerekir
     buzul_k: float = 1.33e-6  # 1/yıl: kar çizgisinin 1500 m üstünde yaklaşık 2 mm/yıl aşınma (buzul testeresi)
@@ -195,6 +198,15 @@ class Lab:
             eta_t = eta_t * np.where(kita, self.eta_carpan, 1.0)
         return sabit, u0, v0, eta_t
 
+    def _termal(self, kita):
+        """Isınmış manto litosferi (dalma batma zonu üstü, yay ardı) yüzeyi kaldırır (Anadolu, İran gibi).
+        Isı: eklenen yay kabuğunun termal_myr süreyle sönen toplamı, 300 km'ye yayılmış; 3 km eklemede doyar."""
+        a = self.a
+        if a.termal_m <= 0 or getattr(self, "termal_isi", None) is None:
+            return 0.0
+        t = ndimage.gaussian_filter(self.termal_isi, 150.0 / a.h_km)
+        return np.where(kita, a.termal_m * np.clip(t / 3000.0, 0, 1), 0.0)
+
     def _yay(self, kita, ekk, u, v, dt_s):
         """Dalma batma magmatizması. İnce levhada okyanus zayıf olduğu için yakınsama hendekte değil okyanus
         şeridine yayılmış olarak görünür; bu yüzden yakınsayan her okyanus hücresinde tüketilen alan
@@ -236,8 +248,10 @@ class Lab:
         ek = np.where(kita, ek, 0.0)
         # ısı: eklenen kalınlığın 5 milyon yıllık sönümlü toplamı
         isi = getattr(self, "yay_isi", None)
-        self.yay_isi = (np.zeros(ek.shape) if isi is None else isi * np.exp(-a.dt_myr / 5.0)) + ek
-        self.yay_top = getattr(self, "yay_top", 0.0) + ek  # birikmiş yay kabuğu (ızgarada; taşınmaz, tanı için)
+        self.yay_isi = (np.zeros(ek.shape) if isi is None else isi * np.exp(-a.dt_myr / a.yay_isi_myr)) + ek
+        self.yay_top = getattr(self, "yay_top", 0.0) + ek
+        ti = getattr(self, "termal_isi", None)
+        self.termal_isi = (np.zeros(ek.shape) if ti is None else ti * np.exp(-a.dt_myr / a.termal_myr)) + ek  # birikmiş yay kabuğu (ızgarada; taşınmaz, tanı için)
         self.yay_hacim = getattr(self, "yay_hacim", 0.0) + float(ek.sum()) * self.h * self.h / 1e9
         return ek
 
@@ -331,7 +345,7 @@ class Lab:
         S = np.clip(S, 5e3, a.S_ust_km * 1e3)
         kita = S > 20e3
         # --- yüzey ve aşınma ---
-        z = yuzey(S, kita, self.suzgec, a)
+        z = yuzey(S, kita, self.suzgec, a) + self._termal(kita)
         kara = ~acik_okyanus(z)  # iç göller de karanın parçası: nehirler onlara akar, dolarlar
         zr = np.ascontiguousarray(np.where(kara, z, 0.0), dtype=np.float64).copy()  # deniz taban düzeyi 0
         self.router.update_routes(zr)
@@ -354,7 +368,7 @@ class Lab:
         S = S - e
         hacim = float(e.sum())
         # --- çökelme: açık okyanusa bağlı olmayan bütün çukurlar (iç göller dahil) dolar ---
-        z = yuzey(S, S > 20e3, self.suzgec, a)
+        z = yuzey(S, S > 20e3, self.suzgec, a) + self._termal(S > 20e3)
         acik = acik_okyanus(z)
         tohum = np.where(acik, np.maximum(z, 0.0), z.max() + 1.0)
         maske = np.where(acik, np.maximum(z, 0.0), z)
@@ -378,7 +392,7 @@ class Lab:
                 pay = np.minimum(gerek_h, butce * w / max(w.sum(), 1e-9))
                 S = S + pay
         d.S, d.etiket, d.u, d.v = S, L, u, v
-        d.z = yuzey(S, S > 20e3, self.suzgec, a)
+        d.z = yuzey(S, S > 20e3, self.suzgec, a) + self._termal(S > 20e3)
         d.ma = round(d.ma - a.dt_myr, 6)
         kara = ~acik_okyanus(d.z)
         d.gunluk.append(dict(ma=d.ma, zmax=float(d.z.max()), Smax_km=float(S.max() / 1e3),
