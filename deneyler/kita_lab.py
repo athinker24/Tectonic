@@ -70,10 +70,17 @@ def main():
             tc = max([a.bitis_ma for a in tr.asamalar if 0 < a.bitis_ma < bas], default=0.0)
             if buyuk and tc > 0:
                 q = kure.carp(tr.geri_donme(bas), kure.ters(tr.geri_donme(tc)))
-                kor = [kure.uygula(tr.geri_donme(t), p0) for t in np.linspace(0, tc, 24)]
-                ek = kure.uygula(q, np.vstack(kor))
+                kor = np.vstack([kure.uygula(tr.geri_donme(t), p0) for t in np.linspace(0, tc, 24)])
+                # yalnız çarpışmada tükenecek kısım: katı ileri hareketle bugün başka bir bloğun
+                # karasına denk gelen koridor hücreleri (iç denize bakan yanın önü kara olarak kalmasın)
+                bugun = kure.uygula(kure.ters(tr.geri_donme(tc)), kor)
+                diger = (blok_bugun >= 0) & (blok_bugun != b)
+                agac = cKDTree(_lonlat_xyz(dz.lon[diger], dz.lat[diger]))
+                dd, _ = agac.query(bugun, distance_upper_bound=1.5 * dz.h / 6.371e6)
+                kor = kor[np.isfinite(dd)]
+                ek = kure.uygula(q, kor)
                 xyz = np.vstack([xyz, ek])
-                print(f"{ad}: çarpışma {tc:.1f} Ma, Büyük {ad} uzantısı eklendi")
+                print(f"{ad}: çarpışma {tc:.1f} Ma, Büyük {ad} uzantısı {len(kor)} nokta")
         lo, la = kure.xyz_lonlat(xyz)
         px, py = laea_ileri(np.asarray(lo), np.asarray(la), dz.lon0, dz.lat0)
         c = np.round((px - dz.x[0]) / dz.h).astype(int)
