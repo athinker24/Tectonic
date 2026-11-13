@@ -184,7 +184,9 @@ class Lab:
         # --- dikişin kapanması: iki kıta arasında sıkışan dar okyanus şeridi dalarak yok olur ---
         # sabit ızgarada hücre yok olamadığı için: yakınsayan ve iki yanı kıta olan, 3 hücreden dar
         # okyanus hücreleri komşu kıta kabuğunu alır (kalan okyanus litosferi dalmış sayılır)
-        kapali = ndimage.binary_closing(kita, structure=np.ones((3, 3)), iterations=2)
+        # yalnız gerçekten dar şeritler (yaklaşık 60 km'ye kadar); iç denizler ve boğazlar kapanmasın
+        yineleme = max(1, int(round(30.0 / a.h_km)))
+        kapali = ndimage.binary_closing(kita, structure=np.ones((3, 3)), iterations=yineleme)
         sikisan = kapali & ~kita & (ekk < 0)
         if sikisan.any():
             Sk = np.where(kita, S, 0.0)
