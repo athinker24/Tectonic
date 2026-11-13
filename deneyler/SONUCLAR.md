@@ -279,3 +279,16 @@ Eklenenler: orografik yağış (levha_model.yagis_alani, aşınma yağışla top
 - 100 km, sert ×10: Tibet 4719 m (gerçek 4994), Tien Şan 3343 m.
 - 50 km, sert ×10 (12 dakika): bölge ortancaları model / gerçek: Tibet 4870 / 4986 m; Himalaya 1040 / 3228 m (p95 4091 / 5228); Tien Şan 2083 / 1776 m; Zagros 634 / 1299 m; İran 514 / 1084 m; Alpler 78 / 1064 m; Moğolistan 266 / 1521 m. 3000 m üstü alan 4,53 / 3,00 Mkm²; 1000 m üstü 7,82 / 18,97 Mkm². Kıyı IoU 0,87, en yüksek 5327 m.
 - Değerlendirme: Tibet'in yeri, yüksekliği, düz tepesi ve kuzey sınırının Tarim'e dayanması kalıpsız olarak çıkıyor; Tien Şan'da bir kabarma var. Eksikler: Himalaya ayrı bir sırt değil, platonun yamacı (kuşak yüksekliği ön kenarda yeterince yoğunlaşmıyor); plato fazla geniş (3000 m üstü %50 fazla); Zagros ve İran yarı yükseklikte; Alpler yok (Adria bloğu modelde yok); Moğolistan ve 1000 ile 2000 m arası geniş eski yükseltiler yok (başlangıçta önceden var olan kabuk kalınlığı farkı yok). Görseller cikti/ornek_dunya_lab_karsilastirma.png, cikti/ornek_dunya_lab_kareler.png.
+
+### Himalaya sırtı ve kıyı kaybı (13 Kasım 2026)
+
+Tanı (100 km): erozyonsuz koşuda Himalaya kutusu 2606 m, erozyonlu 665 m. Neden: kalın kabuk zayıfladığı için kalınlaşma platonun içinde (kuzeyde) yoğunlaşıyor, cephe kabuk beslemesi almıyor ve yağışlı güney yamacı aşınıyor (85°D kesitinde güneydeki 450 km 1 km'ye iniyor). Kıyılar: durağan Avrasya kıyıları da her yerde yaklaşık bir hücre geri çekiliyor; erozyonsuz koşuda kayıp daha fazla (kara 9831'den 7770'e). Neden erozyon değil: alt kabuk akışının en küçük κ'sı (30 m²/yıl) kıta kenarından okyanus hücresine akı veriyor, kıyı kabuğu 33 km'nin altına inip deniz oluyordu.
+
+Düzeltmeler (`tektonik/lab.py`):
+- `kiyi_sizinti=False`: alt kabuk akışı yalnız iki yanı kıta olan yüzlerden geçer (kıta kabuğu okyanus litosferinin altına akmaz).
+- `sinir_zayif`, `sinir_km`: sabit blok ile gelen bloklar arasındaki dikişin iki yanında, sınıra `sinir_km` yakın kıta hücreleri `sinir_zayif` kat viskoz (bindirme fay zonu; gerinim cephede yoğunlaşır). İlk denemede bütün blok çiftlerine uygulanınca Afrika ile Arabistan arasında 6 ile 15 km duvarlar çıktı; yalnız dikişle sınırlandı.
+- Arabistan 25 Ma'ya dek Afrika ile aynı kutupla (2 cm/yıl kuzeye); sonra Afrika 0,6, Arabistan 2 cm/yıl.
+
+100 km taraması (K 5e-7, sert ×10): zayıflık 0,5/150 km Himalaya 3050 m; 0,3/150 km 4687 m, Tibet 4510, Zagros 1198; 0,15 Tibet 3650; 0,3/250 km Tien Şan 416. 100 km'de 150 km'lik kuşak bir buçuk hücre olduğu için sonuçlar kararsız (aynı ayar Afrika hareketi değişince Himalaya 194 m).
+
+50 km, 0,3/150 km, sızıntısız (12 dakika): Tibet 4992 / 4986 m; Himalaya 5033 / 3228 m (p95 6163 / 5228); Zagros 672 / 1299 m (p95 3532 / 2337); İran 773 / 1084 m; Tien Şan 754 / 1776 m. Kıyı IoU 0,87'den 0,91'e (Arabistan değişikliğinden önce 0,92). Himalaya cephede ayrı sırt olarak çıkıyor, arkada düz plato; Zagros Arabistan önünde kuşak. Kusurlar: sırt fazla yüksek ve keskin (6,2 km, gerçek p95 5,2 km); Kızıldeniz açılmıyor (ince levha kıtayı yırtmıyor, Etiyopya çevresinde çizgili gerilmiş kabuk); Basra Körfezi dolu; Karadeniz büyük; Tien Şan zayıf; Alpler ve Moğolistan yok. Görseller cikti/ornek_dunya_lab2_karsilastirma.png, cikti/ornek_dunya_lab2_yakin.png.

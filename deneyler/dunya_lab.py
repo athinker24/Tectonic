@@ -7,8 +7,9 @@ Kullanım: python -m deneyler.dunya_lab [H_KM] [BAS_MA] [AVR_CEKIRDEK_KM] [K]
 Hızlar (Avrasya'ya göre, yuvarlanmış):
   Hindistan: 50 ile 20 Ma 5 cm/yıl N20°D, 20 ile 0 Ma 4 cm/yıl N15°D; çarpışma 50 Ma
              (Molnar ve Stock 2009 ile Zahirovic ve diğ. 2012 çarpışma sonrası yavaşlama).
-  Arabistan: 2 cm/yıl N15°B; çarpışma 27 Ma (McQuarrie ve diğ. 2003; McQuarrie ve van Hinsbergen 2013).
-  Afrika: 0,6 cm/yıl N30°B.
+  Arabistan: 25 Ma'ya dek Afrika ile birlikte; sonra 2 cm/yıl N15°B; çarpışma 27 Ma
+             (McQuarrie ve diğ. 2003; McQuarrie ve van Hinsbergen 2013).
+  Afrika: 50 ile 25 Ma 2 cm/yıl kuzeye, sonra 0,6 cm/yıl N30°B.
 """
 import json
 import os
@@ -39,9 +40,12 @@ def main():
     avr = float(sys.argv[3]) if len(sys.argv) > 3 else 1500.0
     K = float(sys.argv[4]) if len(sys.argv) > 4 else 5e-7
     sert = float(sys.argv[5]) if len(sys.argv) > 5 else 10.0  # kratonların viskozite çarpanı (1 = yok)
+    zay = float(sys.argv[6]) if len(sys.argv) > 6 else 1.0  # levha sınırı fay kuşağı viskozite çarpanı
+    zay_km = float(sys.argv[7]) if len(sys.argv) > 7 else 200.0
+    sizinti = (sys.argv[8] == "1") if len(sys.argv) > 8 else True
     t0 = time.time()
     os.makedirs("cikti/dunya_lab", exist_ok=True)
-    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}"
+    on = f"cikti/dunya_lab/dl_{h_km:g}km_{bas:g}ma_avr{avr:g}_K{K:g}_s{sert:g}_z{zay:g}_{zay_km:g}_kk{int(sizinti)}"
 
     zr, lon_r, lat_r = gercek_yukseklik()
     dz = duzlem_kur(zr > 0, SINIR, h_km=h_km, pay_km=800.0)
@@ -68,10 +72,15 @@ def main():
         c = (float(dz.lon[m].mean()), float(dz.lat[m].mean()))
         return BlokTarihi(ad, [Asama(b0, b1, *hareket_kutbu(c, yon, v)) for b0, b1, yon, v in asamalar])
 
+    # Arabistan 25 milyon yıl öncesine dek Afrika ile tek levha (Kızıldeniz sonra açıldı); o dönemde
+    # Afrika Avrasya'ya 2 cm/yıl yaklaşıyordu, 25 Ma'dan sonra 1 cm/yılın altına yavaşladı (McQuarrie ve diğ. 2003)
+    afr_t = tarih("Afrika", afr, [(80, 25, 0, 2.0), (25, 0, -30, 0.6)])
+    ara_t = tarih("Arabistan", ara, [(25, 0, -15, 2.0)])
+    ara_t.asamalar.insert(0, Asama(80, 25, *[getattr(afr_t.asamalar[0], k) for k in ("kutup_lon", "kutup_lat", "hiz_derece_myr")]))
     tarihler = {
         "Hindistan": tarih("Hindistan", hin, [(80, 20, 20, 5.0), (20, 0, 15, 4.0)]),
-        "Arabistan": tarih("Arabistan", ara, [(80, 0, -15, 2.0)]),
-        "Afrika": tarih("Afrika", afr, [(80, 0, -30, 0.6)]),
+        "Arabistan": ara_t,
+        "Afrika": afr_t,
     }
 
     S0 = np.full(dz.sekil, 7e3)
@@ -109,7 +118,8 @@ def main():
     _, (ri, ci) = ndimage.distance_transform_edt(~kita0, return_indices=True)
     L0 = L0[ri, ci]
 
-    a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=K, cek_gelen_km=400.0, cek_sabit_km=avr)
+    a = LabAyar(h_km=h_km, dt_myr=0.5, kappa_max=3000.0, K=K, cek_gelen_km=400.0, cek_sabit_km=avr,
+                 sinir_zayif=zay, sinir_km=zay_km, kiyi_sizinti=sizinti)
     lab = LabCok(S0, L0, bas, a, dz.lon, dz.lat, tarihler, adlar, "Avrasya", yerel_eksenler(dz, dz.lon, dz.lat))
     if sert != 1.0:
         # sert bölgeler bugünkü yerlerinde (Avrasya sabit olduğundan geri sürülmez); 50 km kenar yumuşatması
@@ -142,6 +152,8 @@ def main():
     dr.text((W + 18, 5), "Gerçek (GMT earth_relief)", fill=(0, 0, 0), font=yazi_tipi(18))
     tuv.save(f"{on}_karsilastirma.png")
     np.save(f"{on}_z.npy", z.astype(np.float32))
+    np.save(f"{on}_S.npy", lab.durum.S.astype(np.float32)); np.save(f"{on}_S0.npy", S0.astype(np.float32))
+    np.save(f"{on}_gercek.npy", gercek.astype(np.float32)); np.save(f"{on}_L.npy", lab.durum.etiket.astype(np.float32))
     kara_g = gercek > 0
     olc = {}
     for ad, (a0, a1, b0, b1) in BOLGELER.items():

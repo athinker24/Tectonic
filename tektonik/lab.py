@@ -54,6 +54,9 @@ class LabAyar:
     yagis: bool = True  # orografik yağış (levha_model.yagis_alani): ıslak cephe, kurak iç
     k_degiskenlik: float = 0.6  # ln K sapması (kayaç sertliği farkı)
     carpisma_sonrasi_hiz: float = 0.5  # temas sonrası hız çarpanı (Hindistan çarpışmadan sonra yavaşladı)
+    sinir_zayif: float = 1.0  # levha sınırı fay kuşağının viskozite çarpanı (1 = yok); bindirme kuşağı
+    sinir_km: float = 200.0  # fay kuşağının sınırdan iki yana genişliği
+    kiyi_sizinti: bool = True  # alt kabuk akışı kıyıdan okyanusa geçebilir mi (False: kıta kenarında akı yok)
 
 
 @dataclass
@@ -208,6 +211,8 @@ class Lab:
         dta = dt_yil / alt
         for _ in range(alt):
             kx = 0.5 * (kap[:, 1:] + kap[:, :-1]); ky = 0.5 * (kap[1:, :] + kap[:-1, :])
+            if not a.kiyi_sizinti:  # kıta kabuğu okyanus litosferinin altına akmaz
+                kx = np.where(kita[:, 1:] & kita[:, :-1], kx, 0.0); ky = np.where(kita[1:, :] & kita[:-1, :], ky, 0.0)
             fx = kx * (S[:, 1:] - S[:, :-1]) / h; fy = ky * (S[1:, :] - S[:-1, :]) / h
             dv = np.zeros_like(S)
             dv[:, :-1] += fx; dv[:, 1:] -= fx; dv[:-1, :] += fy; dv[1:, :] -= fy
@@ -314,4 +319,16 @@ class LabCok(Lab):
         eta_t = eta_t * np.exp(-np.clip(S - a.S_ref_km * 1e3, 0, None) / 15e3)
         if self.eta_carpan is not None:
             eta_t = eta_t * np.where(kita, self.eta_carpan, 1.0)
+        if a.sinir_zayif != 1.0:
+            # yalnız sabit blok ile gelen bloklar arasındaki dikiş: iki yandan da sınıra yakın kıta
+            sb = kita & (lev == self.adlar.index(self.sabit_ad))
+            gb = kita & ~sb
+            if sb.any() and gb.any():
+                d_s = ndimage.distance_transform_edt(~sb) * a.h_km
+                d_g = ndimage.distance_transform_edt(~gb) * a.h_km
+                zayif = kita & (d_s < a.sinir_km) & (d_g < a.sinir_km)
+            # bindirme kuşağı: iki levhanın kıtaları arasındaki sınırda fay zonu zayıftır (gerinim orada
+            # yoğunlaşır; Himalaya cephesi gibi). Kenar yumuşatması bir hücre.
+                w = ndimage.gaussian_filter(zayif.astype(float), 1.0)
+                eta_t = eta_t * np.exp(np.log(a.sinir_zayif) * np.clip(w * 1.5, 0, 1))
         return sabit, u0, v0, eta_t
