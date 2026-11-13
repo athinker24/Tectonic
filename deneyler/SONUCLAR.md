@@ -340,3 +340,7 @@ Değerlendirme: plato kenarları vadilerle parçalanıyor, nehir ağları kıtal
 
 ### Gerileme
 Sahibin kıtasında iç deniz yeniden büyük ölçüde kapanıyor ve mikro kıta kaynaşıyor (13 Kasım sabahki koşuda korunuyordu, IoU 0,84). Olası neden kübik taşıma; incelenecek.
+
+### Kanıt denemesi: arazi katmanı 2,5 km (13 Kasım 2026)
+
+`deneyler/arazi_kanit.py`: 25 km tektonik koşunun yüzeyi Tibet, Tarim ve Hindistan'ın kuzeyi bölgesinde (65 ile 105°D, 22 ile 45°K) 2,5 km'ye taşındı (1,9 milyon hücre); yükselme 50 km ölçekte aşınmayı karşılar, orografik ve enlemli yağış, K 2e-6, 3 milyon yıl; 186 s. Sonuç: dallanan, birbirine bağlı vadi ağı oluşuyor; ancak görüntü düz bir kubbeye oyulmuş kanyonlar gibi; gerçekteki sıradağ ve havza deseni (Kunlun, Tien Şan, Qaidam, iç kuşaklar) yok, çünkü hiçbir katman bu yapıyı üretmiyor. Aşınma tek başına görünümü kurtarmıyor; eksik olan yapı katmanı.
