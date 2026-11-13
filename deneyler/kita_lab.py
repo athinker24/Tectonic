@@ -1,6 +1,6 @@
 """Sahibin kıtasında çarpışma laboratuvarı: bloklar geçmiş konumlarından başlayıp ileri zamanda gelir.
 
-Kullanım: python -m deneyler.kita_lab [ADAY_NO] [H_KM] [BAS_MA]
+Kullanım: python -m deneyler.kita_lab [ADAY_NO] [H_KM] [BAS_MA] [PAY] [BUYUK] [YAY_M] [MIRAS_NPZ]
 
 Başlangıç: her blok, aday tarihinin geri sürmesiyle BAS_MA anındaki konumuna yerleştirilir
 (Kuzey sabit). Sonra hiçbir kalıp olmadan: bloklar tarihlerindeki hızlarla sürülür, ince viskoz levha
@@ -53,6 +53,15 @@ def main():
     blok_bugun = np.full(dz.sekil, -1)
     blok_bugun[dz.kara] = bl.etiket[ki[j]]
     # başlangıç: her bloğun kara hücrelerini BAS_MA anına geri sür, ızgaraya yerleştir
+    # miras (deneyler.miras): bugünkü konumda eski tarihten kalan kabuk kalınlığı; yoksa her yer 35 km
+    miras = sys.argv[7] if len(sys.argv) > 7 and sys.argv[7] != "0" else None
+    if miras:
+        mv = np.load(miras)
+        _, jm = cKDTree(_lonlat_xyz(mv["lon"], mv["lat"])).query(_lonlat_xyz(dz.lon, dz.lat))
+        S_miras = mv["S"][jm].reshape(dz.sekil)
+        on += "_miras" + os.path.basename(miras).replace("miras_", "").replace(".npz", "")
+    else:
+        S_miras = np.full(dz.sekil, 35e3)
     S0 = np.full(dz.sekil, 7e3)
     L0 = np.full(dz.sekil, -1.0)
     for b, ad in enumerate(bl.adlar):
@@ -60,6 +69,7 @@ def main():
         if not m.any():
             continue
         xyz = _lonlat_xyz(dz.lon[m], dz.lat[m])
+        sv = S_miras[m]
         if ad in aday.tarihler:
             tr = aday.tarihler[ad]
             p0 = xyz
@@ -80,6 +90,7 @@ def main():
                 kor = kor[np.isfinite(dd)]
                 ek = kure.uygula(q, kor)
                 xyz = np.vstack([xyz, ek])
+                sv = np.r_[sv, np.full(len(ek), 35e3)]
                 print(f"{ad}: çarpışma {tc:.1f} Ma, Büyük {ad} uzantısı {len(kor)} nokta")
         lo, la = kure.xyz_lonlat(xyz)
         px, py = laea_ileri(np.asarray(lo), np.asarray(la), dz.lon0, dz.lat0)
@@ -90,8 +101,12 @@ def main():
             print(f"uyarı: {ad} bloğunun {(~ok).sum()} hücresi alan dışında")
         yer = np.zeros(dz.sekil, bool)
         yer[r[ok], c[ok]] = True
-        yer = ndimage.binary_closing(yer, iterations=1) | yer
-        S0[yer] = 35e3
+        deg = np.zeros(dz.sekil)
+        np.maximum.at(deg, (r[ok], c[ok]), sv[ok])
+        kapa = ndimage.binary_closing(yer, iterations=1) & ~yer
+        deg = np.where(kapa, ndimage.maximum_filter(deg, 3), deg)
+        yer |= kapa
+        S0[yer] = deg[yer]
         L0[yer] = b
     # okyanus hücreleri: en yakın bloğun etiketi (levha)
     kita0 = S0 > 20e3

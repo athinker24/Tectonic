@@ -323,3 +323,20 @@ Değerlendirme: plato kenarları vadilerle parçalanıyor, nehir ağları kıtal
 4. Eksik bloklar: Adria, Anadolu, İberya, Filipin.
 5. İklim kuşakları ve buzul aşınması yok; yağış yalnız yamaç etkisinden.
 6. Tektonik çözünürlük 25 km.
+
+## Yol haritası uygulaması (13 Kasım 2026)
+
+### 1. Volkanik yaylar
+`LabAyar.yay_uretim_m`, `yay_uzaklik_km`, `Lab._yay`. Yakınsayan her okyanus hücresinde tüketilen alan (−ε̇kk dt h²) dalıyor sayılır; hareket yönünde ilk kıta hücresine göre okyanus en az 1 cm/yıl yaklaşıyorsa (üstteki levha), dalan alan × üretim kalınlığı kıyıdan 200 km içeri eklenir (σ 30 km). Denenenler: (a) yalnız kıtaya 400 km yakın okyanus: tüketimin %37'si; (b) hendekte okyanus hızı: zayıf okyanus hendekte durduğu için neredeyse sıfır; (c) mesafe sınırsız, göreli hız denetimli: kenar başına yaklaşık 30 km³/km/milyon yıl (800 m) ve 75 (2000 m, yayımlanmış aralığın üst ucu). Genel laboratuvarda 2000 m ile 10 milyon yılda kıyıdan 200 km içeride 1160 m (yaysız 430 m). Yay sıcaklığıyla zayıflama etkisiz (okyanus zayıf, kıyıya gerilim iletilmiyor). Gerçek dünyada yaylar Güney Avrupa ile Anadolu (Tetis dalması), İran, Kohistan, Myanmar'da; Sumatra'da 4 km'ye, Makran'da 2,5 km'ye kadar ek; pasif kıyıda sahte yay 1 cm/yıl eşiğiyle giderildi. Sahibin kıtasında etki yok denecek kadar az (çarpışma 2 milyon yıl içinde başlıyor, önünde okyanus yok).
+
+### 2. İklim kuşakları ve buzul aşınması
+`LabAyar.iklim`, `enlem_yagis`, `kar_cizgisi`, `buzul_k` 1,33e-6/yıl. Yağışa enlem çarpanı; kar çizgisi üstünde yükseklikle orantılı ek aşınma, yağışla ölçekli (ilk sürüm kurak plato içini de düzlüyordu). Gerçek dünya 50 km: en yüksek 6418 m'den 6044 m'ye (yağışla ölçekli sürümde 6418, plato içi korunuyor); Zagros kurak kuşakta daha yüksek (2333 m, gerçek 1299). 10 km aşınma aşamasında da açık (`dunya_ince` 8. bağımsız değişken).
+
+### 3. Faylar (bırakıldı)
+`LabAyar.plastik_mpa`: η ≤ τy / (2 ε̇E), τy birikmiş gerinimle düşer, kratonlarda viskozite çarpanının karekökü kadar yüksek. 100 ve 200 MPa: hiç etki yok (gerilim sınıra ulaşmıyor); 30 ve 50 MPa: Tibet 4859, Tien Şan 982 m, plato engebesi (std) 218 m (plastiksiz 203, gerçek 230); ayrı kuşak yok. 50 km'de Tarim zaten alçak (807 m, gerçek 1131).
+
+### 4. Miras (kabul edilmedi)
+`deneyler/miras.py`: bugünkü kıta biçimi üzerinde iki eski çarpışma, bir yarılma, aralarda uzun aşınma (sakin evrelerde K 1,5e-7); kara ortancası 35 km'ye taşınır (serbest bord). İlk sürümde hareketli yarım 1600 km kaydı; kısalma 400 km'ye indirildi, hareketli taraf küçük parça yapıldı. Sonuç: kuzeybatıda 1,3 km'lik aşınmış eski kuşak, kara S %5 33,5, %95 36,2 km. `kita_lab` 7. bağımsız değişkenle bu kalınlıktan başlar. Ana evreden sonra fark yok: 1000 m üstü hücre 1805'e karşı 1737, kara ortancası 178'e karşı 135 m. Eski kuşaklar ana evrede (K 5e-7) aşınıp gidiyor.
+
+### Gerileme
+Sahibin kıtasında iç deniz yeniden büyük ölçüde kapanıyor ve mikro kıta kaynaşıyor (13 Kasım sabahki koşuda korunuyordu, IoU 0,84). Olası neden kübik taşıma; incelenecek.

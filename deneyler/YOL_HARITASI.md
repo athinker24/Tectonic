@@ -47,8 +47,9 @@ Tarayıcıya taşıma (anlık koşu, telefonda akıcılık), sahibin istekleri (
 yarımada türleri, mikro kıtanın dağlanması).
 
 ## Durum
-- [ ] 1. Volkanik yaylar
-- [ ] 2. İklim kuşakları ve buzul aşınması
-- [ ] 3. Faylar
-- [ ] 4. Miras
-- [ ] 5. Birleşik koşu
+- [x] 1. Volkanik yaylar: çalışıyor, etkisi küçük (bkz. SONUCLAR).
+- [x] 2. İklim kuşakları ve buzul aşınması: çalışıyor; en yüksek nokta 6,4 km'den 6,0 km'ye, görsel fark küçük.
+- [ ] 3. Faylar: iki deneme, etki yok; bırakıldı. İnce levha yaklaşımıyla yerelleşme elde edilemedi.
+- [ ] 4. Miras: iki deneme, kabul ölçütü tutmadı (1000 m üstü alan artmadı); eski kuşaklar ana evrede aşınıyor.
+- [ ] 5. Birleşik koşu: bekliyor.
+- Gerileme: sahibin kıtasında iç deniz yeniden büyük ölçüde kapanıyor (kübik taşıma sonrası; incelenmeli).

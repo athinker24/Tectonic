@@ -153,6 +153,12 @@ def main():
     zg6, lo6, la6 = gercek_06()
     zg, _ = izgaraya(dz, zg6, lo6, la6)
     g_im = golge(zg, zg > 0, dz.h)
+    # verinin enlem boylam kutusu dışı iki panelde de açık gri (gerçek veride kenar taşması çizgileri vardı)
+    b_, g_, d_, k_ = SINIR
+    ok = (dz.lon >= b_ + 0.2) & (dz.lon < d_ - 0.2) & (dz.lat > g_ + 0.2) & (dz.lat < k_ - 0.2)
+    def _maske(im):
+        a_ = np.asarray(im).copy(); a_[~ok] = (225, 225, 225); return Image.fromarray(a_)
+    m_im, g_im = _maske(m_im), _maske(g_im)
     m_im.save(f"{son}.png")
     W, H = m_im.size
     tuv = Image.new("RGB", (W, H * 2 + 70), "white")
