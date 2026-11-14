@@ -54,12 +54,13 @@ KARSILIK = [
         "bolge": [(845, 60), (1550, 40), (1700, 150), (1780, 450), (2000, 560), (2000, 700), (1720, 640), (1500, 580), (1300, 530),
                   (1120, 520), (1040, 560), (900, 600), (855, 560)],
     },
-    {   # Tuzak Çanağı'nın batı kapısı: Kaynak Sırası (2 milyar yıllık Kaynak dikişi, Mor çarpışmasıyla yeniden sıkıştı).
-        # Sahip istedi: çanak batıdan kapansın, içi bozkır olsun. Karşılığı Büyük Kafkas, yükseklik 0,75.
-        "ad": "Kaynak", "kutu": (35, 51, 39, 47.5), "parca": {"2"}, "carpan": 0.75, "oncelik": 3.0, "yumusak_km": 40,
+    {   # Tuzak Çanağı'nın batı kenarı: Kaynak Sırası (2 milyar yıllık Kaynak dikişi, Mor çarpışmasıyla yeniden sıkıştı).
+        # Atlas oturumunun kararı: atlas koordinatlarında yaklaşık 4°B boylamında, 36°K ile 51°K arasında kesintisiz, kuzey güney
+        # uzanımlı; atlas çözünürlüğünde doruklar 3000 ile 3500 m. Doku Büyük Kafkas'tan; sürekliliği SIRT_ZARF sağlar.
+        "ad": "Kaynak", "kutu": (35, 51, 39, 47.5), "parca": {"2"}, "carpan": 0.8, "oncelik": 3.0, "yumusak_km": 35,
         "etiket": [("KAYNAK SIRASI", 42.4, 43.35, 14)],
-        "nokta": [(929, 481, 37.4, 44.9), (1013, 354, 42.4, 43.35), (1108, 218, 48.5, 41.2)],
-        "bolge": [(1150, 190), (1150, 245), (1050, 380), (965, 510), (900, 500), (885, 455), (975, 330), (1070, 195)],
+        "nokta": [(925, 547, 37.4, 44.9), (925, 400, 42.4, 43.35), (925, 205, 48.5, 41.2)],
+        "bolge": [(895, 185), (955, 185), (965, 400), (960, 560), (890, 560), (885, 400)],
     },
     {   # Mor Sıradağları: yalnız dar sıra şeridi; karşılığı aynalanmış Himalaya'nın ön kuşağı (arkasındaki yayla dahil değil),
         # yükseklik 6 km dolayına ölçekli. Çanak bölgesinin üstüne baskın yazılır.
@@ -296,6 +297,33 @@ def tasarla(z, kara, s, doku):
 
 
 GOL = None
+# Kaynak Sırası: kesintisiz sırt zarfı ve doruk sınırı (atlas: 4°B, 36°K ile 51°K, doruklar 3000 ile 3500 m)
+SIRT_ZARF = {"cizgi": [(925, 200), (925, 552)], "tepe": 3380.0, "yari_km": 40.0, "ust": 3550.0}
+
+
+def sirt_zarf(z, kara, s):
+    from scipy.spatial import cKDTree
+    c = np.array(SIRT_ZARF["cizgi"], float)
+    pts = np.vstack([c[0] + (c[1] - c[0]) * t for t in np.linspace(0, 1, 400)[:, None]]) * s
+    ny, nx = z.shape
+    r0, r1 = int(c[:, 1].min() * s) - 200, int(c[:, 1].max() * s) + 200
+    c0, c1 = int(c[:, 0].min() * s) - 200, int(c[:, 0].max() * s) + 200
+    r0, c0 = max(r0, 0), max(c0, 0); r1, c1 = min(r1, ny), min(c1, nx)
+    yy, xx = np.mgrid[r0:r1, c0:c1]
+    d, _ = cKDTree(pts).query(np.stack([xx.ravel(), yy.ravel()], 1))
+    d = d.reshape(xx.shape) * O.KM_PX / s
+    g = ndimage.gaussian_filter(np.random.default_rng(41).standard_normal(xx.shape), 25 / (O.KM_PX / s))
+    zarf = SIRT_ZARF["tepe"] * (0.97 + 0.03 * np.clip(g / g.std(), -2, 2)) * np.exp(-(d / SIRT_ZARF["yari_km"]) ** 2)
+    alt = z[r0:r1, c0:c1]
+    yeni = np.maximum(alt, zarf)
+    u = SIRT_ZARF["ust"] - 250
+    yeni = np.where(yeni > u, u + 250 * np.tanh((yeni - u) / 250), yeni)  # doruk sınırı yumuşak
+    w = np.exp(-(d / 120) ** 2)  # sınır yalnız sırtın çevresinde
+    z = z.copy()
+    z[r0:r1, c0:c1] = np.where(kara[r0:r1, c0:c1], alt * (1 - w) + yeni * w, alt)
+    return z
+
+
 MOR_SIRT = [(1075, 615), (1150, 562), (1300, 562), (1500, 614), (1715, 674), (1870, 700)]
 
 
@@ -370,6 +398,7 @@ def bilesik():
     Wl = ndimage.gaussian_filter(np.asarray(im), 40 / (O.KM_PX / s))
     z = np.where(z > 850, 850 + (z - 850) * (1 - 0.75 * Wl), z)
     z = on_ova(z, kara, s, lab, adlar)
+    z = sirt_zarf(z, kara, s)
     if TASARIM.get("etkin"):
         k_t = TASARIM["doku"]
         im = Image.new("L", (nx, ny), 0)

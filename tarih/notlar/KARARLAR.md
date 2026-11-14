@@ -49,3 +49,8 @@ kullanalım, ama tam olarak aynısı olmadan." Seçtiğim karşılıklar (benzer
 - 3: Hindistan; doğu kıyısında aynalı Sumatra ve Cava (Doğu Yay Dağları).
 - 4: aynalı İberya (Pireneler = Köprü Dağları), kuzey güney aynalı Fransa (Masif Santral = Köz Masifleri), İran (Zagros = Sarı Sıradağları).
 - 5: Mezopotamya, Basra, Arabistan. 6: Ege. 7: Aşağı Kaliforniya (kanal = Kaliforniya Körfezi).
+
+## 14 Kasım 2026: Kaynak Sırası (atlas oturumunun kararı)
+Tuzak Çanağı'nın batı kenarına kesintisiz kuzey güney sırt: atlas koordinatlarında yaklaşık 4°B, 36°K ile 51°K arası.
+Atlas çözünürlüğünde (0,088°) ölçülen sırt tepesi her satırda 3034 ile 3383 m (medyan 3203). Amaç: havzanın yaklaşık %43'ü bozkır.
+Hikâyede 2 milyar yıllık Kaynak dikişinin Mor çarpışmasıyla yeniden sıkışması.
