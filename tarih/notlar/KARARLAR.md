@@ -56,3 +56,6 @@ Atlas çözünürlüğünde (0,088°) ölçülen sırt tepesi her satırda 3034 
 Hikâyede 2 milyar yıllık Kaynak dikişinin Mor çarpışmasıyla yeniden sıkışması.
 Güncelleme (aynı gün): sahip düz kuzey güney sırtı beğenmedi, kendi çizdiği yönü verdi. Kaynak Sırası artık Çanak Sıraları'nın batı
 ucundan ayrılıp güneybatıya inen bir kol: atlasta yaklaşık 50,6°K 4,3°D'den 40,3°K 4,9°B'ye; gövdesi 2750 ile 3430 m, güneybatı ucu sönüyor.
+Gedik kapatıldı (atlas oturumunun kararı): 44°K ile 36°K arası, 44°K 2,7°B ile 36°K 3,6°B hattında, kuzey kesimle aynı genişlikte.
+Atlas çözünürlüğünde 92 satırın her birinde tepe 3099 ile 3782 m (medyan 3593). 44,5°K kuzeyi değişmedi (tam çözünürlükte en büyük fark 3 m);
+44,0 ile 44,5°K arası birleşme kuşağı. Doku Kafkas'ın yüksek orta bölümünden, ters yönde.
