@@ -52,7 +52,7 @@ KARSILIK = [
         "nokta": [(1720, 670, 77.0, 36.6), (1500, 614, 81.5, 36.0), (1250, 565, 86.5, 36.4), (1030, 600, 90.5, 37.8),
                   (1350, 230, 81.0, 42.5), (1020, 260, 88.5, 43.0), (1030, 420, 90.3, 40.4)],
         "bolge": [(845, 60), (1550, 40), (1700, 150), (1780, 450), (2000, 560), (2000, 700), (1720, 640), (1500, 580), (1300, 530),
-                  (1120, 560), (1040, 620), (900, 640), (855, 560)],
+                  (1120, 520), (1040, 560), (900, 600), (855, 560)],
     },
     {   # Mor Sıradağları: yalnız dar sıra şeridi; karşılığı aynalanmış Himalaya'nın ön kuşağı (arkasındaki yayla dahil değil),
         # yükseklik 6 km dolayına ölçekli. Çanak bölgesinin üstüne baskın yazılır.
@@ -61,7 +61,7 @@ KARSILIK = [
         "etiket": [("MOR SIRADAĞLARI", 86.5, 28.6, 19)],
         "nokta": [(1110, 595, 95.0, 29.6), (1300, 565, 88.1, 27.8), (1500, 614, 83.5, 28.7), (1620, 645, 79.6, 30.9),
                   (1715, 674, 74.6, 35.2)],
-        "bolge": [(1080, 575), (1150, 525), (1300, 527), (1500, 578), (1715, 638), (1900, 668), (1900, 760), (1715, 735),
+        "bolge": [(1080, 600), (1150, 565), (1300, 548), (1500, 578), (1715, 638), (1900, 668), (1900, 760), (1715, 735),
                   (1500, 675), (1300, 628), (1150, 628), (1060, 660)],
     },
     {   # 3: Ganj ovası = Mor Ön Ovası, Dekkan = Kızıl Basamaklar, Batı Gatlar = kanal omzu
@@ -329,6 +329,18 @@ def bilesik():
             toplam += wb * z; wtop += wb
     z = toplam / np.maximum(wtop, 1e-6)
     # Tarım dokusu tasarlanan alanın tamamında gerekir
+    # Mor'un batı ucu: çarpışma oraya geç ve yavaş ulaştı (35 MYÖ), kabuk az kalınlaştı; kuşak batıya doğru incelir ve alçalır
+    im = Image.new("F", (nx, ny), 0.0)
+    ImageDraw.Draw(im).polygon([(x * s, y * s) for x, y in [(960, 420), (1380, 420), (1380, 700), (960, 700)]], fill=1.0)
+    Wb = ndimage.gaussian_filter(np.asarray(im), 70 / (O.KM_PX / s))
+    fx = np.clip((np.arange(nx) / s - 1020) / (1380 - 1020), 0, 1)[None, :]
+    f = 0.42 + 0.58 * fx * fx * (3 - 2 * fx)
+    z = np.where(z > 400, 400 + (z - 400) * (1 - Wb * (1 - f)), z)
+    # sıranın kuzeyindeki loba çanak tabanı gibi davran: doku kalır, kabartı dörtte bire iner
+    im = Image.new("F", (nx, ny), 0.0)
+    ImageDraw.Draw(im).polygon([(x * s, y * s) for x, y in [(1040, 420), (1320, 420), (1320, 540), (1150, 560), (1040, 590)]], fill=1.0)
+    Wl = ndimage.gaussian_filter(np.asarray(im), 40 / (O.KM_PX / s))
+    z = np.where(z > 850, 850 + (z - 850) * (1 - 0.75 * Wl), z)
     if TASARIM.get("etkin"):
         k_t = TASARIM["doku"]
         im = Image.new("L", (nx, ny), 0)
