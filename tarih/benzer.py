@@ -55,12 +55,16 @@ KARSILIK = [
                   (1120, 520), (1040, 560), (900, 600), (855, 560)],
     },
     {   # Tuzak Çanağı'nın batı kenarı: Kaynak Sırası (2 milyar yıllık Kaynak dikişi, Mor çarpışmasıyla yeniden sıkıştı).
-        # Atlas oturumunun kararı: atlas koordinatlarında yaklaşık 4°B boylamında, 36°K ile 51°K arasında kesintisiz, kuzey güney
-        # uzanımlı; atlas çözünürlüğünde doruklar 3000 ile 3500 m. Doku Büyük Kafkas'tan; sürekliliği SIRT_ZARF sağlar.
-        "ad": "Kaynak", "kutu": (35, 51, 39, 47.5), "parca": {"2"}, "carpan": 0.8, "oncelik": 3.0, "yumusak_km": 35,
+        # Atlas oturumunun kararı: atlas koordinatlarında yaklaşık 4°B, 36°K ile 51°K arası kesintisiz; atlasta doruklar 3000 ile 3500 m.
+        # Gerçek doku Büyük Kafkas'tan, hafif kıvrılan bir hat boyunca; altında geniş ve alçak bir kabartı (SIRT_TABAN) boşluk bırakmaz.
+        "ad": "Kaynak", "kutu": (35, 51, 39, 47.5), "parca": {"2"}, "oncelik": 4.0, "yumusak_km": 35, "bukme_kat": 0.0,
+        "yukseklik_egri": [(0, 0), (1000, 900), (2500, 2150), (4000, 3000), (5700, 3500)],
         "etiket": [("KAYNAK SIRASI", 42.4, 43.35, 14)],
-        "nokta": [(925, 547, 37.4, 44.9), (925, 400, 42.4, 43.35), (925, 205, 48.5, 41.2)],
-        "bolge": [(895, 185), (955, 185), (965, 400), (960, 560), (890, 560), (885, 400)],
+        # sahibin çizdiği yön: Çanak Sıraları'nın batı ucundan güneybatıya inen kol (görüntü pikseli)
+        "nokta": [(905, 452, 37.6, 44.8), (957, 362, 40.6, 43.7), (1005, 297, 43.6, 42.95), (1045, 258, 45.6, 42.3),
+                  (1078, 235, 47.5, 41.5), (1115, 215, 49.2, 40.8)],
+        "bolge": [(880, 420), (930, 330), (990, 255), (1060, 200), (1130, 180), (1145, 235), (1080, 280), (1020, 340),
+                  (975, 405), (935, 485), (880, 480)],
     },
     {   # Mor Sıradağları: yalnız dar sıra şeridi; karşılığı aynalanmış Himalaya'nın ön kuşağı (arkasındaki yayla dahil değil),
         # yükseklik 6 km dolayına ölçekli. Çanak bölgesinin üstüne baskın yazılır.
@@ -297,30 +301,31 @@ def tasarla(z, kara, s, doku):
 
 
 GOL = None
-# Kaynak Sırası: kesintisiz sırt zarfı ve doruk sınırı (atlas: 4°B, 36°K ile 51°K, doruklar 3000 ile 3500 m)
-SIRT_ZARF = {"cizgi": [(925, 200), (925, 552)], "tepe": 3380.0, "yari_km": 40.0, "ust": 3550.0}
+# Kaynak Sırası: dokunun altına geniş ve alçak kabartı (boşluk kalmasın); doruklar yumuşak sınırla 3500 m dolayında tutulur
+SIRT_TABAN = {"cizgi": [(905, 452), (957, 362), (1005, 297), (1045, 258), (1078, 235), (1115, 215)],
+              "kabarti": 900.0,
+              "yari_km": 65.0, "ust": 3750.0}
 
 
-def sirt_zarf(z, kara, s):
+def sirt_taban(z, kara, s):
     from scipy.spatial import cKDTree
-    c = np.array(SIRT_ZARF["cizgi"], float)
-    pts = np.vstack([c[0] + (c[1] - c[0]) * t for t in np.linspace(0, 1, 400)[:, None]]) * s
+    c = np.array(SIRT_TABAN["cizgi"], float)
+    pts = np.vstack([c[i] + (c[i + 1] - c[i]) * t for i in range(len(c) - 1) for t in np.linspace(0, 1, 80)[:, None]]) * s
     ny, nx = z.shape
-    r0, r1 = int(c[:, 1].min() * s) - 200, int(c[:, 1].max() * s) + 200
-    c0, c1 = int(c[:, 0].min() * s) - 200, int(c[:, 0].max() * s) + 200
-    r0, c0 = max(r0, 0), max(c0, 0); r1, c1 = min(r1, ny), min(c1, nx)
+    r0, r1 = max(int(c[:, 1].min() * s) - 250, 0), min(int(c[:, 1].max() * s) + 250, ny)
+    c0, c1 = max(int(c[:, 0].min() * s) - 250, 0), min(int(c[:, 0].max() * s) + 250, nx)
     yy, xx = np.mgrid[r0:r1, c0:c1]
-    d, _ = cKDTree(pts).query(np.stack([xx.ravel(), yy.ravel()], 1))
+    d, i = cKDTree(pts).query(np.stack([xx.ravel(), yy.ravel()], 1))
     d = d.reshape(xx.shape) * O.KM_PX / s
-    g = ndimage.gaussian_filter(np.random.default_rng(41).standard_normal(xx.shape), 25 / (O.KM_PX / s))
-    zarf = SIRT_ZARF["tepe"] * (0.97 + 0.03 * np.clip(g / g.std(), -2, 2)) * np.exp(-(d / SIRT_ZARF["yari_km"]) ** 2)
-    alt = z[r0:r1, c0:c1]
-    yeni = np.maximum(alt, zarf)
-    u = SIRT_ZARF["ust"] - 250
-    yeni = np.where(yeni > u, u + 250 * np.tanh((yeni - u) / 250), yeni)  # doruk sınırı yumuşak
-    w = np.exp(-(d / 120) ** 2)  # sınır yalnız sırtın çevresinde
+    # uçlarda sönsün (kuzey ve güney ucu doğal biter)
+    t = (i.reshape(xx.shape) / (len(pts) - 1))
+    uc = np.clip(t / 0.04, 0, 1) * np.clip((1 - t) / 0.04, 0, 1)
+    k = SIRT_TABAN["kabarti"] * np.exp(-(d / SIRT_TABAN["yari_km"]) ** 2) * uc
+    alt = z[r0:r1, c0:c1] + k
+    u = SIRT_TABAN["ust"] - 300
+    alt = np.where(alt > u, u + 300 * np.tanh((alt - u) / 300), alt)
     z = z.copy()
-    z[r0:r1, c0:c1] = np.where(kara[r0:r1, c0:c1], alt * (1 - w) + yeni * w, alt)
+    z[r0:r1, c0:c1] = np.where(kara[r0:r1, c0:c1], alt, z[r0:r1, c0:c1])
     return z
 
 
@@ -398,7 +403,7 @@ def bilesik():
     Wl = ndimage.gaussian_filter(np.asarray(im), 40 / (O.KM_PX / s))
     z = np.where(z > 850, 850 + (z - 850) * (1 - 0.75 * Wl), z)
     z = on_ova(z, kara, s, lab, adlar)
-    z = sirt_zarf(z, kara, s)
+    z = sirt_taban(z, kara, s)
     if TASARIM.get("etkin"):
         k_t = TASARIM["doku"]
         im = Image.new("L", (nx, ny), 0)

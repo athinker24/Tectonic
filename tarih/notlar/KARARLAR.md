@@ -54,3 +54,5 @@ kullanalım, ama tam olarak aynısı olmadan." Seçtiğim karşılıklar (benzer
 Tuzak Çanağı'nın batı kenarına kesintisiz kuzey güney sırt: atlas koordinatlarında yaklaşık 4°B, 36°K ile 51°K arası.
 Atlas çözünürlüğünde (0,088°) ölçülen sırt tepesi her satırda 3034 ile 3383 m (medyan 3203). Amaç: havzanın yaklaşık %43'ü bozkır.
 Hikâyede 2 milyar yıllık Kaynak dikişinin Mor çarpışmasıyla yeniden sıkışması.
+Güncelleme (aynı gün): sahip düz kuzey güney sırtı beğenmedi, kendi çizdiği yönü verdi. Kaynak Sırası artık Çanak Sıraları'nın batı
+ucundan ayrılıp güneybatıya inen bir kol: atlasta yaklaşık 50,6°K 4,3°D'den 40,3°K 4,9°B'ye; gövdesi 2750 ile 3430 m, güneybatı ucu sönüyor.
