@@ -41,30 +41,24 @@ KARSILIK = [
         "nokta": [(1250, 150, 93.0, 69.0), (1680, 240, 106.5, 53.0)],
         "gol": [("Derin Göl", [(103.7, 51.5), (104.9, 51.5), (106.2, 52.1), (107.4, 52.8), (108.6, 53.4), (109.5, 54.4), (110.0, 55.7),
                                (109.4, 55.9), (108.5, 54.9), (107.3, 53.9), (106.3, 53.3), (105.2, 52.6), (104.1, 51.9)])],
-        "bolge": [(1080, 0), (2000, 0), (2000, 600), (1700, 560), (1500, 470), (1300, 450), (1100, 470), (1080, 300)],
+        "bolge": [(1550, 0), (2000, 0), (2000, 560), (1780, 450), (1700, 150)],
     },
-    {   # 2'nin batı ortası: çanak plato (sahibin bozkır platosu, atlasta işaretli). Karşılığı Tarım havzası ve çevresi:
-        # sert, kıvrılmamış Kır Çekirdeği bloğu (Kuzey Tuzakları bazaltlarıyla örtülü) Mor çarpışmasıyla bütün olarak kalktı,
-        # kenarlarındaki eski dikişler sıradağ oldu. Taban 800 ile 1000 m'ye, kenar sıraları 3 ile 3,5 km'ye ölçeklendi.
-        "ad": "Tarım", "kutu": (70, 98, 33, 50), "parca": {"2", "serit"}, "oncelik": 4.0, "yumusak_km": 70,
-        "yukseklik_egri": [(0, 0), (1500, 1200), (8000, 4775)],
-        "etiket": [("Tuzak Çanağı", 83.0, 39.6, 18), ("ÇANAK SIRALARI", 84.0, 42.4, 14)],
-        "nokta": [(1010, 380, 76.0, 39.5), (1470, 300, 90.5, 40.3), (1250, 470, 84.0, 36.4), (1230, 140, 84.0, 42.8)],
-        "bolge": [(1211, 68), (1352, 78), (1471, 179), (1525, 310), (1530, 323), (1449, 400), (1444, 441), (1400, 470), (1250, 470),
-                  (1125, 470), (1027, 470), (968, 458), (952, 441), (968, 294), (1027, 163), (1081, 114), (1146, 78)],
-    },
-    {   # Mor çizgisi: Büyük Kafkas (2,2 kat uzatıldı, yükseklik 0,8); kuzeyde Stavropol yaylası, güneyde Kura ovası
-        "ad": "Kafkas", "kutu": (35, 51, 38.5, 47.5), "parca": {"2", "3", "serit"}, "carpan": 1.15,
-        "etiket": [("MOR SIRADAĞLARI", 43.5, 43.0, 19), ("Şerit Yaylası", 42.5, 45.2, 16), ("Mor Ön Ovası", 42.3, 42.3, 15)],
-        "nokta": [(1085, 600, 37.4, 44.9), (1400, 595, 43.2, 43.0), (1720, 680, 49.8, 40.5)],
-        "bolge": [(1000, 600), (1100, 470), (1300, 450), (1500, 470), (1700, 560), (2000, 600), (2000, 780), (1760, 760), (1500, 720),
-                  (1300, 680), (1140, 680), (1050, 690)],
+    {   # 2'nin ortası ve Mor çizgisi tek parça: Kunlun = Mor Sıradağları, Tarım = Tuzak Çanağı (sahibin bozkır platosu),
+        # Tanrı Dağları = Çanak Sıraları, Cungarya ve Altay kuzeyde. Tibet dahil değil: Mor'un güneyi 3'tür (Hindistan karşılığı).
+        # Yükseklik eğrisi: çanak tabanı 800 ile 1000 m, Mor doruğu 6 km dolayı.
+        "ad": "Tarım", "kutu": (66, 104, 33, 52), "parca": {"2", "3", "serit"}, "yumusak_km": 45, "ayna": True, "bukme_kat": 2.5,
+        "yukseklik_egri": [(0, 0), (1300, 1000), (3500, 2600), (8000, 6000)],
+        "etiket": [("MOR SIRADAĞLARI", 86.0, 36.2, 19), ("Tuzak Çanağı", 83.0, 39.4, 18), ("ÇANAK SIRALARI", 84.5, 42.6, 14)],
+        "nokta": [(1720, 670, 77.0, 36.6), (1500, 612, 84.0, 36.0), (1300, 565, 90.0, 36.0), (1100, 595, 96.0, 35.6),
+                  (1350, 230, 84.0, 42.8)],
+        "bolge": [(940, 60), (1550, 40), (1700, 150), (1780, 450), (2000, 560), (2000, 730), (1720, 690), (1500, 635), (1300, 588),
+                  (1100, 615), (1040, 640), (1000, 600), (940, 450)],
     },
     {   # 3: Ganj ovası = Mor Ön Ovası, Dekkan = Kızıl Basamaklar, Batı Gatlar = kanal omzu
         "ad": "Hindistan", "kutu": (62, 95, 3, 32), "parca": {"3"},
         "etiket": [("Kızıl Basamaklar", 76.5, 19.0, 17)],
         "benzerlik": (1220, 950, 77.0, 18.0, 18.0, 1.55, False),
-        "bolge": [(1000, 640), (1200, 640), (1500, 690), (1750, 740), (1560, 790), (1480, 1000), (1420, 1200), (1360, 1460), (1100, 1360), (980, 1100)],
+        "bolge": [(1000, 620), (1200, 610), (1500, 660), (1750, 720), (1560, 790), (1480, 1000), (1420, 1200), (1360, 1460), (1100, 1360), (980, 1100)],
     },
     {   # 3'ün doğu kıyısı: Sumatra ve Cava yayı (aynalı) = Doğu Yay Dağları ve güneydoğu yarımadası
         "ad": "Sumatra", "kutu": (92, 117, -11, 9), "parca": {"3"}, "ayna": True,
@@ -173,7 +167,7 @@ def ornekle(k, ny, nx, s, maske_w, kaynaklar, bukme=None):
     """Ağırlığı sıfır olmayan hücrelerde kaynak yüksekliği; parçalı değerlendirme. bukme: (WX, WY) görüntü pikseli."""
     ileri, _ = esleme(k)
     if k["ad"] not in kaynaklar:
-        kaynaklar[k["ad"]] = dem.Kaynak(*k["kutu"], z=k.get("z", 6)).doldur(kutu=k["kutu"])
+        kaynaklar[k["ad"]] = dem.Kaynak(*k["kutu"], z=k.get("z", 6)).doldur(kutu=k["kutu"], kes=k.get("kes"))
     K = kaynaklar[k["ad"]]
     out = np.zeros((ny, nx), np.float32); deniz = np.zeros((ny, nx), np.float32)
     ii, jj = np.nonzero(maske_w > 1e-3)
@@ -181,7 +175,8 @@ def ornekle(k, ny, nx, s, maske_w, kaynaklar, bukme=None):
         i, j = ii[a:a + 400000], jj[a:a + 400000]
         x, y = j / s, i / s
         if bukme is not None:
-            x = x + bukme[0][i, j]; y = y + bukme[1][i, j]
+            kb = k.get("bukme_kat", 1.0)
+            x = x + kb * bukme[0][i, j]; y = y + kb * bukme[1][i, j]
         ll = ileri(np.stack([x, y], 1))
         h = K.ornek(ll[:, 0], ll[:, 1]) * k.get("carpan", 1.0)
         if k.get("yukseklik_egri"):
@@ -200,6 +195,87 @@ def ornekle(k, ny, nx, s, maske_w, kaynaklar, bukme=None):
             px, py = dem.merc(ll[:, 0], ll[:, 1], K.z)
             GOL[i, j] = np.maximum(GOL[i, j], ndimage.map_coordinates(K.golm, [py - K.ty0 * 256, px - K.tx0 * 256], order=1))
     return out, deniz
+
+
+
+# ------------------------------------------------------------------ tasarlanan bölge
+# 2'nin ortası ve Mor kuşağı: büyük şekil elle tasarlanır (kopya olmasın), gerçek veriden yalnız küçük ölçekli doku alınır
+# (Tarım karşılığının 25 km'den küçük sırt ve vadileri). Görüntü pikseli; yükseklik m.
+TASARIM = {
+    "etkin": False,  # denendi, kenar sıraları yapay kaldı; yerine aynalı ve güçlü bükülmüş Tarım karşılığı
+    "alan": [(900, 40), (1560, 20), (1730, 250), (1800, 480), (2000, 560), (2000, 770), (1760, 745), (1500, 705), (1080, 668),
+             (960, 610), (900, 400)],
+    "taban": ([(1000, 330), (1040, 200), (1110, 150), (1210, 130), (1340, 135), (1430, 205), (1470, 300), (1500, 420),
+               (1420, 480), (1250, 470), (1100, 470), (1010, 430)], (1000, 820)),   # çanak tabanı: batıda 1000, doğuda 820
+    "siralar": [
+        # ad, çizgi, köşe yükseklikleri, yarı genişlik km (kuzey/batı yanı, güney/doğu yanı)
+        ("Çanak Sıraları", [(985, 340), (1015, 190), (1090, 110), (1210, 82), (1350, 88), (1460, 160), (1515, 280)],
+         [1800, 2700, 3300, 3600, 3400, 3000, 2600], (85, 70)),
+        ("Doğu Kolu", [(1515, 280), (1555, 400), (1600, 520), (1640, 630)], [2600, 2900, 3500, 4600], (75, 75)),
+        ("Batı Kolu", [(985, 340), (975, 450), (1010, 560), (1080, 610)], [1800, 1600, 2200, 3600], (45, 45)),
+        ("Mor Sıradağları", [(1075, 615), (1150, 562), (1300, 562), (1500, 614), (1715, 674), (1870, 700)],
+         [3600, 4600, 5200, 5600, 4900, 3200], (115, 75)),
+        ("Şerit Sırtları", [(1180, 510), (1350, 505), (1520, 545), (1640, 590)], [1700, 2000, 2300, 2600], (40, 40)),
+    ],
+    # doku kaynağı: engebeli bir iç yayla (aynalı Tibet içi); yalnız 25 km'den küçük sırt ve vadileri kullanılır
+    "doku": {"ad": "doku", "kutu": (76, 102, 28, 38), "benzerlik": (1400, 380, 89.0, 33.0, 0.0, 1.0, True), "bolge": [(0, 0)]},
+    "etiket": [("MOR SIRADAĞLARI", (1330, 590), 19), ("Tuzak Çanağı", (1230, 300), 18), ("ÇANAK SIRALARI", (1150, 70), 14),
+               ("Şerit Yaylası", (1360, 488), 14)],
+}
+
+
+def tasarla(z, kara, s, doku):
+    """Tasarlanan bölgeyi bileşiğe işler. doku: aynı ızgarada Tarım karşılığından örneklenen yükseklik (yalnız ayrıntısı alınır)."""
+    ny, nx = z.shape
+    hk = O.KM_PX / s
+    r = np.random.default_rng(77)
+    def gur(km, kok):
+        g = ndimage.gaussian_filter(np.random.default_rng(kok).standard_normal((ny // 4, nx // 4)), km / hk / 4, mode="wrap")
+        return ndimage.zoom(g / g.std(), (ny / g.shape[0], nx / g.shape[1]), order=1)[:ny, :nx]
+    II, JJ = np.indices((ny, nx), dtype=np.float32)
+    # çizgiler düz durmasın: alan bükmesi (yaklaşık ±45 km)
+    bx = (gur(400, 1) * 9 + gur(120, 2) * 3) * s; by = (gur(400, 3) * 9 + gur(120, 4) * 3) * s
+    def cokgen_al(p, sig_km):
+        im = Image.new("F", (nx, ny), 0.0)
+        ImageDraw.Draw(im).polygon([(x * s, y * s) for x, y in p], fill=1.0)
+        a = ndimage.map_coordinates(np.asarray(im), [II + by, JJ + bx], order=1)
+        return ndimage.gaussian_filter(a, sig_km / hk)
+    W = cokgen_al(TASARIM["alan"], 60) * kara
+    # arka plan: bileşiğin çok yumuşatılmışı
+    makro = ndimage.gaussian_filter(np.where(kara, z, 0.0), 120 / hk)
+    tp, (h0, h1) = TASARIM["taban"]
+    tb = cokgen_al(tp, 70)
+    xs = np.array([p[0] for p in tp]); egim = h0 + (h1 - h0) * np.clip((JJ / s - xs.min()) / (xs.max() - xs.min()), 0, 1)
+    makro = makro * (1 - tb) + egim * tb
+    from scipy.spatial import cKDTree
+    sirt = np.zeros((ny, nx), np.float32)
+    for ad, c, hs, (wk, wg) in TASARIM["siralar"]:
+        c = np.array(c, float)
+        pts, val, nrm = [], [], []
+        for i in range(len(c) - 1):
+            n = max(2, int(np.hypot(*(c[i + 1] - c[i])) * s / 2))
+            t = np.linspace(0, 1, n, endpoint=False)
+            pts.append(c[i] + (c[i + 1] - c[i]) * t[:, None]); val.append(hs[i] + (hs[i + 1] - hs[i]) * t)
+            d = (c[i + 1] - c[i]) / np.hypot(*(c[i + 1] - c[i])); nrm.append(np.repeat([[-d[1], d[0]]], n, 0))
+        pts = np.vstack(pts) * s; val = np.concatenate(val); nrm = np.vstack(nrm)
+        # yalnız çevresinde hesapla
+        x0, y0 = pts.min(0) - 250 * s / O.KM_PX * 4; x1, y1 = pts.max(0) + 250 * s / O.KM_PX * 4
+        r0, r1 = int(max(y0, 0)), int(min(y1, ny)); c0, c1 = int(max(x0, 0)), int(min(x1, nx))
+        qy = II[r0:r1, c0:c1] + by[r0:r1, c0:c1]; qx = JJ[r0:r1, c0:c1] + bx[r0:r1, c0:c1]
+        dist, idx = cKDTree(pts).query(np.stack([qx.ravel(), qy.ravel()], 1))
+        dist = dist.reshape(qx.shape) * hk
+        yan = ((qx.ravel() - pts[idx, 0]) * nrm[idx, 0] + (qy.ravel() - pts[idx, 1]) * nrm[idx, 1]).reshape(qx.shape)
+        w = np.where(yan < 0, wk, wg)   # çizgi yönünün solu (kuzey ya da batı) ile sağı ayrı genişlikte
+        H = val[idx].reshape(qx.shape) * (0.85 + 0.15 * gur(60, 9)[r0:r1, c0:c1])
+        prof = H * np.exp(-(dist / w) ** 2)
+        sirt[r0:r1, c0:c1] = np.maximum(sirt[r0:r1, c0:c1], prof)
+    makro = np.maximum(makro, sirt)
+    # doku: Tarım karşılığının küçük ölçekli kısmı, yerel yüksekliğe göre genlik
+    ince = doku - ndimage.gaussian_filter(doku, 22 / hk)
+    ince = np.clip(ince / (ndimage.gaussian_filter(np.abs(ince), 60 / hk) + 30), -2.2, 2.2)  # birim genliğe yakın
+    genlik = 50 + 380 * np.clip((makro - 900) / 2500, 0, 1.3)
+    yeni = makro + ince * genlik
+    return np.where(kara, z * (1 - W) + np.maximum(yeni, 5) * W, z)
 
 
 GOL = None
@@ -230,6 +306,8 @@ def bilesik():
         z, _ = ornekle(k, ny, nx, s, w, kaynaklar, bukme)
         toplam += w * z; wtop += w
         genis.append((k, w))
+        if k["ad"] == "Tarım":
+            doku_t = z.copy()
         log(f"{k['ad']}: tamam (en yüksek {z.max():.0f} m)")
     # boşluk kalan kara: en yakın karşılığın geniş yumuşatılmış ağırlığıyla
     bos = kara & (wtop < 0.05)
@@ -240,6 +318,15 @@ def bilesik():
             z, _ = ornekle(k, ny, nx, s, wb, kaynaklar, bukme)
             toplam += wb * z; wtop += wb
     z = toplam / np.maximum(wtop, 1e-6)
+    # Tarım dokusu tasarlanan alanın tamamında gerekir
+    if TASARIM.get("etkin"):
+        k_t = TASARIM["doku"]
+        im = Image.new("L", (nx, ny), 0)
+        ImageDraw.Draw(im).polygon([(x * s, y * s) for x, y in TASARIM["alan"]], fill=1)
+        alan = ndimage.binary_dilation(np.asarray(im) > 0, iterations=int(80 * s))
+        doku_t, _ = ornekle(k_t, ny, nx, s, alan.astype(np.float32), kaynaklar, bukme)
+        z = tasarla(z, kara, s, doku_t)
+        log("tasarlanan bölge işlendi")
     # kıyı rampası: kaynakta iç kesim olan yer hedefte kıyıya düşerse yumuşak iniş
     dk = ndimage.distance_transform_edt(kara) * O.KM_PX / s
     u = np.clip(dk / 45.0, 0, 1)
@@ -319,7 +406,7 @@ def etiketle(im):
             ("İÇ DENİZ", (900, 700), 22, False), ("Batı Körfezi", (215, 790), 15, False), ("Güneydoğu Kanalı", (1060, 1150), 14, False),
             ("KUZEY OKYANUSU", (1100, 18), 22, False), ("DOĞU OKYANUSU", (1660, 1100), 22, False),
             ("GÜNEY OKYANUSU", (800, 1470), 22, False), ("Doğu Hendeği", (1590, 1250), 14, False)]
-    yazi += [(t, (x - len(t) * n * 0.3, y - n * 0.6), n, False) for t, (x, y), n in etiketler()]
+    yazi += [(t, (x - len(t) * n * 0.3, y - n * 0.6), n, False) for t, (x, y), n in etiketler() + (TASARIM["etiket"] if TASARIM.get("etkin") else [])]
     for t, (x, y), n, k in yazi:
         d.text((x * s, y * s), t, fill=(25, 25, 25), font=f(n, k), stroke_width=max(1, int(2.5 * s)), stroke_fill=(250, 250, 245))
     kat = Image.new("RGBA", (int(260 * s), int(40 * s)), (0, 0, 0, 0))

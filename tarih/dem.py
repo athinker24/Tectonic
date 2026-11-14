@@ -55,7 +55,7 @@ class Kaynak:
         self.h = np.vstack(satirlar).astype(np.float32)
         self.dolu = None
 
-    def doldur(self, s_px=25, kutu=None):
+    def doldur(self, s_px=25, kutu=None, kes=None):
         """Deniz hücrelerini (≤ 0) ve kutu dışını yansıyan karayla alçak ova olarak doldurur."""
         k = self.h > 0
         if kutu is not None:
@@ -64,6 +64,12 @@ class Kaynak:
             lon = (jj + self.tx0 * 256) / n * 360 - 180
             lat = np.degrees(np.arctan(np.sinh(np.pi * (1 - 2 * (ii + self.ty0 * 256) / n))))
             k &= (lon >= kutu[0]) & (lon <= kutu[1]) & (lat >= kutu[2]) & (lat <= kutu[3])
+        for cokgen in (kes or []):  # kaynakta istenmeyen bölge: deniz sayılır, yansıyan komşu karayla dolar
+            from PIL import Image as _I, ImageDraw as _D
+            px, py = merc(np.array([p[0] for p in cokgen]), np.array([p[1] for p in cokgen]), self.z)
+            im = _I.new("L", (k.shape[1], k.shape[0]), 0)
+            _D.Draw(im).polygon(list(zip(px - self.tx0 * 256, py - self.ty0 * 256)), fill=1)
+            k &= ~(np.asarray(im) > 0)
         w = ndimage.gaussian_filter(k.astype(float), s_px)
         v = ndimage.gaussian_filter(np.where(k, self.h, 0.0), s_px)
         ort = v / np.maximum(w, 1e-6)
