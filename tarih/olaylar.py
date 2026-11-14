@@ -258,7 +258,7 @@ DONEMLER = [
         "olaylar": [
             (50, "Doğu ucunda ilk temas", "3'ün kuzeydoğu köşesi İnce Şerit'e değer."),
             (45, "Mor Sıradağları yükselir", "Doğu kesimde hızlı kalınlaşma."),
-            (30, "Tuzak Çanağı kalkar", "Sıkışma kuzeye iletilir; sert Kır Çekirdeği kıvrılmadan bütün olarak yaklaşık 1 km yükselir, kenarındaki eski dikişler Çanak Sıraları olur, ortası düz kalır (Tarım benzeri)."),
+            (30, "Tuzak Çanağı kalkar", "Sıkışma kuzeye iletilir; sert Kır Çekirdeği kıvrılmadan bütün olarak yaklaşık 1 km yükselir, kenarındaki eski dikişler Çanak Sıraları olur, batısında 2 milyar yıllık Kaynak dikişi yeniden sıkışıp Kaynak Sırası'nı yükseltir; ortası düz kalır, dört yanı kapalı bir bozkır çanağı (Tarım benzeri)."),
             (40, "Şerit Yaylası yükselir", "Sıradağların arkasında kabuk biraz kalınlaşır; Şerit dikişleri yeniden sıkışır."),
             (35, "Batı ucu kapanır", "Çarpışma üçgen koya ulaşır; koy kapanmamış ön ülke denizi olarak kalır."),
             (32, "Doğu iç deniz kuşatılır", "Yeni Mor Okyanusu'nun kalıntısı iç denizde kapana kısılır."),

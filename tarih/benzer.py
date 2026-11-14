@@ -54,6 +54,13 @@ KARSILIK = [
         "bolge": [(845, 60), (1550, 40), (1700, 150), (1780, 450), (2000, 560), (2000, 700), (1720, 640), (1500, 580), (1300, 530),
                   (1120, 520), (1040, 560), (900, 600), (855, 560)],
     },
+    {   # Tuzak Çanağı'nın batı kapısı: Kaynak Sırası (2 milyar yıllık Kaynak dikişi, Mor çarpışmasıyla yeniden sıkıştı).
+        # Sahip istedi: çanak batıdan kapansın, içi bozkır olsun. Karşılığı Büyük Kafkas, yükseklik 0,75.
+        "ad": "Kaynak", "kutu": (35, 51, 39, 47.5), "parca": {"2"}, "carpan": 0.75, "oncelik": 3.0, "yumusak_km": 40,
+        "etiket": [("KAYNAK SIRASI", 42.4, 43.35, 14)],
+        "nokta": [(929, 481, 37.4, 44.9), (1013, 354, 42.4, 43.35), (1108, 218, 48.5, 41.2)],
+        "bolge": [(1150, 190), (1150, 245), (1050, 380), (965, 510), (900, 500), (885, 455), (975, 330), (1070, 195)],
+    },
     {   # Mor Sıradağları: yalnız dar sıra şeridi; karşılığı aynalanmış Himalaya'nın ön kuşağı (arkasındaki yayla dahil değil),
         # yükseklik 6 km dolayına ölçekli. Çanak bölgesinin üstüne baskın yazılır.
         "ad": "Mor", "kutu": (62, 100, 24, 40), "parca": {"2", "3", "serit"}, "ayna": True, "oncelik": 3.0, "yumusak_km": 45,
