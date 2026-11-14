@@ -33,7 +33,7 @@ KARSILIK = [
         "ad": "Avrupa", "kutu": (-4, 84, 42, 72), "parca": {"1", "2"},
         "etiket": [("ULU DAĞLAR", 13.5, 63.0, 16), ("MAVİ DAĞLAR", 59.5, 61.5, 16), ("Ak Kalkan", 30.5, 64.0, 16)],
         "nokta": [(105, 470, 7.0, 58.0), (190, 105, 25.8, 71.1), (800, 110, 59.2, 65.0), (808, 520, 58.3, 54.2)],
-        "bolge": [(0, 0), (1100, 0), (1100, 470), (1000, 600), (860, 620), (600, 720), (560, 960), (400, 880), (260, 880), (170, 795), (90, 775), (0, 725)],
+        "bolge": [(0, 0), (870, 0), (875, 300), (880, 600), (860, 620), (600, 720), (560, 960), (400, 880), (260, 880), (170, 795), (90, 775), (0, 725)],
     },
     {   # 2'nin kuzeyi ve ortası: Orta Sibirya; Putorana = Kuzey Tuzakları, Baykal = Derin Göl, Sayanlar = Uzak Sıra
         "ad": "Sibirya", "kutu": (60, 140, 44, 78), "parca": {"2", "serit"},
@@ -46,13 +46,13 @@ KARSILIK = [
     {   # 2'nin ortası ve Mor çizgisi tek parça: Kunlun = Mor Sıradağları, Tarım = Tuzak Çanağı (sahibin bozkır platosu),
         # Tanrı Dağları = Çanak Sıraları, Cungarya ve Altay kuzeyde. Tibet dahil değil: Mor'un güneyi 3'tür (Hindistan karşılığı).
         # Yükseklik eğrisi: çanak tabanı 800 ile 1000 m, Mor doruğu 6 km dolayı.
-        "ad": "Tarım", "kutu": (66, 104, 33, 52), "parca": {"2", "3", "serit"}, "yumusak_km": 110, "ayna": True, "bukme_kat": 2.5,
+        "ad": "Tarım", "kutu": (66, 106, 33, 52), "parca": {"2", "3", "serit"}, "yumusak_km": 60, "z": 7, "ayna": True, "bukme_kat": 2.5,
         "yukseklik_egri": [(0, 0), (1300, 1000), (3500, 2600), (8000, 6000)],
         "etiket": [("Tuzak Çanağı", 83.0, 39.4, 18), ("ÇANAK SIRALARI", 84.5, 42.6, 14)],
-        "nokta": [(1720, 670, 77.0, 36.6), (1500, 612, 84.0, 36.0), (1300, 565, 90.0, 36.0), (1100, 595, 96.0, 35.6),
-                  (1350, 230, 84.0, 42.8)],
-        "bolge": [(1010, 60), (1550, 40), (1700, 150), (1780, 450), (2000, 560), (2000, 700), (1720, 640), (1500, 580), (1300, 530),
-                  (1120, 540), (1060, 520), (1020, 450)],
+        "nokta": [(1720, 670, 77.0, 36.6), (1500, 614, 81.5, 36.0), (1250, 565, 86.5, 36.4), (1030, 600, 90.5, 37.8),
+                  (1350, 230, 81.0, 42.5), (1020, 260, 88.5, 43.0), (1030, 420, 90.3, 40.4)],
+        "bolge": [(845, 60), (1550, 40), (1700, 150), (1780, 450), (2000, 560), (2000, 700), (1720, 640), (1500, 580), (1300, 530),
+                  (1120, 560), (1040, 620), (900, 640), (855, 560)],
     },
     {   # Mor Sıradağları: yalnız dar sıra şeridi; karşılığı aynalanmış Himalaya'nın ön kuşağı (arkasındaki yayla dahil değil),
         # yükseklik 6 km dolayına ölçekli. Çanak bölgesinin üstüne baskın yazılır.
@@ -483,7 +483,9 @@ def ciz():
     zt = np.where(kt, z, np.minimum(zdt, -5.0))
     np.save(f"{CIKTI}/benzer_son_z.npy", zt.astype(np.float32))
     log("nehirler")
-    nh = AR.nehirler(z, kt, Pt, AR.H_M / 2)
+    # düz yüzeylerde (kaynaktaki göl ve tuz düzlükleri) akış yönü kararsız: hafif pürüzle düz çizgi nehirler önlenir
+    pur = ndimage.gaussian_filter(np.random.default_rng(12).standard_normal(z.shape), 3.0)
+    nh = AR.nehirler(z + 4.0 * pur / pur.std(), kt, Pt, AR.H_M / 2)
     log(f"nehir parçası {len(nh)}")
     gol = buzul_golleri(zt, kt)
     gol |= np.load(f"{CIKTI}/benzer_gol.npy") & kt
