@@ -289,6 +289,27 @@ def tasarla(z, kara, s, doku):
 
 
 GOL = None
+MOR_SIRT = [(1075, 615), (1150, 562), (1300, 562), (1500, 614), (1715, 674), (1870, 700)]
+
+
+def on_ova_agirlik(ny, nx, s, lab, adlar):
+    """Mor sırtının güneyinde, 3 üzerinde ön ülke havzası: sırttan 30 ile 80 km sonra başlar, 630 ile 850 km arasında söner."""
+    from scipy.spatial import cKDTree
+    c = np.array(MOR_SIRT, float)
+    pts = np.vstack([c[i] + (c[i + 1] - c[i]) * t for i in range(len(c) - 1) for t in np.linspace(0, 1, 60)[:, None]])
+    yy, xx = np.mgrid[0:ny:4, 0:nx:4]
+    d, _ = cKDTree(pts * s).query(np.stack([xx.ravel(), yy.ravel()], 1))
+    d = d.reshape(xx.shape) * O.KM_PX / s
+    w = np.clip((d - 30) / 50, 0, 1) * np.clip((850 - d) / 220, 0, 1)
+    w = ndimage.zoom(w, (ny / w.shape[0], nx / w.shape[1]), order=1)[:ny, :nx]
+    uc = lab == adlar.index("3") + 1
+    return ndimage.gaussian_filter(w * uc, 15 / (O.KM_PX / s))
+
+
+def on_ova(z, kara, s, lab, adlar):
+    """Mor Ön Ovası: 3'ün kuzeyi sıradağın yükü altında esner (tarihte 42 MYÖ); yüzey 40 ile 200 m'ye iner, doku kalır."""
+    w = on_ova_agirlik(*z.shape, s, lab, adlar)
+    return np.where(kara & (z > 40), 40 + (z - 40) * (1 - 0.82 * w), z)
 
 
 def bilesik():
@@ -341,6 +362,7 @@ def bilesik():
     ImageDraw.Draw(im).polygon([(x * s, y * s) for x, y in [(1040, 420), (1320, 420), (1320, 540), (1150, 560), (1040, 590)]], fill=1.0)
     Wl = ndimage.gaussian_filter(np.asarray(im), 40 / (O.KM_PX / s))
     z = np.where(z > 850, 850 + (z - 850) * (1 - 0.75 * Wl), z)
+    z = on_ova(z, kara, s, lab, adlar)
     if TASARIM.get("etkin"):
         k_t = TASARIM["doku"]
         im = Image.new("L", (nx, ny), 0)
@@ -487,6 +509,9 @@ def ciz():
     zg = ndimage.zoom(z, (AR.NY / nyt, AR.NX / nxt), order=1)[:AR.NY, :AR.NX]
     lat = O.enlem(AR.RR / AR.G)
     P = AR.yagis(kara, np.where(kara, zg, 0.0), lat)
+    # sıradağın önü nemli (dağa çarpan nemli hava): ön ova kuşağında yağış artar
+    lab_g, adlar_g = parca_etiket(AR.NY, AR.NX)
+    P = P + 0.6 * ndimage.gaussian_filter(on_ova_agirlik(AR.NY, AR.NX, AR.NX / O.GEN, lab_g, adlar_g), 160 / AR.H_KM)
     np.save(f"{CIKTI}/benzer_yagis.npy", P.astype(np.float32))
     Pt = ndimage.zoom(P, (nyt / AR.NY, nxt / AR.NX), order=1)[:nyt, :nxt]
     dk = ndimage.distance_transform_edt(kara) * AR.H_KM
