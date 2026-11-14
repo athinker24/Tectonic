@@ -46,13 +46,23 @@ KARSILIK = [
     {   # 2'nin ortası ve Mor çizgisi tek parça: Kunlun = Mor Sıradağları, Tarım = Tuzak Çanağı (sahibin bozkır platosu),
         # Tanrı Dağları = Çanak Sıraları, Cungarya ve Altay kuzeyde. Tibet dahil değil: Mor'un güneyi 3'tür (Hindistan karşılığı).
         # Yükseklik eğrisi: çanak tabanı 800 ile 1000 m, Mor doruğu 6 km dolayı.
-        "ad": "Tarım", "kutu": (66, 104, 33, 52), "parca": {"2", "3", "serit"}, "yumusak_km": 45, "ayna": True, "bukme_kat": 2.5,
+        "ad": "Tarım", "kutu": (66, 104, 33, 52), "parca": {"2", "3", "serit"}, "yumusak_km": 110, "ayna": True, "bukme_kat": 2.5,
         "yukseklik_egri": [(0, 0), (1300, 1000), (3500, 2600), (8000, 6000)],
-        "etiket": [("MOR SIRADAĞLARI", 86.0, 36.2, 19), ("Tuzak Çanağı", 83.0, 39.4, 18), ("ÇANAK SIRALARI", 84.5, 42.6, 14)],
+        "etiket": [("Tuzak Çanağı", 83.0, 39.4, 18), ("ÇANAK SIRALARI", 84.5, 42.6, 14)],
         "nokta": [(1720, 670, 77.0, 36.6), (1500, 612, 84.0, 36.0), (1300, 565, 90.0, 36.0), (1100, 595, 96.0, 35.6),
                   (1350, 230, 84.0, 42.8)],
-        "bolge": [(940, 60), (1550, 40), (1700, 150), (1780, 450), (2000, 560), (2000, 730), (1720, 690), (1500, 635), (1300, 588),
-                  (1100, 615), (1040, 640), (1000, 600), (940, 450)],
+        "bolge": [(1010, 60), (1550, 40), (1700, 150), (1780, 450), (2000, 560), (2000, 700), (1720, 640), (1500, 580), (1300, 530),
+                  (1120, 540), (1060, 520), (1020, 450)],
+    },
+    {   # Mor Sıradağları: yalnız dar sıra şeridi; karşılığı aynalanmış Himalaya'nın ön kuşağı (arkasındaki yayla dahil değil),
+        # yükseklik 6 km dolayına ölçekli. Çanak bölgesinin üstüne baskın yazılır.
+        "ad": "Mor", "kutu": (62, 100, 24, 40), "parca": {"2", "3", "serit"}, "ayna": True, "oncelik": 3.0, "yumusak_km": 45,
+        "yukseklik_egri": [(0, 0), (1000, 900), (4000, 3300), (8800, 6300)],
+        "etiket": [("MOR SIRADAĞLARI", 86.5, 28.6, 19)],
+        "nokta": [(1110, 595, 95.0, 29.6), (1300, 565, 88.1, 27.8), (1500, 614, 83.5, 28.7), (1620, 645, 79.6, 30.9),
+                  (1715, 674, 74.6, 35.2)],
+        "bolge": [(1080, 575), (1150, 525), (1300, 527), (1500, 578), (1715, 638), (1900, 668), (1900, 760), (1715, 735),
+                  (1500, 675), (1300, 628), (1150, 628), (1060, 660)],
     },
     {   # 3: Ganj ovası = Mor Ön Ovası, Dekkan = Kızıl Basamaklar, Batı Gatlar = kanal omzu
         "ad": "Hindistan", "kutu": (62, 95, 3, 32), "parca": {"3"},
