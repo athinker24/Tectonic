@@ -1,0 +1,34 @@
+{
+ "heightmap": {
+  "file": "dunya/dunyam_heightmap.png",
+  "sea_level_value": 11934,
+  "max_elev_m": 3730.0,
+  "max_depth_m": -1492.0,
+  "elev_gamma": 1.0,
+  "bounds": [
+   -180.0,
+   -90.0,
+   180.0,
+   90.0
+  ],
+  "elev_curve": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    1.0,
+    3730.0
+   ]
+  ],
+  "kabartma": {
+   "file": "dunya/kabartma_kaynak.jpg",
+   "sx": 0.437054,
+   "sy": 0.437127,
+   "ox": 1516.746,
+   "oy": 324.15,
+   "iou": 0.9859
+  }
+ },
+ "_not": "Tektonik tarih denemesi (Tectonic deposu, tarih/): kara yükseklikleri Dünya karşılıklarından. Kıyı atlas tuvalinden korundu; maske tuvale ölçek sx 0.26200 sy 0.26209, kayma x 1540.91 y 341.33 ile oturtuldu (IoU 0.9681). Eğri doğrusal: değer metreyi doğrudan taşır."
+}
