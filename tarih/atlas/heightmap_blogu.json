@@ -2,7 +2,7 @@
  "heightmap": {
   "file": "dunya/dunyam_heightmap.png",
   "sea_level_value": 11934,
-  "max_elev_m": 3730.0,
+  "max_elev_m": 5360.0,
   "max_depth_m": -1492.0,
   "elev_gamma": 1.0,
   "bounds": [
@@ -18,7 +18,7 @@
    ],
    [
     1.0,
-    3730.0
+    5360.0
    ]
   ],
   "kabartma": {

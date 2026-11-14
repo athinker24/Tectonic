@@ -37,14 +37,24 @@ KARSILIK = [
     },
     {   # 2'nin kuzeyi ve ortası: Orta Sibirya; Putorana = Kuzey Tuzakları, Baykal = Derin Göl, Sayanlar = Uzak Sıra
         "ad": "Sibirya", "kutu": (60, 140, 44, 78), "parca": {"2", "serit"},
-        "etiket": [("Kuzey Tuzakları", 93.0, 68.8, 17), ("Derin Göl", 110.6, 54.6, 15), ("UZAK SIRA", 96.5, 52.6, 17), ("Boz Kalkan", 110.0, 64.0, 16)],
+        "etiket": [("Derin Göl", 110.6, 54.6, 15), ("UZAK SIRA", 96.5, 52.6, 17), ("Boz Kalkan", 110.0, 64.0, 16)],
         "nokta": [(1250, 150, 93.0, 69.0), (1680, 240, 106.5, 53.0)],
         "gol": [("Derin Göl", [(103.7, 51.5), (104.9, 51.5), (106.2, 52.1), (107.4, 52.8), (108.6, 53.4), (109.5, 54.4), (110.0, 55.7),
                                (109.4, 55.9), (108.5, 54.9), (107.3, 53.9), (106.3, 53.3), (105.2, 52.6), (104.1, 51.9)])],
         "bolge": [(1080, 0), (2000, 0), (2000, 600), (1700, 560), (1500, 470), (1300, 450), (1100, 470), (1080, 300)],
     },
+    {   # 2'nin batı ortası: çanak plato (sahibin bozkır platosu, atlasta işaretli). Karşılığı Tarım havzası ve çevresi:
+        # sert, kıvrılmamış Kır Çekirdeği bloğu (Kuzey Tuzakları bazaltlarıyla örtülü) Mor çarpışmasıyla bütün olarak kalktı,
+        # kenarlarındaki eski dikişler sıradağ oldu. Taban 800 ile 1000 m'ye, kenar sıraları 3 ile 3,5 km'ye ölçeklendi.
+        "ad": "Tarım", "kutu": (70, 98, 33, 50), "parca": {"2", "serit"}, "oncelik": 4.0, "yumusak_km": 70,
+        "yukseklik_egri": [(0, 0), (1500, 1200), (8000, 4775)],
+        "etiket": [("Tuzak Çanağı", 83.0, 39.6, 18), ("ÇANAK SIRALARI", 84.0, 42.4, 14)],
+        "nokta": [(1010, 380, 76.0, 39.5), (1470, 300, 90.5, 40.3), (1250, 470, 84.0, 36.4), (1230, 140, 84.0, 42.8)],
+        "bolge": [(1211, 68), (1352, 78), (1471, 179), (1525, 310), (1530, 323), (1449, 400), (1444, 441), (1400, 470), (1250, 470),
+                  (1125, 470), (1027, 470), (968, 458), (952, 441), (968, 294), (1027, 163), (1081, 114), (1146, 78)],
+    },
     {   # Mor çizgisi: Büyük Kafkas (2,2 kat uzatıldı, yükseklik 0,8); kuzeyde Stavropol yaylası, güneyde Kura ovası
-        "ad": "Kafkas", "kutu": (35, 51, 38.5, 47.5), "parca": {"2", "3", "serit"}, "carpan": 0.8,
+        "ad": "Kafkas", "kutu": (35, 51, 38.5, 47.5), "parca": {"2", "3", "serit"}, "carpan": 1.15,
         "etiket": [("MOR SIRADAĞLARI", 43.5, 43.0, 19), ("Şerit Yaylası", 42.5, 45.2, 16), ("Mor Ön Ovası", 42.3, 42.3, 15)],
         "nokta": [(1085, 600, 37.4, 44.9), (1400, 595, 43.2, 43.0), (1720, 680, 49.8, 40.5)],
         "bolge": [(1000, 600), (1100, 470), (1300, 450), (1500, 470), (1700, 560), (2000, 600), (2000, 780), (1760, 760), (1500, 720),
@@ -173,7 +183,11 @@ def ornekle(k, ny, nx, s, maske_w, kaynaklar, bukme=None):
         if bukme is not None:
             x = x + bukme[0][i, j]; y = y + bukme[1][i, j]
         ll = ileri(np.stack([x, y], 1))
-        out[i, j] = K.ornek(ll[:, 0], ll[:, 1]) * k.get("carpan", 1.0)
+        h = K.ornek(ll[:, 0], ll[:, 1]) * k.get("carpan", 1.0)
+        if k.get("yukseklik_egri"):
+            e = np.array(k["yukseklik_egri"], float)
+            h = np.interp(h, e[:, 0], e[:, 1])
+        out[i, j] = h
         deniz[i, j] = K.deniz_ornek(ll[:, 0], ll[:, 1])
         if k.get("gol"):
             if not hasattr(K, "golm"):
@@ -212,7 +226,7 @@ def bilesik():
     kd = (gur(350) * 22 + gur(90) * 7) * s, (gur(350) * 22 + gur(90) * 7) * s
     for k in KARSILIK:
         w = agirlik(k, lab, adlar, ny, nx, s)
-        w = ndimage.map_coordinates(w, [II + kd[1], JJ + kd[0]], order=1, mode="nearest").astype(np.float32) * kara
+        w = ndimage.map_coordinates(w, [II + kd[1], JJ + kd[0]], order=1, mode="nearest").astype(np.float32) * kara * k.get("oncelik", 1.0)
         z, _ = ornekle(k, ny, nx, s, w, kaynaklar, bukme)
         toplam += w * z; wtop += w
         genis.append((k, w))

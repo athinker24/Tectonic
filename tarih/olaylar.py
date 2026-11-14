@@ -90,7 +90,7 @@ DONEMLER = [
             (3400, "Ak Kalkan çekirdeği", "1'in kuzeyindeki granit ve gnays çekirdeği; kıtanın bilinen en yaşlı kayaları."),
             (3100, "Boz Kalkan", "2'nin doğu yarısının çekirdeği; sonradan en geniş kalkan."),
             (2900, "Kızıl Kalkan", "3'ün ortasındaki çekirdek; bugün bazalt örtünün altında."),
-            (2700, "Kır Çekirdeği", "2'nin batısında küçük ve ince bir çekirdek; ileride çarpışmalarda en çok örselenen."),
+            (2700, "Kır Çekirdeği", "2'nin batısında kalın ve sert bir çekirdek; sonraki çarpışmalarda kıvrılmadan bütün olarak itilir."),
         ],
     },
     {
@@ -182,12 +182,12 @@ DONEMLER = [
             "açılırken önündeki Eski Mor Okyanusu 2'nin altına daldı. İnce Şerit 210 milyon yıl önce 2'nin güney "
             "kenarına yapıştı. Bugünkü Şerit Yaylası'nın kabuğu çoğunlukla bu şerittir; yaylanın içindeki doğu batı "
             "uzanan sırtlar bu eski dikişlerin yeniden sıkışmasıdır. 252 milyon yıl önce 2'nin kuzeyinde büyük bir "
-            "bazalt püskürmesi oldu; o dönemde canlıların büyük kısmı yok oldu. Kuzey Tuzakları bugün 2'nin kuzeyinde "
+            "bazalt püskürmesi oldu; o dönemde canlıların büyük kısmı yok oldu. Kuzey Tuzakları bugün Kır Çekirdeği'nin üzerinde, Tuzak Çanağı'nın düz tabanını örten "
             "basamaklı bir bazalt yaylası olarak duruyor."),
         "olaylar": [
             (280, "Kurak iç kıta", "Kızıl kumtaşı, kum tepeleri, tuz gölleri."),
             (270, "İnce Şerit kopar", "Güney Kıtası'nın kuzeyinden şerit ayrılır; Yeni Mor Okyanusu açılmaya başlar."),
-            (252, "Kuzey Tuzakları", "2'nin kuzeyinde taşkın bazaltları; büyük yok oluş."),
+            (252, "Kuzey Tuzakları", "Kır Çekirdeği'nin üzerine yayılan taşkın bazaltları; büyük yok oluş."),
             (240, "Eski Mor dalması", "Eski Mor Okyanusu 2'nin güney kenarının altına dalar; yay volkanları."),
             (210, "Şerit çarpışması", "İnce Şerit 2'ye yapışır; Şerit dağları (bugün Şerit Yaylası'nın içindeki sırtlar)."),
         ],
@@ -250,7 +250,7 @@ DONEMLER = [
             "batıya doğru ilerledi ve 35 milyon yıl önce batı ucuna ulaştı. 3 saat yönünün tersine yavaşça dönerek "
             "geldiği için doğu ucu hep daha hızlı sıkıştı. 3'ün kuzey kenarı 2'nin altına daldı ve yaklaşık 1000 km "
             "genişliğinde ince ve sıcak bir kıta kenarı bu dalmada kayboldu. İnce olduğu için dalmaya direnmedi ve kabuk "
-            "az kalınlaştı: çarpışma dar bir Mor Sıradağları kuşağı (bugün en yüksek doruklar 4 km dolayı) ve "
+            "az kalınlaştı: çarpışma dar bir Mor Sıradağları kuşağı (bugün en yüksek doruklar 6 km dolayı) ve "
             "arkasında 1 km dolayında alçak bir yayla (Şerit Yaylası) yükseltti; Kafkas ölçeğinde, Himalaya ölçeğinde "
             "değil. Sıkışmanın küçük bir kısmı kuzeye iletildi ve Uzak Sıra eski dikişler boyunca yeniden yükseldi. Batı ucu yavaş "
             "kapandığı için orada kapanmamış bir deniz kolu kaldı: bugünkü üçgen koy. Yeni Mor Okyanusu'nun 3'ün batısında "
@@ -258,6 +258,7 @@ DONEMLER = [
         "olaylar": [
             (50, "Doğu ucunda ilk temas", "3'ün kuzeydoğu köşesi İnce Şerit'e değer."),
             (45, "Mor Sıradağları yükselir", "Doğu kesimde hızlı kalınlaşma."),
+            (30, "Tuzak Çanağı kalkar", "Sıkışma kuzeye iletilir; sert Kır Çekirdeği kıvrılmadan bütün olarak yaklaşık 1 km yükselir, kenarındaki eski dikişler Çanak Sıraları olur, ortası düz kalır (Tarım benzeri)."),
             (40, "Şerit Yaylası yükselir", "Sıradağların arkasında kabuk biraz kalınlaşır; Şerit dikişleri yeniden sıkışır."),
             (35, "Batı ucu kapanır", "Çarpışma üçgen koya ulaşır; koy kapanmamış ön ülke denizi olarak kalır."),
             (32, "Doğu iç deniz kuşatılır", "Yeni Mor Okyanusu'nun kalıntısı iç denizde kapana kısılır."),
@@ -289,7 +290,7 @@ DONEMLER = [
             (8, "Sarı çarpışması", "5'in güney ucu 4'e çarpar; çarpışma kuzeye ilerler."),
             (8, "Kanalda okyanus kabuğu", "Güneydoğu kanalının kuzeyinde deniz tabanı yayılması."),
             (5, "Sarı Sıradağları hızla yükselir", "Genç, dik, hızla aşınan dağlar; Tayvan benzeri."),
-            (4, "Mor Sıradağları bugünkü yüksekliğinde", "En yüksek doruklar 4 km dolayı; arkadaki yayla ortalama 1 km."),
+            (4, "Mor Sıradağları bugünkü yüksekliğinde", "En yüksek doruklar 6 km dolayı; arkadaki yayla ortalama 1 km."),
         ],
     },
     {

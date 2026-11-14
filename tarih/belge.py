@@ -47,13 +47,14 @@ BOLGELER = [
      "uzanır. Kuzeyi Ak Kalkan: buzulların kazıdığı, yüzlerce küçük gölle kaplı alçak kalkan. İç kesim geniş ve alçak bir ovadır. Doğu "
      "sınırındaki Mavi Dağlar dar ve alçak bir sıradır; 430 milyon yıllık dikişin üzerinde durur ve Ural Dağları'nın karşılığıdır. "
      "Urallar da iki eski kıtanın dikişidir."),
-    ("2 (kuzeydoğu)", "Kıtanın en büyük parçası. Kuzeyi ve ortası Orta Sibirya'nın karşılığıdır (yaklaşık 56° döndürüldü): "
-     "Kuzey Tuzakları, Putorana gibi derin vadilerle yarılmış basamaklı bir bazalt yaylası; Boz Kalkan alçak ve ormanlık bir "
-     "kalkan; güneydoğuda Derin Göl, Baykal gibi dar ve derin bir yarık gölü, yanında Uzak Sıra (Sayan Dağları benzeri). Batı "
-     "kesimi Batı Sibirya ovası gibi geniş ve alçaktır. Güney kuşağı Mor çarpışmasının yeridir; karşılığı Büyük Kafkas'tır, "
-     "Mor çizgisi boyunca 2,2 kat uzatıldı ve yüksekliği 0,8 ile çarpıldı. Mor Sıradağları dar bir sıradır, en yüksek doruklar "
-     "4 km dolayındadır; kuzeyinde Stavropol benzeri alçak Şerit Yaylası, güneyinde Kolhis ve Kura benzeri Mor Ön Ovası "
-     "uzanır. Böylece çarpışma kıtanın yalnız dar bir kuşağını yükseltir."),
+    ("2 (kuzeydoğu)", "Kıtanın en büyük parçası. Batı ortasında Tuzak Çanağı: sahibin bozkır platosu. Karşılığı Tarım havzasıdır; "
+     "tabanı 800 ile 1000 m'ye indirildi, çevresindeki Çanak Sıraları 3 ile 3,5 km'ye ölçeklendi. Hikâyede bu, Kuzey Tuzakları "
+     "bazaltlarıyla örtülü sert Kır Çekirdeği bloğudur; Mor çarpışması onu kıvırmadan bütün olarak kaldırdı, kenarlarındaki eski "
+     "dikişler sıradağ oldu, ortası düz kaldı. Kuzeyi ve doğusu Orta Sibirya'nın karşılığıdır: Boz Kalkan alçak ve ormanlık bir "
+     "kalkan, güneydoğuda Derin Göl Baykal gibi dar ve derin bir yarık gölü, yanında Uzak Sıra (Sayan Dağları benzeri). Batı "
+     "kesimi Batı Sibirya ovası gibi geniş ve alçaktır. Güney kuşağı Mor çarpışmasının yeridir; karşılığı Büyük Kafkas'tır, Mor "
+     "çizgisi boyunca 2,2 kat uzatıldı ve yüksekliği 1,15 ile çarpıldı. Mor Sıradağları uzun ve yüksek ama dar bir sıradır, en "
+     "yüksek doruklar 6 km dolayındadır; kuzeyinde alçak Şerit Yaylası, güneyinde Kolhis ve Kura benzeri Mor Ön Ovası uzanır."),
     ("3 (doğu dil)", "Dünya karşılığı Hindistan'dır (18° saat yönünün tersine döndürüldü, 1,55 kat büyütüldü); doğu kıyısına Sumatra "
      "ve Cava yayı eklendi. Kuzeyde Mor Ön Ovası (Kolhis ve Kura ovaları benzeri) Mor Sıradağları'nın önünde uzanır. Ortadaki Kızıl Basamaklar, "
      "Dekkan bazaltları gibi basamaklı ve kurak bir yayladır. Batı kıyısı boyunca kanal yarığının omzu Batı Gatlar'a benzer. Doğu "
@@ -78,7 +79,8 @@ BOLGELER = [
 KARSILIK_ACIK = {
     # ad: (bölge, neyi temsil ediyor)
     "Avrupa": ("1", "eski kalkan, buzul gölleri, Ural benzeri eski dikiş (Mavi Dağlar)"),
-    "Sibirya": ("2'nin kuzeyi ve ortası", "eski kalkanlar, taşkın bazaltı (Kuzey Tuzakları), yarık gölü (Derin Göl)"),
+    "Sibirya": ("2'nin kuzeyi ve doğusu", "eski kalkanlar, yarık gölü (Derin Göl), Uzak Sıra"),
+    "Tarım": ("2'nin batı ortası", "çanak plato: sert blok bütün olarak kalktı, kenar dikişleri sıradağ oldu"),
     "Kafkas": ("Mor çizgisi kuşağı", "etkin kıta çarpışması: dar Mor Sıradağları, önünde ova"),
     "Hindistan": ("3", "alttaki levha: ön ova, taşkın bazaltları, yarık omzu"),
     "Sumatra": ("3'ün doğu kıyısı", "dalma zonu üstündeki volkanik yay"),
@@ -88,7 +90,8 @@ KARSILIK_ACIK = {
     "Ege": ("6", "yay ardı gerilmesi, parmak yarımadalar"),
     "Baja": ("7", "kanal boyunca yanal fayla kayan dar yarımada"),
 }
-DUNYA_AD = {"Avrupa": "İskandinavya, Fin kalkanı, Rus ovası, Urallar, Batı Sibirya", "Sibirya": "Putorana, Orta Sibirya yaylası, Baykal, Sayanlar",
+DUNYA_AD = {"Avrupa": "İskandinavya, Fin kalkanı, Rus ovası, Urallar, Batı Sibirya", "Sibirya": "Orta Sibirya yaylası, Baykal, Sayanlar",
+            "Tarım": "Tarım havzası, Tanrı Dağları, Kunlun (taban 0,8, sıralar 0,55 ile ölçekli)",
             "Kafkas": "Büyük Kafkas, Stavropol, Kolhis ve Kura ovaları",
             "Hindistan": "Orta Hindistan, Dekkan, Batı Gatlar", "Sumatra": "Sumatra ve Cava (Barisan)", "İberya": "Pireneler, Kantabria, Meseta",
             "Fransa": "Masif Santral, Bretanya", "İran": "Zagros, Orta İran, Mezopotamya, Basra", "Ege": "Yunanistan, Batı Anadolu",
@@ -295,7 +298,7 @@ def html():
                 p.append("<div class='yan'>" + "".join(f"<img src='{img64(q, 700)}'>" for q in ims) + "</div>")
     if os.path.exists("cikti/kesitler.png"):
         p.append("<h2 class='sayfa'>İki kesit</h2><p>Bugünkü yüzeyden alınmış iki kesit. A kesiti Mor çarpışmasının bütün "
-                 "basamaklarını gösterir: kuzeyde 2'nin kurak yaylaları, Kuzey Tuzakları'nın güneyi, alçak Şerit Yaylası, dar "
+                 "basamaklarını gösterir: kuzeyde 2'nin kurak yaylaları, Tuzak Çanağı'nın güney kenarı, alçak Şerit Yaylası, "
                  "sıradağ ve önünde alçak ön ova, güneyde 3'ün bazalt yaylası. B kesiti genç Sarı çarpışmasını, önündeki havzayı, 7'nin "
                  "sırtını ve güneydoğu kanalını keser.</p>")
         p.append(f"<img class='tam' src='{img64('cikti/kesitler.png', 1600)}'>")
@@ -316,7 +319,7 @@ def html():
     # Dünya karşılıkları
     z_tam = np.load("cikti/son_z_tam.npy") if os.path.exists("cikti/son_z_tam.npy") else None
     if z_tam is not None:
-        p.append(f"<p>Kıtanın en yüksek noktası yaklaşık {int(round(float(z_tam.max()), -1)):,} m".replace(",", ".") + "; Sarı Sıradağları'nda. Mor Sıradağları bilerek daha alçak tutuldu: en yüksek doruklar 4 km dolayı.</p>")
+        p.append(f"<p>Kıtanın en yüksek noktası yaklaşık {int(round(float(z_tam.max()), -1)):,} m".replace(",", ".") + "; Mor Sıradağları'nda. Mor Sıradağları Himalaya ölçeğinde değil: uzun ama dar.</p>")
     p.append("<h2>Dünya karşılıkları</h2><p>Topografya her bölgenin tarihteki rolüne uyan gerçek bir yerin yükseklik modelinden "
              "kuruldu: üstteki levhada dağ ve yayla, alttaki levhada ön ova, yarık kenarında omuz, dalma zonunun üstünde volkanik yay. "
              "Hiçbiri birebir kopya değil: her parça döndürüldü, ölçeklendi, çoğu aynalandı, denetim noktalarıyla bükülerek sahibin "
