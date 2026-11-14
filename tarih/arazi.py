@@ -360,7 +360,7 @@ def renk(tablo, z):
     return np.stack([np.interp(z, tablo[:, 0], tablo[:, i]) for i in (1, 2, 3)], -1)
 
 
-def ciz(z, kara, P, A, gol, olcek=2, h_m=H_M, nehir=None):
+def ciz(z, kara, P, A, gol, olcek=2, h_m=H_M, nehir=None, kar_kurak=0.0, kar_bolge=False):
     """Tam çözünürlükte (maske boyutu) gölgeli kabartma ve hipsometrik renk."""
     ny, nx = z.shape[0] * olcek, z.shape[1] * olcek
     zb = ndimage.zoom(z, olcek, order=3)[:ny, :nx]
@@ -389,6 +389,11 @@ def ciz(z, kara, P, A, gol, olcek=2, h_m=H_M, nehir=None):
     # kar çizgisi enleme bağlı; üstü beyaz, geçiş 600 m
     latb = O.enlem(np.arange(ny)[:, None] * O.YUK / ny) * np.ones((1, nx))
     kc = np.interp(latb, [-6, 5, 15, 25, 32, 40, 48, 56], [4800, 4900, 5000, 5400, 5200, 4100, 3000, 2000])
+    kc = kc + kar_kurak * kurak[..., 0]  # kurak yaylalarda kar çizgisi yükselir (Tibet benzeri)
+    if kar_bolge:  # yayla yüzeyi karsız kalsın: kar çizgisi bölge ortalamasının en az 500 m üstünde
+        zo = ndimage.zoom(ndimage.gaussian_filter(ndimage.zoom(np.where(kb, zb, 0.0), 0.25, order=1), 100 / (h_m / 1e3) / 4), 4, order=1)
+        zo = np.pad(zo, ((0, max(0, ny - zo.shape[0])), (0, max(0, nx - zo.shape[1]))), mode="edge")[:ny, :nx]
+        kc = np.maximum(kc, zo + 500)
     zk = ndimage.gaussian_filter(zb, 2.0) + 120 * ndimage.gaussian_filter(r2.standard_normal((ny, nx)), 3.0) / 0.1
     kar = np.clip((zk - kc) / 700.0, 0, 1)[..., None] * 0.92
     rk = rk * (1 - kar) + np.array([246, 246, 250]) * kar

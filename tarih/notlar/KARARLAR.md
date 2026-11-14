@@ -40,3 +40,12 @@ Bu dosya geri kurgu danışmasında sahibin verdiği kararları ve ölçümleri 
 - 7 ile 5 arası sıkışmalı yanal kayma; 7 dar ve dik bir sırt taşır.
 - Mor çarpışması 50 milyon yıl önce başladı (uzun); Sarı çarpışması 8 milyon yıl önce (yeni).
 - Üçgen koy: çarpışmanın yavaş kapanan batı ucunda kalmış deniz kolu (ön ülke denizi), yarık değil.
+
+## 14 Kasım 2026: topografya Dünya karşılıklarıyla
+Sahip kurallarla üretilen haritayı beğenmedi: "bu bölgelerin her birinin ne olduğu belli zaten. Görsel olarak dünya karşılıklarını
+kullanalım, ama tam olarak aynısı olmadan." Seçtiğim karşılıklar (benzer.py):
+- 1: İskandinavya, Fin kalkanı, Rus ovası, Urallar (Mavi Dağlar).
+- 2: Yüksek Asya, aynalı (Himalaya = Mor Sıradağları, Tibet = Mor Yaylası, Tarim = Kum Havzası, Tanrı Dağları = Uzak Sıra).
+- 3: Hindistan; doğu kıyısında aynalı Sumatra ve Cava (Doğu Yay Dağları).
+- 4: aynalı İberya (Pireneler = Köprü Dağları), kuzey güney aynalı Fransa (Masif Santral = Köz Masifleri), İran (Zagros = Sarı Sıradağları).
+- 5: Mezopotamya, Basra, Arabistan. 6: Ege. 7: Aşağı Kaliforniya (kanal = Kaliforniya Körfezi).

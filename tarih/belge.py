@@ -42,31 +42,82 @@ PLATO_NEDEN = {
 
 
 BOLGELER = [
-    ("1 (kuzeybatı)", "Kıtanın en eski ve en sakin parçası. Kuzeyinde Ak Kalkan: alçak, buzulların kazıdığı, sayısız gölle kaplı bir ova; "
-     "kuzey kıyısı fiyortlu. Batı kıyısı boyunca Ulu Dağlar'ın yuvarlak sırtları uzanır. Doğu sınırı Mavi Dağlar: 430 milyon yıllık "
-     "dikişin üzerindeki yaylalar, kuzey ucunda dikiş hattını izleyen uzun fiyort. Güneydoğuda iç denize bakan kıyı, makas açılmasının "
-     "yarık omzudur; dik bir basamakla denize iner. Batı rüzgârları batı kıyısını nemli tutar, iç kesimler daha kuru ve karasaldır."),
-    ("2 (kuzeydoğu)", "Kıtanın en büyük parçası; iki ayrı dünyayı birleştirir. Kuzeyi Boz Kalkan ve Kır Çekirdeği: düz, göllü, ormanlık "
-     "ovalar; ortasında Kuzey Tuzakları'nın basamaklı bazalt yaylası. Güney kuşağı İnce Şerit'tir ve bugün Mor Yaylası olarak 4 km'nin "
-     "üstündedir. Yaylanın kuzeyinde Kum Havzası çölü ve daha kuzeyde Uzak Sıra; doğusunda Derin Göl yarığı ve doğuya kaçan blok. "
-     "Bu güney kuşağı kıtanın deprem ve dağ oluşumu bakımından en etkin bölgesidir."),
-    ("3 (doğu dil)", "Güney Kıtası'ndan kopup 150 milyon yılda yaklaşık 5600 km yol alan parça. Kuzey kenarı 2'nin altına dalıyor ve önünde "
-     "Mor Ön Ovası uzanıyor; ovanın ana nehri batıya akıp üçgen koyda delta kurar. Ortası Kızıl Basamaklar bazaltlarıyla örtülü, kurak ve "
-     "basamaklı bir yayla. Doğu kıyısı etkin bir volkan yayı: Doğu Yay Dağları, Kanca Yayı ve güneydoğu yarımadası; açığında 7 km'yi "
-     "aşan Doğu Hendeği. Batı kıyısı güneydoğu kanalının yarık omzu."),
-    ("4 (güneybatı)", "Kuzey Kıtası'na 370 ile 320 milyon yıl önce eklenen parçaların toplamı; Köz orojeninin aşınmış masifleri ve yaylası. "
-     "130 ile 85 milyon yıl önce makas gibi dönerek 1'den ayrıldı; batıda kara köprüsü sıkışıp Köprü Dağları oldu. Doğu kenarında genç "
-     "Sarı Sıradağları yükseliyor. Güney kıyısı ekvatora yakın; son buzul çağından sonra yükselen denizin boğduğu dallı nehir vadileri "
-     "bugünkü girintili kıyıyı oluşturur."),
-    ("5 (güney orta)", "3'ten 22 milyon yıl önce kopan ve batıya sürüklenerek 4'ün altına dalan mikro levha. Batı yarısı Sarı Sıradağları'nın "
-     "önündeki çöküntü havzası, doğu kenarı kanal yarığının alçak omzu. Yer şekilleri kıtanın en genci; depremler ve hızlı aşınma sürüyor."),
-    ("6 (iç deniz adası)", "Bir zamanlar 1'in güneydoğu kıyısına bitişik olan, 4 ile birlikte dönen ve 25 milyon yıldır altındaki levhanın "
-     "geri çekilmesiyle gerilen blok. Güneye uzanan parmak biçimli yarımadalar yükselmiş bloklar, aralarındaki derin körfezler "
-     "çöküntülerdir. Güney açığındaki küçük adalar etkin volkanlardır."),
-    ("7 (güneydoğu yarımadası)", "5'in güney ucundan kesilip kanal fayı boyunca yaklaşık 980 km kuzeybatıya taşınan dar parça. 5'e bastırdığı için "
-     "ortasında dar ve dik bir sırt var. Kuzeyindeki dar girinti ilerlemeden kalmış bir yarık kolu, doğusundaki kanal ise düz ve dik "
-     "kıyılı bir yanal fay vadisidir."),
+    ("1 (kuzeybatı)", "Kıtanın en eski ve en sakin parçası. Dünya karşılığı İskandinavya, Fin kalkanı ve Rus ovasıdır (Kuzey Avrupa, "
+     "yaklaşık 12° döndürülüp 1,1 kat büyütüldü). Batı kıyısı boyunca Ulu Dağlar, İskandinav dağlarının yaşlı ve yuvarlak sırtları gibi "
+     "uzanır. Kuzeyi Ak Kalkan: buzulların kazıdığı, yüzlerce küçük gölle kaplı alçak kalkan. İç kesim geniş ve alçak bir ovadır. Doğu "
+     "sınırındaki Mavi Dağlar dar ve alçak bir sıradır; 430 milyon yıllık dikişin üzerinde durur ve Ural Dağları'nın karşılığıdır. "
+     "Urallar da iki eski kıtanın dikişidir."),
+    ("2 (kuzeydoğu)", "Kıtanın en büyük parçası. Kuzeyi ve ortası Orta Sibirya'nın karşılığıdır (yaklaşık 56° döndürüldü): "
+     "Kuzey Tuzakları, Putorana gibi derin vadilerle yarılmış basamaklı bir bazalt yaylası; Boz Kalkan alçak ve ormanlık bir "
+     "kalkan; güneydoğuda Derin Göl, Baykal gibi dar ve derin bir yarık gölü, yanında Uzak Sıra (Sayan Dağları benzeri). Batı "
+     "kesimi Batı Sibirya ovası gibi geniş ve alçaktır. Güney kuşağı Mor çarpışmasının yeridir; karşılığı Büyük Kafkas'tır, "
+     "Mor çizgisi boyunca 2,2 kat uzatıldı ve yüksekliği 0,8 ile çarpıldı. Mor Sıradağları dar bir sıradır, en yüksek doruklar "
+     "4 km dolayındadır; kuzeyinde Stavropol benzeri alçak Şerit Yaylası, güneyinde Kolhis ve Kura benzeri Mor Ön Ovası "
+     "uzanır. Böylece çarpışma kıtanın yalnız dar bir kuşağını yükseltir."),
+    ("3 (doğu dil)", "Dünya karşılığı Hindistan'dır (18° saat yönünün tersine döndürüldü, 1,55 kat büyütüldü); doğu kıyısına Sumatra "
+     "ve Cava yayı eklendi. Kuzeyde Mor Ön Ovası (Kolhis ve Kura ovaları benzeri) Mor Sıradağları'nın önünde uzanır. Ortadaki Kızıl Basamaklar, "
+     "Dekkan bazaltları gibi basamaklı ve kurak bir yayladır. Batı kıyısı boyunca kanal yarığının omzu Batı Gatlar'a benzer. Doğu "
+     "kıyısındaki Doğu Yay Dağları, aynalanmış Sumatra'nın Barisan sıraları gibi okyanusa bakan dar bir volkanik sıradır; açığında "
+     "Doğu Hendeği vardır. Güneydoğu yarımadası Cava'ya benzer."),
+    ("4 (güneybatı)", "Üç karşılığın birleşimi. Kuzeybatısı aynalanmış İberya'dır (1,75 kat). Kara köprüsündeki Köprü Dağları "
+     "Pireneler ile Kantabria sırasına karşılık gelir; Köz Yaylası Meseta gibi yüksek bir iç yayladır. Güneyi kuzey güney yönünde "
+     "aynalanmış Fransa'dır (1,8 kat): Köz Masifleri Masif Santral gibi yaşlı ve yuvarlaktır, girintili güneybatı kıyısı Bretanya'nın "
+     "deniz basmış vadilerini andırır. Doğu üçte biri İran'dır (yaklaşık 126° döndürüldü): Sarı Sıradağları Zagros'un kıvrımları, "
+     "gerisindeki kurak Tuz Çölü ve kapalı havzalar Orta İran gibidir."),
+    ("5 (güney orta)", "Dünya karşılığı Mezopotamya, Basra Körfezi ve Arabistan'dır (İran ile aynı parçadan). Sarı Sıradağları'nın "
+     "önünde alçak Sarı Ön Havzası uzanır; Basra Körfezi'nin karşılığı burada karadır ve ön ova olarak dolduruldu. Doğusu, Arabistan "
+     "platformu gibi kanala doğru yükselen bir yayladır."),
+    ("6 (iç deniz adası)", "Dünya karşılığı Ege'dir: Yunanistan ve Batı Anadolu (1,6 kat). Kuzeyde Rodop ve Pindos benzeri sıralar "
+     "yer alır. Güneye uzanan parmaklar gerilmeyle yükselmiş bloklardır, aralarındaki körfezler ise çöküntüdür; Mora ve Menderes "
+     "grabenleri gibi."),
+    ("7 (güneydoğu yarımadası)", "Dünya karşılığı Aşağı Kaliforniya'dır (yaklaşık 29° döndürüldü, ölçek 1'e yakın). Güneydoğu "
+     "Kanalı Kaliforniya Körfezi'nin, 7 ise yanal fay boyunca kuzeybatıya taşınan Baja yarımadasının karşılığıdır. Ortasında dar ve "
+     "dik bir sırt (Uzun Yarımada Sırtı) uzanır; kanala bakan kıyı diktir, okyanus yamacı ise eğimlidir."),
 ]
+
+KARSILIK_ACIK = {
+    # ad: (bölge, neyi temsil ediyor)
+    "Avrupa": ("1", "eski kalkan, buzul gölleri, Ural benzeri eski dikiş (Mavi Dağlar)"),
+    "Sibirya": ("2'nin kuzeyi ve ortası", "eski kalkanlar, taşkın bazaltı (Kuzey Tuzakları), yarık gölü (Derin Göl)"),
+    "Kafkas": ("Mor çizgisi kuşağı", "etkin kıta çarpışması: dar Mor Sıradağları, önünde ova"),
+    "Hindistan": ("3", "alttaki levha: ön ova, taşkın bazaltları, yarık omzu"),
+    "Sumatra": ("3'ün doğu kıyısı", "dalma zonu üstündeki volkanik yay"),
+    "İberya": ("4'ün kuzeybatısı ve köprü", "makas açılmasında sıkışan köprü (Köprü Dağları), iç yayla"),
+    "Fransa": ("4'ün güneyi", "Köz orojeninin aşınmış masifleri"),
+    "İran": ("4'ün doğusu ve 5", "genç çarpışma: Sarı Sıradağları ve önündeki havza"),
+    "Ege": ("6", "yay ardı gerilmesi, parmak yarımadalar"),
+    "Baja": ("7", "kanal boyunca yanal fayla kayan dar yarımada"),
+}
+DUNYA_AD = {"Avrupa": "İskandinavya, Fin kalkanı, Rus ovası, Urallar, Batı Sibirya", "Sibirya": "Putorana, Orta Sibirya yaylası, Baykal, Sayanlar",
+            "Kafkas": "Büyük Kafkas, Stavropol, Kolhis ve Kura ovaları",
+            "Hindistan": "Orta Hindistan, Dekkan, Batı Gatlar", "Sumatra": "Sumatra ve Cava (Barisan)", "İberya": "Pireneler, Kantabria, Meseta",
+            "Fransa": "Masif Santral, Bretanya", "İran": "Zagros, Orta İran, Mezopotamya, Basra", "Ege": "Yunanistan, Batı Anadolu",
+            "Baja": "Aşağı Kaliforniya, Kaliforniya Körfezi"}
+
+
+def karsilik_tablosu():
+    """Her karşılık için dönüşüm ve bölgesindeki ölçülen en yüksek nokta (son yüzey)."""
+    import benzer as B
+    from PIL import ImageDraw
+    zt = np.load("cikti/son_z_tam.npy").astype(float)
+    nx, ny = O.GEN, O.YUK
+    z = np.asarray(Image.fromarray(zt.astype(np.float32)).resize((nx, ny), Image.BOX))
+    from scipy import ndimage
+    z = np.maximum(z, ndimage.zoom(ndimage.maximum_filter(zt, size=3)[::2, ::2], (ny / ((zt.shape[0] + 1) // 2), nx / ((zt.shape[1] + 1) // 2)), order=0)[:ny, :nx])
+    lab, adlar = B.parca_etiket(ny, nx)
+    W = np.stack([B.agirlik(k, lab, adlar, ny, nx, 1.0) for k in B.KARSILIK])
+    bas = W.argmax(0)
+    satir = []
+    for n, k in enumerate(B.KARSILIK):
+        m = (bas == n) & (W[n] > 0.3) & (lab > 0)
+        _, (aci, olc) = B._benzerlik(k)
+        ayna = k.get("ayna", False) or ("benzerlik" in k and k["benzerlik"][6])
+        don = f"{abs(aci):.0f}° {'saat yönünde' if aci < 0 else 'saat yönünün tersine'}" if abs(aci) > 2 else "dönmedi"
+        if abs(abs(aci) - 180) < 2:
+            don = "180°"
+        satir.append((KARSILIK_ACIK[k["ad"]][0], DUNYA_AD[k["ad"]], f"{don}, {olc:.2f} kat".replace(".", ",") + (", aynalı" if ayna else ""),
+                      f"{int(round(z[m].max(), -1)):,}".replace(",", "."), KARSILIK_ACIK[k["ad"]][1]))
+    return satir
 
 
 def img64(yol, gen=None, kalite=82):
@@ -85,11 +136,13 @@ def profiller():
     z = np.load("cikti/son_z.npy").astype(float)
     ny, nx = z.shape; g = nx / O.GEN; hk = O.KM_PX / g
     fig, ax = plt.subplots(2, 1, figsize=(9, 5.2), dpi=150)
+    import benzer as B
+    et = B.etiketler()
+    eA = [(y, t) for t, (x, y), n in et if abs(x - 1450) < 130 and 150 < y < 1150]
+    eB = [(x, t) for t, (x, y), n in et if abs(y - 1180) < 60 and 400 < x < 1500] + [(1080, "kanal")]
     for a, (ad, p0, p1, etiket) in zip(ax, [
-        ("Kesit A: kuzeyden güneye, x = 1450 (2, Kum Havzası, Mor Yaylası, Mor Sıradağları, 3)", (1450, 150), (1450, 1150),
-         [(230, "Uzak Sıra"), (370, "Kum Havzası"), (470, "Kuzey Kenar Sırası"), (540, "Mor Yaylası"), (615, "Mor Sıradağları"), (700, "Mor Ön Ovası"), (950, "Kızıl Basamaklar")]),
-        ("Kesit B: batıdan doğuya, y = 1180 (4, Sarı Sıradağları, 5, kanal, 3)", (400, 1180), (1500, 1180),
-         [(560, "Köz Yaylası"), (728, "Sarı Sıradağları"), (820, "Sarı Ön Havzası"), (960, "kanal"), (1060, "Kanal Omzu"), (1250, "Kızıl Basamaklar"), (1480, "Doğu Yay")])]):
+        ("Kesit A: kuzeyden güneye, x = 1450 (2, Şerit Yaylası, Mor Sıradağları, 3)", (1450, 150), (1450, 1150), eA),
+        ("Kesit B: batıdan doğuya, y = 1180 (4, Sarı Sıradağları, 5, 7, kanal, 3)", (400, 1180), (1500, 1180), eB)]):
         n = 600
         xs = np.linspace(p0[0], p1[0], n) * g; ys = np.linspace(p0[1], p1[1], n) * g
         from scipy import ndimage
@@ -196,13 +249,14 @@ def html():
              f"3,4 milyar yıldan bugüne {len(O.DONEMLER)} dönem, {sum(len(D['olaylar']) for D in O.DONEMLER)} olay, bugün {len(O.LEVHALAR)} levha.</p>")
     if os.path.exists("cikti/topografya_etiketli.png"):
         p.append(f"<img class='tam' src='{img64('cikti/topografya_etiketli.png', 1800)}'>")
-        p.append("<p class='alt'>Bugünkü topografya: tarihten türetilen yapı (kuşaklar, yaylalar, havzalar, volkanlar) ve "
-                 "üzerinde 3 milyon yıllık akarsu ve yamaç aşınması. Kar çizgisi enleme bağlı; kurak bölgeler sarımsı.</p>")
+        p.append("<p class='alt'>Bugünkü topografya: her bölgeye tarihteki rolüne uyan bir Dünya karşılığının gerçek yükseklik "
+                 "modeli döndürülüp ölçeklenerek, gerekirse aynalanarak ve bükülerek yerleştirildi; kıyı sahibin maskesidir. Kar "
+                 "çizgisi enleme ve çevredeki ortalama yüksekliğe bağlı; kurak bölgeler sarımsı.</p>")
     # varsayımlar
     p.append("<h2>Çerçeve ve varsayımlar</h2>")
     p.append("<p>Harita çerçevesi doğu batı yönünde 8000 km, kuzey güney yönünde yaklaşık 6100 km kabul edildi; kara yaklaşık "
              "28 milyon km² eder, Afrika'dan biraz küçük. Çerçevenin üst kenarı 50°K, alt kenarı yaklaşık 5°G. Bu seçimle Mor "
-             "Sıradağları 28 ile 33°K arasına, Mor Yaylası 30 ile 35°K arasına düşer; bu enlemler Himalaya ve Tibet'inkine yakındır, "
+             "Sıradağları yaklaşık 28 ile 33°K arasına düşer, Kafkas'tan biraz güneyde; "
              "kar çizgisi ve iklim kuşakları da buna göre davranır. Kuzey kıyıları 45°K'nin üstünde, buzul çağlarında buzla "
              "örtülmüş; güney kıyıları ekvatorda.</p>")
     p.append("<div class='kutu'><b>Sahibin kararları</b> (danışmada verildi): kıyı sabit; parçalar 1 ile 7 ve çizgileri; batı ve merkezdeki "
@@ -241,9 +295,9 @@ def html():
                 p.append("<div class='yan'>" + "".join(f"<img src='{img64(q, 700)}'>" for q in ims) + "</div>")
     if os.path.exists("cikti/kesitler.png"):
         p.append("<h2 class='sayfa'>İki kesit</h2><p>Bugünkü yüzeyden alınmış iki kesit. A kesiti Mor çarpışmasının bütün "
-                 "basamaklarını gösterir: kuzeyde sert 2 kabuğu ve Uzak Sıra, arada Kum Havzası, yaylanın dik kuzey kenarı, "
-                 "4 km'yi aşan yayla, en yüksek sıradağ ve önünde alçak ön ova. B kesiti genç Sarı çarpışmasını ve güneydoğu kanalının "
-                 "yarık omzunu keser.</p>")
+                 "basamaklarını gösterir: kuzeyde 2'nin kurak yaylaları, Kuzey Tuzakları'nın güneyi, alçak Şerit Yaylası, dar "
+                 "sıradağ ve önünde alçak ön ova, güneyde 3'ün bazalt yaylası. B kesiti genç Sarı çarpışmasını, önündeki havzayı, 7'nin "
+                 "sırtını ve güneydoğu kanalını keser.</p>")
         p.append(f"<img class='tam' src='{img64('cikti/kesitler.png', 1600)}'>")
     # hızlar
     p.append("<h2 class='sayfa'>Hızlar</h2><p>Hızlar parçaların ağırlık merkezlerinin geri kurgudaki yer değiştirmesinden "
@@ -259,29 +313,29 @@ def html():
     p.append("<h2 class='sayfa'>Parça parça bugünkü coğrafya</h2>")
     for ad, metin in BOLGELER:
         p.append(f"<h3>{ad}</h3><p>{metin}</p>")
-    # yer şekilleri
-    if tepe_genel := (olculen_tepeler().get("_genel") if os.path.exists("cikti/son_z_tam.npy") else None):
-        p.append(f"<p>Kıtanın en yüksek noktası yaklaşık {tepe_genel:,} m".replace(",", ".") + "; Mor Sıradağları'nın doğu kesiminde. Yükseklikler aşınmadan sonraki yüzeyden ölçüldü.</p>")
-    p.append("<h2>Bugünkü yer şekilleri ve nedenleri</h2><table><tr><th style='width:22%'>Yer şekli</th><th style='width:13%'>En yüksek (m)</th><th>Neden</th></tr>")
-    tepe = olculen_tepeler() if os.path.exists("cikti/son_z_tam.npy") else {}
-    for ad, c, deger, yari, yas, dik in O.KUSAKLAR:
-        v = tepe.get(ad, max(deger))
-        if v < 300:
-            continue  # arazide belirgin oluşmadı
-        p.append(f"<tr><td><b>{ad}</b></td><td>{v:,}".replace(",", ".") + f"</td><td>{NEDEN.get(ad, '')}</td></tr>")
-    for ad, pol, (y0, y1), _ in O.PLATOLAR:
-        p.append(f"<tr><td><b>{ad}</b></td><td>{y0:,} ile {y1:,}".replace(",", ".") + f" (ortalama)</td><td>{PLATO_NEDEN.get(ad, '')}</td></tr>")
+    # Dünya karşılıkları
+    z_tam = np.load("cikti/son_z_tam.npy") if os.path.exists("cikti/son_z_tam.npy") else None
+    if z_tam is not None:
+        p.append(f"<p>Kıtanın en yüksek noktası yaklaşık {int(round(float(z_tam.max()), -1)):,} m".replace(",", ".") + "; Sarı Sıradağları'nda. Mor Sıradağları bilerek daha alçak tutuldu: en yüksek doruklar 4 km dolayı.</p>")
+    p.append("<h2>Dünya karşılıkları</h2><p>Topografya her bölgenin tarihteki rolüne uyan gerçek bir yerin yükseklik modelinden "
+             "kuruldu: üstteki levhada dağ ve yayla, alttaki levhada ön ova, yarık kenarında omuz, dalma zonunun üstünde volkanik yay. "
+             "Hiçbiri birebir kopya değil: her parça döndürüldü, ölçeklendi, çoğu aynalandı, denetim noktalarıyla bükülerek sahibin "
+             "çizgilerine oturtuldu ve üstüne yaklaşık 40 km genlikli ek bir bükme uygulandı.</p>")
+    p.append("<table><tr><th style='width:14%'>Bölge</th><th style='width:24%'>Dünya karşılığı</th><th style='width:20%'>Dönüşüm</th>"
+             "<th style='width:10%'>En yüksek (m)</th><th>Tarihteki anlamı</th></tr>")
+    for r in karsilik_tablosu():
+        p.append("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>")
     p.append("</table>")
-    p.append("<p>Ovalar: Mor Ön Ovası (3'ün kuzeyinde, Mor Sıradağları'nın önünde, ana nehri batıya üçgen koya akar ve orada delta "
-             "kurar; koy, çarpışmanın yavaş kapanan batı ucunda kalmış deniz koludur), Sarı Ön Havzası (5'in batısı), 1'in batı kıyı "
-             "ovası. Göller: Derin Göl (2'deki yarık gölü, Baykal benzeri), Kum Gölü (Kum Havzası'nın kapalı gölü), Mor Yaylası'nın "
-             "tuz gölleri ve kuzeydeki buzul gölleri. Deniz tabanı: 3'ün doğusunda Doğu Hendeği (7 km'yi aşar), 6'nın güneyinde Ada "
-             "Hendeği, doğu iç denizde eski okyanus tabanı (3 km), batı iç denizde incelmiş kıta kabuğu.</p>")
+    p.append("<p>Deniz tabanı karşılıklardan alınmadı: 3'ün doğusunda Doğu Hendeği (7 km'yi aşar), 6'nın güneyinde Ada Hendeği, doğu "
+             "iç denizde eski okyanus tabanı (3 km), batı iç denizde incelmiş kıta kabuğu tarihten kuruldu.</p>")
     p.append("<h2>Sınırlar</h2><p>Geri kurgu katı parçalarla yapıldı: parçaların bugünkü şekli geçmişe taşındı, oysa çarpışmalarda kabuk "
              "kısalır ve kıvrılır. Bu yüzden 2'nin altına dalan kıta kenarı haritalarda ayrı bir kuşak olarak gösterildi. 340 milyon "
              "yıldan eski olaylar yalnız metinde var; o dönemlerin kıyıları bilinemeyecek kadar silinmiştir, bu Dünya için de böyledir. "
-             "Topografya fiziksel bir levha benzetimi değil: tarihten çıkarılan kurallarla kurulan yapı katmanı ve üzerinde gerçek "
-             "bir akarsu aşınması modelidir (fastscapelib). Rakamlar tutarlı ama yaklaşık; her biri değiştirilebilir.</p>")
+             "Topografya fiziksel bir levha benzetimi değil; Dünya karşılıklarından kuruldu. Kaynak olarak AWS Terrain Tiles "
+             "(Mapzen terrarium kodlaması; SRTM, GMTED ve ETOPO1 kökenli) yaklaşık 2 km çözünürlükte kullanıldı. Kaynakta deniz olup "
+             "hedefte kara olan yerler (Baltık, Basra Körfezi, Bengal Körfezi kıyıları gibi) yansıtılmış komşu karayla alçak ova olarak "
+             "dolduruldu; karşılıklar arasındaki geçişler yaklaşık 80 km genişliğinde ve kıvrımlıdır. Bu yüzden geçiş kuşaklarında "
+             "yer şekilleri yumuşar. Nehirler bu yüzeyin akış ağından çizildi. Rakamlar tutarlı ama yaklaşık; her biri değiştirilebilir.</p>")
     p.append("</body></html>")
     return "\n".join(p)
 
