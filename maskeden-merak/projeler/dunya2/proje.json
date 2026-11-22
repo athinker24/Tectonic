@@ -1,0 +1,12 @@
+{
+ "ad": "dunya2",
+ "aciklama": "Dünya ölçeğinde deneme 2: dunya projesinin maskesi; önce tektonik tarih (tarih.md), sonra hikâyeye bağlı çok kaynaklı karşılıklar, çok bantlı karışım.",
+ "maske": "maske.png",
+ "genislik_km": 40032,
+ "ust_enlem": 90.0,
+ "merkez_boylam": 0.0,
+ "kure": true,
+ "bant": {"km": [12, 45, 180], "us": [6, 3, 1.5, 1]},
+ "merak_boyut": [16000, 7719],
+ "tohum": 41
+}

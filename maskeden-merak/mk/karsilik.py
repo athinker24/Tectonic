@@ -141,6 +141,46 @@ def gurultu(shape, km, km_px, kok):
     return ndimage.zoom(g / (g.std() + 1e-9), (ny / g.shape[0], nx / g.shape[1]), order=1)[:ny, :nx]
 
 
+class Bant:
+    """Çok bantlı karışım (proje.json "bant": {"km": [12, 45, 180], "us": [6, 3, 1.5, 1]}).
+
+    Her karşılık yalnız karada normalleştirilmiş Gauss süzgeçleriyle bantlara ayrılır: ince doku (< 12 km), orta (12 ile 45 km),
+    kaba (45 ile 180 km), taban (> 180 km). Her bandın ağırlığı w^us: ince dokuda üs büyük, sınırda bir karşılığın dokusu baskın
+    olur (iki doku üst üste binip bulanmaz); tabanda üs küçük, yükseklik geniş ve yumuşak geçer. Doku bantlarında karışımın
+    genliği korunur (ilintisiz iki dokunun ortalaması sönükleşmesin). Karşılıktaki "bant": [i, o, k, t] bant başına çarpandır;
+    ör. [1, 1, 0, 0] karşılığı yalnız doku veren bir katman yapar (başka bir karşılığın üstüne doku karıştırmak için)."""
+
+    def __init__(self, ayar, shape, kp):
+        self.km = ayar.get("km", [12.0, 45.0, 180.0]); self.us = ayar.get("us", [6.0, 3.0, 1.5, 1.0])
+        self.kp = kp; n = len(self.km) + 1
+        self.acc = [np.zeros(shape, np.float32) for _ in range(n)]
+        self.wacc = [np.zeros(shape, np.float32) for _ in range(n)]
+        self.wsq = [np.zeros(shape, np.float32) for _ in range(n)]
+
+    def ekle(self, k, w, z):
+        m = (w > 1e-3).astype(np.float32)
+        if not m.any():
+            return
+        g = [z]
+        for s in self.km:
+            g.append(ndimage.gaussian_filter(z * m, s / self.kp) / np.maximum(ndimage.gaussian_filter(m, s / self.kp), 1e-4))
+        bantlar = [g[i] - g[i + 1] for i in range(len(self.km))] + [g[-1]]
+        carp = k.get("bant", [1.0] * len(bantlar))
+        for i, b in enumerate(bantlar):
+            if carp[i] <= 0:
+                continue
+            wi = (np.clip(w, 0, None) ** self.us[i]) * carp[i] * m
+            self.acc[i] += wi * b; self.wacc[i] += wi; self.wsq[i] += wi * wi
+
+    def sonuc(self):
+        z = self.acc[-1] / np.maximum(self.wacc[-1], 1e-12)
+        for i in range(len(self.acc) - 1):
+            ort = self.acc[i] / np.maximum(self.wacc[i], 1e-12)
+            gen = np.clip(self.wacc[i] / np.sqrt(np.maximum(self.wsq[i], 1e-24)), 1.0, 1.6)   # genlik düzeltmesi
+            z += np.where(self.wacc[i] > 0, ort * gen, 0)
+        return z.astype(np.float32)
+
+
 def bilesik(p, kaynaklar=None):
     """Bütün karşılıkların ağırlıklı birleşimi, tam maske çözünürlüğünde. cikti/karsilik_z.npy."""
     kara = p.kara(); ny, nx = kara.shape; kp = p.km_px
@@ -157,20 +197,31 @@ def bilesik(p, kaynaklar=None):
     II, JJ = np.indices((ny, nx), dtype=np.float32)
     kd = ((g(350, 5) * 88 + g(90, 6) * 28) / kp, (g(350, 7) * 88 + g(90, 8) * 28) / kp)       # sınırlar ±70 km kıvrılır
     toplam = np.zeros((ny, nx), np.float32); wtop = np.zeros((ny, nx), np.float32); genis = []
+    bant = Bant(p.ayar["bant"], (ny, nx), kp) if p.ayar.get("bant") else None
     for k in liste:
         w = agirlik(k, lab, adlar, kp)
         w = ndimage.map_coordinates(w, [II + kd[1], JJ + kd[0]], order=1, mode="nearest").astype(np.float32) * kara * k.get("oncelik", 1.0)
         z, _ = ornekle(k, kp, w, kaynaklar, bukme)
-        toplam += w * z; wtop += w; genis.append((k, w))
-        log(f"karşılık {k['ad']}: en yüksek {z.max():.0f} m")
+        if bant:
+            bant.ekle(k, w, z)
+        else:
+            toplam += w * z
+        wtop += w; genis.append((k, w))
+        log(f"karşılık {k['ad']}: en yüksek {z[w > 1e-3].max() if (w > 1e-3).any() else 0:.0f} m")
     bos = kara & (wtop < 0.05)
     if bos.any():
         log(f"karşılıksız kara {bos.sum()} piksel: en yakın karşılıklarla dolduruluyor")
         for k, w in genis:
+            if k.get("bant") and k["bant"][-1] <= 0:      # yalnız doku veren karşılık boşluk doldurmaz
+                continue
             wb = ndimage.gaussian_filter(w, 160 / kp) * bos
             z, _ = ornekle(k, kp, wb, kaynaklar, bukme)
-            toplam += wb * z; wtop += wb
-    z = toplam / np.maximum(wtop, 1e-6)
+            if bant:
+                bant.ekle(k, wb, z)
+            else:
+                toplam += wb * z
+            wtop += wb
+    z = bant.sonuc() if bant else toplam / np.maximum(wtop, 1e-6)
     dk = ndimage.distance_transform_edt(kara) * kp
     u = np.clip(dk / p.ayar["kiyi_rampa_km"], 0, 1)
     z = np.where(kara, np.maximum(z * (0.3 + 0.7 * u * u * (3 - 2 * u)), 1.0), 0.0).astype(np.float32)
