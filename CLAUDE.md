@@ -46,6 +46,17 @@ yazan sayılar ölçümdür; "bilinmiyor" yazan şeyler doğrulanmamıştır, ö
 10. **Elle çalışma üslubu (Merak):** genel hatlar korunur, küçük ayrıntı Merak'ın aşınma aracıyla deneme yanılma üretilir. Sahibin
     sıraları dar ve sivri, ovaları düz ve 150 ile 250 m dolayında, dağlarda doku güçlü, ovalarda sakin.
 
+### 2.1 Geliştirilmesi gereken yanlar (sahip, 2026-11-22; üç rastgele denemeden sonra)
+
+1. **Çeşitlilik:** olabildiğince farklı dokular kullanılmalı.
+2. **Önce hikâye:** başlamadan önce olabildiğince ayrıntılı bir tektonik hikâye belirlenmeli.
+3. **Gerçekçi hikâye:** tektonik hikâye olabildiğince gerçekçi olmalı.
+4. **Yerleşim hikâyeye uyar:** karşılıkların yerleşimi tamamen bu hikâyeye uyumlu olmalı.
+5. **Dokular işlenmeli:** yerleştirilen dokular aynalanarak, döndürülerek, büyütülerek, çevrilerek, başka dokularla
+   karıştırılarak ayrıntılandırılmalı.
+6. **Geçişler:** farklı dokular arasında keskin değil, daha gerçekçi geçişler olmalı. Gerektiğinde geçiş daha yumuşak olsun
+   diye özgün doku bozulabilir.
+
 ## 3. Yöntem (ilk dünyada izlenen yol)
 
 ### 3.1 Maske ve danışma
