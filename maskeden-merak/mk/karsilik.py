@@ -121,7 +121,10 @@ def ornekle(k, km_px, w, kaynaklar, bukme=None):
             aralik = [min(aralik[0], ll[agir, 0].min()), max(aralik[1], ll[agir, 0].max()), min(aralik[2], ll[agir, 1].min()), max(aralik[3], ll[agir, 1].max())]
         h = K.ornek(ll[:, 0], ll[:, 1]) * k.get("carpan", 1.0)
         if k.get("yukseklik_egri"):
-            e = np.array(k["yukseklik_egri"], float); h = np.interp(h, e[:, 0], e[:, 1])
+            e = np.array(k["yukseklik_egri"], float)
+            ust = h > e[-1, 0]                          # son noktanın ötesi kesilmesin (düz tavan olur): son eğimle sürdür
+            egim = (e[-1, 1] - e[-2, 1]) / max(e[-1, 0] - e[-2, 0], 1e-6) if len(e) > 1 else 1.0
+            h = np.where(ust, e[-1, 1] + (h - e[-1, 0]) * egim, np.interp(h, e[:, 0], e[:, 1]))
         out[i, j] = h
         deniz[i, j] = K.deniz_ornek(ll[:, 0], ll[:, 1])
     n = int((w > 0.2).sum())

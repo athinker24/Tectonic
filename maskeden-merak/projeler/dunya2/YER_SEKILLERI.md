@@ -41,7 +41,7 @@
 | DoguAndGuney | dogu | Dalmanın güney kesimi; kırık önülke sıraları | kutu [-73, -62, -40, -25], aynalı | 4100 |
 | ArdyayKiyisi | dogu | Yay ardı havzasının açılması (Ardyay Körfezi, 25 ile 15 MYÖ): güney kıyısında yükselen kenar | kutu [128, 142, 41, 52] | 2100 |
 | KuzeydoguYanardagYayi | dogu | Dar Okyanus'un kuzey ucunda eklenmiş yay parçaları ve yanardağlar (Alaska Sırası benzeri) | kutu [-158, -138, 59, 66] | 4100 |
-| DoguIcOva | dogu | İki önülkenin birleştiği alçak iç ova | kutu [-76, -60, -14, -2] | 1500 |
+| DoguIcOva | dogu | İki önülkenin birleştiği alçak iç ova | kutu [-68, -50, -12, 0] | 1500 |
 | TepuiKalkani | dogu | Eski kumtaşı örtülü kalkan (masa dağları) | kutu [-68, -54, 0, 9] | 1900 |
 | DoguPlanalto | dogu | Güney Kalkanı'nın kuzey ucu; aşınmış masa yaylaları | kutu [-56, -42, -20, -8] | 1300 |
 | KuzeyBazaltDogu | guney | Orta Deniz açılırken tuz bazaltları (130 MYÖ), kıyıya bakan basamak | kutu [72, 81, 14, 23], aynalı | 1100 |
