@@ -42,7 +42,7 @@ ek("BatiIcHavza", "Batı Kalkanı üstünde çökme havzası (Kongo benzeri)", [
    [8, 34, -13, 8], [(-148, 16), (-110, 16), (-104, -20), (-140, -14)],
    [(-128, 1, 21, -1), (-128, -11, 21.5, -9)], OVA, ayna=True)
 ek("SahraKalkani", "Batı Kalkanı; levha içi sıcak nokta masifleri (Ahaggar, Tibesti benzeri)", ["bati"],
-   [-3, 26, 14, 30], [(-150, 48), (-98, 48), (-92, 22), (-148, 14)],
+   [-3, 26, 14, 30], [(-150, 48), (-98, 48), (-92, 22), (-98, 6), (-148, 14)],
    [(-130, 32, 5.5, 23.2), (-110, 28, 18.5, 21), (-122, 42, 9, 27.5)],
    [[0, 0], [300, 180], [600, 330], [1000, 600], [2000, 1400], [3400, 2500]])
 ek("HavzaSiraDokusu", "Kordilyera ardında gerilme (Havza ve Sıra benzeri); yalnız doku katmanı", ["bati"],
@@ -74,7 +74,7 @@ for ad, (tlo, tla, tgen_lo, tgen_la), (kaynak, slo, sla, skm, kutu), aci, olay i
         ("AdaGranKanarya", (-44.2, 20.2, 2.1, 1.9), ("Gran Kanarya", -15.6, 27.95, 42, [-15.9, -15.3, 27.7, 28.2]), 60, "Sıcak nokta izi: aşınmış yanardağ"),
         ("AdaMaui", (-41.8, 18.1, 1.6, 1.3), ("Maui", -156.3, 20.8, 65, [-156.75, -155.9, 20.5, 21.1]), 250, "Sıcak nokta izi: ikiz kalkan yanardağ")]:
     tkm = max(tgen_lo * np.cos(np.radians(tla)), tgen_la) * 111 * 0.9
-    olc = tkm / skm                                   # hedef km / kaynak km
+    olc = tkm / (skm * 0.6)                           # hedef km / kaynak km; ada kaynakta tamamen karada kalsın
     r = 0.25 * tgen_la                                # ikinci nokta: merkezden kuzeye
     ar = np.radians(aci)
     dkm = r * 111 / olc                               # kaynakta karşılığı (km)
@@ -91,7 +91,7 @@ ek("BatiYarimadaEskiDaglar", "Kaledon çarpışması (450 MYÖ), Batı Kıtası'
    [4, 22, 58, 71], [(-20, 61), (1, 61), (3, 44), (-2, 30), (-20, 30)],
    [(-8, 50, 17, 68.5), (-7, 37, 8, 60)], [[0, 0], [300, 220], [1000, 750], [2000, 1500], [2500, 1900]], oturt={"km": 600, "aci": 45})
 ek("AlpKusagi", "Küçük bir kıta parçasının Kuzey'e çarpması (40 MYÖ)", ["kuzey"],
-   [0, 30, 41, 52], [(-2, 48), (32, 48), (32, 36), (-2, 36)],
+   [0, 30, 41, 52], [(-2, 48), (32, 48), (32, 26), (-2, 26)],
    [(6, 42, 9.5, 46.4), (24, 42, 24.5, 46.2)], [[0, 0], [300, 200], [1000, 700], [2000, 1400], [3000, 2200], [4800, 3300]])
 ek("KuzeyOva", "Kuzey platformu: kalkan üstünde yatay tortul örtü", ["kuzey"],
    [26, 58, 49, 64], [(-2, 62), (45, 62), (45, 47), (-2, 47)],
@@ -119,10 +119,10 @@ ek("IranYaylasi", "Eklenen bloklar; havzalar alçaltıldı", ["kuzey"],
    [48, 64, 27, 37], [(42, 42), (68, 42), (68, 24), (48, 22), (42, 28)],
    [(48, 32, 52, 33.5), (62, 30, 60, 32)], YAYLA)
 ek("TanriDaglariHavza", "Çarpışmanın uzak etkisi: kıta içi sıralar ve havzalar", ["kuzey"],
-   [70, 96, 35, 48], [(62, 52), (100, 52), (100, 30), (62, 28)],
+   [70, 96, 35, 48], [(62, 52), (118, 52), (114, 32), (62, 28)],
    [(72, 42, 77, 42), (94, 40, 90, 42.5)], HAVZA)
 ek("SichuanYunnan", "Doğu sözdizimi çevresinde kabuk akışı; çanak havza", ["kuzey"],
-   [96, 112, 21, 34], [(78, 32), (104, 32), (104, 12), (78, 10)],
+   [96, 112, 21, 34], [(78, 34), (112, 36), (110, 12), (78, 10)],
    [(88, 26, 105, 30.3), (97, 24, 102.5, 25.0)], HAVZA)
 ek("DikisDaglari", "Doğu Kolu'nun Kuzey'e çarpması (50 MYÖ'den beri), Himalaya benzeri ama daha alçak", ["kuzey", "dogu"],
    [72, 97, 25, 34], [(110, 20), (118, 17), (126, 30), (134, 44), (134, 50), (126, 50), (118, 36), (110, 26)],
@@ -152,7 +152,7 @@ ek("DoguIcOva", "İki önülkenin birleştiği alçak iç ova", ["dogu"],
    [-76, -60, -14, -2], [(126, 32), (150, 32), (148, 0), (126, 0)],
    [(138, 22, -70, -4), (138, 6, -66, -12)], OVA)
 ek("TepuiKalkani", "Eski kumtaşı örtülü kalkan (masa dağları)", ["dogu"],
-   [-68, -54, 0, 9], [(96, 3), (126, 3), (126, -16), (96, -14)],
+   [-68, -54, 0, 9], [(96, 12), (126, 12), (126, -16), (96, -14)],
    [(105, -6, -64, 5.5), (120, -8, -57, 4.0)], [[0, 0], [300, 200], [600, 350], [1500, 1000], [2800, 1900]])
 ek("DoguPlanalto", "Güney Kalkanı'nın kuzey ucu; aşınmış masa yaylaları", ["dogu"],
    [-56, -42, -20, -8], [(118, -4), (146, -4), (142, -30), (118, -30)],
@@ -168,10 +168,10 @@ ek("KavsakYanardagYaylasi", "Üçlü kavşak (30 MYÖ): yarık omzunda volkanik 
    [35, 44, 5, 15], [(42, -26), (60, -26), (60, -46), (42, -46)],
    [(52, -34, 38.5, 10), (52, -42, 38.8, 7)], YAYLA, ayna=True)
 ek("IcDenizYarigi", "Üçlü kavşağın başarısız kolu: İç Deniz çevresinde yarık basamakları", ["guney"],
-   [26, 40, -16, 4], [(50, -38), (80, -38), (80, -68), (50, -68)],
+   [26, 40, -16, 4], [(38, -38), (80, -38), (80, -68), (38, -68)],
    [(70, -44, 30.5, 1.5), (64, -54, 30, -6), (59, -63, 34.5, -13)], YAYLA, itme=False)
 ek("OrtaColKalkani", "Güney Kalkanı'nın iç kesimi; aşınmış sıralar ve tuz gölleri", ["guney"],
-   [118, 146, -32, -17], [(78, -4), (118, -10), (122, -40), (80, -40)],
+   [118, 146, -32, -17], [(62, -10), (118, -10), (122, -40), (62, -40)],
    [(95, -20, 128, -24), (110, -30, 138, -27)], [[0, 0], [200, 140], [500, 330], [1000, 650], [1500, 1000]])
 ek("GuneyTepelik", "Aşınmış eski kıvrımlar, alçak tepelik", ["guney"],
    [64, 84, 45, 53], [(76, -36), (124, -36), (124, -56), (76, -56)],

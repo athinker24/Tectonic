@@ -157,10 +157,16 @@ class Bant:
         self.wacc = [np.zeros(shape, np.float32) for _ in range(n)]
         self.wsq = [np.zeros(shape, np.float32) for _ in range(n)]
 
-    def ekle(self, k, w, z):
+    def ekle(self, k, w, z, deniz=None):
         m = (w > 1e-3).astype(np.float32)
         if not m.any():
             return
+        if deniz is not None:          # kaynakta deniz, kes ya da kutu dışı: dolgu düz ve yapaydır; komşu karşılıklar üstlensin
+            w = w * (1.0 - 0.97 * np.clip(ndimage.gaussian_filter(deniz.astype(np.float32), 20 / self.kp), 0, 1))
+        # sınırlar düz çizgi olmasın: her karşılığın ağırlığı kendi gürültüsüyle dalgalanır (dil dil, iç içe geçen sınır)
+        h = sum(ord(c) * (i + 1) for i, c in enumerate(k["ad"])) % 100000
+        g = gurultu(w.shape, 220, self.kp, h) * 0.8 + gurultu(w.shape, 60, self.kp, h + 1) * 0.4
+        w = w * np.exp(g).astype(np.float32)
         g = [z]
         for s in self.km:
             g.append(ndimage.gaussian_filter(z * m, s / self.kp) / np.maximum(ndimage.gaussian_filter(m, s / self.kp), 1e-4))
@@ -201,9 +207,9 @@ def bilesik(p, kaynaklar=None):
     for k in liste:
         w = agirlik(k, lab, adlar, kp)
         w = ndimage.map_coordinates(w, [II + kd[1], JJ + kd[0]], order=1, mode="nearest").astype(np.float32) * kara * k.get("oncelik", 1.0)
-        z, _ = ornekle(k, kp, w, kaynaklar, bukme)
+        z, dz = ornekle(k, kp, w, kaynaklar, bukme)
         if bant:
-            bant.ekle(k, w, z)
+            bant.ekle(k, w, z, dz)
         else:
             toplam += w * z
         wtop += w; genis.append((k, w))
@@ -215,9 +221,9 @@ def bilesik(p, kaynaklar=None):
             if k.get("bant") and k["bant"][-1] <= 0:      # yalnız doku veren karşılık boşluk doldurmaz
                 continue
             wb = ndimage.gaussian_filter(w, 160 / kp) * bos
-            z, _ = ornekle(k, kp, wb, kaynaklar, bukme)
+            z, dz = ornekle(k, kp, wb, kaynaklar, bukme)
             if bant:
-                bant.ekle(k, wb, z)
+                bant.ekle(k, wb, z, dz)
             else:
                 toplam += wb * z
             wtop += wb
