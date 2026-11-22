@@ -1,0 +1,8 @@
+[
+ {"ad": "BATI KITASI", "x": 880, "y": 1000, "boyut": 40},
+ {"ad": "KUZEY KITASI", "x": 3400, "y": 560, "boyut": 40},
+ {"ad": "DOĞU KOLU", "x": 4920, "y": 1000, "boyut": 32},
+ {"ad": "GÜNEY KITASI", "x": 4000, "y": 2000, "boyut": 40},
+ {"ad": "GÜNEYBATI", "x": 2960, "y": 2160, "boyut": 32},
+ {"ad": "Orta Adalar", "x": 2100, "y": 1080, "boyut": 28}
+]

@@ -49,8 +49,28 @@ def benzerlik(k, km_px):
     return f, (aci, olc)
 
 
+def _kure_x(k, xy):
+    """Küresel proje (proje.json "kure": true): maske pikseli her yerde aynı derece olduğu için doğu batı yönünde gerçek uzaklık
+    cos(enlem) ile kısalır. Hedef x, karşılığın orta noktası çevresinde cos(enlem) ile sıkıştırılır ki kaynak gerçek km ölçeğinde
+    otursun (yerel sinüzoidal izdüşüm)."""
+    ust, dp = k["_kure"]
+    xy = np.asarray(xy, float)
+    tx = float(np.mean([q[0] for q in k["nokta"]]))
+    c = np.cos(np.radians(np.clip(ust - (xy[:, 1] + 0.5) * dp, -89.0, 89.0)))
+    return np.stack([tx + (xy[:, 0] - tx) * c, xy[:, 1]], 1)
+
+
 def esleme(k, km_px):
     """Hedef piksel → kaynak (boylam, enlem): benzerlik + denetim noktalarında ince levha bükmesi; çevreye çapa noktaları."""
+    if "_kure" in k:
+        n = np.array(k["nokta"], float).reshape(-1, 4)
+        kk = {key: v for key, v in k.items() if key != "_kure"}
+        kk["nokta"] = np.hstack([_kure_x(k, n[:, :2]), n[:, 2:]]).tolist()
+        for a in ("bolge", "capa_bolge"):
+            if a in k:
+                kk[a] = _kure_x(k, np.array(k[a], float)).tolist()
+        ic = esleme(kk, km_px)
+        return lambda xy: ic(_kure_x(k, xy))
     f, _ = benzerlik(k, km_px)
     cb = k.get("capa_bolge", k["bolge"])
     xs = [q[0] for q in cb]; ys = [q[1] for q in cb]
@@ -126,6 +146,8 @@ def bilesik(p, kaynaklar=None):
     kara = p.kara(); ny, nx = kara.shape; kp = p.km_px
     lab, adlar = parcalar(p)
     liste = p.json("karsiliklar.json", [])
+    if p.ayar.get("kure"):
+        liste = [dict(k, _kure=[p.ayar["ust_enlem"], p.der_px]) for k in liste]
     if not liste:
         raise SystemExit("karsiliklar.json boş")
     kaynaklar = {} if kaynaklar is None else kaynaklar
@@ -168,6 +190,8 @@ def onizle(p, secili=None):
     for k in p.json("karsiliklar.json", []):
         if secili and k["ad"] not in secili:
             continue
+        if p.ayar.get("kure"):
+            k = dict(k, _kure=[p.ayar["ust_enlem"], p.der_px / s])
         ks = dict(k, bolge=[[x * s, y * s] for x, y in k["bolge"]], nokta=[[a * s, b * s, c, d] for a, b, c, d in k["nokta"]])
         if "capa_bolge" in k:
             ks["capa_bolge"] = [[x * s, y * s] for x, y in k["capa_bolge"]]

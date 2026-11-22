@@ -129,22 +129,33 @@ def cikti(p, kaynak="z.npy", ad="merak"):
     kara = p.kara()
     W, H, _ = _cerceve(p)
     y0, y1, x0, x1 = kita_kutusu(p)
-    yy, xx = np.mgrid[y0:y1, x0:x1].astype(np.float32)
-    my, mx = merak_to_maske(p, yy, xx)
-    icerde = (my >= 0) & (my <= kara.shape[0] - 1) & (mx >= 0) & (mx <= kara.shape[1] - 1)
-    zk = ndimage.map_coordinates(z, [my, mx], order=1, cval=0)
-    kk = ndimage.map_coordinates(kara.astype(np.float32), [my, mx], order=1, cval=0) > 0.5
-    kk &= icerde
+    ny, nx = y1 - y0, x1 - x0
+    zk = np.zeros((ny, nx), np.float32); kk = np.zeros((ny, nx), bool)
+    xx = np.arange(x0, x1, dtype=np.float64)
+    for a in range(0, ny, 512):                                              # satır blokları: dünya ölçeğinde bellek yetsin
+        yy = np.arange(y0 + a, min(y0 + a + 512, y1), dtype=np.float64)
+        my, mx = merak_to_maske(p, yy[:, None], xx[None, :])
+        my, mx = np.broadcast_arrays(my, mx)
+        icerde = (my >= 0) & (my <= kara.shape[0] - 1) & (mx >= 0) & (mx <= kara.shape[1] - 1)
+        zk[a:a + len(yy)] = ndimage.map_coordinates(z, [my, mx], order=1, cval=0)
+        kk[a:a + len(yy)] = (ndimage.map_coordinates(kara.astype(np.float32), [my, mx], order=1, cval=0) > 0.5) & icerde
     L, n = ndimage.label(kk); s = ndimage.sum(kk, L, range(1, n + 1)); kk = np.isin(L, np.nonzero(s >= 30)[0] + 1)  # benek yok
+    del L
     km_px_m = 40030.0 / (2 * H)                                              # Merak pikseli (ekvatorda) km
-    deniz = deniz_profili(kk, km_px_m, p.ayar["deniz"])
-    h = np.where(kk, np.maximum(zk, 2.0), deniz)
+    if ny * nx > 3e7:                                                        # deniz tabanı yer tutucu: yarım çözünürlükte, sonra büyüt
+        dk = deniz_profili(kk[::2, ::2], 2 * km_px_m, p.ayar["deniz"]).astype(np.float32)
+        deniz = np.repeat(np.repeat(dk, 2, 0), 2, 1)[:ny, :nx]
+    else:
+        deniz = deniz_profili(kk, km_px_m, p.ayar["deniz"])
+    h = np.where(kk, np.maximum(zk, 2.0), deniz).astype(np.float32)
+    del zk, deniz
     g = np.full((H, W), kodla(np.array(p.ayar["deniz"]["derin_m"]), K), np.uint16)
     g[y0:y1, x0:x1] = kodla(h, K)
     yaz(p.cikti(f"{ad}_{W}.png"), g)
     mk = np.zeros((H, W), np.uint8); mk[y0:y1, x0:x1] = kk * 255
     Image.fromarray(mk).save(p.cikti(f"{ad}_maske_{W}.png"))
-    on = Image.fromarray(renklendir(h, km_px_m)); on.thumbnail((2000, 2000)); on.save(p.cikti(f"{ad}_onizleme.jpg"), quality=88)
+    f = max(1, int(np.ceil(max(h.shape) / 2000)))
+    on = Image.fromarray(renklendir(h[::f, ::f], km_px_m * f)); on.thumbnail((2000, 2000)); on.save(p.cikti(f"{ad}_onizleme.jpg"), quality=88)
     olc = {"boyut": [W, H], "kodlama": K, "kita_kutusu": [x0, y0, x1, y1],
            "enlem": [float(p.enlem(p.boyut[0] - 1)), p.ayar["ust_enlem"]],
            "boylam": [float(p.boylam(0)), float(p.boylam(p.boyut[1] - 1))],
