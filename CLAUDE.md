@@ -163,13 +163,14 @@ aktarımında ortalarındaki gri değer okundu. Sonuç (hata < 1 m):
 - Üslup ve doğrulama sırasında ara diziler geçici klasöre yazıldı; kalıcı olması gerekenler depoya ya da yeniden üretilebilir
   betiklere konmalı.
 
-## 7. Mevcut kod (eski depodan taşınacaksa)
+## 7. Mevcut kod
 
 - `maskeden-merak/`: haritadan bağımsız araç takımı (`python3 -m mk PROJE KOMUT`). Komutlar: `maske`, `parcalar`, `onizle`,
   `karsilik`, `ozellik`, `ciz`, `olcum`, `hepsi`, `merak`, `plato`, `birlestir`, `uslup`, `rehber`, `fark`. Ayrıntılı yol `YOL.md`,
   kaynak kataloğu `KATALOG.md`, tarih şablonu `TARIH_SABLONU.md`, örnek proje `projeler/ornek`, sınama `testler/test_merak.py`.
-- `tarih/`: ilk dünyanın kendisi (haritaya özgü). Belgeler: `tarih/YONTEM.md` (aşamalar), `tarih/merak/MERAK.md` (Merak hattının
-  bütün sayıları), `tarih/notlar/KARARLAR.md` (sahibin kararları).
+- `belgeler/ilk_dunya/`: ilk dünyadan belgeler: `YONTEM.md` (aşamalar), `MERAK.md` (Merak hattının bütün sayıları; içindeki
+  betik adları eski depoya aittir), `KARARLAR.md` (sahibin kararları). İlk dünyanın kodu ve verisi (`tarih/`) eski depoda,
+  `athinker24/Merakproject`'te duruyor; bu depoya taşınmadı.
 
 ## 8. Web sitesine taşırken akılda tutulacaklar
 

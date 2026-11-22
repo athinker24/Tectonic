@@ -1,0 +1,9 @@
+{
+ "ad": "ornek",
+ "aciklama": "Yöntemi sınamak için rastgele üretilmiş örnek kıta. Gerçek bir projede maske sahibinden gelir.",
+ "maske": "maske.png",
+ "genislik_km": 6000,
+ "ust_enlem": 45.0,
+ "merkez_boylam": 10.0,
+ "merak_boyut": [16000, 7719]
+}

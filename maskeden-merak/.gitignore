@@ -1,0 +1,8 @@
+__pycache__/
+karolar/
+projeler/*/cikti/
+!projeler/ornek/cikti/
+projeler/ornek/cikti/*
+!projeler/ornek/cikti/topografya_etiketli.png
+!projeler/ornek/cikti/parcalar.png
+*.zip
