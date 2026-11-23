@@ -41,6 +41,29 @@ def denetle(p, secili=None, s=3):
 
 
 
+def yon_olcek(p, nokta, ayna=False):
+    """Karşılığın kaynaktan hedefe dönmesi (derece), doğal yönden sapması (0 ile 90; sıranın uzanımı açısından) ve büyütmesi
+    (hedef km / kaynak km). İkisi de gerçek km'de, en küçük karelerle."""
+    n = np.asarray(nokta, float).reshape(-1, 4)
+    la = p.enlem(n[:, 1]); lo = p.boylam(n[:, 0])
+    zt = (lo - lo.mean()) * 111.32 * np.cos(np.radians(la)) + 1j * (la - la.mean()) * 110.6
+    sc = np.cos(np.radians(n[:, 3].mean()))
+    zs = (n[:, 2] - n[:, 2].mean()) * 111.32 * sc * (-1 if ayna else 1) + 1j * (n[:, 3] - n[:, 3].mean()) * 110.6
+    c = (np.conj(zs) @ zt) / (np.conj(zs) @ zs)
+    t = float(np.degrees(np.angle(c)))
+    return t, abs(((t + 90) % 180) - 90), float(abs(c))
+
+
+def kaynak_donustur(nokta, aci=0.0, carpan=1.0):
+    """Denetim noktalarının kaynak koordinatlarını merkezleri çevresinde döndürür (derece) ve uzaklıklarını çarpar."""
+    n = [list(q) for q in nokta]
+    c0 = np.mean([q[2] for q in n]); c1 = np.mean([q[3] for q in n]); cl = np.cos(np.radians(c1)); r = np.radians(aci)
+    for q in n:
+        x = (q[2] - c0) * 111.32 * cl * carpan; y = (q[3] - c1) * 110.6 * carpan
+        q[2] = round(c0 + (x * np.cos(r) - y * np.sin(r)) / (111.32 * cl), 4); q[3] = round(c1 + (x * np.sin(r) + y * np.cos(r)) / 110.6, 4)
+    return n
+
+
 def oturt(p, giris="karsiliklar_taslak.json", cikis="karsiliklar.json", s=4):
     """Her karşılığın kaynaktaki yerini, kaynakta denize ve kutu dışına düşen payı en aza indirecek biçimde ince ayarlar.
 
@@ -69,8 +92,8 @@ def oturt(p, giris="karsiliklar_taslak.json", cikis="karsiliklar.json", s=4):
         ii, jj = np.nonzero(w > 0.3)
         if len(ii) == 0:
             print(f"{k['ad']}: hedefte alan yok"); out.append(k); continue
-        if len(ii) > 5000:
-            sec = rng.choice(len(ii), 5000, replace=False); ii, jj = ii[sec], jj[sec]
+        if len(ii) > 1500:
+            sec = rng.choice(len(ii), 1500, replace=False); ii, jj = ii[sec], jj[sec]
         ll = esleme(ks, kp)(np.stack([jj.astype(float), ii.astype(float)], 1))
         K = kaynak_yukle(kb, kaynaklar)
         c0, c1 = ll[:, 0].mean(), ll[:, 1].mean(); cl = np.cos(np.radians(c1))
@@ -86,8 +109,14 @@ def oturt(p, giris="karsiliklar_taslak.json", cikis="karsiliklar.json", s=4):
 
         eski = puan(0, 1, 0, 0, True)[0]
         en = (puan(0, 1, 0, 0), 0.0, 1.0, 0.0, 0.0)
+        yon_alt = k.get("yon_alt", 35.0); olc_ust = k.get("olcek_ust", 2.1)
         for a in np.linspace(-taci, taci, 5) if taci > 0 else [0.0]:
+            _, d, so = yon_olcek(p, kaynak_donustur(k["nokta"], a), k.get("ayna", False))
+            if d < yon_alt - 0.5 and a != 0:
+                continue                       # doğal yönüne yaklaştıran dönme yasak (CLAUDE.md §2.1 madde 7)
             for o in np.exp(np.linspace(-np.log(1 + tol), np.log(1 + tol), 5)) if tol > 0 else [1.0]:
+                if so / o > olc_ust and o < 1:
+                    continue
                 for tx in np.linspace(-tkm, tkm, 9):
                     for ty in np.linspace(-tkm, tkm, 9):
                         v = puan(a, o, tx, ty)
@@ -100,7 +129,7 @@ def oturt(p, giris="karsiliklar_taslak.json", cikis="karsiliklar.json", s=4):
             x = (q[2] - c0) * 111.32 * cl; y = (q[3] - c1) * 110.6
             x2 = o * (x * np.cos(r) - y * np.sin(r)) + tx; y2 = o * (x * np.sin(r) + y * np.cos(r)) + ty
             nk.append([q[0], q[1], round(c0 + x2 / (111.32 * cl), 3), round(c1 + y2 / 110.6, 3)])
-        k2 = {kk: v for kk, v in k.items() if kk != "oturt"}
+        k2 = {kk: v for kk, v in k.items() if kk not in ("oturt", "yon_alt", "olcek_ust")}
         k2["nokta"] = nk; k2["kutu"] = [round(v, 2) for v in kutu]
         out.append(k2)
         print(f"{k['ad']:<22} deniz %{100 * eski:4.1f} → %{100 * yeni:4.1f}  dönme {a:+5.1f}°  ölçek {o:4.2f}  kayma {tx:+5.0f},{ty:+5.0f} km", flush=True)

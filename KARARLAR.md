@@ -13,3 +13,9 @@ Sahibin kararları ve istekleri, tarih sırasıyla. Projeye özgü seçimler `ma
   bozulabilir.
 
 Kalıcı kural olarak `CLAUDE.md` §2.1'e de yazıldı.
+
+## 2026-11-23: yön kuralı
+
+- Hiçbir kaynak doğal yönünde konmayacak; doğu batı uzanan bir sıra doğu batı konunca tanınıyor (dunya2'de Tanrı Dağları
+  benzeri sıralar ve Alpler). En az 35° döndürme, en çok 2 kat büyütme. `CLAUDE.md` §2.1 madde 7.
+- Çalıştırma süresi kısaltılacak.

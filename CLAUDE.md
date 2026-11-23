@@ -56,6 +56,10 @@ yazan sayılar ölçümdür; "bilinmiyor" yazan şeyler doğrulanmamıştır, ö
    karıştırılarak ayrıntılandırılmalı.
 6. **Geçişler:** farklı dokular arasında keskin değil, daha gerçekçi geçişler olmalı. Gerektiğinde geçiş daha yumuşak olsun
    diye özgün doku bozulabilir.
+7. **Hiçbir kaynak doğal yönünde konmaz** (sahip, 2026-11-23: "doğu batı uzanan bir sırayı o şekilde koyunca çok bariz
+   oluyor"; dunya2'de Himalaya'nın ardındaki sıralar ve Alpler tanındı). Her karşılık doğal yönünden en az 35° döndürülür
+   (`kur.py` ölçer ve zorlar; `oturt` bu sınırı bozamaz). Kıyıya bağlı sıralarda kaynak döndürülemiyorsa doğal uzanımı hedeften
+   en az 35° farklı başka bir kaynak seçilir. Büyütme 2 katı geçmez (dokular yumuşar ve tanınır büyük biçimler kalır).
 
 ## 3. Yöntem (ilk dünyada izlenen yol)
 

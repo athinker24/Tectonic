@@ -82,10 +82,11 @@ def esleme(k, km_px):
     return RBFInterpolator(hed, kay, kernel="thin_plate_spline", degree=1)
 
 
-def agirlik(k, lab, adlar, km_px):
+def agirlik(k, lab, adlar, km_px, ofs=(0, 0)):
+    """lab bir kesitse ofs = (y0, x0): bölge çokgeni kesitin koordinatlarına kaydırılır."""
     ny, nx = lab.shape
     im = Image.new("L", (nx, ny), 0)
-    ImageDraw.Draw(im).polygon([tuple(q) for q in k["bolge"]], fill=255)
+    ImageDraw.Draw(im).polygon([(q[0] - ofs[1], q[1] - ofs[0]) for q in k["bolge"]], fill=255)
     pol = np.asarray(im) > 0
     izin = np.isin(lab, [adlar.index(str(a)) + 1 for a in k.get("parca", adlar)])
     sig = k.get("yumusak_km", 80) / km_px
@@ -100,8 +101,8 @@ def kaynak_yukle(k, kaynaklar):
     return kaynaklar[k["ad"]]
 
 
-def ornekle(k, km_px, w, kaynaklar, bukme=None):
-    """w > 0 olan hücrelerde kaynak yüksekliği (m); (yükseklik, kaynakta deniz payı)."""
+def ornekle(k, km_px, w, kaynaklar, bukme=None, ofs=(0, 0)):
+    """w > 0 olan hücrelerde kaynak yüksekliği (m); (yükseklik, kaynakta deniz payı). w bir kesitse ofs = (y0, x0)."""
     ileri = esleme(k, km_px)
     K = kaynak_yukle(k, kaynaklar)
     ny, nx = w.shape
@@ -110,7 +111,7 @@ def ornekle(k, km_px, w, kaynaklar, bukme=None):
     lo0, lo1, la0, la1 = k["kutu"]; disari = 0; aralik = [np.inf, -np.inf, np.inf, -np.inf]
     for a in range(0, len(ii), 400000):
         i, j = ii[a:a + 400000], jj[a:a + 400000]
-        x, y = j.astype(float), i.astype(float)
+        x, y = j.astype(float) + ofs[1], i.astype(float) + ofs[0]
         if bukme is not None:
             kb = k.get("bukme_kat", 1.0)
             x = x + kb * bukme[0][i, j]; y = y + kb * bukme[1][i, j]
@@ -160,7 +161,7 @@ class Bant:
         self.wacc = [np.zeros(shape, np.float32) for _ in range(n)]
         self.wsq = [np.zeros(shape, np.float32) for _ in range(n)]
 
-    def ekle(self, k, w, z, deniz=None):
+    def ekle(self, k, w, z, deniz=None, sl=(slice(None), slice(None))):
         m = (w > 1e-3).astype(np.float32)
         if not m.any():
             return
@@ -179,7 +180,7 @@ class Bant:
             if carp[i] <= 0:
                 continue
             wi = (np.clip(w, 0, None) ** self.us[i]) * carp[i] * m
-            self.acc[i] += wi * b; self.wacc[i] += wi; self.wsq[i] += wi * wi
+            self.acc[i][sl] += wi * b; self.wacc[i][sl] += wi; self.wsq[i][sl] += wi * wi
 
     def sonuc(self):
         z = self.acc[-1] / np.maximum(self.wacc[-1], 1e-12)
@@ -207,29 +208,47 @@ def bilesik(p, kaynaklar=None):
     kd = ((g(350, 5) * 88 + g(90, 6) * 28) / kp, (g(350, 7) * 88 + g(90, 8) * 28) / kp)       # sınırlar ±70 km kıvrılır
     toplam = np.zeros((ny, nx), np.float32); wtop = np.zeros((ny, nx), np.float32); genis = []
     bant = Bant(p.ayar["bant"], (ny, nx), kp) if p.ayar.get("bant") else None
+    kutular = ndimage.find_objects(lab)
+    pay = int(np.ceil(700 / kp))       # yumuşatma, kıvırma ve en kaba bant süzgeci için kenar payı
     for k in liste:
-        w = agirlik(k, lab, adlar, kp)
-        w = ndimage.map_coordinates(w, [II + kd[1], JJ + kd[0]], order=1, mode="nearest").astype(np.float32) * kara * k.get("oncelik", 1.0)
-        z, dz = ornekle(k, kp, w, kaynaklar, bukme)
+        # hesap yalnız karşılığın etki kutusunda: bölge çokgeni ∩ izinli parçaların kutusu + pay (dışında ağırlık zaten sıfır)
+        xs = [q[0] for q in k["bolge"]]; ys = [q[1] for q in k["bolge"]]
+        pk = [kutular[adlar.index(str(a))] for a in k.get("parca", adlar) if kutular[adlar.index(str(a))] is not None]
+        py0 = min(b[0].start for b in pk); py1 = max(b[0].stop for b in pk); px0 = min(b[1].start for b in pk); px1 = max(b[1].stop for b in pk)
+        y0 = max(0, int(max(min(ys), py0)) - pay); y1 = min(ny, int(min(max(ys), py1)) + pay)
+        x0 = max(0, int(max(min(xs), px0)) - pay); x1 = min(nx, int(min(max(xs), px1)) + pay)
+        if y1 <= y0 or x1 <= x0:
+            log(f"karşılık {k['ad']}: bölge izinli parçalarla kesişmiyor"); continue
+        sl = (slice(y0, y1), slice(x0, x1))
+        w = agirlik(k, lab[sl], adlar, kp, (y0, x0))
+        w = ndimage.map_coordinates(w, [II[sl] - y0 + kd[1][sl], JJ[sl] - x0 + kd[0][sl]], order=1, mode="nearest").astype(np.float32) \
+            * kara[sl] * k.get("oncelik", 1.0)
+        bk = (bukme[0][sl], bukme[1][sl])
+        z, dz = ornekle(k, kp, w, kaynaklar, bk, (y0, x0))
         if bant:
-            bant.ekle(k, w, z, dz)
+            bant.ekle(k, w, z, dz, sl)
         else:
-            toplam += w * z
-        wtop += w; genis.append((k, w))
+            toplam[sl] += w * z
+        wtop[sl] += w; genis.append((k, w, sl))
         log(f"karşılık {k['ad']}: en yüksek {z[w > 1e-3].max() if (w > 1e-3).any() else 0:.0f} m")
     bos = kara & (wtop < 0.05)
     if bos.any():
         log(f"karşılıksız kara {bos.sum()} piksel: en yakın karşılıklarla dolduruluyor")
-        for k, w in genis:
+        for k, w, sl in genis:
             if k.get("bant") and k["bant"][-1] <= 0:      # yalnız doku veren karşılık boşluk doldurmaz
                 continue
-            wb = ndimage.gaussian_filter(w, 160 / kp) * bos
-            z, dz = ornekle(k, kp, wb, kaynaklar, bukme)
+            if not bos[sl].any():
+                continue
+            wb = ndimage.gaussian_filter(w, 160 / kp) * bos[sl]
+            if wb.max() < 1e-3:
+                continue
+            bk = (bukme[0][sl], bukme[1][sl])
+            z, dz = ornekle(k, kp, wb, kaynaklar, bk, (sl[0].start, sl[1].start))
             if bant:
-                bant.ekle(k, wb, z, dz)
+                bant.ekle(k, wb, z, dz, sl)
             else:
-                toplam += wb * z
-            wtop += wb
+                toplam[sl] += wb * z
+            wtop[sl] += wb
     z = bant.sonuc() if bant else toplam / np.maximum(wtop, 1e-6)
     dk = ndimage.distance_transform_edt(kara) * kp
     u = np.clip(dk / p.ayar["kiyi_rampa_km"], 0, 1)
