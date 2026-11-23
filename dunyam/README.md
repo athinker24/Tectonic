@@ -18,10 +18,15 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
 
 ## Ana kalıp (2026-11-23, sahibin kararı)
 - Sahip: "Asıl kalıp bu son verdiğim zipteki; sadece bir bağlantı eklenmesi gerekiyor batı kısmında." Atlastaki öteki kıyı farkları
-  Merak'ta yanlışlıkla değişmiş şeyler; batı okyanusunun kapatılması bilerek.
-- `kaynak/ana_16k.png` = `son_temiz_16k.png` + batıdaki bağlantı (atlas arazisindeki kıstak, 16k'ya kayıtla taşındı).
-  Yalnız iki kara kütlesini birleştiren parça alındı; 15 km'den ince kıyı şeritleri (atlasın 9,8 km'lik pikselinden kalan
-  çözünürlük farkı) alınmadı. Kara bileşeni 2 → 1. Eklenen 5897 piksel (yaklaşık 36 500 km²), yükseklik %10/%50/%90 = 17/41/67 m,
-  en yüksek 125 m (çevre karadan harmonik dolgu, kıyıya doğru alçalır, hafif gürültü). Başka hiçbir piksel değişmedi.
-- Seçimim: kıstak alçak bir kıyı ovası. Kıyı çizgisi atlasın şeklinden geldiği için çevredeki girintili kıyılardan düzgün;
-  sahip Merak'ta işlerse kalıp güncellenir. Önce ve sonra: `bagla_once_sonra.png`.
+  Merak'ta yanlışlıkla değişmiş şeyler. Atlastaki bağlantının şekli rastgeleydi; tek önemli olan batı okyanusunun kapanması,
+  olabildiğince doğal biçimde (dış şekil ve arazi).
+- `kaynak/ana_16k.png` = `son_temiz_16k.png` + `bagla2.py` ile batıdaki kara köprüsü. Ayarlar `bagla_ayar.json`.
+- Yöntem (seçimim): köprü, kuzey kıyısındaki sıranın güneye uzanan kolu (Orta Amerika'nın Kordilyera'nın devamı olması gibi).
+  Arazi: iki kütlenin kıyı yüksekliklerinden harmonik taban + eksen boyunca sırt (800 m, kıvrılmış) + aynı haritanın komşu dağından
+  alınan ince doku; eksenden uzaklaştıkça deniz tabanına iner. Kıyı bu arazinin 0 m eğrisi, elle çizilmedi.
+- Ölçüm: denizden karaya 3256 piksel (yaklaşık 20 000 km²), karadan denize 0; yeni kara %10/%50/%90 = 52/216/481 m, en yüksek
+  1018 m. Eski kıyının yeni karaya 7 piksel içindeki şeridinde 1277 kara pikselinin yalnız yüksekliği değişti (Merak'ın kıyı rampası
+  eski kıyıyı alçak bırakmıştı, koyu çizgi kalıyordu); kıyı çizgisi aynı. Kara bileşeni (30 piksel üstü) 22 → 21.
+- Denenip bırakılanlar: atlastaki kıstağı taşımak (düz, yama gibi); Tehuantepec kıstağının gerçek arazisi (90° döndürülmüş;
+  dağlık ucu yapıştırılmış yumru gibi, ova parçaları kopuk, doku çevreden keskin). Üç ayar seçeneği: `bagla_secenekler.png`
+  (sol üst önce; sol alttaki seçildi). Önce ve sonra: `bagla_once_sonra.png`.
