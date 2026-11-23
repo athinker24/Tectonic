@@ -241,8 +241,12 @@ for k in K:
     uyari = ("  YÖN İHLALİ" if dy1 < YON_ALT - 0.5 else "") + ("  ÖLÇEK" if ol1 > OLCEK_UST + 0.05 else "")
     print(f"{k['ad']:<24} dönme {t0:+6.1f} → {t1:+6.1f}  sapma {dy:4.1f} → {dy1:4.1f}  büyütme {ol:4.2f} → {ol1:4.2f}{uyari}")
     xs2 = [q[2] for q in nk]; ys2 = [q[3] for q in nk]
-    k["kutu"] = [round(min(k["kutu"][0], min(xs2) - 4), 2), round(max(k["kutu"][1], max(xs2) + 4), 2),
-                 round(max(-84, min(k["kutu"][2], min(ys2) - 4)), 2), round(min(84, max(k["kutu"][3], max(ys2) + 4)), 2)]
+    # kaynak kutusu, hedef bölgenin kaynaktaki karşılığını kapsasın (kutu dışı deniz sayılır)
+    blo = [q[0] for q in k["bolge"]]; bla = [q[1] for q in k["bolge"]]
+    gkm = max((max(blo) - min(blo)) * np.cos(np.radians(np.mean(bla))), max(bla) - min(bla)) * 111 / ol1
+    yd = gkm / 111 * 0.6; cx, cy = np.mean(xs2), np.mean(ys2); xd = yd / max(np.cos(np.radians(cy)), 0.2)
+    k["kutu"] = [round(min(k["kutu"][0], min(xs2) - 4, cx - xd), 2), round(max(k["kutu"][1], max(xs2) + 4, cx + xd), 2),
+                 round(max(-84, min(k["kutu"][2], min(ys2) - 4, cy - yd)), 2), round(min(84, max(k["kutu"][3], max(ys2) + 4, cy + yd)), 2)]
     d = {"ad": k["ad"], "kutu": k["kutu"], "parca": k["parca"], "bolge": [px(lo, la) for lo, la in k["bolge"]], "nokta": nk}
     for a in ("ayna", "oncelik", "bant", "kes", "oturt", "yumusak_km"):
         if k.get(a) not in (None, False) or (a == "oturt" and k.get(a) is False):
