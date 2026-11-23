@@ -115,3 +115,62 @@ arazi örtüsünden biyom maskeleri; 1:1000 Dünya için 62 dakika ve 19,1 GB be
 - Python kitaplıkları: https://pypi.org/project/amulet-core , https://pypi.org/project/anvil-parser-modern/ , https://pypi.org/project/mcworldlib/0.2021.10
 - GDMC: https://pypi.org/project/gdpc , https://www.github.com/Niels-NTG/gdmc_http_interface
 - Tectonic (Minecraft): https://github.com/Apollounknowndev/tectonic , https://modrinth.com/mod/tectonic
+
+## 6. Earth Platform incelemesi (2026-11-23; pirut/earth-platform, son işleme dd31a85, 22 Kasım 2026)
+
+Sahibin gönderdiği mod ve tanıtım videosu. Kaynak kodu okunarak incelendi (`ROADMAP.md`, `docs/FLAGS.md`, `CubicSettings`,
+`EarthSettings`, `EarthGenerator`, `TerrariumTileSource`, `Drainage`, `ElevationLayer`). Çalıştırılmadı.
+
+### Yükseklik ve boyut sorununu nasıl çözüyor
+- **Kendi küp motoru:** dünya Y −16384 ile 16383 arası (32 768 blok). Vanilla'da her yığın dipten tepeye tek sütun olduğu için
+  bu yükseklikte her yığın yaklaşık 85 kat büyüyordu; dünyayı 16 blokluk küplere bölmüşler, yalnız oyuncunun yakınındaki küpler
+  yükleniyor. Madencilik, yaratıklar, kızıltaş, Nether ve End çalışıyor. Bizim en yüksek tepe 4662 m, en derin deniz 4000 m:
+  1 blok = 1 m'de sığar.
+- **Önceden üretme yok:** bir yere ilk gidildiğinde o yerin verisi indirilir, diskte saklanır (varsayılan 8 GB), sonra çevrimdışı
+  çalışır. Gezegenin tamamı için yüzlerce GB dosya sorunu yok.
+- **Uzak görüş:** kendi uzak arazi çizicisi (Voxy ve Distant Horizons'tan esinli), varsayılan 94 km, en çok 397 km. Gerçek ölçekte
+  dağları görebilmek için bu şart.
+- **Yatay ölçek ayarı var:** her dünyanın ayar dosyasına `earth.metresPerBlock` yazılıyor (Mercator'da varsayılan 1/cos(enlem)).
+  Dikey her zaman metredir. Bu değer büyütülürse (ör. 10 m/blok) dünya alanı küçülür, dikey abartı kendiliğinden gelir.
+  Arayüzde değiştirilebildiği görülmedi; ayar dosyası elle değiştirilebilir. Denenmedi.
+
+### Bizim dünyalarımız buna nasıl bağlanabilir
+- **Biçim aynı:** yükseklik, AWS Terrain Tiles'tan terrarium PNG karoları olarak okunuyor (Web Mercator, zoom 0 ile 15), bizim
+  kaynaklarımızla aynı biçim ve aynı adres. Disk önbelleği de `z/x/y.png` düzeninde.
+- **Gezegen boyu aynı:** bizim dünyalar 40 032 km çevreli; Dünya ile aynı. Kendi gezegenimiz onların ızgarasına 1:1 oturur;
+  bizim eşdikdörtgen enlem boylam modelimiz Web Mercator karolarına çevrilir (±85° ötesi kaybolur; karalarımız ±75° içinde).
+- **Çatallamadan deneme yolu (denenmedi):** önbelleği bizim karolarımızla önceden doldurmak ve oyunu
+  `-Dearthplatform.earth.offline=true` ile açmak ("yalnız önbellekteki yerler üretilir"); Copernicus, 3DEP, HRDEM, REMA, IGN, GSI
+  katmanları bayraklarla kapatılır. Önbellek LRU ile kırpılıyor; oturumda okunan dosyalar silinmiyor.
+- **Çatallayarak yol:** karo adresi koda gömülü (`TerrariumTileSource.AWS_TERRAIN_TILES`); bir sistem özelliğiyle değiştirilebilir
+  hale getirilirse bizim bir karo sunucumuz (yerel HTTP) doğrudan kullanılır. Lisans LGPL-3.0: çatal serbest, kod değişiklikleri açık
+  kalmalı.
+- **Asıl engel, Dünya'ya özgü öteki veriler:** biyomları CHELSA iklimi, ESA WorldCover arazi örtüsü, JRC yüzey suyu, RESOLVE
+  ekobölgeleri, ağaç boyu ve kayaç haritaları belirliyor. Bunlar gerçek Dünya'nın koordinatlarıyla gelir; bizim gezegene
+  uygulanırsa ormanlar, göller, çöller yanlış yere düşer. İki çıkış var:
+  1. Eski dünya kipi: ayar dosyasında `earth.cover` boşsa "arazi örtüsünden önce yapılmış dünyalar gibi" üretiyor: sıcaklık enlem ve
+     yükseklikten, nem geniş gürültüden, iç su yok. Yeni dünyada bu alanı boşaltmak ayar dosyasını elle değiştirmeyi gerektirir;
+     denenmedi.
+  2. Kendi iklim ve arazi örtüsü rasterlerimizi onların biçiminde (bulut uyumlu GeoTIFF) üretmek ve kaynak adreslerini çatalda
+     değiştirmek. Bizde iklim modeli henüz yok; zaten Minecraft için gerekecekti.
+- **Akarsular:** `Drainage` akarsuları yalnız yükseklikten çıkarıyor (zoom 10'da çukurları doldurup akış biriktiriyor, vadide ve
+  yeterli havzada akarsu). Bu bizim karolarımızda da çalışır ve bizim kopuk vadiler sorununa da örnek bir çözüm.
+
+### Ayrıntı sorunu (bizim tarafımızdaki asıl iş)
+1 blok = 1 m'de oyun 30 m ve daha ince yükseklik ister (onlar zoom 13 ile 15 okuyor; ince kabartıyı gürültüyle ekliyor). Bizim iç
+model 7,4 km. Bütün gezegen için zoom 13 karoları önceden üretmek olanaksız (yaklaşık 67 milyon karo, tahminim birkaç TB). Gereken:
+istenen karoyu o anda üreten bir karo sunucusu. Yöntemimiz buna uygun: çok bantlı karışımın kaba bantları ve ağırlıklar küresel
+modelden, ince bantlar her karşılığın kaynağından (aynı AWS karoları, yüksek zoomda) eşleme ile anında örneklenir. Eşleme (benzerlik
+ve ince levha eğrisi), sınır gürültüleri ve bükme küresel ve belirlenimci olduğundan komşu karolar arasında dikiş çıkmaz. Merak çıktısı
+aynı iç modelden kalır.
+
+### Riskler
+- Alfa sürüm; Minecraft 1.21.1, NeoForge ya da Fabric; 4 GB (gölgelendiriciyle 6 GB) bellek.
+- Küp motoru vanilla kayıt biçimi değil; yüksekliği kendisi denetleyen modlar ayrı düzeltme istiyor.
+- Önbellek yolu, ayar dosyası alanları ve bayraklar sürümden sürüme değişebilir; çatalsız yol bunlara bağımlı.
+- Karo sunucusunun hızı: bir ilk ziyaret yüzlerce karo istiyor; her karo için eşleme ve birkaç kaynağın örneklenmesi gerekir.
+
+### Kaynaklar (bu bölüm)
+- https://github.com/pirut/earth-platform (README, ROADMAP.md, docs/FLAGS.md, CHANGELOG.md, kaynak kodu)
+- https://github.com/pirut/earth-platform/releases
+- Tanıtım videosunun dökümü (sahibin iletisi).
