@@ -1,3 +1,4 @@
 teslim/
 *.zip
 dunyam/kaynak/*.png
+__pycache__/
