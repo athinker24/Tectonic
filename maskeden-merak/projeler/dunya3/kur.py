@@ -23,15 +23,15 @@ uzak = ndimage.distance_transform_edt(m)
 _, (IY, IX) = ndimage.distance_transform_edt(uzak < 20, return_indices=True)
 
 # yükseklik eğrileri (kaynak m → hedef m)
-OVA = [[0, 0], [50, 80], [150, 160], [300, 230], [600, 370], [1000, 580], [1500, 860], [2500, 1500]]
-KALKAN = [[0, 0], [200, 150], [500, 320], [1000, 650], [1600, 1100]]
+OVA = [[0, 0], [50, 80], [150, 160], [300, 230], [600, 370], [1000, 580], [1500, 860], [2500, 1300], [9000, 1700]]  # üst uç kapalı: kaynağa dağ girerse yükselmesin
+KALKAN = [[0, 0], [200, 150], [500, 320], [1000, 650], [1600, 1000], [9000, 1500]]
 ESKI_DAG = [[0, 0], [300, 200], [1000, 700], [2000, 1450], [3000, 2100]]
 GENC_DAG = [[0, 0], [300, 200], [1000, 650], [2000, 1300], [3000, 2000], [4500, 2900], [6000, 3700], [7000, 4100]]
 DIKIS = [[0, 0], [300, 200], [1000, 700], [2000, 1400], [3500, 2400], [5000, 3300], [6500, 4100], [8800, 5000]]
 HAVZA = [[0, 0], [500, 250], [800, 320], [1100, 420], [1500, 700], [2500, 1400], [4000, 2600], [5500, 3200], [7500, 3900]]
 HAVZA_DOGU = [[0, 0], [500, 250], [800, 320], [1100, 420], [1500, 700], [2500, 1300], [3500, 1650], [4500, 1850], [6000, 2200]]  # yayla kesilmez; yükseklik eğrisiyle yarıklı ve alçak kalır (kes kenarı düz çizgi bırakıyordu)
 TANRI = [[0, 0], [500, 250], [800, 320], [1100, 420], [1500, 700], [2500, 1300], [3500, 1550], [4300, 1300], [5200, 950], [6000, 1750], [7000, 2300]]  # Kunlun ve Tibet yayla yüzeyi (4300 ile 5200 m) aşağı katlanır; yalnız sırtlar yüksek kalır
-YAYLA = [[0, 0], [300, 180], [800, 380], [1200, 600], [1800, 1000], [2500, 1600], [3500, 2300], [4500, 2900]]
+YAYLA = [[0, 0], [300, 180], [800, 380], [1200, 600], [1800, 1000], [2500, 1600], [3500, 2300], [4500, 2900], [9000, 3300]]
 
 K = []
 
@@ -81,8 +81,8 @@ ek("OrtaSira", "Kuzey'in iki kalkanının çarpışması (400 MYÖ): aşınmış
    [36, 51, 39.5, 45], [(-24, 56), (4, 56), (4, 30), (-24, 30)],
    [(-12, 38, 39.5, 43.6), (-6, 50, 49, 41.3)], [[0, 0], [300, 200], [1000, 650], [2500, 1500], [4000, 2200], [5600, 2700]], sira=True)
 ek("KuzeyIcOva", "Kuzey platformu: geniş, alçak tortul ova", ["kuzey"],
-   [-66, -56, -39, -29], [(-60, 56), (-18, 56), (-18, 24), (-60, 24)],
-   [(-35, 40, -61, -34), (-22, 48, -59, -32)], OVA)
+   [-63.5, -56, -38, -30], [(-60, 56), (-18, 56), (-18, 24), (-60, 24)],
+   [(-35, 40, -61, -34), (-22, 48, -59, -32)], OVA, kutu_sabit=True, oturt={"kutu_pay": 0})
 ek("BatiKiyiYarikOmzu", "Kuzey Yarığı'nın doğu omzu (Baykal yarığının kuzeydoğu kolu benzeri)", ["kuzey"],
    [106, 121, 52, 59], [(-66, 64), (-46, 64), (-46, 38), (-66, 38)],
    [(-59.5, 47, 109.5, 54.3), (-57.5, 56, 117.5, 56.8)], ESKI_DAG, sira=True)
@@ -144,8 +144,8 @@ ek("OrtaKalkanGuneyD", "Ana kalkanın güneyi: yatay katmanlar, dolerit masalar�
    [19, 29, -34, -28], [(78, -14), (120, -14), (120, -46), (78, -46)],
    [(95, -28, 23, -31), (108, -32, 26, -31.5)], [[0, 0], [500, 220], [1000, 450], [1500, 800], [2500, 1500]])
 ek("DoguIcHavza", "Dalma ardında kırık önülke: sıralar ve tuzlu havzalar", ["dogu"],
-   [-69, -61, -34, -26], [(112, -18), (150, -18), (150, -48), (112, -48)],
-   [(128, -28, -65.5, -30), (140, -36, -64, -32)], YAYLA)
+   [-67.3, -61, -34, -26], [(112, -18), (150, -18), (150, -48), (112, -48)],
+   [(128, -28, -65.5, -30), (140, -36, -64, -32)], YAYLA, kutu_sabit=True, oturt={"kutu_pay": 0})
 ek("GuneyDoguAnd", "Büyük Okyanus'un dalması: güneydoğu kıyısında And benzeri sıra", ["dogu"],
    [-81, -68, -17, -3], [(146, -6), (166, -6), (160, -48), (142, -48)],
    [(159, -12, -79.5, -5), (159, -25, -75.5, -11), (152, -38, -70, -16)], GENC_DAG, ayna=True, sira=True)
@@ -204,9 +204,10 @@ for k in K:
     gkm = max((max(blo) - min(blo)) * np.cos(np.radians(np.mean(bla))), max(bla) - min(bla)) * 111 / ol1
     yd = gkm / 111 * 0.6; cx, cy = np.mean(xs2), np.mean(ys2); xd = yd / max(np.cos(np.radians(cy)), 0.2)
     # ama seçilen kaynak alanından en çok 3° taşar: daha geniş kutu istenmeyen yer şekillerini (başka sıradağlar) içeri alır
-    k0 = k["kutu"]
-    k["kutu"] = [round(max(k0[0] - 3, min(k0[0], min(xs2) - 1, cx - xd)), 2), round(min(k0[1] + 3, max(k0[1], max(xs2) + 1, cx + xd)), 2),
-                 round(max(-84, k0[2] - 3, min(k0[2], min(ys2) - 1, cy - yd)), 2), round(min(84, k0[3] + 3, max(k0[3], max(ys2) + 1, cy + yd)), 2)]
+    k0 = k["kutu"] if not k.get("kutu_sabit") else None
+    if k0 is not None:
+      k["kutu"] = [round(max(k0[0] - 3, min(k0[0], min(xs2) - 1, cx - xd)), 2), round(min(k0[1] + 3, max(k0[1], max(xs2) + 1, cx + xd)), 2),
+                   round(max(-84, k0[2] - 3, min(k0[2], min(ys2) - 1, cy - yd)), 2), round(min(84, k0[3] + 3, max(k0[3], max(ys2) + 1, cy + yd)), 2)]
     d = {"ad": k["ad"], "kutu": k["kutu"], "parca": k["parca"], "bolge": [px(lo, la) for lo, la in k["bolge"]], "nokta": nk}
     for a in ("ayna", "oncelik", "bant", "kes", "oturt", "yumusak_km"):
         if k.get(a) not in (None, False) or (a == "oturt" and k.get(a) is False):

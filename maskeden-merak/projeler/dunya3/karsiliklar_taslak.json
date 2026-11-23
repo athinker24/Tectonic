@@ -128,7 +128,11 @@
    ],
    [
     1600,
-    1100
+    1000
+   ],
+   [
+    9000,
+    1500
    ]
   ],
   "olay": "Kuzey kalkanı; buzul aşındırması, göller (Kanada kalkanının kuzeybatısı benzeri)"
@@ -262,7 +266,11 @@
    ],
    [
     1600,
-    1100
+    1000
+   ],
+   [
+    9000,
+    1500
    ]
   ],
   "olay": "Batı Kalkanı: aşınmış düzlükler ve kum denizi"
@@ -545,6 +553,10 @@
    [
     4500,
     2900
+   ],
+   [
+    9000,
+    3300
    ]
   ],
   "olay": "Güney kıyısında başarısız yarık kolları (Kenya yarığı benzeri), yanardağlı"
@@ -623,7 +635,11 @@
    ],
    [
     2500,
-    1500
+    1300
+   ],
+   [
+    9000,
+    1700
    ]
   ],
   "olay": "Kol Dağları önünde batan önülke; körfez kıyısı ovası"
@@ -757,7 +773,11 @@
    ],
    [
     1600,
-    1100
+    1000
+   ],
+   [
+    9000,
+    1500
    ]
   ],
   "olay": "Kuzey Kalkanı; buzul aşındırması, göl düzlükleri"
@@ -836,10 +856,10 @@
  {
   "ad": "KuzeyIcOva",
   "kutu": [
-   -69,
-   -53,
-   -42,
-   -26
+   -63.5,
+   -56,
+   -38,
+   -30
   ],
   "parca": [
    "kuzey"
@@ -876,6 +896,9 @@
     -29.9249
    ]
   ],
+  "oturt": {
+   "kutu_pay": 0
+  },
   "yukseklik_egri": [
    [
     0,
@@ -907,7 +930,11 @@
    ],
    [
     2500,
-    1500
+    1300
+   ],
+   [
+    9000,
+    1700
    ]
   ],
   "olay": "Kuzey platformu: geniş, alçak tortul ova"
@@ -1214,7 +1241,11 @@
    ],
    [
     2500,
-    1500
+    1300
+   ],
+   [
+    9000,
+    1700
    ]
   ],
   "olay": "Kuzey'in güneybatısı: alçak, düz kuru ova"
@@ -1371,6 +1402,10 @@
    [
     4500,
     2900
+   ],
+   [
+    9000,
+    3300
    ]
   ],
   "olay": "Orta Kıta: batıda kalkan, doğuda tortul örtü; kuzeyi Kuzey'e dalan önülke (Arabistan benzeri)"
@@ -1584,6 +1619,10 @@
    [
     4500,
     2900
+   ],
+   [
+    9000,
+    3300
    ]
   ],
   "olay": "Orta Kıta'dan kopma (80 MYÖ): kopma kenarında yükselmiş yaylalar (Zimbabve doğu yaylaları benzeri)"
@@ -2170,7 +2209,11 @@
    ],
    [
     2500,
-    1500
+    1300
+   ],
+   [
+    9000,
+    1700
    ]
   ],
   "olay": "Kuzeydoğu parçasının içi: yay ardı ovası ve sıralar (Mançurya benzeri)"
@@ -2312,10 +2355,10 @@
  {
   "ad": "DoguIcHavza",
   "kutu": [
-   -72,
-   -58,
-   -37,
-   -23
+   -67.3,
+   -61,
+   -34,
+   -26
   ],
   "parca": [
    "dogu"
@@ -2352,6 +2395,9 @@
     -34.2199
    ]
   ],
+  "oturt": {
+   "kutu_pay": 0
+  },
   "yukseklik_egri": [
    [
     0,
@@ -2384,6 +2430,10 @@
    [
     4500,
     2900
+   ],
+   [
+    9000,
+    3300
    ]
   ],
   "olay": "Dalma ardında kırık önülke: sıralar ve tuzlu havzalar"
@@ -2603,7 +2653,11 @@
    ],
    [
     1600,
-    1100
+    1000
+   ],
+   [
+    9000,
+    1500
    ]
   ],
   "olay": "Kutup yakınında buzul aşındırmalı kalkan (Västerbotten benzeri)"
