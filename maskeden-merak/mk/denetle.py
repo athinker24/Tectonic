@@ -82,7 +82,7 @@ def oturt(p, giris="karsiliklar_taslak.json", cikis="karsiliklar.json", s=4):
         if ayar is False:
             out.append({kk: v for kk, v in k.items() if kk != "oturt"}); continue
         tkm = ayar.get("km", 400.0); taci = ayar.get("aci", 25.0); tol = ayar.get("olcek", 0.25)
-        pay = tkm / 111.0 * 1.6 + 1.0
+        pay = min(tkm / 111.0 * 1.6 + 1.0, ayar.get("kutu_pay", 2.0))   # kutu en çok 2° genişler: başka yer şekilleri girmesin
         kutu = [k["kutu"][0] - pay, k["kutu"][1] + pay, max(k["kutu"][2] - pay, -84.0), min(k["kutu"][3] + pay, 84.0)]
         kb = dict(k, kutu=kutu, ad=k["ad"] + "#genis")
         ks = dict(kb, bolge=[[x / s, y / s] for x, y in k["bolge"]], nokta=[[a / s, b / s, c, d] for a, b, c, d in k["nokta"]])

@@ -245,8 +245,10 @@ for k in K:
     blo = [q[0] for q in k["bolge"]]; bla = [q[1] for q in k["bolge"]]
     gkm = max((max(blo) - min(blo)) * np.cos(np.radians(np.mean(bla))), max(bla) - min(bla)) * 111 / ol1
     yd = gkm / 111 * 0.6; cx, cy = np.mean(xs2), np.mean(ys2); xd = yd / max(np.cos(np.radians(cy)), 0.2)
-    k["kutu"] = [round(min(k["kutu"][0], min(xs2) - 4, cx - xd), 2), round(max(k["kutu"][1], max(xs2) + 4, cx + xd), 2),
-                 round(max(-84, min(k["kutu"][2], min(ys2) - 4, cy - yd)), 2), round(min(84, max(k["kutu"][3], max(ys2) + 4, cy + yd)), 2)]
+    # ama seçilen kaynak alanından en çok 3° taşar: daha geniş kutu istenmeyen yer şekillerini (başka sıradağlar) içeri alır
+    k0 = k["kutu"]
+    k["kutu"] = [round(max(k0[0] - 3, min(k0[0], min(xs2) - 1, cx - xd)), 2), round(min(k0[1] + 3, max(k0[1], max(xs2) + 1, cx + xd)), 2),
+                 round(max(-84, k0[2] - 3, min(k0[2], min(ys2) - 1, cy - yd)), 2), round(min(84, k0[3] + 3, max(k0[3], max(ys2) + 1, cy + yd)), 2)]
     d = {"ad": k["ad"], "kutu": k["kutu"], "parca": k["parca"], "bolge": [px(lo, la) for lo, la in k["bolge"]], "nokta": nk}
     for a in ("ayna", "oncelik", "bant", "kes", "oturt", "yumusak_km"):
         if k.get(a) not in (None, False) or (a == "oturt" and k.get(a) is False):
