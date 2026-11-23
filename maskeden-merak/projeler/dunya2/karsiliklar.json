@@ -491,9 +491,9 @@
    ]
   ],
   "bant": [
-   1,
-   1,
-   0.3,
+   0.6,
+   0.6,
+   0.2,
    0
   ],
   "yukseklik_egri": [
@@ -518,7 +518,9 @@
     2100
    ]
   ],
-  "olay": "Kordilyera ardında gerilme (Havza ve Sıra benzeri); yalnız doku katmanı"
+  "olay": "Kordilyera ardında gerilme (Havza ve Sıra benzeri); yalnız doku katmanı",
+  "oncelik": 0.7,
+  "yumusak_km": 220
  },
  {
   "ad": "BatiKuzeyKalkan",
@@ -2458,54 +2460,22 @@
    ],
    [
     2500,
-    1400
+    1300
    ],
    [
-    4000,
-    2600
+    3500,
+    1650
    ],
    [
-    5500,
-    3200
+    4500,
+    1850
    ],
    [
-    7500,
-    3900
+    6000,
+    2200
    ]
   ],
-  "olay": "Doğu sözdizimi çevresinde kabuk akışı; çanak havza",
-  "kes": [
-   [
-    [
-     95,
-     25
-    ],
-    [
-     99.5,
-     26
-    ],
-    [
-     101.5,
-     28.5
-    ],
-    [
-     102.6,
-     30.5
-    ],
-    [
-     103.4,
-     32.2
-    ],
-    [
-     104.5,
-     34.5
-    ],
-    [
-     95,
-     34.5
-    ]
-   ]
-  ]
+  "olay": "Doğu sözdizimi çevresinde kabuk akışı; çanak havza"
  },
  {
   "ad": "DikisDaglari",

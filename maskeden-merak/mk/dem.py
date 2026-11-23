@@ -65,12 +65,26 @@ class Kaynak:
             lon = (jj + self.tx0 * 256) / n * 360 - 180
             lat = np.degrees(np.arctan(np.sinh(np.pi * (1 - 2 * (ii + self.ty0 * 256) / n))))
             k &= (lon >= kutu[0]) & (lon <= kutu[1]) & (lat >= kutu[2]) & (lat <= kutu[3])
+        kesik = np.zeros(k.shape, bool)
         for cokgen in (kes or []):  # kaynakta istenmeyen bölge: deniz sayılır, yansıyan komşu karayla dolar
             from PIL import Image as _I, ImageDraw as _D
             px, py = merc(np.array([p[0] for p in cokgen]), np.array([p[1] for p in cokgen]), self.z)
             im = _I.new("L", (k.shape[1], k.shape[0]), 0)
             _D.Draw(im).polygon(list(zip(px - self.tx0 * 256, py - self.ty0 * 256)), fill=1)
-            k &= ~(np.asarray(im) > 0)
+            kesik |= np.asarray(im) > 0
+        if kesik.any():
+            # kes sınırı düz çizgi olmasın: kenar gürültüyle kıvrılır (yaklaşık ±40 piksel), geçiş yumuşak
+            rng = np.random.default_rng(int(abs(self.tx0 * 7919 + self.ty0 * 104729)) % (2 ** 31))
+            g = ndimage.gaussian_filter(rng.standard_normal(k.shape), 30) ; g /= g.std() + 1e-9
+            g2 = ndimage.gaussian_filter(rng.standard_normal(k.shape), 8); g2 /= g2.std() + 1e-9
+            yumus = ndimage.gaussian_filter(kesik.astype(float), 25)
+            kesik = (yumus + 0.12 * g + 0.04 * g2) > 0.5
+            L, n = ndimage.label(kesik)                      # gürültüden doğan küçük adacıklar kalmasın
+            if n > 1:
+                sz = ndimage.sum(kesik, L, range(1, n + 1))
+                kesik = np.isin(L, np.nonzero(sz >= 0.05 * sz.max())[0] + 1)
+            kesik = ndimage.binary_fill_holes(kesik)
+            k &= ~kesik
         w = ndimage.gaussian_filter(k.astype(float), s_px)
         v = ndimage.gaussian_filter(np.where(k, self.h, 0.0), s_px)
         ort = v / np.maximum(w, 1e-6)

@@ -22,3 +22,12 @@ Sahibin 2026-11-22 notlarına göre `dunya` yeniden denendi (aynı maske). Hepsi
   Kirthar, Kayalık Dağlar, Serra do Mar, Aden kıyısı, Arakan ve Naga). Eski Dikiş kuzeydoğuya bükük çizildi.
 - Tanrı Dağları ve Sichuan kaynaklarından Kunlun kenarı ve Doğu Tibet kesildi (geniş gri yayla kütleleri oluşturuyordu).
 - Süre: tam çalıştırma 20 dk → 5 dk (karşılık hesabı etki kutusuna kırpıldı); oturt 6 dk → 4,4 dk.
+
+## 2026-11-23: ani kesikler (sahibin işareti: Kuzey'in güney kuşağı, 31°D ile 105°D)
+- Sebep: ince doku bandında ağırlık üssü 6 (kaynak sınırda neredeyse tek başına baskın), kes çokgenlerinin düz kenarları ve
+  kesilen alanları dolduracak komşu karşılık olmaması.
+- Değişiklikler: bant üsleri 6, 3, 1,5, 1 → 3, 2, 1,3, 1; sınır gürültüsü yarıya; kaynakta deniz ve kes alanının geri çekilmesi
+  20 → 70 km yumuşak; kes kenarları gürültüyle kıvrılır; sağlam kaynağı zayıf kalan kara (karanın %6'sı) da çevredeki gerçek
+  dokularla doldurulur; bölge kenarları 80 → 180 km yumuşatılır.
+- Sichuan kaynağında Doğu Tibet kesilmedi; yükseklik eğrisiyle 1650 ile 2200 m'ye indirildi (kesik kenar bırakıyordu).
+- Havza ve Sıra doku katmanı zayıflatıldı (keskin kenarlı yama gibi görünüyordu).

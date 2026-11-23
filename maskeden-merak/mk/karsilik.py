@@ -156,6 +156,8 @@ class Bant:
 
     def __init__(self, ayar, shape, kp):
         self.km = ayar.get("km", [12.0, 45.0, 180.0]); self.us = ayar.get("us", [6.0, 3.0, 1.5, 1.0])
+        self.gurultu_gen = ayar.get("gurultu", [0.8, 0.4])   # sınır gürültüsünün genliği (220 km ve 60 km dalgalar)
+        self.deniz_km = ayar.get("deniz_km", 20.0)           # kaynakta deniz ve kes alanının geri çekilme yumuşaklığı
         self.kp = kp; n = len(self.km) + 1
         self.acc = [np.zeros(shape, np.float32) for _ in range(n)]
         self.wacc = [np.zeros(shape, np.float32) for _ in range(n)]
@@ -164,12 +166,15 @@ class Bant:
     def ekle(self, k, w, z, deniz=None, sl=(slice(None), slice(None))):
         m = (w > 1e-3).astype(np.float32)
         if not m.any():
-            return
+            return np.zeros_like(w)
         if deniz is not None:          # kaynakta deniz, kes ya da kutu dışı: dolgu düz ve yapaydır; komşu karşılıklar üstlensin
-            w = w * (1.0 - 0.97 * np.clip(ndimage.gaussian_filter(deniz.astype(np.float32), 20 / self.kp), 0, 1))
+            dz = ndimage.gaussian_filter(deniz.astype(np.float32), self.deniz_km / self.kp)
+            w = w * (1.0 - 0.97 * np.clip(dz, 0, 1) ** 0.7)
+        iyi = w.copy()
         # sınırlar düz çizgi olmasın: her karşılığın ağırlığı kendi gürültüsüyle dalgalanır (dil dil, iç içe geçen sınır)
         h = sum(ord(c) * (i + 1) for i, c in enumerate(k["ad"])) % 100000
-        g = gurultu(w.shape, 220, self.kp, h) * 0.8 + gurultu(w.shape, 60, self.kp, h + 1) * 0.4
+        a1, a2 = self.gurultu_gen
+        g = gurultu(w.shape, 220, self.kp, h) * a1 + gurultu(w.shape, 60, self.kp, h + 1) * a2
         w = w * np.exp(g).astype(np.float32)
         g = [z]
         for s in self.km:
@@ -181,6 +186,7 @@ class Bant:
                 continue
             wi = (np.clip(w, 0, None) ** self.us[i]) * carp[i] * m
             self.acc[i][sl] += wi * b; self.wacc[i][sl] += wi; self.wsq[i][sl] += wi * wi
+        return iyi
 
     def sonuc(self):
         z = self.acc[-1] / np.maximum(self.wacc[-1], 1e-12)
@@ -209,6 +215,7 @@ def bilesik(p, kaynaklar=None):
     toplam = np.zeros((ny, nx), np.float32); wtop = np.zeros((ny, nx), np.float32); genis = []
     bant = Bant(p.ayar["bant"], (ny, nx), kp) if p.ayar.get("bant") else None
     kutular = ndimage.find_objects(lab)
+    wiyi = np.zeros((ny, nx), np.float32)        # kaynakta karaya düşen (sağlam) ağırlık
     pay = int(np.ceil(700 / kp))       # yumuşatma, kıvırma ve en kaba bant süzgeci için kenar payı
     for k in liste:
         # hesap yalnız karşılığın etki kutusunda: bölge çokgeni ∩ izinli parçaların kutusu + pay (dışında ağırlık zaten sıfır)
@@ -220,26 +227,30 @@ def bilesik(p, kaynaklar=None):
         if y1 <= y0 or x1 <= x0:
             log(f"karşılık {k['ad']}: bölge izinli parçalarla kesişmiyor"); continue
         sl = (slice(y0, y1), slice(x0, x1))
+        if bant and "yumusak_km" not in k and "yumusak_km" in p.ayar["bant"]:
+            k = dict(k, yumusak_km=p.ayar["bant"]["yumusak_km"])     # bölge kenarı daha geniş yumuşatılır
         w = agirlik(k, lab[sl], adlar, kp, (y0, x0))
         w = ndimage.map_coordinates(w, [II[sl] - y0 + kd[1][sl], JJ[sl] - x0 + kd[0][sl]], order=1, mode="nearest").astype(np.float32) \
             * kara[sl] * k.get("oncelik", 1.0)
         bk = (bukme[0][sl], bukme[1][sl])
         z, dz = ornekle(k, kp, w, kaynaklar, bk, (y0, x0))
         if bant:
-            bant.ekle(k, w, z, dz, sl)
+            iyi = bant.ekle(k, w, z, dz, sl)
         else:
-            toplam[sl] += w * z
-        wtop[sl] += w; genis.append((k, w, sl))
+            toplam[sl] += w * z; iyi = w
+        wtop[sl] += w; wiyi[sl] += iyi; genis.append((k, iyi, sl))
         log(f"karşılık {k['ad']}: en yüksek {z[w > 1e-3].max() if (w > 1e-3).any() else 0:.0f} m")
     bos = kara & (wtop < 0.05)
+    if bant:   # sağlam kaynağı zayıf kalan kara da (kaynakta deniz, kes, kutu dışı) çevredeki gerçek dokularla doldurulur
+        bos |= kara & (wiyi < 0.25)
     if bos.any():
-        log(f"karşılıksız kara {bos.sum()} piksel: en yakın karşılıklarla dolduruluyor")
+        log(f"karşılıksız ya da zayıf kara {bos.sum()} piksel: en yakın karşılıklarla dolduruluyor")
         for k, w, sl in genis:
             if k.get("bant") and k["bant"][-1] <= 0:      # yalnız doku veren karşılık boşluk doldurmaz
                 continue
             if not bos[sl].any():
                 continue
-            wb = ndimage.gaussian_filter(w, 160 / kp) * bos[sl]
+            wb = ndimage.gaussian_filter(w, (250 if bant else 160) / kp) * bos[sl]
             if wb.max() < 1e-3:
                 continue
             bk = (bukme[0][sl], bukme[1][sl])

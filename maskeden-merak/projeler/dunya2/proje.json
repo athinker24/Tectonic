@@ -6,7 +6,28 @@
  "ust_enlem": 90.0,
  "merkez_boylam": 0.0,
  "kure": true,
- "bant": {"km": [12, 45, 180], "us": [6, 3, 1.5, 1]},
- "merak_boyut": [16000, 7719],
+ "bant": {
+  "km": [
+   12,
+   45,
+   180
+  ],
+  "us": [
+   3,
+   2,
+   1.3,
+   1
+  ],
+  "gurultu": [
+   0.5,
+   0.25
+  ],
+  "deniz_km": 70,
+  "yumusak_km": 180
+ },
+ "merak_boyut": [
+  16000,
+  7719
+ ],
  "tohum": 41
 }

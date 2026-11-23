@@ -35,7 +35,7 @@
 | AnadoluBloklari | kuzey | Orta Deniz kapanırken eklenen kıta blokları | kutu [26, 45, np.float64(33.04), np.float64(44.76)] | 2900 |
 | IranYaylasi | kuzey | Eklenen bloklar; havzalar alçaltıldı | kutu [48, 64, np.float64(26.2), np.float64(39.3)] | 2900 |
 | TanriDaglariHavza | kuzey | Çarpışmanın uzak etkisi: kıta içi sıralar ve havzalar | kutu [70, 96, 35, np.float64(49.38)] | 3900 |
-| SichuanYunnan | kuzey | Doğu sözdizimi çevresinde kabuk akışı; çanak havza | kutu [96, 112, 21, 34.3] | 3900 |
+| SichuanYunnan | kuzey | Doğu sözdizimi çevresinde kabuk akışı; çanak havza | kutu [96, 112, 21, 34.3] | 2200 |
 | DikisDaglari | kuzey, dogu | Doğu Kolu'nun Kuzey'e çarpması (50 MYÖ'den beri), Himalaya benzeri ama daha alçak | kutu [72, 97, 23.9, 34.3] | 5000 |
 | ArakanSiralari | kuzey, dogu | Sözdiziminin güney ucu: Kalıntı Denizi'ne inen kıvrık sırtlar (Arakan ve Naga benzeri) | kutu [90, 100.5, 14, 31.3], aynalı | 4100 |
 | OnulkeOvasi | dogu | Çarpışma önünde Doğu Kolu üstünde önülke havzası | kutu [np.float64(-110.38), -92, np.float64(29.81), np.float64(48.19)] | 1500 |
