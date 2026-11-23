@@ -31,3 +31,6 @@ Sahibin 2026-11-22 notlarına göre `dunya` yeniden denendi (aynı maske). Hepsi
   dokularla doldurulur; bölge kenarları 80 → 180 km yumuşatılır.
 - Sichuan kaynağında Doğu Tibet kesilmedi; yükseklik eğrisiyle 1650 ile 2200 m'ye indirildi (kesik kenar bırakıyordu).
 - Havza ve Sıra doku katmanı zayıflatıldı (keskin kenarlı yama gibi görünüyordu).
+- (İkinci işaret, 60°D ile 105°D, 23°K ile 60°K) Tanrı Dağları kaynağında Kunlun kesilmedi: kesme çokgeninin kenarları kaynak 47°
+  döndürüldüğü için havzada çapraz düz çizgiler bırakıyordu. Yerine yükseklik eğrisi (TANRI): yayla yüzeyi (4300 ile 5200 m)
+  950 ile 1300 m'ye katlanır, sırtlar 1750 ile 2300 m kalır; düz yayla şeridi oluşmaz.
