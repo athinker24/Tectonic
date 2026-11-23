@@ -15,3 +15,13 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   Kıyı farkı: atlas ızgarasında 21 379 piksel (atlas karasının %4,7'si); çoğu kıyı boyunca ince şerit (çözünürlük), birkaç gerçek
   fark var (doğu kıyısında yaklaşık 1700 piksellik parça). Görüntü: `atlas_merak_kiyi.png` (gri ortak, kırmızı yalnız atlasta kara,
   mavi yalnız Merak'ta kara).
+
+## Ana kalıp (2026-11-23, sahibin kararı)
+- Sahip: "Asıl kalıp bu son verdiğim zipteki; sadece bir bağlantı eklenmesi gerekiyor batı kısmında." Atlastaki öteki kıyı farkları
+  Merak'ta yanlışlıkla değişmiş şeyler; batı okyanusunun kapatılması bilerek.
+- `kaynak/ana_16k.png` = `son_temiz_16k.png` + batıdaki bağlantı (atlas arazisindeki kıstak, 16k'ya kayıtla taşındı).
+  Yalnız iki kara kütlesini birleştiren parça alındı; 15 km'den ince kıyı şeritleri (atlasın 9,8 km'lik pikselinden kalan
+  çözünürlük farkı) alınmadı. Kara bileşeni 2 → 1. Eklenen 5897 piksel (yaklaşık 36 500 km²), yükseklik %10/%50/%90 = 17/41/67 m,
+  en yüksek 125 m (çevre karadan harmonik dolgu, kıyıya doğru alçalır, hafif gürültü). Başka hiçbir piksel değişmedi.
+- Seçimim: kıstak alçak bir kıyı ovası. Kıyı çizgisi atlasın şeklinden geldiği için çevredeki girintili kıyılardan düzgün;
+  sahip Merak'ta işlerse kalıp güncellenir. Önce ve sonra: `bagla_once_sonra.png`.
