@@ -174,3 +174,44 @@ aynı iç modelden kalır.
 - https://github.com/pirut/earth-platform (README, ROADMAP.md, docs/FLAGS.md, CHANGELOG.md, kaynak kodu)
 - https://github.com/pirut/earth-platform/releases
 - Tanıtım videosunun dökümü (sahibin iletisi).
+
+## 7. Sahibin dünyası (Dünyam) ve iklim atlası: Earth Platform'a bağlanma (2026-11-23)
+
+Kaynak: `athinker24/dunyam-atlas-mobil` (son işleme 80a09c3, 2 Ekim 2026), salt okunur incelendi: `CLAUDE.md`, `README.md`,
+`SU.md`, `BITKI.md`, `dunya/dunyam.json`, `data/` dosyalarının boyutları. Hiçbir betiği çalıştırılmadı.
+
+### Atlasın verdiği
+| katman | atlastaki karşılığı | çözünürlük |
+|---|---|---|
+| gezegen | yarıçap 6371 km (Dünya ile aynı), gün 15 saat, eğiklik 28°, kara 60°K ile 7°G arası | |
+| yükseklik | `dunya/dunyam_heightmap.png` 16 bit, eşdikdörtgen 4096 × 2048 (0,088°, ekvatorda yaklaşık 9,8 km); sahibin çapalarıyla yükseklik eğrisi, en yüksek 7000 m, kara ortancası yaklaşık 950 m; editör görseli `kabartma_kaynak.jpg` (2400 × 1874) yalnız gölge için | yaklaşık 9,8 km |
+| iklim | motor (katmanlı, belirlenimci, GCM değil): 12 aylık sıcaklık ve yağış, rüzgâr, deniz yüzeyi sıcaklığı, Köppen sınıfı | 0,25° (koşu 1365 × 682 hücre) |
+| bitki örtüsü | BIOME1 kurallarıyla doğal biyom (en soğuk ve en sıcak ay, GDD5, GDD0, alfa); ağaç sınırı yükseklikten | kaynak 0,088°, görüntü 0,044° |
+| su | `su.json`: nehirler vektör çizgi (0,01° koordinat, debi, kademe 1 ile 4), göl kıyıları çokgen, tuz gölleri, deltalar; su bütçesinden türetilmiş, elle konmamış | vektör |
+| ek | toprak (WRB), tektonik levhalar ve volkan kuşakları, buzul geçmişi, yaşanabilirlik, tarım, hayvanlar | 0,044° ile 0,25° |
+
+### Earth Platform'un istediğiyle eşleşme
+- **Gezegen boyu aynı** (6371 km): Dünyam, Earth Platform'un ızgarasına 1 blok = 1 m'de birebir oturur. Kara 60°K ile 7°G arası,
+  Web Mercator sınırının (±85°) ve başlangıç sınırının (±80°) içinde. 7000 m tepe 16 383 sınırına sığar.
+- **İklim → CHELSA yerine:** 12 aylık sıcaklık ve yağıştan Köppen, ortalama ve sıcak mevsim sıcaklığı, yağış çıkar; Earth Platform
+  sıcaklığı her sütunun kendi yüksekliğine taşıdığı için 0,25° yeter.
+- **Bitki örtüsü → WorldCover yerine:** BIOME1 biyomları orman, çalılık, otlak, çıplak kaya ve kum, kar ve buz, sulak alan sınıflarına
+  eşlenir. 0,088° (yaklaşık 10 km) Earth Platform'un 10 m'lik verisine göre çok kaba: oyunda büyük düz lekeler olur. Sınıf sınırları
+  ince araziyle (eğim, bakı, vadi tabanı, yükseklik) yeniden dağıtılmalı.
+- **Su → JRC ve göl verisi yerine:** atlasın nehirleri vektör olduğundan her çözünürlükte çizilebilir; en uygun girdi bu. Göl
+  çokgenleri de öyle. Earth Platform küçük dereleri zaten yükseklikten kendisi çıkarıyor.
+- **Toprak, volkan kuşakları:** Earth Platform'un kayaç (bazalt, granit) ve turba haritalarının yerine geçebilir; isteğe bağlı.
+
+### Asıl iş ve riskler
+1. **Tek ana arazi:** atlasın yükseklik haritası (4096 × 2048, kanal ve kıyı girintileri dahil) ile Merak'ta işlenen 16k dosya
+   (sahibin gönderdiği görüntü) aynı arazi mi bilinmiyor. İklim, nehir ve göller atlasın arazisinden hesaplandı; Minecraft'a giden
+   yükseklik başka bir kıyıyla verilirse nehirler karada biter, göller taşar. Kıyı farkı 0 piksel olmalı (bu deponun Merak kuralı).
+2. **Ayrıntı:** atlas arazisi yaklaşık 10 km, Merak dosyası 2,5 km; oyun 30 m ve daha ince ister. Bu depodaki karşılık ve doku
+   yöntemleriyle (ilk dünyanın karşılık tanımları eski depoda; elle işlenen yerlerde sahibin üslubundan doku sentezi) 25 ile 30 m'lik
+   bir yükseklik üretilir. Koşul: ince arazi, atlasın nehir çizgilerinin altında vadi taşımalı (nehirler araziye kazınmalı) ve göl
+   kıyıları göl düzeyinin üstünde kalmalı; yoksa Earth Platform kendi derelerini başka vadilerden çizer.
+3. **Çatal gerekiyor:** Earth Platform'un iklim, örtü ve su kaynakları belirli sunuculardaki belirli dosya düzenlerine bağlı. Kendi
+   gezegen verisini okuyan bir "özel gezegen" kaynağı (yükseklik karoları, iklim, örtü, su) eklenmeli. Lisans LGPL-3.0.
+4. **Atlas salt okunur kalır:** bu depo atlasın çıktılarını okur (yükseklik, iklim alanları, `su.json`, biyom ve toprak), atlası
+   değiştirmez. 12 aylık iklim alanlarının dosya olarak nerede durduğu (`buzul/_iklim_bugun025.npz` kaynaklı mı, `atlas.json` içinde
+   mi) ayrıca doğrulanmalı.
