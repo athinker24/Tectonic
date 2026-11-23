@@ -30,3 +30,13 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
 - Denenip bırakılanlar: atlastaki kıstağı taşımak (düz, yama gibi); Tehuantepec kıstağının gerçek arazisi (90° döndürülmüş;
   dağlık ucu yapıştırılmış yumru gibi, ova parçaları kopuk, doku çevreden keskin). Üç ayar seçeneği: `bagla_secenekler.png`
   (sol üst önce; sol alttaki seçildi). Önce ve sonra: `bagla_once_sonra.png`.
+
+## Dikiş düzeltmesi (2026-11-23, sahibin işareti: "kıtaların asıl şekilleri kenarlarda hâlâ belli")
+- Sebep: Merak'ın dışa aktarımı kıyıyı birkaç piksel alçak ve benekli bırakıyor; birleşince eski kıyı çizgisi yeni karanın içinde
+  ince koyu çizgi olarak kalıyordu. Ayrıca eski kıyı ile yeni kara arasında bir iki piksellik deniz aralıkları ve ince bir oluk vardı.
+- Düzeltme (`bagla2.py`): köprüye bitişik bir iki piksellik deniz aralıkları kapatılır; eski kıyının yeni karaya değen kesiminin
+  25 piksel çevresinde kaba yükseklik birleşik araziden yeniden kurulur (Gauss 8 piksel, yalnız karada); eski kıyının 5 piksellik
+  benekli şeridinin ve birleşme çizgisinin 8 piksel içinin ince dokusu atılır; yeni karanın tabanı eski kıyıya yakın yerde eski
+  karayla aynı düzeyde başlar.
+- Ölçüm: denizden karaya 3330 piksel, karadan denize 0; yalnız yüksekliği değişen eski kara 6199 piksel (kıyı çizgisi aynı).
+  Güney birleşme yerinde çok hafif bir ton kaldı.

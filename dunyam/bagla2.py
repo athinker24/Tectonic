@@ -18,7 +18,7 @@ AYAR = {
     "eksen": [[7008, 2885], [7024, 2915], [7034, 2962]],     # kuzey kıyıdaki sıradan güney kütleye
     "bolge": [[6930, 2840], [7110, 2840], [7110, 3010], [6930, 3010]],
     "d0_px": 16, "rampa_m_px": 22, "sirt_m": 800, "sirt_gen_px": 9, "kivrim_px": 6,
-    "doku_kaydir": [-95, -35], "doku_kat": 1.4, "tohum": 11, "dikis_px": 7,
+    "doku_kaydir": [-95, -35], "doku_kat": 1.4, "tohum": 11, "dikis_px": 25,
 }
 
 
@@ -51,7 +51,8 @@ def main(ayar=AYAR, yaz=True, onek="_b2"):
     zl = np.where(k, np.maximum(z, 0), 0.0); f = np.where(k, zl, np.median(zl[k]))
     for _ in range(700):
         f = np.where(k, zl, ndimage.uniform_filter(f, 3))
-    taban = ndimage.gaussian_filter(f, 3) * 0.6
+    d_eski = ndimage.distance_transform_edt(~k)
+    taban = ndimage.gaussian_filter(f, 3) * (0.6 + 0.4 * np.exp(-d_eski / 8))   # eski kıyıya yakın taban eski karayla aynı düzeyde
     # eksen uzaklığı, kıvrılmış
     ek = [[x - x0, y - y0] for x, y in ayar["eksen"]]
     d = cizgi_uzakligi(k.shape, ek)
@@ -71,23 +72,37 @@ def main(ayar=AYAR, yaz=True, onek="_b2"):
     yeni_kara = R & (F > 0)
     L, n = ndimage.label(k | yeni_kara); ana = L == L[2900 - y0, 7010 - x0]
     yeni_kara &= ana
+    # eski kıyı ile yeni kara arasında kalan bir iki piksellik deniz aralıkları (dikişte noktalı çizgi) kapatılır
+    yeni_kara |= ndimage.binary_closing(k | yeni_kara, iterations=3) & R & ~k & ndimage.binary_dilation(yeni_kara, iterations=3)
     deniz = ~(k | yeni_kara); Ld, nd = ndimage.label(deniz); sz = ndimage.sum(deniz, Ld, range(1, nd + 1))
     yeni_kara |= np.isin(Ld, np.nonzero(sz < 40)[0] + 1) & R
     sinir = (np.asarray(im) > 0) & ~ndimage.binary_erosion(np.asarray(im) > 0)
     kesik = int((yeni_kara & ndimage.binary_dilation(sinir, iterations=1)).sum())
     Lk = ndimage.label(k)[0]
     zz = np.maximum(F, 3.0)
-    # dikiş: eski kıyının alçak şeridi yeni karanın içinde kaldıysa (Merak'ın kıyı rampası) çevresiyle harmanlanır.
-    # Kıyı çizgisi değişmez; yalnız yeni karaya dikis_px içindeki eski kara pikselleri yükselebilir.
-    dn = ndimage.distance_transform_edt(~yeni_kara)
-    w = np.clip(1 - dn / ayar["dikis_px"], 0, 1) * k
-    w = w * w * (3 - 2 * w)
-    zyeni = np.where(yeni_kara, zz, np.nan)
-    pay = ndimage.gaussian_filter(np.nan_to_num(zyeni), 3) / np.maximum(ndimage.gaussian_filter(yeni_kara.astype(float), 3), 1e-3)
-    hedef = np.maximum(z, 0.5 * z + 0.5 * pay)
-    zeski = np.where(w > 0, (1 - w) * z + w * hedef, z)
-    G = g.copy(); b2 = blok.copy(); b2[yeni_kara] = kodla(zz[yeni_kara])
-    degis = (w > 0.01) & k; b2[degis] = kodla(np.maximum(zeski[degis], 1)); G[y0:y1, x0:x1] = b2
+    # dikiş: birleşen yerde eski kıyı çizgisi (Merak'ın alçak, benekli kıyı şeridi) ve iki arazi arasındaki ton farkı kalmasın.
+    # Eski kıyının yeni karaya değen kesiminin çevresinde (dikis_px) kaba yükseklik birleşik araziden yeniden kurulur,
+    # ince doku korunur; eski kıyının 3 piksellik şeridinin dokusu atılır. Kıyı çizgisi değişmez (deniz pikseline dokunulmaz).
+    C = np.where(yeni_kara, zz, np.where(k, z, np.nan))
+    kara2 = k | yeni_kara
+    eski_kiyi = k & ndimage.binary_dilation(~k, iterations=1)
+    birlesen = eski_kiyi & ndimage.binary_dilation(yeni_kara, iterations=4)
+    dz = ndimage.distance_transform_edt(~birlesen)
+    w = np.clip(1 - dz / ayar["dikis_px"], 0, 1); w = w * w * (3 - 2 * w); w = w * kara2
+    kf = kara2.astype(float); C0 = np.nan_to_num(C)
+    def kara_gauss(a, s):
+        return ndimage.gaussian_filter(a * kf, s) / np.maximum(ndimage.gaussian_filter(kf, s), 1e-3)
+    serit = k & (ndimage.distance_transform_edt(k) <= 5) & (dz <= ayar["dikis_px"])   # eski kıyının benekli şeridi
+    kaba = kara_gauss(C0, 8)
+    ince = C0 - kara_gauss(C0, 2.5)
+    ince = np.where(serit, 0, ince)
+    ince = ince * np.clip(dz / 8, 0, 1)        # birleşme çizgisinin iki yanında ince oluk ve sırt (dikiş) kalmasın
+    # şerit dışındaki eski kara dokusunu koru; şeritte komşu dokunun bir kopyası yok, yalnız kaba yüzey
+    yeniden = np.maximum(kaba + ince, 3)
+    Z = np.where(kara2, (1 - w) * C0 + w * yeniden, C0)
+    G = g.copy(); b2 = blok.copy()
+    degis = kara2 & ((w > 0.01) | yeni_kara)
+    b2[degis] = kodla(np.maximum(Z[degis], 1)); G[y0:y1, x0:x1] = b2
     ka_once = ndimage.label(k)[1]; ka_sonra = ndimage.label(G[y0:y1, x0:x1] > S)[1]
     print(f"kesik {kesik}, kara bileşeni {ka_once} -> {ka_sonra}, eklenen {int(yeni_kara.sum())}, "
           f"yükseklik %10/50/90 {np.percentile(zz[yeni_kara], [10, 50, 90]).round()}, en yüksek {zz[yeni_kara].max():.0f}, "
