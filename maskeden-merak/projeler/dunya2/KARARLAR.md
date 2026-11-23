@@ -15,3 +15,10 @@ Sahibin 2026-11-22 notlarına göre `dunya` yeniden denendi (aynı maske). Hepsi
   düşen yerde o kaynak çekilir, komşusu üstlenir. Özgün doku bu sırada bozulur (sahibin izniyle).
 - Dikiş Dağları'nda Tibet kesildi (`kes`), yayla düğümü yok; Kuzey yakasında Tanrı Dağları ve Sichuan benzeri havzalar.
 - Hata düzeltmesi: yükseklik eğrisi son noktasından sonra değerleri kesiyordu (düz tavan); artık son eğimle sürer.
+
+## 2026-11-23: yön kuralı ve hız
+- Her karşılık doğal yönünden en az 35° döndürüldü, en çok 2 kat büyütüldü (üç kıyı sırası 2,12 ile 2,26). Kıyıya bağlı
+  sıralarda doğal uzanımı farklı kaynaklar seçildi (Meksika yanardağ kuşağı, Batı Gatlar, Elburs ve Kopet Dağ, Süleyman ve
+  Kirthar, Kayalık Dağlar, Serra do Mar, Aden kıyısı, Arakan ve Naga). Eski Dikiş kuzeydoğuya bükük çizildi.
+- Tanrı Dağları ve Sichuan kaynaklarından Kunlun kenarı ve Doğu Tibet kesildi (geniş gri yayla kütleleri oluşturuyordu).
+- Süre: tam çalıştırma 20 dk → 5 dk (karşılık hesabı etki kutusuna kırpıldı); oturt 6 dk → 4,4 dk.
