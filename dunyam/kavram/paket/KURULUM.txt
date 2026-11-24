@@ -21,7 +21,8 @@ Gerekli: Minecraft 1.21.1, Earth Platform (NeoForge ya da Fabric). Denendigi kod
    cacheLimitGb = 0: onbellek kirpilirken bizim karolar silinmesin.
 
 2. KAROLAR
-   Zip'teki "earthplatform" klasorunu oyun klasorune kopyala, var olanla birlestir. Sonuc:
+   Bes zip var (dunyam_ep_1 ... dunyam_ep_5; gonderim siniri yuzunden bolundu, bes parca da gerekli). Hepsini ayni
+   klasore ac; cikan "earthplatform" klasorunu oyun klasorune kopyala, var olanla birlestir. Sonuc:
        Oyun klasoru/earthplatform/cache/terrarium-v1/9 ... 15/
    Ayni adli dosya sorulursa "uzerine yaz" de (bunlar gercek Dunya'da Portekiz'in karolari).
 
@@ -32,7 +33,7 @@ Gerekli: Minecraft 1.21.1, Earth Platform (NeoForge ya da Fabric). Denendigi kod
 
 4. AYAR DOSYASINI DEGISTIR
    Oyun klasoru/saves/<dunyanin adi>/dimensions/earthplatform/cubic/ klasorune git.
-   Icindeki generator.properties dosyasini zip'teki generator.properties ile degistir.
+   Icindeki generator.properties dosyasini dunyam_ep_1 zip'indeki generator.properties ile degistir.
    Ayni klasorde "cubes" ya da baska bir klasor olustuysa sil (o ilk basarisiz denemeden).
    Bu dosya dunyayi "yalniz yukseklik" kipine alir: arazi ortusu, iklim verisi, uydu goruntusu, nehir verisi
    istenmez; biyom enlem ve yukseklikten secilir, ic sular yok (yalniz deniz).
@@ -47,6 +48,10 @@ Bakilacaklar (bana ekran goruntusu ile don):
 - Uzak gorus: bolgenin kenarinda (merkezden 75 km) ayrinti biter, otesi kaba; 300 km otesi bos.
 - Hata olursa: Oyun klasoru/logs/latest.log dosyasini gonder.
 
-Bilinmeyenler (kodu okuyarak hazirlandi, oyunda denenmedi):
+Sinanan (2026-11-24, ayni kodu derleyip bulut makinesinde):
+- Modun kendi okuyucusu karolari degistirmeden okuyor (200 karo; 198'inde 0 piksel, 2'sinde kiyida 0,5 m).
+- Oyunun yakin arazide okudugu yukseklik bizim 30 m modelle ayni (300 noktada en cok 0,1 m fark).
+- Bu generator.properties ile acilan sunucu baslangic noktasinin verisini bizim karolardan hatasiz hazirladi.
+Bilinmeyenler (oyuncuyla denenmedi):
 - Eski dunya kipinin (earth.cover bos) bu surumde hala sorunsuz calistigi.
 - Hazirlik ekraninda cikilabildigi.

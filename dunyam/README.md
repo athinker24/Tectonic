@@ -78,3 +78,17 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   Önbelleği doldurmak ya da çatalda yerel karo sunucusu, ikisinden biri gerekiyor.
 - Görüntüler: `kavram/genel_kucuk.png` (kırmızı kutular yakın planlar), `kavram/yakin.png` (30 km'lik üç kesit, tam çözünürlük),
   `kavram/taban_sonuc.png` (solda yalnız taban, sağda sonuç).
+
+### Oyuna hazırlık (2026-11-24; `kavram/karolar.py`, `kavram/paket/`)
+- Karolar: 36 373 terrarium PNG (z9 100, z10 400, z11 1600, z12 992, z13 1600, z14 6400, z15 25 281), 0,95 GB. Bölge z9 ile z15;
+  çevresi yalnız v3 ile z12'de 120 km'ye, z9 ile z11'de 300 km'ye kadar. Bölge kenarında son 3 km'de doku tabana iner.
+  z10'dan ince karolarda açık deniz tam 0 m (Earth Platform derinliği z10'dan alır), yükseklik 1/8 m'ye yuvarlı.
+- Dünya ayar dosyası `kavram/paket/generator.properties`: `earth.cover` boş (eski dünya kipi). Bu kipte mod arazi örtüsü, iklim,
+  uydu, nehir verisi istemez; yalnız yükseklik okur (`CubicSettings.open`).
+- Sınama (mod dd31a85 bu makinede derlendi, alpha.76):
+  - modun okuyucusu (`TerrariumTileSource`, onarım süzgeçleri dahil) 200 karodan 198'ini hiç değiştirmedi, 2'sinde kıyıda 0,5 m;
+  - `GlobalElevation` ile 300 noktada oyunun okuduğu yükseklik ile 30 m model farkı: z15 en çok 0,1 m, z12 en çok 1,0 m;
+    deniz noktalarında derinlik z10'dan doğru doldu;
+  - çevrimdışı açılan sunucu bu ayar dosyasıyla başlangıç noktasının verisini bizim karolardan hatasız hazırladı (uyarı yok).
+  - Oyuncuyla (istemci) denenmedi.
+- Teslim: `teslim/dunyam_ep_1..5.zip` (git dışında; gönderim sınırı yüzünden 190 MB'lık beş parça). Kurulum `kavram/paket/KURULUM.txt`.
