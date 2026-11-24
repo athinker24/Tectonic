@@ -114,12 +114,51 @@ def kaynak_doku(iz, k):
         karolar = {(i, j): t for (i, j), t in zip([(i, j) for j in ty for i in tx],
                                                   ex.map(lambda ij: dem._karo(z, ij[0], ij[1]), [(i, j) for j in ty for i in tx]))}
     M = np.vstack([np.hstack([karolar[(i, j)] for i in tx]) for j in ty]).astype(np.float32)
+    M = srtm_dikis(M, z, tx[0], ty[0])
+    GV = srtm_dikis.guven
     mx, my = dem.merc(lon, lat, z)
     E = ndimage.map_coordinates(M, [my - ty[0] * 256 - 0.5, mx - tx[0] * 256 - 0.5], order=1).astype(np.float32)
     s_hp = AYAR["yuksek_gecir_m"] / iz.d
     L = ndimage.gaussian_filter(E, s_hp)
-    d = E - L
+    gv = ndimage.map_coordinates(GV, [my - ty[0] * 256 - 0.5, mx - tx[0] * 256 - 0.5], order=1).astype(np.float32)
+    d = (E - L) * gv
     return d, yerel_kabarti(L, iz), E
+
+
+def srtm_dikis(M, z, tx0, ty0, gen=2):
+    """Kaynaktaki 1° SRTM paftalarının birleştiği tam derece çizgilerini onarır: çizgiye ±gen piksel içindeki satır ve
+    sütunlar, iki yanındaki piksellerden doğrusal ara değerle yeniden yazılır (döndürülünce çapraz zikzak çizgi oluyordu)."""
+    M = M.copy(); H, W = M.shape
+    lo0, la1 = dem_ters(tx0 * 256, ty0 * 256, z); lo1, la0 = dem_ters(tx0 * 256 + W, ty0 * 256 + H, z)
+    for lon in range(math.ceil(lo0), math.floor(lo1) + 1):
+        x = int(round(dem.merc(lon, 0, z)[0] - tx0 * 256))
+        a, b = x - gen - 1, x + gen
+        if a >= 0 and b < W:
+            for k in range(a + 1, b):
+                t = (k - a) / (b - a); M[:, k] = (1 - t) * M[:, a] + t * M[:, b]
+    for lat in range(math.ceil(la0), math.floor(la1) + 1):
+        y = int(round(dem.merc(0, lat, z)[1] - ty0 * 256))
+        a, b = y - gen - 1, y + gen
+        if a >= 0 and b < H:
+            for k in range(a + 1, b):
+                t = (k - a) / (b - a); M[k, :] = (1 - t) * M[a, :] + t * M[b, :]
+    # tam derece dışındaki dikişler (kayık birleşme): yüksek geçiren genliği komşu satırların (±20) ortancasının 1,35 katını
+    # aşan satır ve sütunlar. Ara değer çizgili bant bırakıyordu; onun yerine orada dokunun güveni yumuşakça sıfıra iner.
+    guven = np.ones_like(M)
+    for eksen in (0, 1):
+        A = M if eksen == 0 else M.T
+        d = np.abs(A - ndimage.gaussian_filter(A, 3)).mean(1)
+        kotu = d > 1.35 * ndimage.median_filter(d, 41, mode="nearest")
+        uz = ndimage.distance_transform_edt(~kotu)
+        g1 = np.clip((uz - 1) / 8, 0, 1); g1 = g1 * g1 * (3 - 2 * g1)
+        guven *= g1[:, None] if eksen == 0 else g1[None, :]
+    srtm_dikis.guven = guven
+    return M
+
+
+def dem_ters(px, py, z):
+    n = 256 * 2 ** z
+    return px / n * 360 - 180, math.degrees(math.atan(math.sinh(math.pi * (1 - 2 * py / n))))
 
 
 def yerel_kabarti(L, iz):

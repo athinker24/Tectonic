@@ -21,6 +21,11 @@ sys.path.insert(0, KOK)
 import kavram as K  # noqa: E402
 
 CIKTI = os.path.join(KOK, "cikti", "paket", "earthplatform", "cache", "terrarium-v1")
+INCE = True              # z14 ve z15'e 30 m altı gerçek doku (sahip 2026-11-24: zirve yuvarlak, yamaçlar düz basamaklı)
+# kaynaklar: AWS z14 (ABD NED, 10 m). Dönme ≥ 35° (iki kat: 53° ve 131°), ayna ile sarılır.
+INCE_KAYNAK = {"dag": ("San Juan Dağları, Colorado", -107.70, 37.95), "ova": ("Gila Wilderness, New Mexico", -108.30, 33.25)}
+INCE_KUTU = (0.13, 0.10)   # yarım genişlik (boylam, enlem): yaklaşık 23 × 22 km
+INCE_SIGMA_M = 40.0        # yüksek geçiren süzgeç: 40 m'den kısa dalga boyları
 KENAR_PX = 100           # bölge kenarında dokunun söndüğü genişlik (3 km)
 HALKA_KM = {9: 300, 10: 300, 11: 300, 12: 120}
 G = {}
@@ -39,10 +44,56 @@ def merc(lon, lat, z):
     return (lon + 180) / 360 * n, (1 - np.log(np.tan(la) + 1 / np.cos(la)) / math.pi) / 2 * n
 
 
+def ince_kaynak(lon, lat):
+    from mk import dem
+    k = dem.Kaynak(lon - INCE_KUTU[0], lon + INCE_KUTU[0], lat - INCE_KUTU[1], lat + INCE_KUTU[1], z=14)
+    p = 40075016.0 * math.cos(math.radians(lat)) / (256 * 2 ** 14)     # piksel boyu, m
+    h = k.h.astype(np.float64)
+    f = h - ndimage.gaussian_filter(h, INCE_SIGMA_M / p)
+    sd = np.sqrt(ndimage.gaussian_filter(f * f, 375 / p)) + 0.3
+    T = (f / sd).astype(np.float32)
+    # döşenebilir yap: yarım kaydırılmış kopyayla çadır ağırlıklı karışım (ayna kıvrımı düz çizgi bırakıyordu)
+    H, W = T.shape
+    wy = 1 - np.abs(np.linspace(-1, 1, H))[:, None]; wx = 1 - np.abs(np.linspace(-1, 1, W))[None, :]
+    w = wy * wx
+    R = np.roll(np.roll(T, H // 2, 0), W // 2, 1)
+    T = (w * T + (1 - w) * R) / np.sqrt(w ** 2 + (1 - w) ** 2)
+    return T.astype(np.float32), p
+
+
+def ince_ornek(T, p, u, v, aci, kat):
+    a = math.radians(aci); c, s_ = math.cos(a), math.sin(a)
+    x = (c * u - s_ * v) / (p * kat); y = -(s_ * u + c * v) / (p * kat)
+    H, W = T.shape
+    return ndimage.map_coordinates(T, [np.mod(y, H), np.mod(x, W)], order=1, mode="grid-wrap")
+
+
+def ince_doku(u, v, wd):
+    """Birim doku (yaklaşık std 1): dağ ve ova kaynakları, ikişer döndürülmüş kat; katlar yavaş değişen ağırlıkla karışır."""
+    t = 0.5 + 0.5 * np.sin(u / 9000.0 + 1.3) * np.cos(v / 7000.0 - 0.4)
+    out = 0
+    for ad, w in (("dag", wd), ("ova", 1 - wd)):
+        T, p = G["ince"][ad]
+        a = ince_ornek(T, p, u, v, 53.0, 1.0); b = ince_ornek(T, p, u + 3100.0, v - 1700.0, 131.0, 1.25)
+        out = out + w * (np.sqrt(t) * a + np.sqrt(1 - t) * b)
+    return out / np.sqrt(wd ** 2 + (1 - wd) ** 2)
+
+
 def hazirla():
     iz = K.Izgara(K.AYAR)
     Z = np.load(os.path.join(KOK, "cikti", "z30.npy"))
+    if INCE:
+        sys.path.insert(0, os.path.join(KOK, "..", "..", "maskeden-merak"))
+        G["ince"] = {ad: ince_kaynak(lo, la) for ad, (_, lo, la) in INCE_KAYNAK.items()}
+        gy, gx = np.gradient(ndimage.gaussian_filter(Z, 1.0), iz.d)
+        G["egim"] = np.hypot(gx, gy).astype(np.float32)
+        Bs = ndimage.gaussian_filter(Z, 3000 / iz.d); e0, e1 = K.AYAR["dag_esik"]
+        t = np.clip((Bs - e0) / (e1 - e0), 0, 1); G["wd"] = (t * t * (3 - 2 * t)).astype(np.float32)
+        B = np.load(os.path.join(KOK, "cikti", "taban30.npy"))
+        G["vadi"] = np.clip(1 - (B - Z - 5) / 20, 0.3, 1).astype(np.float32)   # kazılmış nehir tabanında doku azalır
     G["iz"] = iz
+    # z13 ile z15: bikübik (30 m kareler görünmesin); önce σ 0,8 piksel: tek piksellik çapraz sırtlar 3,8 m'de noktalı zikzak oluyordu
+    G["Zs"] = ndimage.spline_filter(ndimage.gaussian_filter(Z.astype(np.float64), 0.8), 3)
     G["Z"] = {15: Z, 14: Z, 13: Z, 12: Z, 11: ndimage.gaussian_filter(Z, 1.0), 10: ndimage.gaussian_filter(Z, 2.0),
               9: ndimage.gaussian_filter(Z, 4.0)}
     # halka: v3, merkezin ±350 km'si
@@ -65,7 +116,18 @@ def deger(lon, lat, z):
     if ic.any():
         kenar = np.minimum(np.minimum(c, iz.n - 1 - c), np.minimum(r, iz.n - 1 - r))[ic]
         t = np.clip(kenar / KENAR_PX, 0, 1); w = t * t * (3 - 2 * t)
-        bolge = ndimage.map_coordinates(G["Z"][z], [r[ic], c[ic]], order=1)
+        if z >= 13:
+            bolge = ndimage.map_coordinates(G["Zs"], [r[ic], c[ic]], order=3, prefilter=False, mode="nearest")
+        else:
+            bolge = ndimage.map_coordinates(G["Z"][z], [r[ic], c[ic]], order=1)
+        if INCE and z >= 14:
+            rr, cc = [r[ic], c[ic]]
+            S = ndimage.map_coordinates(G["egim"], [rr, cc], order=1)
+            wd = ndimage.map_coordinates(G["wd"], [rr, cc], order=1)
+            vd = ndimage.map_coordinates(G["vadi"], [rr, cc], order=1)
+            uu, vv = iz.uv(lon[ic], lat[ic])
+            A = (1.0 + 9.0 * np.clip(S / 0.5, 0, 1.6)) * np.clip(bolge / 30.0, 0, 1) * vd
+            bolge = bolge + A * ince_doku(uu, vv, wd)
         v[ic] = w * bolge + (1 - w) * halka[ic]
     return v
 
