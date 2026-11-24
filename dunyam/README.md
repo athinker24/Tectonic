@@ -40,3 +40,16 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   karayla aynı düzeyde başlar.
 - Ölçüm: denizden karaya 3330 piksel, karadan denize 0; yalnız yüksekliği değişen eski kara 6199 piksel (kıyı çizgisi aynı).
   Güney birleşme yerinde çok hafif bir ton kaldı.
+
+## Ana kalıp v3 (2026-11-24): sahibin Merak dışa aktarımı
+- Kaynak: `kaynak/merak_disa_2026-11-24.png` (sahip, "Custom-World-heightmap-16bit", 16000 × 7719). Atlasın son arazisi bundan
+  üretildi (atlas notundaki yeni kayıt ölçeği bununla tutuyor).
+- v2'ye göre: Merak'ın içe ve dışa aktarması bütün haritayı yaklaşık 3 piksel sağa ve aşağı kaydırmış ve biraz ölçeklemiş
+  (sx 1,00015, sy 1,00067; kara maskesi IoU 0,9916). Kaydırma düzeltilince ortak karada |fark| ortancası 15 m. Sahibin iki tutarlı
+  düzenlemesi: Kaynak Sırası'nın güney ucunda iç deniz kıyısı (x 7699..8079, y 2474..2624) ortalama +689 m; onun kuzeybatısında
+  bir şerit (x 7785..7947, y 2190..2339) ortalama −115 m. Görüntü `v3_fark.png` (kırmızı yükselen, mavi alçalan, sarı yeni kara,
+  yeşil kaybolan kara; kaydırma düzeltilmiş).
+- Karar (seçimim): v3 = dışa aktarımın kendisi + kurallı temizlik (`temizle_v3.py`): 700 piksellik kara beneği (445 parça) deniz,
+  129 582 sığ deniz pikseli −40 m. Kara ve kıyı aynen; Merak ve atlasla birebir. v2 ile birleştirme denendi, bırakıldı.
+- Dikkat: 6000 m üstü 123 tek piksellik tepe var (v2'de 2), 17'si 8000 m'de (beyaz, doymuş), çoğu bozkır düzenlemesinin içinde.
+  Çevreleri 3000 ile 5000 m; fırça izine benziyor. Dokunulmadı.
