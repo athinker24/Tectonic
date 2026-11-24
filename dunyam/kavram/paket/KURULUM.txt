@@ -1,0 +1,52 @@
+DUNYAM KAVRAM DENEMESI: EARTH PLATFORM KURULUMU
+
+Ne var: Dunyam'in 154 x 154 km'lik bir bolgesi (Kaynak Sirasi'nin guneybati etegi ve ic deniz kiyisi), 30 m ayrintili,
+Earth Platform'un yukseklik onbellegi bicimiminde (36 373 karo, z9 ile z15). Cevresi 300 km'ye kadar yalniz kaba arazi
+(uzak gorus bos kalmasin diye). Bolgenin disinda yurunemez; orada arazi uretilmez.
+Baslangic noktasi: bolgenin ortasi, yaklasik 1200 m'lik yayla. Guneydogu yonunde 3000 ile 4400 m'lik daglar, guneyde
+kiyi (merkezden yaklasik 20 ile 45 km), batida buyuk nehir vadisi.
+
+Gerekli: Minecraft 1.21.1, Earth Platform (NeoForge ya da Fabric). Denendigi kod: pirut/earth-platform dd31a85
+(22 Kasim 2026). Senin surumun daha eskiyse ayar adlari farkli olabilir.
+
+"Oyun klasoru" asagida mods klasorunun bulundugu klasor demek (launcher'a gore .minecraft ya da kurulumun klasoru).
+
+1. AYAR (oyunu kapali iken)
+   Oyun klasoru/config/earthplatform-common.toml dosyasinda su uc satiri bul ve degistir
+   (dosya yoksa oyunu bir kez acip kapat, olusur; ya da oyunda Mods > Earth Platform > Config):
+       offline = true
+       cacheLimitGb = 0
+       defaultHome = "37.12464,-7.69618"
+   offline = true sart: yoksa bolgenin disi gercek Dunya'dan (Portekiz) indirilir ve karisir.
+   cacheLimitGb = 0: onbellek kirpilirken bizim karolar silinmesin.
+
+2. KAROLAR
+   Zip'teki "earthplatform" klasorunu oyun klasorune kopyala, var olanla birlestir. Sonuc:
+       Oyun klasoru/earthplatform/cache/terrarium-v1/9 ... 15/
+   Ayni adli dosya sorulursa "uzerine yaz" de (bunlar gercek Dunya'da Portekiz'in karolari).
+
+3. DUNYAYI OLUSTUR
+   Oyunu ac. Yeni dunya, Earth dunya turu. Customize'a dokunma. Olustur.
+   "Preparing your Earth" ekraninda bekler: dogru, cunku dunya simdi gercek Dunya'nin arazi ortusu ve iklim verisini
+   istiyor ve cevrimdisi bulamiyor. ESC > Save and Quit to Title ile cik (cikamazsan oyunu kapat).
+
+4. AYAR DOSYASINI DEGISTIR
+   Oyun klasoru/saves/<dunyanin adi>/dimensions/earthplatform/cubic/ klasorune git.
+   Icindeki generator.properties dosyasini zip'teki generator.properties ile degistir.
+   Ayni klasorde "cubes" ya da baska bir klasor olustuysa sil (o ilk basarisiz denemeden).
+   Bu dosya dunyayi "yalniz yukseklik" kipine alir: arazi ortusu, iklim verisi, uydu goruntusu, nehir verisi
+   istenmez; biyom enlem ve yukseklikten secilir, ic sular yok (yalniz deniz).
+
+5. DUNYAYI AC
+   Ayni dunyayi tekrar ac. Birkac saniye hazirlik sonra bolgenin ortasina inersin.
+   /earth where konumu ve yuksekligi verir (ulke adi gercek Dunya'ya gore yazar, onemseme).
+
+Bakilacaklar (bana ekran goruntusu ile don):
+- Arazi dogal mi, dikis, cizgi, kutu, duz plato var mi.
+- Daglar: guneydogu. Nehir vadisi: bati kenarda kuzeyden guneye.
+- Uzak gorus: bolgenin kenarinda (merkezden 75 km) ayrinti biter, otesi kaba; 300 km otesi bos.
+- Hata olursa: Oyun klasoru/logs/latest.log dosyasini gonder.
+
+Bilinmeyenler (kodu okuyarak hazirlandi, oyunda denenmedi):
+- Eski dunya kipinin (earth.cover bos) bu surumde hala sorunsuz calistigi.
+- Hazirlik ekraninda cikilabildigi.
