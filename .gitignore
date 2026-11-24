@@ -2,3 +2,4 @@ teslim/
 *.zip
 dunyam/kaynak/*.png
 __pycache__/
+dunyam/kaynak/*.npz

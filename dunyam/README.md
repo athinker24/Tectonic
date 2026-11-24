@@ -51,6 +51,11 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   yeşil kaybolan kara; kaydırma düzeltilmiş).
 - Karar (seçimim): v3 = dışa aktarımın kendisi + kurallı temizlik (`temizle_v3.py`): 700 piksellik kara beneği (445 parça) deniz,
   129 582 sığ deniz pikseli −40 m. Kara ve kıyı aynen; Merak ve atlasla birebir. v2 ile birleştirme denendi, bırakıldı.
-- Dikkat: 6000 m üstü 123 tek piksellik tepe var (v2'de 2), 17'si 8000 m'de (beyaz, doymuş); yalnız 15'i bozkır düzenlemesinin
-  içinde, geri kalanı sıradağların tepelerine dağılmış. Çevreleri 3000 ile 5000 m. Kaynağı bilinmiyor (fırça izi ya da Merak'ın
-  içe/dışa aktarması). Dokunulmadı.
+- İğne tepeler (sahip: "tek piksellik tepeleri çevrelerine uygun şekilde yumuşat"): v3'te 6000 m üstü 123 piksel vardı (v2'de 2),
+  17'si 8000 m'de (doymuş). Tek piksel değil, 1 ile 13 piksellik koni kümeleri (fırça izi); komşu en yükseğini aşma ortancaları
+  −21 m, komşu ortalamasını aşma ortancaları 1523 m. Ölçüt (`tepe_yumusat.py`): 5 × 5'te en yüksek, 20 km'lik halkanın
+  ortancasından 1000 m'den, 8 komşu ortalamasından 400 m'den yüksek tepe: 1364 iğne. Halka ortancası üstündeki aşım
+  1500·tanh(aşım/1500) ile sıkıştırılır, tepeden 10 km'de tam, 20 km'de sıfır; biçim kalır, boy kısalır. Sonuç: 113 070 piksel
+  değişti (ortanca 50 m düşüş), tepe noktası düşüşü ortanca 391 m, %90 1372 m, en çok 6500 m; en yüksek 8000 → 6183 m;
+  6000 m üstü 123 → 3 piksel; kıyı farkı 0. Önce/sonra: `tepe_once_sonra.png` (sol önce). Yeniden üretmek için
+  `temizle_v3.py` sonra `tepe_yumusat.py`.
