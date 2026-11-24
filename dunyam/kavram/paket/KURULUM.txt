@@ -1,5 +1,12 @@
 DUNYAM KAVRAM DENEMESI: EARTH PLATFORM KURULUMU
 
+GUNCELLEME 2 (2026-11-24 aksam): 30 m altina gercek ince doku eklendi (zirveler kayalik, yamaclar purtuzlu),
+30 m karelerin yuzeyleri ve tek piksellik capraz sirtlarin zikzaklari giderildi. Butun karolar yeniden uretildi.
+Onceki surumu kurduysan:
+  a) Oyun klasoru/earthplatform/cache/terrarium-v1 klasorunu SIL, yenisini kopyala (asagidaki 2. adim).
+  b) Dunya: eski dunyada uretilmis yerler eski arazide kalir ve yeniyle dikis yapar. Ya yeni dunya olustur (3 ile 5. adimlar),
+     ya da eski dunyanin saves/<ad>/dimensions/earthplatform/cubic/ klasorunde generator.properties DISINDAKI her seyi sil.
+
 Ne var: Dunyam'in 154 x 154 km'lik bir bolgesi (Kaynak Sirasi'nin guneybati etegi ve ic deniz kiyisi), 30 m ayrintili,
 Earth Platform'un yukseklik onbellegi bicimiminde (36 373 karo, z9 ile z15). Cevresi 300 km'ye kadar yalniz kaba arazi
 (uzak gorus bos kalmasin diye). Bolgenin disinda yurunemez; orada arazi uretilmez.
@@ -21,8 +28,8 @@ Gerekli: Minecraft 1.21.1, Earth Platform (NeoForge ya da Fabric). Denendigi kod
    cacheLimitGb = 0: onbellek kirpilirken bizim karolar silinmesin.
 
 2. KAROLAR
-   Bes zip var (dunyam_ep_1 ... dunyam_ep_5; gonderim siniri yuzunden bolundu, bes parca da gerekli). Hepsini ayni
-   klasore ac; cikan "earthplatform" klasorunu oyun klasorune kopyala, var olanla birlestir. Sonuc:
+   Yedi zip parcasinin hepsini (dunyam_ep2_1 ... 7) ayni klasore ac; cikan "earthplatform"
+   klasorunu oyun klasorune kopyala, var olanla birlestir. Sonuc:
        Oyun klasoru/earthplatform/cache/terrarium-v1/9 ... 15/
    Ayni adli dosya sorulursa "uzerine yaz" de (bunlar gercek Dunya'da Portekiz'in karolari).
 
@@ -33,7 +40,7 @@ Gerekli: Minecraft 1.21.1, Earth Platform (NeoForge ya da Fabric). Denendigi kod
 
 4. AYAR DOSYASINI DEGISTIR
    Oyun klasoru/saves/<dunyanin adi>/dimensions/earthplatform/cubic/ klasorune git.
-   Icindeki generator.properties dosyasini dunyam_ep_1 zip'indeki generator.properties ile degistir.
+   Icindeki generator.properties dosyasini 1. zip'teki generator.properties ile degistir.
    Ayni klasorde "cubes" ya da baska bir klasor olustuysa sil (o ilk basarisiz denemeden).
    Bu dosya dunyayi "yalniz yukseklik" kipine alir: arazi ortusu, iklim verisi, uydu goruntusu, nehir verisi
    istenmez; biyom enlem ve yukseklikten secilir, ic sular yok (yalniz deniz).

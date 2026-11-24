@@ -92,3 +92,11 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   - çevrimdışı açılan sunucu bu ayar dosyasıyla başlangıç noktasının verisini bizim karolardan hatasız hazırladı (uyarı yok).
   - Sahip 2026-11-24 akşamı kendi bilgisayarında kurdu; dünya açıldı ve yüklendi.
 - Teslim: `teslim/dunyam_ep_1..5.zip` (git dışında; gönderim sınırı yüzünden 190 MB'lık beş parça). Kurulum `kavram/paket/KURULUM.txt`.
+- Sürüm 2 (aynı akşam, sahibin ilk oyun görüntülerinden sonra; zirve yuvarlak ve pürüzsüz, yamaçlar düzgün basamaklı):
+  30 m altına gerçek ince doku (z14 ve z15; ABD NED 10 m: dağda San Juan Dağları, ovada Gila Wilderness; 53° ve 131°
+  döndürülmüş iki kat, döşenebilir), genlik eğimle 1 ile 15 m; z13-15 bikübik ve σ 0,8 piksel (30 m kare yüzeyler ve tek
+  piksellik çapraz sırtların zikzakları); dağ kaynağında 31,656°K'deki kayık SRTM birleşmesinde doku güveni sıfıra iner.
+  Appalachian yaylası ova kaynağı olarak denendi, bırakıldı (yol yarmaları düz çizgi bıraktı). Karolar 1,15 GB, yedi parça.
+  Mod okuyucusu 200 karodan 198'ini değiştirmedi. Drive'a yükleme denendi: bağlayıcı çağrı başına yaklaşık 3 MB taşıyor, olmadı.
+- Shader: Iris 1.8 en çok 16 render hedefi destekliyor; daha fazlasını isteyen paketler (Complementary r5.9.3, sahibin
+  denediği sürüm) "Render target with index 19" hatası veriyor. Photon v1.3b colortex16'ya kadar kullanıyor (ölçüldü).
