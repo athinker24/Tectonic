@@ -59,3 +59,22 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   değişti (ortanca 50 m düşüş), tepe noktası düşüşü ortanca 391 m, %90 1372 m, en çok 6500 m; en yüksek 8000 → 6183 m;
   6000 m üstü 123 → 3 piksel; kıyı farkı 0. Önce/sonra: `tepe_once_sonra.png` (sol önce). Yeniden üretmek için
   `temizle_v3.py` sonra `tepe_yumusat.py`.
+
+## Earth Platform kavram denemesi (2026-11-24; `kavram/kavram.py`)
+- Bölge: Kaynak Sırası'nın güneybatı eteği ve iç deniz kıyısı; v3 merkezi (7755, 2520), atlas kaydıyla 7,696°B 37,125°K;
+  5120 × 5120 piksel, 30 m (154 km). Kara payı 0,80, taban yüksekliği %5/50/95: 477, 1234, 3240 m.
+- Taban: v3 bikübik; kıyı sıfır eş eğrisi. Kıyı farkı (tabana göre) 0 piksel.
+- Doku (AWS z12, yalnız 1,5 km'den kısa dalga boyları), yüksekliğe göre 1800 ile 2700 m arasında yumuşak geçişle:
+  - dağ: Orta Yüksek Atlas, 57° döndürülmüş, 1,15 kat. Toubkal çevresi elendi: dağ bölgesinin %37'sine düz ova düşüyordu.
+  - yayla: Massif Central (Aubrac ve Margeride), aynalı, −112° döndürülmüş.
+  - Genlik: hedef kabartısının kaynak kabartısına oranı (0,25 ile 1,6); 1500 ile 3000 m arasında alt sınır 1'e çıkar ki Merak'ta
+    düzleşmiş yüksek platolar düz kalmasın.
+- Nehir: bölgeye atlasın tek nehri giriyor (821, kademe 1, 6309 m³/s, 58,5 km). Yatak kaynaktan ağıza azalan profil, yaklaşık
+  4 km dalga boylu kıvrım, debiyle genişleyen gürültülü taban, dokulu yamaçlar. Kazı ortancası 151 m: atlas nehri v3'te vadisi
+  olmayan bir yayladan geçiyor, sonuç bir kanyon.
+- Yapılmadı: çukur doldurma (Earth Platform kendi akaçlamasını z10'da çukur doldurarak yapıyor); terrarium karoları.
+- Earth Platform yakın araziyi z15'e kadar okuyor (`EarthGenerator.zoom`, en kaba 9). Çevrimdışı kipte önbellekte olmayan karo
+  üretilmiyor (`earthplatform/cache/terrarium-v1/z/x/y.png`). Bu bölgenin z9 ile z15 piramidi tahminimce yaklaşık 22 bin karo.
+  Önbelleği doldurmak ya da çatalda yerel karo sunucusu, ikisinden biri gerekiyor.
+- Görüntüler: `kavram/genel_kucuk.png` (kırmızı kutular yakın planlar), `kavram/yakin.png` (30 km'lik üç kesit, tam çözünürlük),
+  `kavram/taban_sonuc.png` (solda yalnız taban, sağda sonuç).
