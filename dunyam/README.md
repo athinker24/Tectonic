@@ -51,5 +51,6 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   yeşil kaybolan kara; kaydırma düzeltilmiş).
 - Karar (seçimim): v3 = dışa aktarımın kendisi + kurallı temizlik (`temizle_v3.py`): 700 piksellik kara beneği (445 parça) deniz,
   129 582 sığ deniz pikseli −40 m. Kara ve kıyı aynen; Merak ve atlasla birebir. v2 ile birleştirme denendi, bırakıldı.
-- Dikkat: 6000 m üstü 123 tek piksellik tepe var (v2'de 2), 17'si 8000 m'de (beyaz, doymuş), çoğu bozkır düzenlemesinin içinde.
-  Çevreleri 3000 ile 5000 m; fırça izine benziyor. Dokunulmadı.
+- Dikkat: 6000 m üstü 123 tek piksellik tepe var (v2'de 2), 17'si 8000 m'de (beyaz, doymuş); yalnız 15'i bozkır düzenlemesinin
+  içinde, geri kalanı sıradağların tepelerine dağılmış. Çevreleri 3000 ile 5000 m. Kaynağı bilinmiyor (fırça izi ya da Merak'ın
+  içe/dışa aktarması). Dokunulmadı.
