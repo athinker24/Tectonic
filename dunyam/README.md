@@ -74,7 +74,7 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   olmayan bir yayladan geçiyor, sonuç bir kanyon.
 - Yapılmadı: çukur doldurma (Earth Platform kendi akaçlamasını z10'da çukur doldurarak yapıyor); terrarium karoları.
 - Earth Platform yakın araziyi z15'e kadar okuyor (`EarthGenerator.zoom`, en kaba 9). Çevrimdışı kipte önbellekte olmayan karo
-  üretilmiyor (`earthplatform/cache/terrarium-v1/z/x/y.png`). Bu bölgenin z9 ile z15 piramidi tahminimce yaklaşık 22 bin karo.
+  üretilmiyor (`earthplatform/cache/terrarium-v1/z/x/y.png`). Bu bölgenin z9 ile z15 piramidi yaklaşık 34 bin karo (z15 tek başına 25 281; hesap: 154 km, 37°K).
   Önbelleği doldurmak ya da çatalda yerel karo sunucusu, ikisinden biri gerekiyor.
 - Görüntüler: `kavram/genel_kucuk.png` (kırmızı kutular yakın planlar), `kavram/yakin.png` (30 km'lik üç kesit, tam çözünürlük),
   `kavram/taban_sonuc.png` (solda yalnız taban, sağda sonuç).
