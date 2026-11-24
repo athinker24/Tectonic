@@ -90,5 +90,5 @@ Kaynak dosyalar `kaynak/` altında, git'te değil (16k PNG; `.gitignore`). Sahip
   - `GlobalElevation` ile 300 noktada oyunun okuduğu yükseklik ile 30 m model farkı: z15 en çok 0,1 m, z12 en çok 1,0 m;
     deniz noktalarında derinlik z10'dan doğru doldu;
   - çevrimdışı açılan sunucu bu ayar dosyasıyla başlangıç noktasının verisini bizim karolardan hatasız hazırladı (uyarı yok).
-  - Oyuncuyla (istemci) denenmedi.
+  - Sahip 2026-11-24 akşamı kendi bilgisayarında kurdu; dünya açıldı ve yüklendi.
 - Teslim: `teslim/dunyam_ep_1..5.zip` (git dışında; gönderim sınırı yüzünden 190 MB'lık beş parça). Kurulum `kavram/paket/KURULUM.txt`.
